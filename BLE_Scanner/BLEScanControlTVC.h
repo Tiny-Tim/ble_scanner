@@ -1,5 +1,5 @@
 //
-//  BLEViewController.h
+//  BLEScanControlTVC.h
 //  BLE_Scanner
 //
 //  Created by Chip Keyes on 1/28/13.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BLEViewController : UIViewController
-
+@interface BLEScanControlTVC : UITableViewController
 
 @end

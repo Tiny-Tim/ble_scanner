@@ -24,6 +24,9 @@
 		D9207B6A16B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B7216B6D35B0023FFFA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9207B7016B6D35B0023FFFA /* InfoPlist.strings */; };
 		D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */; };
+		D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982746D16B6F7210005477F /* BLEScanControlTVC.m */; };
+		D982747216B6F7730005477F /* BLEServiceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEServiceListTVC.m */; };
+		D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747416B6F8060005477F /* BLEServiceInformationTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,12 @@
 		D9207B7116B6D35B0023FFFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D9207B7316B6D35B0023FFFA /* BLE_ScannerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLE_ScannerTests.h; sourceTree = "<group>"; };
 		D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLE_ScannerTests.m; sourceTree = "<group>"; };
+		D982746C16B6F7210005477F /* BLEScanControlTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEScanControlTVC.h; sourceTree = "<group>"; };
+		D982746D16B6F7210005477F /* BLEScanControlTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEScanControlTVC.m; sourceTree = "<group>"; };
+		D982747016B6F7730005477F /* BLEServiceListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServiceListTVC.h; sourceTree = "<group>"; };
+		D982747116B6F7730005477F /* BLEServiceListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceListTVC.m; sourceTree = "<group>"; };
+		D982747316B6F8060005477F /* BLEServiceInformationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServiceInformationTVC.h; sourceTree = "<group>"; };
+		D982747416B6F8060005477F /* BLEServiceInformationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceInformationTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +131,12 @@
 				D9207B4F16B6D35B0023FFFA /* BLEAppDelegate.h */,
 				D9207B5016B6D35B0023FFFA /* BLEAppDelegate.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
+				D982746C16B6F7210005477F /* BLEScanControlTVC.h */,
+				D982746D16B6F7210005477F /* BLEScanControlTVC.m */,
+				D982747016B6F7730005477F /* BLEServiceListTVC.h */,
+				D982747116B6F7730005477F /* BLEServiceListTVC.m */,
+				D982747316B6F8060005477F /* BLEServiceInformationTVC.h */,
+				D982747416B6F8060005477F /* BLEServiceInformationTVC.m */,
 				D9207B5B16B6D35B0023FFFA /* MainStoryboard_iPad.storyboard */,
 				D9207B5E16B6D35B0023FFFA /* BLEViewController.h */,
 				D9207B5F16B6D35B0023FFFA /* BLEViewController.m */,
@@ -278,6 +293,9 @@
 				D9207B4D16B6D35B0023FFFA /* main.m in Sources */,
 				D9207B5116B6D35B0023FFFA /* BLEAppDelegate.m in Sources */,
 				D9207B6016B6D35B0023FFFA /* BLEViewController.m in Sources */,
+				D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */,
+				D982747216B6F7730005477F /* BLEServiceListTVC.m in Sources */,
+				D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +480,7 @@
 				D9207B7A16B6D35B0023FFFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9207B7B16B6D35B0023FFFA /* Build configuration list for PBXNativeTarget "BLE_ScannerTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +489,7 @@
 				D9207B7D16B6D35B0023FFFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
