@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4lt-0t-fSs">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="2" customClass="BLEViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
@@ -54,12 +54,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Sf8-kg-T6s"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stopped" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-zw-wxG">
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="YLl-Ve-aPD"/>
                                     <constraint firstAttribute="width" constant="80" id="owz-yj-bti"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -101,46 +105,36 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcw-P8-CIe">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="sxo-3o-lGL"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem width="191" style="plain" systemItem="fixedSpace" id="VIh-wM-aSd"/>
-                                    <barButtonItem title="Configure Scan" id="IL3-7o-s6V">
-                                        <connections>
-                                            <segue destination="mIN-vk-a3Q" kind="modal" identifier="ConfigureScan" id="K7E-AX-h4A"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="OA6-MM-FZm" secondAttribute="top" type="default" id="5OB-Au-SfD"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="6Sr-nK-Kc7"/>
-                            <constraint firstItem="qcw-P8-CIe" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="Fc7-eU-WBb"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="3" secondAttribute="top" constant="56" id="2mM-p5-FD1"/>
+                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="3" secondAttribute="top" constant="215" id="79W-Xw-Q6T"/>
+                            <constraint firstItem="etu-k7-Sgd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="24" id="FPM-6X-dGT"/>
+                            <constraint firstItem="BdL-Tv-9tx" firstAttribute="baseline" secondItem="etu-k7-Sgd" secondAttribute="baseline" type="default" id="GWj-IG-dyA"/>
                             <constraint firstItem="pgW-fL-3zo" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="I6X-5i-cKD"/>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="JSQ-Ex-KbA"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="KeK-WD-G51"/>
-                            <constraint firstAttribute="bottom" secondItem="pgW-fL-3zo" secondAttribute="bottom" constant="118" id="L1F-I8-I7c"/>
+                            <constraint firstItem="BdL-Tv-9tx" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="148" id="Jvc-Zg-vHB"/>
+                            <constraint firstItem="pgW-fL-3zo" firstAttribute="top" secondItem="3" secondAttribute="top" constant="173" id="K6J-Ud-jrv"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="QAM-fw-8P2"/>
                             <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="121" id="QRR-Pn-CgL"/>
-                            <constraint firstAttribute="bottom" secondItem="etu-k7-Sgd" secondAttribute="bottom" constant="12" id="QW2-va-xHU"/>
-                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="73" id="RLm-wW-17O"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="11" id="WVp-0p-xwb"/>
-                            <constraint firstItem="BdL-Tv-9tx" firstAttribute="baseline" secondItem="etu-k7-Sgd" secondAttribute="baseline" type="default" id="YVh-Sh-Fjv"/>
-                            <constraint firstItem="qcw-P8-CIe" firstAttribute="centerX" secondItem="9eO-RX-7vm" secondAttribute="centerX" type="default" id="az5-nM-yNN"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="centerY" secondItem="WGj-1D-B6I" secondAttribute="centerY" type="default" id="d2b-gA-TzX"/>
-                            <constraint firstItem="qcw-P8-CIe" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="-4" id="duZ-42-Xnl"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="e0U-Ty-xcF"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="50" id="lrT-S9-5IR"/>
-                            <constraint firstItem="etu-k7-Sgd" firstAttribute="leading" secondItem="WGj-1D-B6I" secondAttribute="leading" type="default" id="oHy-SK-OKc"/>
-                            <constraint firstItem="BdL-Tv-9tx" firstAttribute="trailing" secondItem="9eO-RX-7vm" secondAttribute="trailing" type="default" id="q2T-03-bN4"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" type="default" id="R90-f7-l5O"/>
+                            <constraint firstAttribute="bottom" secondItem="etu-k7-Sgd" secondAttribute="bottom" constant="117" id="SPG-SM-Kgx"/>
+                            <constraint firstItem="etu-k7-Sgd" firstAttribute="centerX" secondItem="WGj-1D-B6I" secondAttribute="centerX" type="default" id="ax5-s9-c1F"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="3" secondAttribute="top" constant="216" id="eR5-DL-dkt"/>
+                            <constraint firstItem="9eO-RX-7vm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="19" id="hCj-gO-EPe"/>
+                            <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="55" id="tgb-eR-DKq"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="127" id="uDX-tX-xGT"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="uXb-Lz-ebb"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="44" id="xKz-Ab-2dW"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="xtl-x7-LuU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="79l-V3-ftM">
+                        <barButtonItem key="rightBarButtonItem" title="Configure Scan" id="IL3-7o-s6V">
+                            <connections>
+                                <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="vCs-2e-in7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="hostBluetoothStatus" destination="v29-Ks-Ytq" id="oul-Au-zpL"/>
                         <outlet property="scanActivityIndicator" destination="OA6-MM-FZm" id="6JB-Kt-7ZT"/>
@@ -149,14 +143,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-196" y="16"/>
+            <point key="canvasLocation" x="330" y="16"/>
         </scene>
-        <!--Scan ControlTVC-->
+        <!--Scan ControlTVC - Scan Options-->
         <scene sceneID="cXy-Ls-014">
             <objects>
                 <tableViewController id="ztf-gS-juY" customClass="BLEScanControlTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="G16-jY-SXD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -169,7 +163,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Scan For All" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klH-Vm-EHM">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Scan For All Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klH-Vm-EHM">
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -185,7 +179,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Scan For Specific" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9gV-KS-qrM">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Scan For Specific Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9gV-KS-qrM">
                                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -196,7 +190,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="fwH-EV-JuX" kind="push" id="zdN-ii-eMp"/>
+                                            <segue destination="fwH-EV-JuX" kind="push" identifier="ShowServices" id="zdN-ii-eMp"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -207,20 +201,22 @@
                             <outlet property="delegate" destination="ztf-gS-juY" id="BRS-0m-jnm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pVe-fb-LRA">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="vMb-es-Ixb"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Scan Options" id="pVe-fb-LRA"/>
+                    <connections>
+                        <outlet property="scanForAllServices" destination="Qsm-Sm-sg0" id="LgW-1M-8tk"/>
+                        <outlet property="scanForSelectedServices" destination="OEO-1s-lyF" id="qgK-Z7-e83"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKr-u4-XVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="864" y="11"/>
+            <point key="canvasLocation" x="801" y="11"/>
         </scene>
         <!--Service ListTVC - ServiceList-->
         <scene sceneID="2wh-j1-c3Q">
             <objects>
                 <tableViewController title="ServiceList" id="fwH-EV-JuX" customClass="BLEServiceListTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zLA-KA-a06">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -249,14 +245,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6B-Qk-hp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="11"/>
+            <point key="canvasLocation" x="1518" y="30"/>
         </scene>
         <!--Service InformationTVC - AddService-->
         <scene sceneID="jj8-KB-Myo">
             <objects>
                 <tableViewController title="AddService" id="7Ff-uJ-Fcx" customClass="BLEServiceInformationTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hnk-cs-37d">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -322,30 +318,58 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHx-EV-eeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2176" y="30"/>
+            <point key="canvasLocation" x="2148" y="30"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="XdU-Cu-Jit">
+        <scene sceneID="CNX-XU-EP6">
             <objects>
-                <navigationController id="mIN-vk-a3Q" sceneMemberID="viewController">
+                <navigationController id="4lt-0t-fSs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VyI-CL-dhR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZG-N8-hk8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ztf-gS-juY" kind="relationship" relationship="rootViewController" id="w4O-Sz-3pq"/>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="KQy-iX-VnK"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J4t-Ng-hJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mrC-kJ-f3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="384" y="11"/>
+            <point key="canvasLocation" x="-196" y="16"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BLEScanControlTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="BLEServiceInformationTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceInformationTVC.h"/>
+        </class>
+        <class className="BLEServiceListTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceListTVC.h"/>
+        </class>
+        <class className="BLEViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="scanButton"/>
+                <relationship kind="action" name="stopScanButton"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="scanStatus" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

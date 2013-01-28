@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLEServiceListTVC.h"
 
-@interface BLEScanControlTVC : UITableViewController
+@interface BLEScanControlTVC : UITableViewController <BLEServiceListDelegate>
 
 @end

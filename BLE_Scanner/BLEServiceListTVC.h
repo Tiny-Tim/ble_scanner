@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BLEServiceListDelegate
+
+-(void) scanForServices: (NSArray *)services : (id)sender;
+
+@end
+
 @interface BLEServiceListTVC : UITableViewController
 
+@property (nonatomic, weak)id< BLEServiceListDelegate >delegate;
 
 @end

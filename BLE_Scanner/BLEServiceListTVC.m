@@ -46,6 +46,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    // for now just close the loop
+    [self.delegate scanForServices:nil :self];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
