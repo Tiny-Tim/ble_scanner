@@ -27,6 +27,7 @@
 		D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982746D16B6F7210005477F /* BLEScanControlTVC.m */; };
 		D982747216B6F7730005477F /* BLEServiceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEServiceListTVC.m */; };
 		D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747416B6F8060005477F /* BLEServiceInformationTVC.m */; };
+		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		D982747116B6F7730005477F /* BLEServiceListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceListTVC.m; sourceTree = "<group>"; };
 		D982747316B6F8060005477F /* BLEServiceInformationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServiceInformationTVC.h; sourceTree = "<group>"; };
 		D982747416B6F8060005477F /* BLEServiceInformationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceInformationTVC.m; sourceTree = "<group>"; };
+		D982747A16B7216C0005477F /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */,
 				D9207B4116B6D35B0023FFFA /* UIKit.framework in Frameworks */,
 				D9207B4316B6D35B0023FFFA /* Foundation.framework in Frameworks */,
 				D9207B4516B6D35B0023FFFA /* CoreGraphics.framework in Frameworks */,
@@ -98,6 +101,7 @@
 		D9207B3116B6D35B0023FFFA = {
 			isa = PBXGroup;
 			children = (
+				D982747A16B7216C0005477F /* CoreBluetooth.framework */,
 				D9207B4616B6D35B0023FFFA /* BLE_Scanner */,
 				D9207B6D16B6D35B0023FFFA /* BLE_ScannerTests */,
 				D9207B3F16B6D35B0023FFFA /* Frameworks */,

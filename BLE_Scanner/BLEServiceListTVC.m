@@ -10,9 +10,21 @@
 
 @interface BLEServiceListTVC ()
 
+@property (nonatomic, strong) NSArray *services;
 @end
 
 @implementation BLEServiceListTVC
+
+
+-(NSArray *)services
+{
+    if (! _services)
+    {
+        _services = [NSArray array];
+    }
+    
+    return _services;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -42,18 +54,13 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+
     // Return the number of rows in the section.
-    return 0;
+    return [self.services count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
