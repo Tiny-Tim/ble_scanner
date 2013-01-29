@@ -18,9 +18,12 @@
 
 @property (nonatomic) BOOL scanForAllServices;
 
+@property (nonatomic) BOOL debug;
+
 @end
 
 @implementation BLEViewController
+
 
 #pragma mark - Properties
 
@@ -28,7 +31,7 @@
 {
     if (self.centralManager.state == CBCentralManagerStatePoweredOn)
     {
-        NSLog(@"Starting scan...");
+        if (self.debug) NSLog(@"Starting scan...");
         
         if (self.scanForAllServices)
         {
@@ -47,15 +50,15 @@
     }
     else
     {
-        NSLog(@"Scan request not executed, central manager not in powered on state");
-        NSLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
+        if (self.debug) NSLog(@"Scan request not executed, central manager not in powered on state");
+        if (self.debug) NSLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
     }
     
 }
 
 - (IBAction)stopScanButton
 {
-    NSLog(@"Scan stopped");
+    if (self.debug) NSLog(@"Scan stopped");
     [self.scanActivityIndicator stopAnimating];
     self.scanStatus.text = @"Stopped";
     if (self.centralManager.state == CBCentralManagerStatePoweredOn)
@@ -106,7 +109,10 @@
     // Initialize central manager providing self as its delegate
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
-    _scanForAllServices = NO;
+    // default is to scan for all services if scan is not configured
+    _scanForAllServices = YES;   
+    
+    _debug = YES;
     
 }
 
@@ -128,7 +134,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //NSLog(@"Preparing to segue to ServiceList from SvanControl");
+    if (self.debug) NSLog(@"Preparing to segue to ServiceList from SvanControl");
     BLEScanControlTVC *scanConfigure;
     
     if ([segue.identifier isEqualToString:@"ConfigureScan"])
@@ -149,7 +155,7 @@
 
 -(void) scanForAllServices: (id)sender
 {
-    NSLog(@"scan for all services delegate method invoked");
+    if (self.debug) NSLog(@"scan for all services delegate method invoked");
     // set scan control to scan for all services
     self.scanForAllServices = YES;
 }
@@ -160,41 +166,49 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"Central Manager Delegate DidUpdate State Invoked");
+    if (self.debug) NSLog(@"Central Manager Delegate DidUpdate State Invoked");
     self.hostBluetoothStatus.text = [[self class ] getCBCentralStateName: self.centralManager.state];
     
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"A peripheral was discovered during scan.");
+    if (self.debug) NSLog(@"A peripheral was discovered during scan.");
     
     // log the peripheral name
-    NSLog(@"Peripheral Name:  %@",peripheral.name);
+    if (self.debug) NSLog(@"Peripheral Name:  %@",peripheral.name);
     
     // log the peripheral UUID
-   // CFUUIDRef uuid = peripheral.UUID;
-   // CFStringRef     uuidString      = NULL;
-  //  uuidString = CFUUIDCreateString(NULL, uuid);
-   // NSLog(@"Peripheral UUID: %@",uuidString);
+    CFUUIDRef uuid = peripheral.UUID;
+    CFStringRef s = CFUUIDCreateString(NULL, uuid);
+    NSString *uuid_string = CFBridgingRelease(s);
+    if (self.debug)  NSLog(@"Peripheral UUID: %@",uuid_string);
     
     
+    // create a UUID from the NSString
+    CFUUIDRef uuidCopy = CFUUIDCreateFromString (NULL, CFBridgingRetain(uuid_string));
+    
+                                      
+    BOOL areEqual = CFEqual(uuid, uuidCopy);
+    if (self.debug) NSLog(@"Copmaring 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
+        
     // log the advertisement keys
-    NSLog(@"Logging advertisement keys descriptions");
+    if (self.debug) NSLog(@"Logging advertisement keys descriptions");
     NSArray *keys = [advertisementData allKeys];
     for (id key in keys)
     {
         if ([key isKindOfClass:[NSString class]])
         {
-            NSLog(@"advertisement key:  %@",key);
             id value = [advertisementData objectForKey:key];
-            NSLog(@"advertisement value description %@", [value description]);
+            
+            if (self.debug) NSLog(@"advertisement key:  %@  value:  %@",key, [value description]);
+            
         }
         
     }
     
     // log the rssi value
-    NSLog(@"RSSI value: %i", [RSSI shortValue]);
+    if (self.debug) NSLog(@"RSSI value: %i", [RSSI shortValue]);
     
     
 }
