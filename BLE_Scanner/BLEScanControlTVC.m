@@ -105,6 +105,7 @@
         NSLog(@"User selected scan for all services.");
         // add checkmark
         self.scanForAllServices.accessoryType= UITableViewCellAccessoryCheckmark;
+        [self.delegate scanForAllServices:self];
     }
     else if (indexPath.row == 1)
     {

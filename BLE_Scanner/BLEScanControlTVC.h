@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "BLEServiceListTVC.h"
 
+
+@protocol BLEScanControlDelegate
+
+
+-(void) scanForAllServices: (id)sender;
+
+@end
+
+
 @interface BLEScanControlTVC : UITableViewController <BLEServiceListDelegate>
 
+
+@property (nonatomic, weak)id< BLEScanControlDelegate>delegate;
 @end

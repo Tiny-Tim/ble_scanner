@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEScanControlTVC.h"
 
-@interface BLEViewController : UIViewController <CBCentralManagerDelegate>
+@interface BLEViewController : UIViewController <BLEScanControlDelegate, CBCentralManagerDelegate>
 
 
 @end
