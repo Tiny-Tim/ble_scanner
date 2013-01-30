@@ -9,8 +9,9 @@
 #import "BLEViewController.h"
 
 @interface BLEViewController ()
-- (IBAction)scanButton;
-- (IBAction)stopScanButton;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *scanActivityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *hostBluetoothStatus;
 @property (weak, nonatomic) IBOutlet UILabel *scanStatus;
@@ -20,6 +21,7 @@
 
 @property (nonatomic) BOOL debug;
 
+@property (nonatomic) BOOL scanState;
 @end
 
 @implementation BLEViewController
@@ -29,43 +31,54 @@
 
 - (IBAction)scanButton
 {
-    if (self.centralManager.state == CBCentralManagerStatePoweredOn)
+    if (! self.scanState)
     {
-        if (self.debug) NSLog(@"Starting scan...");
         
-        if (self.scanForAllServices)
+        if (self.centralManager.state == CBCentralManagerStatePoweredOn)
         {
-            self.scanStatus.text = @"Scanning for all services.";
-            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+            self.scanState = YES;  // scanning
+            self.scanBarButton.title = @"Stop";
+            
+            if (self.debug) NSLog(@"Starting scan...");
+            
+            if (self.scanForAllServices)
+            {
+                self.scanStatus.text = @"Scanning for all services.";
+                [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+            }
+            else
+            {
+                self.scanStatus.text = @"Scanning for specified services.";
+                // scan only for services specified by user
+                
+                // tbd fix this to pass in array of services
+                [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+            }
+            [self.scanActivityIndicator startAnimating];
         }
         else
         {
-            self.scanStatus.text = @"Scanning for specified services.";
-            // scan only for services specified by user
-            
-            // tbd fix this to pass in array of services
-            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+            if (self.debug) NSLog(@"Scan request not executed, central manager not in powered on state");
+            if (self.debug) NSLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
         }
-        [self.scanActivityIndicator startAnimating];
     }
-    else
+    else  // stop scanning
     {
-        if (self.debug) NSLog(@"Scan request not executed, central manager not in powered on state");
-        if (self.debug) NSLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
+        if (self.debug) NSLog(@"Scan stopped");
+        [self.scanActivityIndicator stopAnimating];
+        self.scanStatus.text = @"Stopped";
+        if (self.centralManager.state == CBCentralManagerStatePoweredOn)
+        {
+            [self.centralManager stopScan];
+        }
+
+        self.scanBarButton.title = @"Scan";
+        self.scanState = NO;
     }
     
 }
 
-- (IBAction)stopScanButton
-{
-    if (self.debug) NSLog(@"Scan stopped");
-    [self.scanActivityIndicator stopAnimating];
-    self.scanStatus.text = @"Stopped";
-    if (self.centralManager.state == CBCentralManagerStatePoweredOn)
-    {
-        [self.centralManager stopScan];
-    }
-}
+
 
 #pragma mark - Helper Functions
 +(NSString *)getCBCentralStateName:(CBCentralManagerState) state
@@ -110,7 +123,9 @@
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
     // default is to scan for all services if scan is not configured
-    _scanForAllServices = YES;   
+    _scanForAllServices = YES;
+    
+    _scanState = NO;  // not scanning
     
     _debug = YES;
     

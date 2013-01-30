@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="2" customClass="BLEViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
@@ -37,22 +37,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgW-fL-3zo">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="116" id="EDi-jF-2Vr"/>
-                                    <constraint firstAttribute="height" constant="21" id="NYn-VF-9JV"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Discover Services">
-                                        <attributes>
-                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="13" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="feP-yJ-gsd"/>
@@ -63,81 +47,59 @@
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stopped" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-zw-wxG">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="159" id="kAD-6l-rf5"/>
+                                    <constraint firstAttribute="width" constant="61" id="LSL-fK-lI3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OA6-MM-FZm"/>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etu-k7-Sgd">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="lU8-Zg-TF4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Scan">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="scanButton" destination="2" eventType="touchUpInside" id="C6f-Pq-gXU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdL-Tv-9tx">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Stop Scan">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="stopScanButton" destination="2" eventType="touchUpInside" id="Qxb-Py-lUg"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="_____________________________" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eO-RX-7vm">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWf-e9-Czv">
+                                <items>
+                                    <barButtonItem title="Scan " id="yvv-1l-2Uc">
+                                        <connections>
+                                            <action selector="scanButton" destination="2" id="UoE-BE-MOG"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="125" style="plain" systemItem="fixedSpace" id="HPV-ca-WNY"/>
+                                    <barButtonItem title="Configure Scan" id="IL3-7o-s6V">
+                                        <connections>
+                                            <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="vCs-2e-in7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="3" secondAttribute="top" constant="205" id="1mB-ct-hWH"/>
+                            <constraint firstItem="TWf-e9-Czv" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="2Hh-Dl-CNs"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="2Wc-ZW-kGW"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="3" secondAttribute="top" constant="56" id="2mM-p5-FD1"/>
-                            <constraint firstItem="etu-k7-Sgd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="24" id="FPM-6X-dGT"/>
-                            <constraint firstItem="BdL-Tv-9tx" firstAttribute="baseline" secondItem="etu-k7-Sgd" secondAttribute="baseline" type="default" id="GWj-IG-dyA"/>
-                            <constraint firstItem="pgW-fL-3zo" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="I6X-5i-cKD"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="BdL-Tv-9tx" secondAttribute="leading" type="default" id="JBa-Bs-mdL"/>
-                            <constraint firstItem="pgW-fL-3zo" firstAttribute="top" secondItem="3" secondAttribute="top" constant="173" id="K6J-Ud-jrv"/>
+                            <constraint firstItem="TWf-e9-Czv" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="8v8-QI-7Pr"/>
+                            <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="7" id="AaG-7g-Ncb"/>
+                            <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="v29-Ks-Ytq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="JaV-yI-ut0"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="QAM-fw-8P2"/>
-                            <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="121" id="QRR-Pn-CgL"/>
-                            <constraint firstAttribute="bottom" secondItem="etu-k7-Sgd" secondAttribute="bottom" constant="117" id="SPG-SM-Kgx"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="aFe-od-t6l"/>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="pgW-fL-3zo" secondAttribute="leading" type="default" id="cfF-Gf-f2X"/>
-                            <constraint firstItem="9eO-RX-7vm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="19" id="hCj-gO-EPe"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="jGg-s5-F9x"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="183" id="lZT-Ti-cKw"/>
-                            <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="95" id="mnd-vs-9lh"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="q8m-LR-HK2"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="148" id="snl-Ad-Pc8"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="44" id="xKz-Ab-2dW"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="avz-8l-GZ8"/>
+                            <constraint firstItem="9eO-RX-7vm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="17" id="iMN-hg-jG8"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="bottom" secondItem="OA6-MM-FZm" secondAttribute="bottom" type="default" id="jWl-b5-zut"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="centerX" secondItem="TWf-e9-Czv" secondAttribute="centerX" type="default" id="kIw-3b-ufN"/>
+                            <constraint firstItem="9eO-RX-7vm" firstAttribute="trailing" secondItem="v29-Ks-Ytq" secondAttribute="trailing" type="default" id="qTt-cj-5h1"/>
+                            <constraint firstItem="TWf-e9-Czv" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="szu-GP-cOA"/>
+                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="57" id="vHb-u4-1Zb"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="89" id="yeZ-33-c1y"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="79l-V3-ftM">
-                        <barButtonItem key="rightBarButtonItem" title="Configure Scan" id="IL3-7o-s6V">
-                            <connections>
-                                <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="vCs-2e-in7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="79l-V3-ftM"/>
                     <connections>
                         <outlet property="hostBluetoothStatus" destination="v29-Ks-Ytq" id="oul-Au-zpL"/>
                         <outlet property="scanActivityIndicator" destination="OA6-MM-FZm" id="6JB-Kt-7ZT"/>
+                        <outlet property="scanBarButton" destination="yvv-1l-2Uc" id="iwO-d6-oGV"/>
                         <outlet property="scanStatus" destination="ipT-zw-wxG" id="aRd-Zb-QED"/>
                     </connections>
                 </viewController>
@@ -150,7 +112,7 @@
             <objects>
                 <tableViewController id="ztf-gS-juY" customClass="BLEScanControlTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="G16-jY-SXD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -216,7 +178,7 @@
             <objects>
                 <tableViewController title="ServiceList" id="fwH-EV-JuX" customClass="BLEServiceListTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zLA-KA-a06">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -252,7 +214,7 @@
             <objects>
                 <tableViewController title="AddService" id="7Ff-uJ-Fcx" customClass="BLEServiceInformationTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hnk-cs-37d">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -356,10 +318,9 @@
         <class className="BLEViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
             <relationships>
-                <relationship kind="action" name="scanButton"/>
-                <relationship kind="action" name="stopScanButton"/>
                 <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scanActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="scanStatus" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -370,6 +331,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>
