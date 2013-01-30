@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDiscoveryRecord.h"
 
 @interface BLEDiscoveredDevicesTVC : UITableViewController
+
+
+@property (nonatomic,strong) BLEDiscoveryRecord  *deviceRecord;
+
+
+
 
 @end

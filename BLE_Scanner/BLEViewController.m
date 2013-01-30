@@ -7,6 +7,7 @@
 //
 
 #import "BLEViewController.h"
+#import "BLEDiscoveredDevicesTVC.h"
 
 @interface BLEViewController ()
 
@@ -16,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *hostBluetoothStatus;
 @property (weak, nonatomic) IBOutlet UILabel *scanStatus;
 @property (strong, nonatomic) CBCentralManager *centralManager;
+
+@property (nonatomic, strong) BLEDiscoveredDevicesTVC *discoveredDeviceList;
 
 @property (nonatomic) BOOL scanForAllServices;
 
@@ -149,18 +152,26 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (self.debug) NSLog(@"Preparing to segue to ServiceList from SvanControl");
+    if (self.debug) NSLog(@"Preparing to segue from ScanControl");
     BLEScanControlTVC *scanConfigure;
     
     if ([segue.identifier isEqualToString:@"ConfigureScan"])
     {
-        
+        if (self.debug) NSLog(@"Segueing to Configure Scan");
         if ([segue.destinationViewController isKindOfClass:[BLEScanControlTVC class]])
         {
             scanConfigure = segue.destinationViewController;
             scanConfigure.delegate = self;
             
         }
+    }
+    else if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
+    {
+        if (self.debug) NSLog(@"Segueing to Discovered Devices");
+          if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
+          {
+              self.discoveredDeviceList = segue.destinationViewController;
+          }
     }
 }
 
@@ -173,6 +184,8 @@
     if (self.debug) NSLog(@"scan for all services delegate method invoked");
     // set scan control to scan for all services
     self.scanForAllServices = YES;
+    
+   
 }
 
 
@@ -225,7 +238,10 @@
     // log the rssi value
     if (self.debug) NSLog(@"RSSI value: %i", [RSSI shortValue]);
     
+    BLEDiscoveryRecord *discoveryRecord = [[BLEDiscoveryRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     
+    
+    self.discoveredDeviceList.deviceRecord = discoveryRecord;
 }
 
 @end

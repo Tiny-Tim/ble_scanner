@@ -10,9 +10,44 @@
 
 @interface BLEDiscoveredDevicesTVC ()
 
+@property (nonatomic, strong)NSMutableArray *discoveredDevices;
 @end
 
 @implementation BLEDiscoveredDevicesTVC
+
+@synthesize deviceRecord = _deviceRecord;
+@synthesize discoveredDevices = _discoveredDevices;
+
+
+-(NSArray *)discoveredDevices
+{
+    if (! _discoveredDevices)
+    {
+        _discoveredDevices = [NSMutableArray array];
+    }
+    return _discoveredDevices;
+}
+
+
+-(void)setDiscoveredDevices:(NSMutableArray *)discoveredDevices
+{
+    _discoveredDevices = discoveredDevices;
+    
+}
+-(BLEDiscoveryRecord *)deviceRecord
+{
+        
+    return _deviceRecord;
+}
+
+-(void)setDeviceRecord:(BLEDiscoveryRecord *)deviceRecord
+{
+    _deviceRecord =deviceRecord;
+    [self.discoveredDevices addObject:_deviceRecord];
+    
+    [self.tableView reloadData];
+    
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,6 +75,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
 #pragma mark - Table view data source
 
 
@@ -48,7 +86,8 @@
 {
 
     // Return the number of rows in the section.
-    return 1;
+    NSLog(@"Setting row count in discovered device table %d",[self.discoveredDevices count]);
+    return [self.discoveredDevices count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,7 +95,30 @@
     static NSString *CellIdentifier = @"DiscoDevice Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    
+    // Configure the cell textLabel with UUID
+    BLEDiscoveryRecord *deviceRecord = ( BLEDiscoveryRecord *)[self.discoveredDevices objectAtIndex:indexPath.row];
+    CBPeripheral * peripheral = deviceRecord.peripheral;
+    CFUUIDRef uuid = peripheral.UUID;
+    CFStringRef s = CFUUIDCreateString(NULL, uuid);
+    NSString *uuid_string = CFBridgingRelease(s);
+    cell.textLabel.text = uuid_string;
+    
+    // check the peripheral name, if not null set the detailtextLabel
+    if (peripheral.name)
+    {
+        cell.detailTextLabel.text = peripheral.name;
+    }
+    else
+    {
+        // Check the advertisement data for a name
+         NSArray *keys = [deviceRecord.advertisementData allKeys];
+        if ([keys containsObject:CBAdvertisementDataLocalNameKey])
+        {
+            cell.detailTextLabel.text = (NSString *)[deviceRecord.advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
+        }
+        
+    }
     
     return cell;
 }
@@ -104,6 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Did Select Row invoked");
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

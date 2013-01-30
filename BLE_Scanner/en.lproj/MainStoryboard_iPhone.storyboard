@@ -88,26 +88,26 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="1HS-8H-hWS"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="2Hh-Dl-CNs"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="2Wc-ZW-kGW"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="3" secondAttribute="top" constant="56" id="2mM-p5-FD1"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3Hn-Oz-7wO"/>
+                            <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="85" id="3Rm-UA-dOa"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6aW-5N-VcW"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="8v8-QI-7Pr"/>
                             <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="7" id="AaG-7g-Ncb"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="CS7-rs-13C"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="sfQ-TO-mnD" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FPy-ML-SnA"/>
-                            <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="v29-Ks-Ytq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="JaV-yI-ut0"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="MRZ-Cu-pyE"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q9z-NG-Hr1"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="QAM-fw-8P2"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="aFe-od-t6l"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="S5E-FR-lbH"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fo3-Lv-SwH"/>
                             <constraint firstItem="9eO-RX-7vm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="17" id="iMN-hg-jG8"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="bottom" secondItem="OA6-MM-FZm" secondAttribute="bottom" type="default" id="jWl-b5-zut"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="113" id="jfY-6U-JAu"/>
                             <constraint firstItem="OA6-MM-FZm" firstAttribute="centerX" secondItem="TWf-e9-Czv" secondAttribute="centerX" type="default" id="kIw-3b-ufN"/>
                             <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="kKv-7U-4b6"/>
-                            <constraint firstItem="9eO-RX-7vm" firstAttribute="trailing" secondItem="v29-Ks-Ytq" secondAttribute="trailing" type="default" id="qTt-cj-5h1"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="3" secondAttribute="top" constant="54" id="qKG-f4-Oa0"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="szu-GP-cOA"/>
                             <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="57" id="vHb-u4-1Zb"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="89" id="yeZ-33-c1y"/>
@@ -334,14 +334,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WkB-b4-cAu">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WkB-b4-cAu">
                                             <rect key="frame" x="10" y="2" width="38" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXs-Ob-OMm">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXs-Ob-OMm">
                                             <rect key="frame" x="10" y="24" width="47" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -365,36 +365,6 @@
             <point key="canvasLocation" x="725" y="838"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
-        </class>
-        <class className="BLEScanControlTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="BLEServiceInformationTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceInformationTVC.h"/>
-        </class>
-        <class className="BLEServiceListTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceListTVC.h"/>
-        </class>
-        <class className="BLEViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scanActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="scanStatus" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
