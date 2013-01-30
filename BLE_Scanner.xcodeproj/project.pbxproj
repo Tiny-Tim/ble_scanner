@@ -28,6 +28,7 @@
 		D982747216B6F7730005477F /* BLEServiceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEServiceListTVC.m */; };
 		D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747416B6F8060005477F /* BLEServiceInformationTVC.m */; };
 		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
+		D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		D982747316B6F8060005477F /* BLEServiceInformationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServiceInformationTVC.h; sourceTree = "<group>"; };
 		D982747416B6F8060005477F /* BLEServiceInformationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceInformationTVC.m; sourceTree = "<group>"; };
 		D982747A16B7216C0005477F /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDiscoveredDevicesTVC.h; sourceTree = "<group>"; };
+		D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDiscoveredDevicesTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				D9207B4F16B6D35B0023FFFA /* BLEAppDelegate.h */,
 				D9207B5016B6D35B0023FFFA /* BLEAppDelegate.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
+				D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */,
+				D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */,
 				D982746C16B6F7210005477F /* BLEScanControlTVC.h */,
 				D982746D16B6F7210005477F /* BLEScanControlTVC.m */,
 				D982747016B6F7730005477F /* BLEServiceListTVC.h */,
@@ -300,6 +305,7 @@
 				D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */,
 				D982747216B6F7730005477F /* BLEServiceListTVC.m in Sources */,
 				D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */,
+				D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -72,7 +72,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //NSLog(@"Preparing to segue to ServiceList from SvanControl");
+    NSLog(@"Preparing to segue to ServiceList from ScanControl");
     BLEServiceListTVC *serviceListTVC;
     
     if ([segue.identifier isEqualToString:@"ShowServices"])
