@@ -12,20 +12,13 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Host Bluetooth Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Pyi-mm-FyJ"/>
-                                    <constraint firstAttribute="width" constant="136" id="mpO-Du-Qnb"/>
+                                    <constraint firstAttribute="width" constant="173" id="ixA-jB-kow"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Host Bluetooth Status">
-                                        <attributes>
-                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="13" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Unknown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v29-Ks-Ytq">
@@ -33,23 +26,24 @@
                                     <constraint firstAttribute="height" constant="21" id="Vgv-di-CKS"/>
                                     <constraint firstAttribute="width" constant="248" id="wV6-4i-Mxu"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="bl9-7u-D1B"/>
                                     <constraint firstAttribute="height" constant="21" id="feP-yJ-gsd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stopped" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-zw-wxG">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="LSL-fK-lI3"/>
+                                    <constraint firstAttribute="width" constant="80" id="c7M-zX-PpE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -69,7 +63,7 @@
                                     <barButtonItem width="125" style="plain" systemItem="fixedSpace" id="HPV-ca-WNY"/>
                                     <barButtonItem title="Configure Scan" id="IL3-7o-s6V">
                                         <connections>
-                                            <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="vCs-2e-in7"/>
+                                            <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="eo5-xM-eKC"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -90,27 +84,27 @@
                         <constraints>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="1HS-8H-hWS"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="2Hh-Dl-CNs"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="2Wc-ZW-kGW"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3Hn-Oz-7wO"/>
                             <constraint firstItem="9eO-RX-7vm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="85" id="3Rm-UA-dOa"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6aW-5N-VcW"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="8v8-QI-7Pr"/>
                             <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="7" id="AaG-7g-Ncb"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="CS7-rs-13C"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="sfQ-TO-mnD" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FPy-ML-SnA"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" type="default" id="HWY-Vs-qWl"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="baseline" secondItem="WGj-1D-B6I" secondAttribute="baseline" type="default" id="L5p-Yy-bGt"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="MRZ-Cu-pyE"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="Pqb-7k-WPZ"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q9z-NG-Hr1"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="S5E-FR-lbH"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="Sg6-Pp-inc"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="trailing" secondItem="Bnd-GX-pvb" secondAttribute="trailing" type="default" id="Sr9-d2-azE"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fo3-Lv-SwH"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hSl-FL-T6V"/>
                             <constraint firstItem="9eO-RX-7vm" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="17" id="iMN-hg-jG8"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="bottom" secondItem="OA6-MM-FZm" secondAttribute="bottom" type="default" id="jWl-b5-zut"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="113" id="jfY-6U-JAu"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="centerX" secondItem="TWf-e9-Czv" secondAttribute="centerX" type="default" id="kIw-3b-ufN"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="kKv-7U-4b6"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="3" secondAttribute="top" constant="54" id="qKG-f4-Oa0"/>
                             <constraint firstItem="TWf-e9-Czv" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="szu-GP-cOA"/>
-                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="57" id="vHb-u4-1Zb"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="89" id="yeZ-33-c1y"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="tBm-IC-QK8"/>
+                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="57" id="un8-oF-DSF"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="leading" secondItem="ipT-zw-wxG" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="uti-Xm-hce"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Bluetooth Client" id="79l-V3-ftM"/>
@@ -169,9 +163,6 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <connections>
-                                            <segue destination="fwH-EV-JuX" kind="push" identifier="ShowServices" id="zdN-ii-eMp"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -185,6 +176,7 @@
                     <connections>
                         <outlet property="scanForAllServices" destination="Qsm-Sm-sg0" id="LgW-1M-8tk"/>
                         <outlet property="scanForSelectedServices" destination="OEO-1s-lyF" id="qgK-Z7-e83"/>
+                        <segue destination="fwH-EV-JuX" kind="push" identifier="ShowServices" id="bXJ-5c-axm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKr-u4-XVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -322,35 +314,80 @@
         <scene sceneID="J1i-ev-rrb">
             <objects>
                 <viewController id="1vR-VU-Qfb" customClass="BLEDiscoveredDevicesTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ctn-re-IDy">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DiscoDevice Cell" textLabel="WkB-b4-cAu" detailTextLabel="KXs-Ob-OMm" style="IBUITableViewCellStyleSubtitle" id="S8t-aq-PjY">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeviceContent" textLabel="WkB-b4-cAu" detailTextLabel="KXs-Ob-OMm" style="IBUITableViewCellStyleSubtitle" id="S8t-aq-PjY">
+                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WkB-b4-cAu">
-                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                            <rect key="frame" x="10" y="6" width="27" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXs-Ob-OMm">
-                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                            <rect key="frame" x="10" y="22" width="44" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Advertisement" textLabel="cJD-4L-zMV" style="IBUITableViewCellStyleDefault" id="vmX-cL-4d6">
+                                <rect key="frame" x="0.0" y="91" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Advertisement Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cJD-4L-zMV">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Connect" rowHeight="60" id="Anm-uw-5qd">
+                                <rect key="frame" x="0.0" y="135" width="320" height="61"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKc-Jg-taV">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="73" id="juw-cv-zok"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <state key="normal" title="Connect">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="CKc-Jg-taV" firstAttribute="centerX" secondItem="Anm-uw-5qd" secondAttribute="centerX" type="default" id="AzO-D9-Tin"/>
+                                    <constraint firstItem="CKc-Jg-taV" firstAttribute="top" secondItem="Anm-uw-5qd" secondAttribute="top" constant="8" id="tq5-Vy-fAC"/>
+                                </constraints>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -365,6 +402,36 @@
             <point key="canvasLocation" x="725" y="838"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+        </class>
+        <class className="BLEScanControlTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="BLEServiceInformationTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceInformationTVC.h"/>
+        </class>
+        <class className="BLEServiceListTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceListTVC.h"/>
+        </class>
+        <class className="BLEViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="scanStatus" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

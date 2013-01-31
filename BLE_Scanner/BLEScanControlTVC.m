@@ -8,23 +8,42 @@
 
 #import "BLEScanControlTVC.h"
 
+#define ALL_SERVICE_INDEX 0
+#define SELECT_SERVICE_INDEX 1
+
 @interface BLEScanControlTVC ()
 
 @property (nonatomic, readonly) NSArray  *scanOptions;
 @property (weak, nonatomic) IBOutlet UITableViewCell *scanForAllServices;
 @property (weak, nonatomic) IBOutlet UITableViewCell *scanForSelectedServices;
 
-@property (nonatomic) BOOL userSelectedServices;
+@property (nonatomic, strong) NSArray* servicesToScan;
 
+// 0 index is scanForAllServices, 1st index is scan for selected services
+@property (nonatomic, strong) NSMutableArray *checkMarkState;
 @end
 
 @implementation BLEScanControlTVC
+
+@synthesize checkMarkState = _checkMarkState;
+@synthesize servicesToScan = _servicesToScan;
+
+-(NSMutableArray *)checkMarkState
+{
+    if (_checkMarkState == nil)
+    {
+        _checkMarkState = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO], nil];
+    }
+    
+    return _checkMarkState;
+}
+
 
 
 -(void) awakeFromNib
 {
     [super awakeFromNib];
-    self.userSelectedServices = NO;
+    
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -41,24 +60,31 @@
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+     self.clearsSelectionOnViewWillAppear = NO;
+    
+     self.scanForSelectedServices.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+     self.scanForAllServices.accessoryType = UITableViewCellAccessoryNone;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    // ensure the disclosure indicator is presented unless returning from service list segue
-    if (self.userSelectedServices)
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    if ([self isMovingToParentViewController])
     {
-        // clear the userSelected service flag but leave the indicator to be a checkmark
-        self.userSelectedServices = NO;
-        
-    }
-    else // show the disclosure indicator
-    {
-        self.scanForSelectedServices.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        // invoke the method which specifies the scan method
+         BOOL checkState = [[self.checkMarkState objectAtIndex:(ALL_SERVICE_INDEX)]boolValue];
+         if (checkState)
+         {
+             [self.delegate scanForServices:nil sender:self];
+         }
+        else
+        {
+            [self.delegate scanForServices:self.servicesToScan sender:self];
+        }
     }
 }
 
@@ -103,16 +129,56 @@
     if (indexPath.row == 0)
     {
         NSLog(@"User selected scan for all services.");
-        // add checkmark
-        self.scanForAllServices.accessoryType= UITableViewCellAccessoryCheckmark;
-        [self.delegate scanForAllServices:self];
+        
+        BOOL checkState = [[self.checkMarkState objectAtIndex:(ALL_SERVICE_INDEX)]boolValue];
+        if (checkState)
+        {
+            // turn off check
+            self.scanForAllServices.accessoryType= UITableViewCellAccessoryNone;
+            [self.checkMarkState replaceObjectAtIndex:(ALL_SERVICE_INDEX) withObject:[NSNumber numberWithBool:NO] ];
+
+        }
+        else
+        {
+           // add checkmark for all
+           self.scanForAllServices.accessoryType= UITableViewCellAccessoryCheckmark;
+           [self.checkMarkState replaceObjectAtIndex:(ALL_SERVICE_INDEX) withObject:[NSNumber numberWithBool:YES]  ];
+            
+            // turn off selected
+            self.scanForSelectedServices.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [self.checkMarkState replaceObjectAtIndex:(SELECT_SERVICE_INDEX) withObject:[NSNumber numberWithBool:NO]  ];
+            
+           
+        }
     }
     else if (indexPath.row == 1)
     {
         NSLog(@"User selected scan for specific services.");
-        // ensure the scan for all services row is unchecked
-        self.scanForAllServices.accessoryType= UITableViewCellAccessoryNone;
         
+        BOOL checkState = [[self.checkMarkState objectAtIndex:(SELECT_SERVICE_INDEX)]boolValue];
+        if (checkState)
+        {
+            // turn off check
+            self.scanForSelectedServices.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
+            [self.checkMarkState replaceObjectAtIndex:(SELECT_SERVICE_INDEX) withObject:[NSNumber numberWithBool:NO]  ];
+            
+        }
+        else
+        {
+            // add checkmark for select
+            self.scanForSelectedServices.accessoryType= UITableViewCellAccessoryCheckmark;
+            [self.checkMarkState replaceObjectAtIndex:(SELECT_SERVICE_INDEX) withObject:[NSNumber numberWithBool:YES]  ];
+            
+            // turn off all
+            self.scanForAllServices.accessoryType = UITableViewCellAccessoryNone;
+            [self.checkMarkState replaceObjectAtIndex:(ALL_SERVICE_INDEX) withObject:[NSNumber numberWithBool:NO] ];
+            
+            //segue to services list
+            [self performSegueWithIdentifier:@"ShowServices" sender:self];
+            
+        }
+
+                
         // Choosing this row indicates the user wants to scan for specific services
         // As a reminder of which services will be scanned, segue to the service list
         // when returning from the segue using view will appear, apply the check button.
@@ -132,14 +198,18 @@
 
 #pragma mark - BLEServiceListDelegate Protocol
 
--(void) scanForServices: (NSArray *)services : (id)sender
+-(void) scanForServices: (NSArray *)services sender:(id)sender
 {
     // change the accessory view to a checkmark
     self.scanForSelectedServices.accessoryType = UITableViewCellAccessoryCheckmark;
+    [self.checkMarkState replaceObjectAtIndex:(SELECT_SERVICE_INDEX) withObject:[NSNumber numberWithBool:YES] ];
     
-    // indicate that the check mark was set due to user selection so that in viewWillAppear it is not overwritten
-    self.userSelectedServices = YES;
+    self.scanForAllServices.accessoryType= UITableViewCellAccessoryNone;
+    [self.checkMarkState replaceObjectAtIndex:(ALL_SERVICE_INDEX) withObject:[NSNumber numberWithBool:NO] ];
     
+    // save the selected services
+    self.servicesToScan = [services copy];
+   
 }
 
 @end

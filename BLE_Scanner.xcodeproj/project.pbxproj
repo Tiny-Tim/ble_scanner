@@ -31,6 +31,8 @@
 		D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */; };
 		D982748916B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */; };
 		D982748A16B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */; };
+		D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
+		D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDiscoveredDevicesTVC.m; sourceTree = "<group>"; };
 		D982748716B8C05C0005477F /* BLEDiscoveryRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDiscoveryRecord.h; sourceTree = "<group>"; };
 		D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDiscoveryRecord.m; sourceTree = "<group>"; };
+		D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
+		D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,8 @@
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
 				D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */,
 				D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */,
+				D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */,
+				D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */,
 				D982748716B8C05C0005477F /* BLEDiscoveryRecord.h */,
 				D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */,
 				D982746C16B6F7210005477F /* BLEScanControlTVC.h */,
@@ -313,6 +319,7 @@
 				D982747516B6F8060005477F /* BLEServiceInformationTVC.m in Sources */,
 				D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */,
 				D982748916B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */,
+				D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +329,7 @@
 			files = (
 				D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */,
 				D982748A16B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */,
+				D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

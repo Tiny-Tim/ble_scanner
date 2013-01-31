@@ -46,11 +46,15 @@
             
             if (self.scanForAllServices)
             {
+                 UIColor *restoreColor = self.scanStatus.textColor;
+                self.scanStatus.textColor = [UIColor greenColor];
                 self.scanStatus.text = @"Scanning for all services.";
+                self.scanStatus.textColor = restoreColor;
                 [self.centralManager scanForPeripheralsWithServices:nil options:nil];
             }
             else
             {
+                self.scanStatus.textColor = [UIColor greenColor];
                 self.scanStatus.text = @"Scanning for specified services.";
                 // scan only for services specified by user
                 
@@ -69,6 +73,7 @@
     {
         if (self.debug) NSLog(@"Scan stopped");
         [self.scanActivityIndicator stopAnimating];
+        self.scanStatus.textColor = [UIColor blackColor];
         self.scanStatus.text = @"Stopped";
         if (self.centralManager.state == CBCentralManagerStatePoweredOn)
         {
@@ -179,11 +184,17 @@
 #pragma mark -  BLEScanControlDelegate
 
 
--(void) scanForAllServices: (id)sender
+-(void) scanForServices: (NSArray *)services sender:(id)sender
 {
     if (self.debug) NSLog(@"scan for all services delegate method invoked");
     // set scan control to scan for all services
     self.scanForAllServices = YES;
+    
+    // fix when implemented
+    if (services != nil)
+    {
+       // self.scanForAllServices = NO;
+    }
     
    
 }
@@ -195,7 +206,26 @@
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if (self.debug) NSLog(@"Central Manager Delegate DidUpdate State Invoked");
+    UIColor *restoreColor = self.hostBluetoothStatus.textColor;
+    
+    
+    if (self.centralManager.state ==CBCentralManagerStatePoweredOn)
+    {
+        self.hostBluetoothStatus.textColor = [UIColor greenColor];
+    }
+    else if ( (self.centralManager.state == CBCentralManagerStateUnknown) ||
+              (self.centralManager.state == CBCentralManagerStateResetting) )
+        
+    {
+        self.hostBluetoothStatus.textColor = [UIColor blackColor];
+    }
+    else
+    {
+        self.hostBluetoothStatus.textColor = [UIColor redColor];
+    }
+    
     self.hostBluetoothStatus.text = [[self class ] getCBCentralStateName: self.centralManager.state];
+    self.hostBluetoothStatus.textColor = restoreColor;
     
 }
 

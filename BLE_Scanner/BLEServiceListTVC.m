@@ -54,7 +54,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     // for now just close the loop
-    [self.delegate scanForServices:nil :self];
+    [self.delegate scanForServices:nil sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +76,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ServiceCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...

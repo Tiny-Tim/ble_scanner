@@ -10,7 +10,7 @@
 
 @protocol BLEServiceListDelegate
 
--(void) scanForServices: (NSArray *)services : (id)sender;
+-(void) scanForServices: (NSArray *)services sender:(id)sender;
 
 @end
 

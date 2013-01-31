@@ -13,7 +13,7 @@
 @protocol BLEScanControlDelegate
 
 
--(void) scanForAllServices: (id)sender;
+-(void) scanForServices: (NSArray *)services sender:(id)sender;
 
 @end
 
