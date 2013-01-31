@@ -142,7 +142,7 @@
     // Implement checks before connecting, i.e. already connected
     if (peripheral && ! [peripheral isConnected])
     {
-        if (self.debug) NSLog(@"CBCentalManager connecting to peripheral");
+        if (self.debug) NSLog(@"CBCentralManager connecting to peripheral");
         [self.centralManager connectPeripheral:peripheral options:nil];
     }
     else if (peripheral)

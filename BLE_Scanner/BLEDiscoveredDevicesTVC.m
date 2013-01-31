@@ -8,6 +8,7 @@
 
 #import "BLEDiscoveredDevicesTVC.h"
 #import "CBUUID+StringExtraction.h"
+#import "BLEConnectedDeviceTVC.h"
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
 #define ADVERTISEMENT_ROW 3
@@ -87,23 +88,12 @@
         // get the device record
         BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
         
-       [self.delegate connectPeripheral:record.peripheral sender:self];
+       [self.delegate connectPeripheral:record.peripheral sender:owningCell];
+        
+        //segue to services list
+        [self performSegueWithIdentifier:@"ShowConnects" sender:owningCell];
         
     }
-    
-    UITableViewCell *owningCell = (UITableViewCell*)[sender superview];
-    
-    // retrieve the indexPath
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:owningCell];
-    if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
-    // get the device record
-    BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
-    
-    [self.delegate connectPeripheral:record.peripheral sender:self];
-    
-    
-    
-    
     
         
 }
@@ -220,6 +210,28 @@
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
  
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"Preparing to segue to ConnectedTVC from DiscoveredTVC");
+    BLEConnectedDeviceTVC *connectedListTVC;
+    
+    if ([segue.identifier isEqualToString:@"ShowConnects"])
+    {
+        
+        if ([segue.destinationViewController isKindOfClass:[BLEConnectedDeviceTVC class]])
+        {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
+            // get the device record
+            BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
+            connectedListTVC= segue.destinationViewController;
+            [connectedListTVC addPeripheral:record.peripheral];
+            
+        }
+    }
 }
 
 
