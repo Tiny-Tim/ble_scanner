@@ -11,19 +11,31 @@
 
 @interface BLEViewController ()
 
+// initiate scanning
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
 
+// animate when scanning
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *scanActivityIndicator;
+
+// displays CBCentralManager status (role of iphone/ipad)
 @property (weak, nonatomic) IBOutlet UILabel *hostBluetoothStatus;
+
+// label which displays stopped or scanning
 @property (weak, nonatomic) IBOutlet UILabel *scanStatus;
+
+// CBCentral Manager 
 @property (strong, nonatomic) CBCentralManager *centralManager;
 
+// reference to embedded discovered device list table view controller
 @property (nonatomic, strong) BLEDiscoveredDevicesTVC *discoveredDeviceList;
 
+// flag which holds current scan configuration state (scan for all services or for specific services)
 @property (nonatomic) BOOL scanForAllServices;
 
+// controls NSLogging
 @property (nonatomic) BOOL debug;
 
+// flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
 @end
 
@@ -32,6 +44,7 @@
 
 #pragma mark - Properties
 
+// toggle button, initiate scanning if not scanning or stops scanning if scanning
 - (IBAction)scanButton
 {
     if (! self.scanState)
@@ -46,10 +59,10 @@
             
             if (self.scanForAllServices)
             {
-                 UIColor *restoreColor = self.scanStatus.textColor;
+                
                 self.scanStatus.textColor = [UIColor greenColor];
                 self.scanStatus.text = @"Scanning for all services.";
-                self.scanStatus.textColor = restoreColor;
+                
                 [self.centralManager scanForPeripheralsWithServices:nil options:nil];
             }
             else
@@ -87,8 +100,9 @@
 }
 
 
-
 #pragma mark - Helper Functions
+
+// Converts CBCentralManagerState to a string... implement as a category on CBCentralManagerState?
 +(NSString *)getCBCentralStateName:(CBCentralManagerState) state
 {
     NSString *stateName;
@@ -154,7 +168,7 @@
 }
 
 
-
+// Seque to either the embedded discovered services table view controller or to scan control table view controller
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if (self.debug) NSLog(@"Preparing to segue from ScanControl");
@@ -183,7 +197,7 @@
 
 #pragma mark -  BLEScanControlDelegate
 
-
+// Scan for all services unless services list is not nil. If services are provided then scan just for those services.
 -(void) scanForServices: (NSArray *)services sender:(id)sender
 {
     if (self.debug) NSLog(@"scan for all services delegate method invoked");
@@ -202,11 +216,11 @@
 
 
 #pragma mark - CBCentralManagerDelegate
-
+// CBCentralManager state changed
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if (self.debug) NSLog(@"Central Manager Delegate DidUpdate State Invoked");
-    UIColor *restoreColor = self.hostBluetoothStatus.textColor;
+   
     
     
     if (self.centralManager.state ==CBCentralManagerStatePoweredOn)
@@ -225,10 +239,12 @@
     }
     
     self.hostBluetoothStatus.text = [[self class ] getCBCentralStateName: self.centralManager.state];
-    self.hostBluetoothStatus.textColor = restoreColor;
+    
     
 }
 
+
+// A peripheral was discovered during scan.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     if (self.debug) NSLog(@"A peripheral was discovered during scan.");
@@ -260,9 +276,7 @@
             id value = [advertisementData objectForKey:key];
             
             if (self.debug) NSLog(@"advertisement key:  %@  value:  %@",key, [value description]);
-            
         }
-        
     }
     
     // log the rssi value
@@ -270,8 +284,8 @@
     
     BLEDiscoveryRecord *discoveryRecord = [[BLEDiscoveryRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     
-    
-    self.discoveredDeviceList.deviceRecord = discoveryRecord;
+    // add the discovered peripheral to the list of discovered peripherals
+    [self.discoveredDeviceList deviceDiscovered:discoveryRecord];
 }
 
 @end

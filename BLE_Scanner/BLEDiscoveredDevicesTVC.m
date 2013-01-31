@@ -9,20 +9,35 @@
 #import "BLEDiscoveredDevicesTVC.h"
 #import "CBUUID+StringExtraction.h"
 
+// A label embedded in the data which displays ADVERTISING DATA in the table
 #define ADVERTISEMENT_ROW 3
 
 @interface BLEDiscoveredDevicesTVC ()
 
+// The model for this table view controller
 @property (nonatomic, strong) NSMutableArray *sections;
 
 @end
 
 @implementation BLEDiscoveredDevicesTVC
 
-@synthesize deviceRecord = _deviceRecord;
+
 
 @synthesize sections = _sections;
 
+
+// DiscoveredDevicesTVC model.
+// 
+//
+// Sections is the data structure for the table where each section corresponds to a discovered peripheral. The array has two elements:
+//     index 0 - an array which has an element for each discovered peripheral.
+//             - each element array holds the lables which will be shown in a row cell belonging to the section's peripheral
+//     index 1 - an aray which has an element for each discovered peripheral.
+//             - each element array holds the data which corresponds to the label in index 0
+// The number of sections (i.e. the number of discovered peripherals) can be found by looking
+// at the count of either of the arrays at index 0 or index 1.
+//
+// The counts of the element arrays varies by the information the discovered device provides.
 -(NSMutableArray*) sections
 {
     if (_sections == nil)
@@ -37,15 +52,10 @@
 }
 
 
--(BLEDiscoveryRecord *)deviceRecord
+//Invoked when a BLE peripheral is discovered
+-(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord
 {
-        
-    return _deviceRecord;
-}
-
-
--(void)updateTableData: (BLEDiscoveryRecord *)deviceRecord
-{
+    // these arrays will be added to section 
     NSMutableArray *deviceInfo = [NSMutableArray array];
     NSMutableArray *cellLabel = [NSMutableArray array];
     
@@ -76,9 +86,9 @@
     [deviceInfo addObject:@""];
     [cellLabel addObject:@"ADVERTISEMENT"];
     
+    // process advertisement data
     NSEnumerator *enumerator = [deviceRecord.advertisementData keyEnumerator];
     id key;
-    
     while ((key = [enumerator nextObject]))
     {
         if ([key isKindOfClass:[NSString class]])
@@ -104,11 +114,10 @@
                 }
 
             }
-            else
+            else  
             {
-                
+                // do nothing for now
             }
-            
         }
     }
 
@@ -117,22 +126,16 @@
     [deviceInfo addObject:@""];
     [cellLabel addObject:@"Connect"];
     
-    
     // add peripheral item data to section array
     [[self.sections objectAtIndex:0] addObject:cellLabel];
     [[self.sections objectAtIndex:1] addObject:deviceInfo];
     
-}
-
-
--(void)setDeviceRecord:(BLEDiscoveryRecord *)deviceRecord
-{
-    _deviceRecord =deviceRecord;
-    
-    [self updateTableData: deviceRecord];
     [self.tableView reloadData];
     
 }
+
+
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -147,20 +150,17 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    // preserve selection between presentations.
+    self.clearsSelectionOnViewWillAppear = NO;
  
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 
 #pragma mark - Table view data source

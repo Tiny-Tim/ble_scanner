@@ -12,10 +12,8 @@
 
 @interface BLEDiscoveredDevicesTVC : UITableViewController
 
-
-@property (nonatomic,strong) BLEDiscoveryRecord  *deviceRecord;
-
-
+// Invoke to add a discovered device to the model
+-(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord;
 
 
 @end
