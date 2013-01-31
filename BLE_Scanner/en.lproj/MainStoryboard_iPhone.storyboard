@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4lt-0t-fSs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4lt-0t-fSs">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--View Controller - Bluetooth Client-->
@@ -380,6 +380,9 @@
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="connectButton:" destination="1vR-VU-Qfb" eventType="touchUpInside" id="eej-dz-42H"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -402,36 +405,6 @@
             <point key="canvasLocation" x="725" y="838"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
-        </class>
-        <class className="BLEScanControlTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="BLEServiceInformationTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceInformationTVC.h"/>
-        </class>
-        <class className="BLEServiceListTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceListTVC.h"/>
-        </class>
-        <class className="BLEViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scanActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="scanStatus" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

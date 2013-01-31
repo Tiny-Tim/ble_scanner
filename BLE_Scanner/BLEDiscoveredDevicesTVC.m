@@ -17,6 +17,14 @@
 // The model for this table view controller
 @property (nonatomic, strong) NSMutableArray *sections;
 
+@property (nonatomic, strong)NSMutableArray *deviceRecords;
+
+// controls NSLogging
+@property (nonatomic) BOOL debug;
+
+- (IBAction)connectButton:(id)sender;
+
+
 @end
 
 @implementation BLEDiscoveredDevicesTVC
@@ -24,7 +32,18 @@
 
 
 @synthesize sections = _sections;
+@synthesize deviceRecords = _deviceRecords;
 
+
+-(NSMutableArray *)deviceRecords
+{
+    if (_deviceRecords == nil)
+    {
+        _deviceRecords = [NSMutableArray array];
+    }
+    
+    return _deviceRecords;
+}
 
 // DiscoveredDevicesTVC model.
 // 
@@ -51,6 +70,44 @@
     return _sections;
 }
 
+- (IBAction)connectButton:(id)sender
+{
+    if (self.debug) NSLog(@"Connect Button pressed.");
+    
+    // the sender is the button
+    // sender super view is the content view of the cell
+    // sender super super is the table cell
+    if ( [[[sender superview]superview] isKindOfClass:[UITableViewCell class]])
+    {
+        UITableViewCell *owningCell = (UITableViewCell*)[[sender superview]superview];
+        
+        // retrieve the indexPath
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:owningCell];
+        if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
+        // get the device record
+        BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
+        
+       [self.delegate connectPeripheral:record.peripheral sender:self];
+        
+    }
+    
+    UITableViewCell *owningCell = (UITableViewCell*)[sender superview];
+    
+    // retrieve the indexPath
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:owningCell];
+    if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
+    // get the device record
+    BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
+    
+    [self.delegate connectPeripheral:record.peripheral sender:self];
+    
+    
+    
+    
+    
+        
+}
+
 
 //Invoked when a BLE peripheral is discovered
 -(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord
@@ -58,6 +115,9 @@
     // these arrays will be added to section 
     NSMutableArray *deviceInfo = [NSMutableArray array];
     NSMutableArray *cellLabel = [NSMutableArray array];
+    
+    // add the deviceRecord to the list of discovered devices
+    [self.deviceRecords addObject:deviceRecord];
     
     // add the device name - index 0
     if (deviceRecord.peripheral.name == nil)
@@ -134,6 +194,13 @@
     
 }
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    _debug = YES;
+    
+}
 
 
 

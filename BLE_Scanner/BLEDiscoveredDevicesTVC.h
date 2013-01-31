@@ -10,10 +10,16 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEDiscoveryRecord.h"
 
+@protocol BLEDiscoveredDevicesDelegate
+
+-(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+
+@end
+
 @interface BLEDiscoveredDevicesTVC : UITableViewController
 
 // Invoke to add a discovered device to the model
 -(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord;
 
-
+@property (nonatomic, weak)id< BLEDiscoveredDevicesDelegate>delegate;
 @end

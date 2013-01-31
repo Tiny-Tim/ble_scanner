@@ -7,7 +7,7 @@
 //
 
 #import "BLEViewController.h"
-#import "BLEDiscoveredDevicesTVC.h"
+
 
 @interface BLEViewController ()
 
@@ -135,6 +135,25 @@
 }
 
 
+// Cpnnect to specified peripheral
+-(void) connectToPeripheralDevice : (CBPeripheral *)peripheral
+{
+    
+    // Implement checks before connecting, i.e. already connected
+    if (peripheral && ! [peripheral isConnected])
+    {
+        if (self.debug) NSLog(@"CBCentalManager connecting to peripheral");
+        [self.centralManager connectPeripheral:peripheral options:nil];
+    }
+    else if (peripheral)
+    {
+        if (self.debug) NSLog(@"Request for CentralManager to connect to a connected peripheral ignored.");
+        
+        
+    }
+    [self.centralManager connectPeripheral:peripheral options:nil];
+}
+
 #pragma - Controller Lifecycle
 
 -(void)awakeFromNib
@@ -190,8 +209,17 @@
           if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
           {
               self.discoveredDeviceList = segue.destinationViewController;
+              self.discoveredDeviceList.delegate = self;
           }
     }
+}
+
+#pragma mark - BLEDiscoveredDevicesDelegate
+
+// Request to connect to peripheral from list of discovered device peripherals
+-(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+{
+    [self connectToPeripheralDevice:peripheral];
 }
 
 
@@ -212,6 +240,8 @@
     
    
 }
+
+
 
 
 
@@ -286,6 +316,39 @@
     
     // add the discovered peripheral to the list of discovered peripherals
     [self.discoveredDeviceList deviceDiscovered:discoveryRecord];
+}
+
+//Invoked whenever a connection is succesfully created with the peripheral.
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    if(self.debug) NSLog(@"Connected to peripheral");
+}
+
+//Invoked whenever an existing connection with the peripheral is torn down.
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    
+}
+
+
+//Invoked whenever the central manager fails to create a connection with the peripheral.
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    if(self.debug) NSLog(@"Failed to connect to peripheral");
+}
+
+
+//Invoked when the central manager retrieves the list of peripherals currently connected to the system.
+- (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
+{
+    
+}
+
+
+//Invoked when the central manager retrieves the list of known peripherals.
+- (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
+{
+
 }
 
 @end

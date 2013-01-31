@@ -10,8 +10,11 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEScanControlTVC.h"
 #import "BLEDiscoveryRecord.h"
+#import "BLEDiscoveredDevicesTVC.h"
 
-@interface BLEViewController : UIViewController <BLEScanControlDelegate, CBCentralManagerDelegate>
+@interface BLEViewController : UIViewController <BLEScanControlDelegate,
+                                                 CBCentralManagerDelegate,
+                                                 BLEDiscoveredDevicesDelegate >
 
 
 @end
