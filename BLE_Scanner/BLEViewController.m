@@ -7,7 +7,7 @@
 //
 
 #import "BLEViewController.h"
-
+#import "BLEConnectedDeviceTVC.h"
 
 @interface BLEViewController ()
 
@@ -37,12 +37,28 @@
 
 // flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
+
+
+// list of connected peripherals
+@property (nonatomic, strong)NSMutableArray *connectedPeripherals;
 @end
 
 @implementation BLEViewController
 
 
 #pragma mark - Properties
+
+
+-(NSMutableArray *)connectedPeripherals
+{
+    if (_connectedPeripherals == nil)
+    {
+        _connectedPeripherals = [NSMutableArray array];
+    }
+    
+    return _connectedPeripherals;
+}
+
 
 // toggle button, initiate scanning if not scanning or stops scanning if scanning
 - (IBAction)scanButton
@@ -212,6 +228,19 @@
               self.discoveredDeviceList.delegate = self;
           }
     }
+    else if ([segue.identifier isEqualToString:@"ShowConnects"])
+    {
+        
+        NSLog(@"Preparing to segue to ConnectedTVC from DiscoveredTVC");
+        BLEConnectedDeviceTVC *connectedDeviceTVC;
+        if ([segue.destinationViewController isKindOfClass:[BLEConnectedDeviceTVC class]])
+        {
+            connectedDeviceTVC = segue.destinationViewController;
+            connectedDeviceTVC.connectedPeripherals = self.connectedPeripherals;
+            
+        }
+    }
+
 }
 
 #pragma mark - BLEDiscoveredDevicesDelegate
@@ -219,6 +248,8 @@
 // Request to connect to peripheral from list of discovered device peripherals
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 {
+    
+    self.centralManagerStatus.text = @"Connecting to peripheral";
     [self connectToPeripheralDevice:peripheral];
 }
 
@@ -277,6 +308,8 @@
 // A peripheral was discovered during scan.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    
+    
     if (self.debug) NSLog(@"A peripheral was discovered during scan.");
     
     // log the peripheral name
@@ -294,7 +327,7 @@
     
                                       
     BOOL areEqual = CFEqual(uuid, uuidCopy);
-    if (self.debug) NSLog(@"Copmaring 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
+    if (self.debug) NSLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
         
     // log the advertisement keys
     if (self.debug) NSLog(@"Logging advertisement keys descriptions");
@@ -316,12 +349,24 @@
     
     // add the discovered peripheral to the list of discovered peripherals
     [self.discoveredDeviceList deviceDiscovered:discoveryRecord];
+    
+    
 }
 
 //Invoked whenever a connection is succesfully created with the peripheral.
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    // display idle status for Central
+    self.centralManagerStatus.text = @"idle";
     if(self.debug) NSLog(@"Connected to peripheral");
+    
+    [self.connectedPeripherals addObject:peripheral];
+    //segue to connected device table view 
+    [self performSegueWithIdentifier:@"ShowConnects" sender:self];
+
+    // Update buttons on discovered devices table view for connected device
+    
+    //segue to list of connected peripherals
 }
 
 //Invoked whenever an existing connection with the peripheral is torn down.

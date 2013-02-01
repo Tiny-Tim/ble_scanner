@@ -10,8 +10,7 @@
 
 @interface BLEConnectedDeviceTVC ()
 
-// The model for this view controller - list of connected peripherals
-@property (nonatomic, strong)NSMutableArray *connectedPeripherals;
+
 @end
 
 @implementation BLEConnectedDeviceTVC
@@ -27,14 +26,10 @@
 }
 
 
--(NSMutableArray *)connectedPeripherals
+-(void)setConnectedPeripherals:(NSArray *)connectedPeripherals
 {
-    if (_connectedPeripherals == nil)
-    {
-        _connectedPeripherals = [NSMutableArray array];
-    }
-    
-    return _connectedPeripherals;
+    _connectedPeripherals = [connectedPeripherals copy];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad
@@ -53,12 +48,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-// Add peripheral to the list of connected peripherals
--(void)addPeripheral:(CBPeripheral *)peripheral
-{
-    [self.connectedPeripherals addObject:peripheral];
-    [self.tableView reloadData];
-}
 
 #pragma mark - Table view data source
 

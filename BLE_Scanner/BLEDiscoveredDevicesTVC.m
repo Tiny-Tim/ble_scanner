@@ -8,7 +8,8 @@
 
 #import "BLEDiscoveredDevicesTVC.h"
 #import "CBUUID+StringExtraction.h"
-#import "BLEConnectedDeviceTVC.h"
+
+
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
 #define ADVERTISEMENT_ROW 3
@@ -23,7 +24,8 @@
 // controls NSLogging
 @property (nonatomic) BOOL debug;
 
-- (IBAction)connectButton:(id)sender;
+
+- (IBAction)connectButton:(UIButton *)sender;
 
 
 @end
@@ -71,8 +73,12 @@
     return _sections;
 }
 
-- (IBAction)connectButton:(id)sender
+- (IBAction)connectButton:(UIButton*)sender
 {
+    UITableViewCell *owningCell;
+    NSIndexPath *indexPath;
+    BLEDiscoveryRecord * record;
+    
     if (self.debug) NSLog(@"Connect Button pressed.");
     
     // the sender is the button
@@ -80,21 +86,31 @@
     // sender super super is the table cell
     if ( [[[sender superview]superview] isKindOfClass:[UITableViewCell class]])
     {
-        UITableViewCell *owningCell = (UITableViewCell*)[[sender superview]superview];
+        owningCell = (UITableViewCell*)[[sender superview]superview];
         
         // retrieve the indexPath
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:owningCell];
+        indexPath = [self.tableView indexPathForCell:owningCell];
         if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
         // get the device record
-        BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
-        
-       [self.delegate connectPeripheral:record.peripheral sender:owningCell];
-        
-        //segue to services list
-        [self performSegueWithIdentifier:@"ShowConnects" sender:owningCell];
-        
-    }
+        record = [self.deviceRecords objectAtIndex:indexPath.section];
     
+    
+        // retrieve the current title of the button
+        NSString *buttonTitle = sender.currentTitle;
+        if ( [buttonTitle localizedCompare:@"Connect"]== NSOrderedSame)
+        {
+            // Ask the CBCentralManager to connect to the device 
+            [self.delegate connectPeripheral:record.peripheral sender:owningCell];
+            
+            // At this point only the connection request has been made, we don't know if the connection was successful. Stay in the same view until the result of the connection request is known.
+            
+        }
+        else if ([buttonTitle localizedCompare:@"Disconnect"])
+        {
+        
+        }
+               
+    }
         
 }
 
@@ -162,7 +178,6 @@
                         [cellLabel addObject:key];
                     }
                 }
-
             }
             else  
             {
@@ -209,29 +224,12 @@
 
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
- 
 }
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"Preparing to segue to ConnectedTVC from DiscoveredTVC");
-    BLEConnectedDeviceTVC *connectedListTVC;
     
-    if ([segue.identifier isEqualToString:@"ShowConnects"])
-    {
-        
-        if ([segue.destinationViewController isKindOfClass:[BLEConnectedDeviceTVC class]])
-        {
-            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
-            // get the device record
-            BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
-            connectedListTVC= segue.destinationViewController;
-            [connectedListTVC addPeripheral:record.peripheral];
-            
-        }
-    }
 }
 
 

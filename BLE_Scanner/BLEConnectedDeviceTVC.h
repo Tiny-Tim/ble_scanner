@@ -11,6 +11,6 @@
 
 @interface BLEConnectedDeviceTVC : UITableViewController
 
-
--(void)addPeripheral:(CBPeripheral *)peripheral;
+// The model for this controller is a list of connected devices
+@property (nonatomic, copy)NSArray *connectedPeripherals;
 @end
