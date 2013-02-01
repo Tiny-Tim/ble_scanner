@@ -14,14 +14,14 @@
 // initiate scanning
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
 
-// animate when scanning
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *scanActivityIndicator;
+// animate when central manager scanning, connecting, etc.
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *centralManagerActivityIndicator;
 
 // displays CBCentralManager status (role of iphone/ipad)
 @property (weak, nonatomic) IBOutlet UILabel *hostBluetoothStatus;
 
-// label which displays stopped or scanning
-@property (weak, nonatomic) IBOutlet UILabel *scanStatus;
+// label which displays central manager activity
+@property (weak, nonatomic) IBOutlet UILabel *centralManagerStatus;
 
 // CBCentral Manager 
 @property (strong, nonatomic) CBCentralManager *centralManager;
@@ -60,21 +60,21 @@
             if (self.scanForAllServices)
             {
                 
-                self.scanStatus.textColor = [UIColor greenColor];
-                self.scanStatus.text = @"Scanning for all services.";
+                self.centralManagerStatus.textColor = [UIColor greenColor];
+                self.centralManagerStatus.text = @"Scanning for all services.";
                 
                 [self.centralManager scanForPeripheralsWithServices:nil options:nil];
             }
             else
             {
-                self.scanStatus.textColor = [UIColor greenColor];
-                self.scanStatus.text = @"Scanning for specified services.";
+                self.centralManagerStatus.textColor = [UIColor greenColor];
+                self.centralManagerStatus.text = @"Scanning for specified services.";
                 // scan only for services specified by user
                 
                 // tbd fix this to pass in array of services
                 [self.centralManager scanForPeripheralsWithServices:nil options:nil];
             }
-            [self.scanActivityIndicator startAnimating];
+            [self.centralManagerActivityIndicator startAnimating];
         }
         else
         {
@@ -85,9 +85,9 @@
     else  // stop scanning
     {
         if (self.debug) NSLog(@"Scan stopped");
-        [self.scanActivityIndicator stopAnimating];
-        self.scanStatus.textColor = [UIColor blackColor];
-        self.scanStatus.text = @"Stopped";
+        [self.centralManagerActivityIndicator stopAnimating];
+        self.centralManagerStatus.textColor = [UIColor blackColor];
+        self.centralManagerStatus.text = @"Idle";
         if (self.centralManager.state == CBCentralManagerStatePoweredOn)
         {
             [self.centralManager stopScan];
