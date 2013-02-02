@@ -317,17 +317,22 @@
     
     // log the peripheral UUID
     CFUUIDRef uuid = peripheral.UUID;
-    CFStringRef s = CFUUIDCreateString(NULL, uuid);
-    NSString *uuid_string = CFBridgingRelease(s);
-    if (self.debug)  NSLog(@"Peripheral UUID: %@",uuid_string);
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        NSString *uuid_string = CFBridgingRelease(s);
+        if (self.debug)  NSLog(@"Peripheral UUID: %@",uuid_string);
+    }
+    else
+    {
+        NSLog(@"Discovered peripheral provided no UUID on initial discovery");
+    }
     
     
     // create a UUID from the NSString
-    CFUUIDRef uuidCopy = CFUUIDCreateFromString (NULL, CFBridgingRetain(uuid_string));
-    
-                                      
-    BOOL areEqual = CFEqual(uuid, uuidCopy);
-    if (self.debug) NSLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
+ //   CFUUIDRef uuidCopy = CFUUIDCreateFromString (NULL, CFBridgingRetain(uuid_string));
+ //   BOOL areEqual = CFEqual(uuid, uuidCopy);
+ //   if (self.debug) NSLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
         
     // log the advertisement keys
     if (self.debug) NSLog(@"Logging advertisement keys descriptions");
@@ -342,8 +347,15 @@
         }
     }
     
-    // log the rssi value
-    if (self.debug) NSLog(@"RSSI value: %i", [RSSI shortValue]);
+    if (RSSI)
+    {
+        // log the rssi value
+        if (self.debug) NSLog(@"RSSI value: %i", [RSSI shortValue]);
+    }
+    else
+    {
+        if (self.debug) NSLog(@"Discovered peripheral data did not include RSSI");
+    }
     
     BLEDiscoveryRecord *discoveryRecord = [[BLEDiscoveryRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     

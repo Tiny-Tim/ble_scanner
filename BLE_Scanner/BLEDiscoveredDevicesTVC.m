@@ -137,10 +137,19 @@
     
     // add the UUID - index 1
     CFUUIDRef uuid = deviceRecord.peripheral.UUID;
-    CFStringRef s = CFUUIDCreateString(NULL, uuid);
-    NSString *uuid_string = CFBridgingRelease(s);
-    [deviceInfo addObject:uuid_string];
-    [cellLabel addObject:@"UUID"];
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        NSString *uuid_string = CFBridgingRelease(s);
+        [deviceInfo addObject:uuid_string];
+        [cellLabel addObject:@"UUID"];
+    }
+    else
+    {
+        // no UUID provided in discovery
+        [deviceInfo addObject:@""];
+        [cellLabel addObject:@"UUID"];
+    }
     
     // add RSSI - index 2
     NSString *rssiString = [[NSString alloc]initWithFormat:@"%i",[deviceRecord.rssi shortValue]];
