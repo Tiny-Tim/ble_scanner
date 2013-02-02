@@ -28,7 +28,6 @@
 - (IBAction)connectButton:(UIButton *)sender;
 
 
-
 @end
 
 @implementation BLEDiscoveredDevicesTVC
@@ -106,7 +105,7 @@
         }
         else if ([buttonTitle localizedCompare:@"Disconnect"] == NSOrderedSame)
         {
-            NSLog(@"Button pressed with Disconnect title");
+            if (self.debug) NSLog(@"Button pressed with Disconnect title");
             // Ask the CBCentralManager to connect to the device
             [self.delegate disconnectPeripheral:record.peripheral sender:owningCell];
 
@@ -213,9 +212,6 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    
-    _debug = YES;
-    
 }
 
 
@@ -235,6 +231,8 @@
 
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
+    
+     _debug = YES;
 }
 
 
@@ -272,7 +270,8 @@
     };
     
     NSIndexSet *indexes = [self.deviceRecords indexesOfObjectsPassingTest:test];
-    NSLog(@"indexes: %@", indexes);
+    
+     //if (self.debug) NSLog(@"indexes: %@", indexes);
     
     // swap the button lablels
     NSUInteger sectionIndex=[indexes firstIndex];
@@ -285,7 +284,7 @@
         NSUInteger lastItemIndex = [data count]-1;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastItemIndex inSection:sectionIndex];
         
-        NSLog(@"row = %i",indexPath.row);
+        //if (self.debug) NSLog(@"row = %i",indexPath.row);
        
         // get the current title from the custom cell dictionary
         currentTitle = [BLEConnectButtonCell getButtonTitle:indexPath];
@@ -314,7 +313,7 @@
 {
     // this gets the array of labels, each element in this array corresponds to a device
     NSUInteger numberSections = [[self.sections objectAtIndex:0] count];
-    NSLog(@"Number of sections, i.e discovered devices, in discovered device table: %i",numberSections);
+    //if (self.debug) NSLog(@"Number of sections, i.e discovered devices, in discovered device table: %i",numberSections);
     // Return the number of sections.
     return numberSections;
 }
@@ -328,7 +327,7 @@
     
     NSUInteger numRowsSection = [[deviceItems objectAtIndex:section] count];
     
-    NSLog(@"Setting row count in discovered device table %d",numRowsSection);
+    //if (self.debug) NSLog(@"Setting row count in discovered device table %d",numRowsSection);
     return numRowsSection;
 }
 
@@ -357,8 +356,16 @@
         [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateNormal];
         [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateHighlighted];
         
-        cell = buttonCell;
+        if ([BLEConnectButtonCell showDisclosureButton:indexPath])
+        {
+            buttonCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
+        else
+        {
+            buttonCell.accessoryType = UITableViewCellAccessoryNone;
+        }
         
+        cell = buttonCell;
     }
     else
     {
@@ -366,7 +373,6 @@
         
         cell.detailTextLabel.text = [data objectAtIndex:indexPath.row];
         cell.textLabel.text = [labels objectAtIndex:indexPath.row];
-        
     }
     
     return cell;
@@ -378,8 +384,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Did Select Row invoked");
+     if (self.debug) NSLog(@"Did Select Row invoked");
     
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.debug) NSLog(@"Accessory button tapped");
+    
+    // we need a link between the discovered data and the connected data... for now pass nil and assume a single connected device
+    [self.delegate displayPeripheral:nil  sender:self];
 }
 
 @end

@@ -16,5 +16,6 @@
 
 +(void) setButtonTitle : (NSString *)title AtIndex:(NSIndexPath *)index;
 
++(BOOL)showDisclosureButton : (NSIndexPath *)index;
 
 @end

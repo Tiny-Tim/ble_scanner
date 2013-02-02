@@ -41,6 +41,10 @@
 
 // list of connected peripherals
 @property (nonatomic, strong)NSMutableArray *connectedPeripherals;
+
+
+// selected connected peripheral to display
+@property (nonatomic, strong)CBPeripheral *selectedPeripheral;
 @end
 
 @implementation BLEViewController
@@ -208,6 +212,9 @@
             [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
         }
     }
+    
+    // update the table to reflect change of peripheral state
+    [self.discoveredDeviceList.tableView reloadData];
 }
 
 #pragma - Controller Lifecycle
@@ -268,7 +275,7 @@
               self.discoveredDeviceList.delegate = self;
           }
     }
-    else if ([segue.identifier isEqualToString:@"ShowConnects"])
+    else if ([segue.identifier isEqualToString:@"ShowConnected"])
     {
         
         NSLog(@"Preparing to segue to ConnectedTVC from DiscoveredTVC");
@@ -276,7 +283,7 @@
         if ([segue.destinationViewController isKindOfClass:[BLEConnectedDeviceTVC class]])
         {
             connectedDeviceTVC = segue.destinationViewController;
-            connectedDeviceTVC.connectedPeripherals = self.connectedPeripherals;
+            connectedDeviceTVC.connectedPeripheral = self.selectedPeripheral;
             
         }
     }
@@ -295,12 +302,22 @@
 }
 
 
-// Reqest to disconnect Central Manager from peripheral
+// Request to disconnect Central Manager from peripheral
 -(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender
 {
     self.centralManagerStatus.text = @"Disconnecting peripheral";
     [self disconnectPeripheralDevice:peripheral];
 
+}
+
+// Display connected peripheral information
+-(void)displayPeripheral: (CBPeripheral *)peripheral sender:(id)sender
+{
+    // find the corresponding connected peripheral in the connectedlist
+    
+    // HACK HACK Alert -- come back and redesign with core data and relationships between discovered devices and connected devices
+    self.selectedPeripheral = [self.connectedPeripherals objectAtIndex:0];
+    [self performSegueWithIdentifier:@"ShowConnected" sender:self];
 }
 
 
@@ -416,8 +433,9 @@
     if(self.debug) NSLog(@"Connected to peripheral");
     
     [self.connectedPeripherals addObject:peripheral];
-    //segue to connected device table view 
-    [self performSegueWithIdentifier:@"ShowConnects" sender:self];
+    
+    //segue to connected device table view
+    //[self performSegueWithIdentifier:@"ShowConnects" sender:self];
 
     // toggle connect button label in corresponding discovered devices table view row
     [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
@@ -447,9 +465,10 @@
     {
         if (self.debug) NSLog(@"Error disconnecting: %@",[error localizedDescription]);
         
-        // This could occur for several reasons, a connection may have ben dropped by the system without the user initiating a disconnect, or a isconnect request could fail.
+        // This could occur for several reasons, a connection may have ben dropped by the system without the user initiating a disconnect, or a disconnect request could fail.
         
         // The course of action is to synch the state of the connected peripherals in the connected peripheral list and their corresponding connect/disconnect buttons in the discovered peripheral list.
+        [self synchronizeConnectedPeripherals];
         
     }
     
@@ -466,14 +485,14 @@
 //Invoked when the central manager retrieves the list of peripherals currently connected to the system.
 - (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
 {
-    
+    if (self.debug) NSLog(@"Central Manager didRetrieveConnectedPeripherals invoked.");
 }
 
 
 //Invoked when the central manager retrieves the list of known peripherals.
 - (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
 {
-
+    if (self.debug) NSLog(@"Central Manager didRetrievePeripherals invoked.");
 }
 
 @end

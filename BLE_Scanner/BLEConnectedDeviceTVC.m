@@ -8,13 +8,34 @@
 
 #import "BLEConnectedDeviceTVC.h"
 
+
+//----------------------------------
+
+@interface BLEConnectedDeviceTableRow : NSObject
+
+@property(nonatomic, strong) NSString *titleLabelText;
+@property (nonatomic, strong) NSString *titleLabelData;
+
+ 
+@end
+
+@implementation BLEConnectedDeviceTableRow
+
+
+
+@end
+
+
+//----------------------------------
 @interface BLEConnectedDeviceTVC ()
 
+@property(nonatomic, copy) NSArray *dataSource;
 
 @end
 
 @implementation BLEConnectedDeviceTVC
 
+@synthesize connectedPeripheral = _connectedPeripheral;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,11 +47,54 @@
 }
 
 
--(void)setConnectedPeripherals:(NSArray *)connectedPeripherals
+// Generate the row data for the table where each row contians a label and data for the peripheral
+-(void)updateDataSource
 {
-    _connectedPeripherals = [connectedPeripherals copy];
-    [self.tableView reloadData];
+    NSMutableArray * peripheralData = [NSMutableArray array];
+    
+    //Display the properties first
+    
+    // Name
+    BLEConnectedDeviceTableRow *row = [[BLEConnectedDeviceTableRow alloc] init];
+    row.titleLabelText = @"Name: ";
+    row.titleLabelData = self.connectedPeripheral.name;
+    [peripheralData addObject:row];
+    
+    // UUID
+    row = [[BLEConnectedDeviceTableRow alloc] init];
+    row.titleLabelText = @"UUID:  ";
+    
+    CFUUIDRef uuid = self.connectedPeripheral.UUID;
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        NSString *uuid_string = CFBridgingRelease(s);
+        row.titleLabelData = uuid_string;
+    }
+    else
+    {
+        // no UUID provided in discovery
+         row.titleLabelData = @"";
+    }
+    [peripheralData addObject:row];
+    
+    // RSSI
+    
+    //
+    
+    self.dataSource = [peripheralData copy];
+    
 }
+
+
+-(void)setConnectedPeripheral:(CBPeripheral *)connectedPeripheral
+{
+    _connectedPeripheral = connectedPeripheral;
+    
+    // set up the data source for the table view
+    [self updateDataSource];
+}
+
 
 - (void)viewDidLoad
 {
@@ -62,7 +126,7 @@
 {
 
     // Return the number of rows in the section.
-    return [self.connectedPeripherals count];
+    return [self.dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,14 +134,11 @@
     static NSString *CellIdentifier = @"ConnectedCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    CBPeripheral *peripheral = self.connectedPeripherals[indexPath.row];
-    cell.textLabel.text = peripheral.name;
+    BLEConnectedDeviceTableRow *rowData = [self.dataSource objectAtIndex:indexPath.row];
+    cell.textLabel.text = rowData.titleLabelText;
+    cell.detailTextLabel.text = rowData.titleLabelData;
     
-    CFUUIDRef uuid = peripheral.UUID;
-    CFStringRef s = CFUUIDCreateString(NULL, uuid);
-    NSString *uuid_string = CFBridgingRelease(s);
-    cell.detailTextLabel.text = uuid_string;
-    
+        
     
     return cell;
 }
@@ -95,5 +156,8 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+
+#pragma mark - CBPeripheralDelegate
 
 @end

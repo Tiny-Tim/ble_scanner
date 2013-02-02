@@ -64,5 +64,17 @@ static NSMutableDictionary *titleDictionary;
     
 }
 
+// Show disclosure button on table cell if the state of the cell is connected.
+// State is connected if the button label shows Disconnect (user can then Disconnect the connected peripheral.
++(BOOL)showDisclosureButton : (NSIndexPath *)index
+{
+    NSString *title = [titleDictionary objectForKey:index];
+    
+    if (title && ([title localizedCompare:@"Disconnect"] == NSOrderedSame))
+        return YES;
+    else
+        return NO;
+}
+
 
 @end

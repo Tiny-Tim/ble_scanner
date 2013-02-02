@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface BLEConnectedDeviceTVC : UITableViewController
+@interface BLEConnectedDeviceTVC : UITableViewController <CBPeripheralDelegate>
 
-// The model for this controller is a list of connected devices
-@property (nonatomic, copy)NSArray *connectedPeripherals;
+// The model for this controller is a single connected peripheral
+@property (nonatomic, copy)CBPeripheral *connectedPeripheral;
 @end

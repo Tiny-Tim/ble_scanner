@@ -15,6 +15,9 @@
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 -(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 
+-(void)displayPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+
+
 @end
 
 @interface BLEDiscoveredDevicesTVC : UITableViewController
