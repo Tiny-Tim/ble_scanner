@@ -151,7 +151,7 @@
 }
 
 
-// Cpnnect to specified peripheral
+// Cpnnect to specified peripheral if not already connected
 -(void) connectToPeripheralDevice : (CBPeripheral *)peripheral
 {
     
@@ -165,7 +165,33 @@
     {
         if (self.debug) NSLog(@"Request for CentralManager to connect to a connected peripheral ignored.");
     }
-    [self.centralManager connectPeripheral:peripheral options:nil];
+    else
+    {
+        if (self.debug) NSLog(@"Request to connect CentralManager to nil peripheral pointer ignored.");
+    }
+        
+}
+
+
+// Disconnect a peripheral from Central after ensuring peripheal is in connected state
+-(void) disconnectPeripheralDevice:(CBPeripheral *)peripheral
+{
+    // Ensure peripheral is connected
+    if (peripheral && [peripheral isConnected])
+    {
+        if (self.debug) NSLog(@"CBCentralManager disconnecting peripheral");
+        [self.centralManager cancelPeripheralConnection:peripheral];
+    }
+    else if (peripheral)
+    {
+        if (self.debug) NSLog(@"Request for CentralManager to disconnect an unconnected peripheral ignored.");
+    }
+    else
+    {
+        if (self.debug) NSLog(@"Request to disconnect CentralManager to nil peripheral pointer ignored.");
+    }
+
+    
 }
 
 #pragma - Controller Lifecycle
@@ -173,6 +199,14 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+    
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
     
     // Initialize central manager providing self as its delegate
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
@@ -183,14 +217,6 @@
     _scanState = NO;  // not scanning
     
     _debug = YES;
-    
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 
 }
 
@@ -245,12 +271,21 @@
 
 #pragma mark - BLEDiscoveredDevicesDelegate
 
-// Request to connect to peripheral from list of discovered device peripherals
+// Request to connect Central Managerto peripheral from list of discovered device peripherals
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 {
     
     self.centralManagerStatus.text = @"Connecting to peripheral";
     [self connectToPeripheralDevice:peripheral];
+}
+
+
+// Reqest to disconnect Central Manager from peripheral
+-(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender
+{
+    self.centralManagerStatus.text = @"Disconnecting peripheral";
+    [self disconnectPeripheralDevice:peripheral];
+
 }
 
 
@@ -268,11 +303,8 @@
     {
        // self.scanForAllServices = NO;
     }
-    
    
 }
-
-
 
 
 
@@ -384,6 +416,26 @@
 //Invoked whenever an existing connection with the peripheral is torn down.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if (! error)
+    {
+    
+        if (self.debug) NSLog(@"Peripheral succssfully disconnected.");
+        
+        // remove peripheral from connected list
+        [self.connectedPeripherals removeObject:peripheral];
+    
+        // display idle status for Central
+        self.centralManagerStatus.text = @"idle";
+        
+        // toggle connect button label in corresponding discovered devices table view row
+        [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
+    
+        // pop up a dialog to tell user peripheral was disconnected
+    }
+    else 
+    {
+        if (self.debug) NSLog(@"Error disconnecting: %@",[error localizedDescription]);
+    }
     
 }
 

@@ -107,6 +107,9 @@
         else if ([buttonTitle localizedCompare:@"Disconnect"] == NSOrderedSame)
         {
             NSLog(@"Button pressed with Disconnect title");
+            // Ask the CBCentralManager to connect to the device
+            [self.delegate disconnectPeripheral:record.peripheral sender:owningCell];
+
         }
                
     }
@@ -283,12 +286,10 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastItemIndex inSection:sectionIndex];
         
         NSLog(@"row = %i",indexPath.row);
-        
-        
-        BLEConnectButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Connect" forIndexPath:indexPath];
        
+        // get the current title from the custom cell dictionary
+        currentTitle = [BLEConnectButtonCell getButtonTitle:indexPath];
         
-        currentTitle = cell.connectDisconnectButton.currentTitle;
         if ( [currentTitle localizedCompare:@"Connect"] == NSOrderedSame)
         {
             [BLEConnectButtonCell setButtonTitle:(@"Disconnect") AtIndex:indexPath];

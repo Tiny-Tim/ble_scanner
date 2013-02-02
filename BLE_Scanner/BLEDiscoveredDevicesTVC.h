@@ -13,6 +13,7 @@
 @protocol BLEDiscoveredDevicesDelegate
 
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+-(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 
 @end
 
