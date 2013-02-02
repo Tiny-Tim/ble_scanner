@@ -21,5 +21,9 @@
 // Invoke to add a discovered device to the model
 -(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord;
 
+//Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
+-(void)toggleConnectButtonLabel : (CBPeripheral *)peripheral;
+
+
 @property (nonatomic, weak)id< BLEDiscoveredDevicesDelegate>delegate;
 @end

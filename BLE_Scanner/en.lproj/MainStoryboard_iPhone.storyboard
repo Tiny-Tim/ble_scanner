@@ -355,18 +355,18 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Connect" rowHeight="60" id="Anm-uw-5qd">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Connect" rowHeight="60" id="Anm-uw-5qd" customClass="BLEConnectButtonCell">
                                 <rect key="frame" x="0.0" y="135" width="320" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKc-Jg-taV">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-VF-I38">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="73" id="juw-cv-zok"/>
+                                                <constraint firstAttribute="width" constant="86" id="KW2-Ak-LYh"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <state key="normal" title="Connect">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -375,16 +375,19 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="connectButton:" destination="1vR-VU-Qfb" eventType="touchUpInside" id="X0b-fM-X1X"/>
+                                                <action selector="connectButton:" destination="1vR-VU-Qfb" eventType="touchUpInside" id="rjh-Dn-98N"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="CKc-Jg-taV" firstAttribute="centerX" secondItem="Anm-uw-5qd" secondAttribute="centerX" type="default" id="AzO-D9-Tin"/>
-                                    <constraint firstItem="CKc-Jg-taV" firstAttribute="top" secondItem="Anm-uw-5qd" secondAttribute="top" constant="8" id="tq5-Vy-fAC"/>
+                                    <constraint firstItem="7Ne-VF-I38" firstAttribute="leading" secondItem="Anm-uw-5qd" secondAttribute="leading" constant="114" id="0HK-vo-8dy"/>
+                                    <constraint firstItem="7Ne-VF-I38" firstAttribute="top" secondItem="Anm-uw-5qd" secondAttribute="top" constant="8" id="2lE-xl-7CX"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="connectDisconnectButton" destination="7Ne-VF-I38" id="ENM-3f-E0X"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -442,6 +445,12 @@
         </scene>
     </scenes>
     <classes>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
         <class className="BLEConnectedDeviceTVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectedDeviceTVC.h"/>
         </class>

@@ -164,8 +164,6 @@
     else if (peripheral)
     {
         if (self.debug) NSLog(@"Request for CentralManager to connect to a connected peripheral ignored.");
-        
-        
     }
     [self.centralManager connectPeripheral:peripheral options:nil];
 }
@@ -240,8 +238,10 @@
             
         }
     }
-
 }
+
+
+
 
 #pragma mark - BLEDiscoveredDevicesDelegate
 
@@ -364,9 +364,9 @@
     //segue to connected device table view 
     [self performSegueWithIdentifier:@"ShowConnects" sender:self];
 
-    // Update buttons on discovered devices table view for connected device
+    // toggle connect button label in corresponding discovered devices table view row
+    [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
     
-    //segue to list of connected peripherals
 }
 
 //Invoked whenever an existing connection with the peripheral is torn down.

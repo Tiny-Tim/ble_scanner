@@ -8,7 +8,7 @@
 
 #import "BLEDiscoveredDevicesTVC.h"
 #import "CBUUID+StringExtraction.h"
-
+#import "BLEConnectButtonCell.h"
 
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
@@ -28,11 +28,10 @@
 - (IBAction)connectButton:(UIButton *)sender;
 
 
+
 @end
 
 @implementation BLEDiscoveredDevicesTVC
-
-
 
 @synthesize sections = _sections;
 @synthesize deviceRecords = _deviceRecords;
@@ -105,9 +104,9 @@
             // At this point only the connection request has been made, we don't know if the connection was successful. Stay in the same view until the result of the connection request is known.
             
         }
-        else if ([buttonTitle localizedCompare:@"Disconnect"])
+        else if ([buttonTitle localizedCompare:@"Disconnect"] == NSOrderedSame)
         {
-        
+            NSLog(@"Button pressed with Disconnect title");
         }
                
     }
@@ -189,7 +188,7 @@
 
     // finally add placeholder for the connect button
     [deviceInfo addObject:@""];
-    [cellLabel addObject:@"Connect"];
+    [cellLabel addObject:@""];
     
     // add peripheral item data to section array
     [[self.sections objectAtIndex:0] addObject:cellLabel];
@@ -240,6 +239,65 @@
 }
 
 
+//Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
+-(void)toggleConnectButtonLabel : (CBPeripheral *)peripheral;
+{
+    // find all of the rows which have a peripheral matching the parameter using UUID as the key
+    // for each corresponding device toggle the button so that connect -> disconnect or disconnect -> connect
+    
+    BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
+    CFUUIDRef target = peripheral.UUID;
+    test = ^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        BLEDiscoveryRecord *record = (BLEDiscoveryRecord *)obj;
+        CFUUIDRef uuid = record.peripheral.UUID;
+        
+        if ( CFEqual(target, uuid))
+        {
+            return YES;
+        }
+        return NO;
+    };
+    
+    NSIndexSet *indexes = [self.deviceRecords indexesOfObjectsPassingTest:test];
+    NSLog(@"indexes: %@", indexes);
+    
+    // swap the button lablels
+    NSUInteger sectionIndex=[indexes firstIndex];
+  
+    NSString *currentTitle;
+    while(sectionIndex != NSNotFound)
+    {
+        // the index represents the section number which corresponds to the peripheral
+        NSArray *data = [[self.sections objectAtIndex:1] objectAtIndex:sectionIndex];
+        NSUInteger lastItemIndex = [data count]-1;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastItemIndex inSection:sectionIndex];
+        
+        NSLog(@"row = %i",indexPath.row);
+        
+        
+        BLEConnectButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Connect" forIndexPath:indexPath];
+       
+        
+        currentTitle = cell.connectDisconnectButton.currentTitle;
+        if ( [currentTitle localizedCompare:@"Connect"] == NSOrderedSame)
+        {
+            [BLEConnectButtonCell setButtonTitle:(@"Disconnect") AtIndex:indexPath];
+            
+        }
+        else
+        {
+            [BLEConnectButtonCell setButtonTitle:(@"Connect") AtIndex:indexPath];
+            
+        }
+        
+        sectionIndex=[indexes indexGreaterThanIndex: sectionIndex];
+    }
+        
+    [self.tableView reloadData];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -266,7 +324,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell;
     static NSString *CellIdentifier = @"DeviceContent";
     static NSString *AdvertisementCellIdentifier = @"Advertisement";
@@ -284,7 +341,13 @@
     }
     else if (indexPath.row == ([data count]-1))
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:ConnectCellIdentifier forIndexPath:indexPath];
+        BLEConnectButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:ConnectCellIdentifier forIndexPath:indexPath];
+        
+        NSString *title = [BLEConnectButtonCell getButtonTitle:indexPath];
+        [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateNormal];
+        [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateHighlighted];
+        
+        cell = buttonCell;
         
     }
     else

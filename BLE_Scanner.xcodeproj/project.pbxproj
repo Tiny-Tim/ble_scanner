@@ -34,6 +34,7 @@
 		D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 		D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 		D9CB596416BB233D000A99FB /* BLEConnectedDeviceTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CB596316BB233D000A99FB /* BLEConnectedDeviceTVC.m */; };
+		D9CB596716BC6330000A99FB /* BLEConnectButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 		D9CB596216BB233D000A99FB /* BLEConnectedDeviceTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnectedDeviceTVC.h; sourceTree = "<group>"; };
 		D9CB596316BB233D000A99FB /* BLEConnectedDeviceTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEConnectedDeviceTVC.m; sourceTree = "<group>"; };
+		D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnectButtonCell.h; sourceTree = "<group>"; };
+		D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEConnectButtonCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
 				D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */,
 				D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */,
+				D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */,
+				D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */,
 				D9CB596216BB233D000A99FB /* BLEConnectedDeviceTVC.h */,
 				D9CB596316BB233D000A99FB /* BLEConnectedDeviceTVC.m */,
 				D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */,
@@ -326,6 +331,7 @@
 				D982748916B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */,
 				D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */,
 				D9CB596416BB233D000A99FB /* BLEConnectedDeviceTVC.m in Sources */,
+				D9CB596716BC6330000A99FB /* BLEConnectButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
