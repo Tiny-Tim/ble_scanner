@@ -7,7 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "BLEViewController.h"
 
 @interface BLE_ScannerTests : SenTestCase
+{
+    BLEViewController *viewController;
+}
 
 @end

@@ -190,8 +190,24 @@
     {
         if (self.debug) NSLog(@"Request to disconnect CentralManager to nil peripheral pointer ignored.");
     }
+}
 
-    
+
+// synchronize connected peripherals with button states
+// if a connected peripheral is disconnected by the system, remove it from the list
+// and update button labels to allow it to be re-connected
+-(void)synchronizeConnectedPeripherals
+{
+    NSArray *peripheralList = [self.connectedPeripherals copy];
+    for (CBPeripheral *peripheral in peripheralList)
+    {
+        if (! peripheral.isConnected)
+        {
+            // remove from list and update buttons in discovered devices
+            [self.connectedPeripherals removeObject:peripheral];
+            [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
+        }
+    }
 }
 
 #pragma - Controller Lifecycle
@@ -268,10 +284,9 @@
 
 
 
-
 #pragma mark - BLEDiscoveredDevicesDelegate
 
-// Request to connect Central Managerto peripheral from list of discovered device peripherals
+// Request to connect Central Manager to peripheral from list of discovered device peripherals
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 {
     
@@ -313,8 +328,6 @@
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if (self.debug) NSLog(@"Central Manager Delegate DidUpdate State Invoked");
-   
-    
     
     if (self.centralManager.state ==CBCentralManagerStatePoweredOn)
     {
@@ -332,8 +345,6 @@
     }
     
     self.hostBluetoothStatus.text = [[self class ] getCBCentralStateName: self.centralManager.state];
-    
-    
 }
 
 
@@ -435,6 +446,11 @@
     else 
     {
         if (self.debug) NSLog(@"Error disconnecting: %@",[error localizedDescription]);
+        
+        // This could occur for several reasons, a connection may have ben dropped by the system without the user initiating a disconnect, or a isconnect request could fail.
+        
+        // The course of action is to synch the state of the connected peripherals in the connected peripheral list and their corresponding connect/disconnect buttons in the discovered peripheral list.
+        
     }
     
 }

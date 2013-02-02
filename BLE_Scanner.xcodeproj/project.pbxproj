@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D90263B816BD80D40058BA37 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
 		D9207B4116B6D35B0023FFFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4016B6D35B0023FFFA /* UIKit.framework */; };
 		D9207B4316B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B4516B6D35B0023FFFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4416B6D35B0023FFFA /* CoreGraphics.framework */; };
@@ -106,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90263B816BD80D40058BA37 /* CoreBluetooth.framework in Frameworks */,
 				D9207B6816B6D35B0023FFFA /* SenTestingKit.framework in Frameworks */,
 				D9207B6916B6D35B0023FFFA /* UIKit.framework in Frameworks */,
 				D9207B6A16B6D35B0023FFFA /* Foundation.framework in Frameworks */,

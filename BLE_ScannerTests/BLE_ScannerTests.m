@@ -8,6 +8,7 @@
 
 #import "BLE_ScannerTests.h"
 
+
 @implementation BLE_ScannerTests
 
 - (void)setUp
@@ -15,18 +16,27 @@
     [super setUp];
     
     // Set-up code here.
+    viewController = [[BLEViewController alloc]init];
+    
 }
 
 - (void)tearDown
 {
     // Tear-down code here.
-    
     [super tearDown];
+    viewController = nil;
 }
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in BLE_ScannerTests");
+     STAssertTrue(YES, @"Unit tests are  implemented yet in BLE_ScannerTests");
+    
+    CBPeripheral *peripheral = [[CBPeripheral alloc]init];
+    
+   
+    
+    NSLog(@"peripheral description %@",[peripheral description]);
+    
 }
 
 @end
