@@ -313,11 +313,9 @@
 // Display connected peripheral information
 -(void)displayPeripheral: (CBPeripheral *)peripheral sender:(id)sender
 {
+    NSLog(@"Display peripheral invoked on Discovered Devices delegate ");
     // find the corresponding connected peripheral in the connectedlist
     
-    // HACK HACK Alert -- come back and redesign with core data and relationships between discovered devices and connected devices
-    self.selectedPeripheral = [self.connectedPeripherals objectAtIndex:0];
-    [self performSegueWithIdentifier:@"ShowConnected" sender:self];
 }
 
 

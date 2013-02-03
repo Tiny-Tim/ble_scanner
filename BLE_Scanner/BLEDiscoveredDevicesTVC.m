@@ -13,14 +13,20 @@
 
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
-#define ADVERTISEMENT_ROW 3
+#define ADVERTISEMENT_ROW 4
+#define NAME_LABEL  @"Name:  "
+#define UUID_LABEL @"UUID:  "
+#define CONNECTED_LABEL @"Connected: "
+#define RSSI_LABEL @"RSSI:  "
 
 @interface BLEDiscoveredDevicesTVC ()
 
-// The model for this table view controller
-@property (nonatomic, strong) NSMutableArray *sections;
 
+// The model for this table view controller
 @property (nonatomic, strong)NSMutableArray *deviceRecords;
+
+// data structure conatining lables for rows in table
+@property (nonatomic, strong) NSMutableArray *sections;
 
 // controls NSLogging
 @property (nonatomic) BOOL debug;
@@ -121,83 +127,24 @@
     // add the deviceRecord to the list of discovered devices
     [self.deviceRecords addObject:deviceRecord];
     
-    // add the device name - index 0
-    BLEDetailCellData *row = [[BLEDetailCellData alloc] init];
-    [row setLabelText:@"Name: " andDetailText:deviceRecord.peripheral.name];
-    [deviceInfo addObject:row];
-   
+    // add the device name 
+    [deviceInfo addObject:NAME_LABEL];   
     
-    // add the UUID - index 1
-    row = [[BLEDetailCellData alloc] init];
-    row.textLabelText = @"UUID:  ";
-    CFUUIDRef uuid = deviceRecord.peripheral.UUID;
-    if (uuid)
-    {
-        CFStringRef s = CFUUIDCreateString(NULL, uuid);
-        NSString *uuid_string = CFBridgingRelease(s);
-        row.detailTextLabelText= uuid_string;
-    }
-    else
-    {
-        // no UUID provided in discovery
-        row.detailTextLabelText = @"";
-    }
-    [deviceInfo addObject:row];
+    // add the UUID 
+    [deviceInfo addObject:UUID_LABEL];
+
+    // display connection state
+    [deviceInfo addObject:CONNECTED_LABEL];
     
-    // add RSSI - index 2
-    row = [[BLEDetailCellData alloc] init];
-    NSString *rssiString = [[NSString alloc]initWithFormat:@"%i",[deviceRecord.rssi shortValue]];
-    [row setLabelText:@"RSSI" andDetailText:rssiString];
-    [deviceInfo addObject:row];
+    
+    // add RSSI    
+    [deviceInfo addObject:RSSI_LABEL];
         
     // add placeholder for Advertisement Label
-    row = [[BLEDetailCellData alloc] init];
-    [row setLabelText:@"ADVERTISEMENT" andDetailText:@""];
-    [deviceInfo addObject:row];
-  
-    
-    // process advertisement data
-    NSEnumerator *enumerator = [deviceRecord.advertisementData keyEnumerator];
-    id key;
-    while ((key = [enumerator nextObject]))
-    {
-        if ([key isKindOfClass:[NSString class]])
-        {
-            NSLog(@"Advertising key: %@",key);
-            id value = [deviceRecord.advertisementData objectForKey:key];
-            if ([value isKindOfClass:[NSString class]])
-            {
-                // both key and value are NSStrings
-                row = [[BLEDetailCellData alloc] init];
-                [row setLabelText:key andDetailText:value];
-                [deviceInfo addObject:row];
-            }
-            else if ([value isKindOfClass:[NSArray class]])
-            {
-                NSArray *valueData = (NSArray *)value;
-                for (id item in valueData)
-                {
-                    if ([item isKindOfClass:[CBUUID class]])
-                    {
-                        // both key and value are NSStrings
-                        row = [[BLEDetailCellData alloc] init];
-                        [row setLabelText:key andDetailText:[item representativeString]];
-                        [deviceInfo addObject:row];
-                    }
-                }
-            }
-            else  
-            {
-                // do nothing for now
-            }
-        }
-    }
-
-
+    [deviceInfo addObject:@"ADVERTISEMENT"];
+      
     // finally add placeholder for the connect button
-    row = [[BLEDetailCellData alloc] init];
-    [row setLabelText:@"" andDetailText:@""];
-    [deviceInfo addObject:row];
+    [deviceInfo addObject:@""];
 
         
     // add peripheral item data to section array
@@ -279,7 +226,8 @@
     {
         // the index represents the section number which corresponds to the peripheral
         NSArray *data = [[self.sections objectAtIndex:0] objectAtIndex:sectionIndex];
-        NSUInteger lastItemIndex = [data count]-1;
+        BLEDiscoveryRecord *record = [self.deviceRecords objectAtIndex:sectionIndex];
+        NSUInteger lastItemIndex = [record.advertisementItems count] +  [data count]-1;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastItemIndex inSection:sectionIndex];
         
         //if (self.debug) NSLog(@"row = %i",indexPath.row);
@@ -309,21 +257,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // this gets the array of labels, each element in this array corresponds to a device
-    NSUInteger numberSections = [[self.sections objectAtIndex:0] count];
-    //if (self.debug) NSLog(@"Number of sections, i.e discovered devices, in discovered device table: %i",numberSections);
-    // Return the number of sections.
-    return numberSections;
+    // one section per discovered device
+    return [self.deviceRecords count];
 }
 
 
+// Number rows in section equals the number of peripheral properties in the sections array being displayed + the number of advertisement items being displayed.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    // access the array which had labels for each peripheral;
+    // access the array which had labels for each peripheral - corresponds to peripheral properties + ad label + button
     NSArray *deviceItems = [self.sections objectAtIndex:0];
+
+    // access the device record for the section
+    BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:section];
     
-    NSUInteger numRowsSection = [[deviceItems objectAtIndex:section] count];
+    // ADVERTISEMENT_ROW = number of peripheral properties + number of advertisement items
+    NSUInteger numRowsSection = [[deviceItems objectAtIndex:section]count]+ [record.advertisementItems count] ;
+    
     
     //if (self.debug) NSLog(@"Setting row count in discovered device table %d",numRowsSection);
     return numRowsSection;
@@ -336,15 +286,20 @@
     static NSString *AdvertisementCellIdentifier = @"Advertisement";
     static NSString *ConnectCellIdentifier = @"Connect";
     
+    //if (self.debug) NSLog(@"Index= %i",indexPath.row);
     
-    // get the labels and data  which correspond to the section    
-    NSArray *data = [[self.sections objectAtIndex:0] objectAtIndex:indexPath.section];
+    // get the labels which correspond to the peripheral    
+    NSArray *labelData = [[self.sections objectAtIndex:0] objectAtIndex:indexPath.section];
+    // access the device record for the section
+    BLEDiscoveryRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
+
+    NSUInteger buttonRow = [labelData count] + [record.advertisementItems count] - 1;
     if (indexPath.row == ADVERTISEMENT_ROW)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:AdvertisementCellIdentifier forIndexPath:indexPath];
         
     }
-    else if (indexPath.row == ([data count]-1))
+    else if (indexPath.row == buttonRow)
     {
         BLEConnectButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:ConnectCellIdentifier forIndexPath:indexPath];
         
@@ -367,9 +322,66 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
-        BLEDetailCellData *row = [data objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = row.detailTextLabelText;
-        cell.textLabel.text = row.textLabelText;
+                       
+        // correlate the row index to the data item being displayed
+        
+        // if row index < ADVERTISEMENT_ROW then peripheral properties are bing displayed
+        if( indexPath.row < ADVERTISEMENT_ROW)
+        {
+            // get the label from the label array and match it to a peripheral invocation
+            cell.textLabel.text = [labelData objectAtIndex:indexPath.row];
+            
+            if ([cell.textLabel.text localizedCompare:NAME_LABEL] == NSOrderedSame)
+            {
+                if (record.peripheral.name)
+                {
+                    cell.detailTextLabel.text = record.peripheral.name;
+                }
+                else
+                {
+                    cell.detailTextLabel.text= @"";
+                }
+            }
+            else if ([cell.textLabel.text localizedCompare:UUID_LABEL] == NSOrderedSame)
+            {
+                NSString *uuid_string;
+                CFUUIDRef uuid = record.peripheral.UUID;
+                if (uuid)
+                {
+                    CFStringRef s = CFUUIDCreateString(NULL, uuid);
+                    uuid_string = CFBridgingRelease(s);
+                }
+                else
+                {
+                    // no UUID provided in discovery
+                    uuid_string = @"";
+                }
+                
+                cell.detailTextLabel.text = uuid_string;
+                
+            }
+            else if ([cell.textLabel.text localizedCompare:CONNECTED_LABEL] == NSOrderedSame)
+            {
+                cell.detailTextLabel.text = [record.peripheral isConnected] ? @"YES" : @"NO";
+            }
+            else if ([cell.textLabel.text localizedCompare:RSSI_LABEL] == NSOrderedSame)
+            {
+                cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@"%i",[record.rssi shortValue]];
+            }
+            
+        }
+        else if ( (indexPath.row < buttonRow) && (indexPath.row > ADVERTISEMENT_ROW) )
+        {
+            // display the advertisement items
+            NSUInteger adIndex = indexPath.row - ADVERTISEMENT_ROW - 1;
+            
+            BLEDetailCellData *data= record.advertisementItems[adIndex];
+            
+            cell.textLabel.text = data.textLabelText;
+            cell.detailTextLabel.text = data.detailTextLabelText;
+            
+        }
+        
     }
     
     return cell;
