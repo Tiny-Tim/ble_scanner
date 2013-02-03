@@ -7,26 +7,9 @@
 //
 
 #import "BLEConnectedDeviceTVC.h"
+#import "BLEDetailCellData.h"
 
 
-//----------------------------------
-
-@interface BLEConnectedDeviceTableRow : NSObject
-
-@property(nonatomic, strong) NSString *titleLabelText;
-@property (nonatomic, strong) NSString *titleLabelData;
-
- 
-@end
-
-@implementation BLEConnectedDeviceTableRow
-
-
-
-@end
-
-
-//----------------------------------
 @interface BLEConnectedDeviceTVC ()
 
 @property(nonatomic, copy) NSArray *dataSource;
@@ -55,26 +38,26 @@
     //Display the properties first
     
     // Name
-    BLEConnectedDeviceTableRow *row = [[BLEConnectedDeviceTableRow alloc] init];
-    row.titleLabelText = @"Name: ";
-    row.titleLabelData = self.connectedPeripheral.name;
+    BLEDetailCellData *row = [[BLEDetailCellData alloc] init];
+    [row setLabelText:@"Name" andDetailText: self.connectedPeripheral.name];
+    
     [peripheralData addObject:row];
     
     // UUID
-    row = [[BLEConnectedDeviceTableRow alloc] init];
-    row.titleLabelText = @"UUID:  ";
+    row = [[BLEDetailCellData alloc] init];
+    row.textLabelText = @"UUID:  ";
     
     CFUUIDRef uuid = self.connectedPeripheral.UUID;
     if (uuid)
     {
         CFStringRef s = CFUUIDCreateString(NULL, uuid);
         NSString *uuid_string = CFBridgingRelease(s);
-        row.titleLabelData = uuid_string;
+        row.detailTextLabelText= uuid_string;
     }
     else
     {
         // no UUID provided in discovery
-         row.titleLabelData = @"";
+         row.detailTextLabelText = @"";
     }
     [peripheralData addObject:row];
     
@@ -134,9 +117,9 @@
     static NSString *CellIdentifier = @"ConnectedCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    BLEConnectedDeviceTableRow *rowData = [self.dataSource objectAtIndex:indexPath.row];
-    cell.textLabel.text = rowData.titleLabelText;
-    cell.detailTextLabel.text = rowData.titleLabelData;
+    BLEDetailCellData *rowData = [self.dataSource objectAtIndex:indexPath.row];
+    cell.textLabel.text = rowData.textLabelText;
+    cell.detailTextLabel.text = rowData.detailTextLabelText;
     
         
     
