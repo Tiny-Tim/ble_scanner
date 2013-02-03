@@ -12,6 +12,9 @@
 
 @interface BLEDiscoveryRecord : NSObject
 
+@property (nonatomic, readonly)NSNumber *dictionaryKey;
+
+
 @property (nonatomic, strong)CBPeripheral *peripheral;
 @property (nonatomic, strong)CBCentralManager *central;
 @property (nonatomic, strong)NSDictionary * advertisementData;
@@ -22,6 +25,7 @@
 -(id)initWithCentral: (CBCentralManager *)central
 didDiscoverPeripheral:(CBPeripheral * )peripheral withAdvertisementData:(NSDictionary *)advertisementData
             withRSSI:(NSNumber *)RSSI;
+
 
 
 @end

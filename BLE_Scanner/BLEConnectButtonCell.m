@@ -46,9 +46,9 @@ static NSMutableDictionary *titleDictionary;
 }
 
 
-+(NSString *)getButtonTitle : (NSIndexPath *)index
++(NSString *)getButtonTitle : (NSNumber *)key
 {
-    NSString *title = [titleDictionary objectForKey:index];
+    NSString *title = [titleDictionary objectForKey:key];
     
     if (title == nil)
     {
@@ -58,23 +58,13 @@ static NSMutableDictionary *titleDictionary;
     return title;
 }
 
-+(void) setButtonTitle : (NSString *)title AtIndex:(NSIndexPath *)index
++(void) setButtonTitle : (NSString *)title AtKey:(NSNumber *)key
 {
-    [titleDictionary setObject:title forKey:index];
+    [titleDictionary setObject:title forKey:key];
     
 }
 
-// Show disclosure button on table cell if the state of the cell is connected.
-// State is connected if the button label shows Disconnect (user can then Disconnect the connected peripheral.
-+(BOOL)showDisclosureButton : (NSIndexPath *)index
-{
-    NSString *title = [titleDictionary objectForKey:index];
-    
-    if (title && ([title localizedCompare:@"Disconnect"] == NSOrderedSame))
-        return YES;
-    else
-        return NO;
-}
+
 
 
 @end

@@ -13,8 +13,25 @@
 @implementation BLEDiscoveryRecord
 
 
-@synthesize advertisementItems = _advertisementItems;
 
+
+@synthesize advertisementItems = _advertisementItems;
+@synthesize dictionaryKey = _dictionaryKey;
+
+static NSInteger recordCount=1;
+
+-(NSNumber *)dictionaryKey
+{
+    if (_dictionaryKey == nil)
+    {
+        _dictionaryKey = [NSNumber numberWithInteger:recordCount];
+        recordCount++;
+    }
+    
+    
+    return _dictionaryKey;
+
+}
 
 -(void)setAdvertisementItems:(NSArray *)advertisementItems
 {
@@ -86,11 +103,11 @@
 {
     if (self = [super init])
     {
+                
         self.central = central;
         self.peripheral = peripheral;
         self.advertisementData = advertisementData;
         self.rssi = RSSI;
-        
         [self processAdvertisementData];
     }
     

@@ -12,10 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *connectDisconnectButton;
 
-+(NSString *)getButtonTitle : (NSIndexPath *)index;
++(NSString *)getButtonTitle : (NSNumber *)key;
 
-+(void) setButtonTitle : (NSString *)title AtIndex:(NSIndexPath *)index;
++(void) setButtonTitle : (NSString *)title AtKey:(NSNumber *)key;
 
-+(BOOL)showDisclosureButton : (NSIndexPath *)index;
+
 
 @end

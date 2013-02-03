@@ -209,7 +209,7 @@
         {
             // remove from list and update buttons in discovered devices
             [self.connectedPeripherals removeObject:peripheral];
-            [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
+            [self.discoveredDeviceList toggleConnectionState:peripheral];
         }
     }
     
@@ -425,7 +425,7 @@
     //[self performSegueWithIdentifier:@"ShowConnects" sender:self];
 
     // toggle connect button label in corresponding discovered devices table view row
-    [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
+    [self.discoveredDeviceList toggleConnectionState:peripheral];
     
 }
 
@@ -444,7 +444,7 @@
         self.centralManagerStatus.text = @"idle";
         
         // toggle connect button label in corresponding discovered devices table view row
-        [self.discoveredDeviceList toggleConnectButtonLabel:peripheral];
+        [self.discoveredDeviceList toggleConnectionState:peripheral];
     
         // pop up a dialog to tell user peripheral was disconnected
     }
