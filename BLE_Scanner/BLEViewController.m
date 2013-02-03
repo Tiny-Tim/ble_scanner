@@ -7,7 +7,7 @@
 //
 
 #import "BLEViewController.h"
-#import "BLEConnectedDeviceTVC.h"
+
 
 @interface BLEViewController ()
 
@@ -275,18 +275,7 @@
               self.discoveredDeviceList.delegate = self;
           }
     }
-    else if ([segue.identifier isEqualToString:@"ShowConnected"])
-    {
-        
-        NSLog(@"Preparing to segue to ConnectedTVC from DiscoveredTVC");
-        BLEConnectedDeviceTVC *connectedDeviceTVC;
-        if ([segue.destinationViewController isKindOfClass:[BLEConnectedDeviceTVC class]])
-        {
-            connectedDeviceTVC = segue.destinationViewController;
-            connectedDeviceTVC.connectedPeripheral = self.selectedPeripheral;
-            
-        }
-    }
+    
 }
 
 
