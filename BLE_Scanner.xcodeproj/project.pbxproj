@@ -55,6 +55,7 @@
 		D90263BA16BDE1F40058BA37 /* BLEDetailCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDetailCellData.m; sourceTree = "<group>"; };
 		D90263BD16C011340058BA37 /* BLEPeripheralServicesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEPeripheralServicesTVC.h; sourceTree = "<group>"; };
 		D90263BE16C011340058BA37 /* BLEPeripheralServicesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEPeripheralServicesTVC.m; sourceTree = "<group>"; };
+		D90263C116C081050058BA37 /* BLECentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLECentralManager.h; sourceTree = "<group>"; };
 		D9207B3C16B6D35B0023FFFA /* BLE_Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLE_Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9207B4016B6D35B0023FFFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9207B4216B6D35B0023FFFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -158,6 +159,7 @@
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
 				D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */,
 				D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */,
+				D90263C116C081050058BA37 /* BLECentralManager.h */,
 				D90263BD16C011340058BA37 /* BLEPeripheralServicesTVC.h */,
 				D90263BE16C011340058BA37 /* BLEPeripheralServicesTVC.m */,
 				D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */,

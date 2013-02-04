@@ -9,16 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEDiscoveryRecord.h"
-
-@protocol BLEDiscoveredDevicesDelegate
-
--(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
--(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
-
--(void)displayServicesForPeripheral: (BLEDiscoveryRecord *)deviceRecord sender:(id)sender;
+#import "BLECentralManager.h"
 
 
-@end
 
 @interface BLEDiscoveredDevicesTVC : UITableViewController
 
@@ -29,5 +22,5 @@
 -(void)toggleConnectionState : (CBPeripheral *)peripheral;
 
 
-@property (nonatomic, weak)id< BLEDiscoveredDevicesDelegate>delegate;
+@property (nonatomic, weak)id< BLECentralManagerDelegate>delegate;
 @end
