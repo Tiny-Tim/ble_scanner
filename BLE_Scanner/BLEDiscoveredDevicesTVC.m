@@ -7,7 +7,7 @@
 //
 
 #import "BLEDiscoveredDevicesTVC.h"
-#import "CBUUID+StringExtraction.h"
+//#import "CBUUID+StringExtraction.h"
 #import "BLEConnectButtonCell.h"
 #import "BLEDetailCellData.h"
 
@@ -331,8 +331,6 @@
         [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateNormal];
         [buttonCell.connectDisconnectButton setTitle:title forState:UIControlStateHighlighted];
         
-        
-        
         cell = buttonCell;
     }
     else
@@ -426,12 +424,52 @@
     
 }
 
+
+// Accessory button handler
+// Perform a matching test with the path index to identify what peripheral (section) and row is associated with the accessory button and then dispatch the execution of the handler to back to the central view controller.
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     if (self.debug) NSLog(@"Accessory button tapped");
     
-    // we need a link between the discovered data and the connected data... for now pass nil and assume a single connected device
-    [self.delegate displayPeripheral:nil  sender:self];
+    // the section corresponds to a unique peripheral
+    
+    // row numbers between 0 and less than the count of items in the data label array within Section can be matched to a particular peripheral property.
+    
+    // a row number equal to data label count corresponds to the Advertising Label
+    
+    // then next N rows after the advertsing label are advertisng data items, where N is the count of the advertising item array in the peripheral's device discovery record
+    
+    // any row after the advertising items correspond to a button or buttons added which initiate actions on the peripheral.
+    
+    // current design only supports accessory buttons for the section item. Validate and then dispatch.
+    
+    // access the label data for the peripheral
+    NSArray *deviceItems = [self.sections objectAtIndex:0];
+    NSArray *deviceLabels = [deviceItems objectAtIndex:indexPath.section];
+    
+    NSUInteger deviceLabelCount = [deviceLabels count];
+    BLEDiscoveryRecord * record= [self.deviceRecords objectAtIndex:indexPath.section];
+   
+    
+    if (indexPath.row < (deviceLabelCount - 2))
+    {
+        // accessory button corresponds to a peripheral property - whihc is where we expect to find the service label we are looking for
+        NSString *itemLabel = deviceLabels[indexPath.row];
+        if ( [itemLabel localizedCompare:SERVICES_LABEL] == NSOrderedSame)
+        {
+            //match for Services row as expected dispatch handler
+            [self.delegate displayServicesForPeripheral:record sender:self];
+        }
+        else
+        {
+            NSLog(@"Accessory button selected for row not expecting to have an accessory button.");
+        }
+    }
+    else
+    {
+        NSLog(@"Accessory button selected for row not expecting to have an accessory button.");
+    }
+   
 }
 
 @end

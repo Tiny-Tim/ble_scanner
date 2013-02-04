@@ -7,6 +7,7 @@
 //
 
 #import "BLEViewController.h"
+#import "BLEPeripheralServicesTVC.h"
 
 
 @interface BLEViewController ()
@@ -45,6 +46,8 @@
 
 // selected connected peripheral to display
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
+
+@property (nonatomic, strong)BLEDiscoveryRecord *displayServiceTarget;
 @end
 
 @implementation BLEViewController
@@ -163,6 +166,9 @@
     if (peripheral && ! [peripheral isConnected])
     {
         if (self.debug) NSLog(@"CBCentralManager connecting to peripheral");
+        self.centralManagerStatus.textColor = [UIColor greenColor];
+        self.centralManagerStatus.text = @"Connecting to peripheral.";
+        [self.centralManagerActivityIndicator startAnimating];
         [self.centralManager connectPeripheral:peripheral options:nil];
     }
     else if (peripheral)
@@ -175,6 +181,33 @@
     }
         
 }
+
+
+// check status of CBCentralManager??
+-(void) discoverPeripheralServices : (CBPeripheral *)peripheral
+{
+    // Implement checks before connecting, i.e. already connected
+    if (peripheral &&  [peripheral isConnected])
+    {
+        if (peripheral.delegate == nil)
+        {
+            peripheral.delegate = self;
+        }
+        
+        self.centralManagerStatus.textColor = [UIColor greenColor];
+        self.centralManagerStatus.text = @"Discovering peripheral services.";
+        [self.centralManagerActivityIndicator startAnimating];
+        [peripheral discoverServices:nil];
+        
+    }
+    else
+    {
+        if (self.debug) NSLog(@"Request to discover peripheral services not executed");
+    }
+}
+
+    
+                                      
 
 
 // Disconnect a peripheral from Central after ensuring peripheal is in connected state
@@ -275,6 +308,18 @@
               self.discoveredDeviceList.delegate = self;
           }
     }
+    else if ([segue.identifier isEqualToString:@"ShowServices"])
+    {
+        if (self.debug) NSLog(@"Segueing to Show Services");
+        if ([segue.destinationViewController isKindOfClass:[BLEPeripheralServicesTVC class]])
+        {
+            BLEPeripheralServicesTVC *destination = segue.destinationViewController;
+            
+            destination.deviceRecord = self.displayServiceTarget;
+            
+        }
+        
+    }
     
 }
 
@@ -299,12 +344,27 @@
 
 }
 
-// Display connected peripheral information
--(void)displayPeripheral: (CBPeripheral *)peripheral sender:(id)sender
+// Display services for peripheral information
+-(void)displayServicesForPeripheral: (BLEDiscoveryRecord *)deviceRecord sender:(id)sender;
 {
-    NSLog(@"Display peripheral invoked on Discovered Devices delegate ");
-    // find the corresponding connected peripheral in the connectedlist
+    NSLog(@"Display services for peripheral invoked on Discovered Devices delegate ");
+   
+    // Processing can only get here if the device is connected or if the device is disconnected services have been cached. Display the cached service list if it exists in all cases. If no caches services and device is connected then retrieve services from peripheral.
     
+    // save selected device for use in segue
+    self.displayServiceTarget = deviceRecord;
+    
+    // cached services ae saved in the CBPeripheral object
+    if (deviceRecord.peripheral.services)
+    {
+        // segue to service list view controller
+    }
+    else
+    {
+        [self discoverPeripheralServices:deviceRecord.peripheral];
+        // ask get the services from the peripheral which will be returned via the peripheral delegate
+        
+    }
 }
 
 
@@ -416,14 +476,15 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     // display idle status for Central
-    self.centralManagerStatus.text = @"idle";
+    [self.centralManagerActivityIndicator stopAnimating];
+    self.centralManagerStatus.textColor = [UIColor blackColor];
+    self.centralManagerStatus.text = @"Idle";
+   
     if(self.debug) NSLog(@"Connected to peripheral");
     
     [self.connectedPeripherals addObject:peripheral];
     
-    //segue to connected device table view
-    //[self performSegueWithIdentifier:@"ShowConnects" sender:self];
-
+   
     // toggle connect button label in corresponding discovered devices table view row
     [self.discoveredDeviceList toggleConnectionState:peripheral];
     
@@ -480,6 +541,74 @@
 - (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
 {
     if (self.debug) NSLog(@"Central Manager didRetrievePeripherals invoked.");
+}
+
+
+#pragma mark - CBPeripheralDelegate
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didDiscoverDescriptorsForCharacteristic invoked");
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
+{
+     if (self.debug) NSLog(@"didDiscoverIncludedServicesForService invoked");
+}
+
+
+// Invoked upon completion of a -[discoverServices:] request.
+//
+//If successful, "error" is nil and discovered services, if any, have been merged into the "services" property of the peripheral. If unsuccessful, "error" is set with the encountered failure.
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
+{
+    if (self.debug) NSLog(@"didDiscoverServices invoked");
+    [self.centralManagerActivityIndicator stopAnimating];
+    self.centralManagerStatus.textColor = [UIColor blackColor];
+    self.centralManagerStatus.text = @"Idle";
+    // segue to BLEPeripheralServicesTVC
+    [self performSegueWithIdentifier:@"ShowServices" sender:self];
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked"); 
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didUpdateValueForCharacteristic invoked");
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
+{
+     if (self.debug) NSLog(@"didUpdateValueForDescriptor invoked");
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didWriteValueForCharacteristic invoked");
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didWriteValueForDescriptor invoked"); 
+}
+
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
+{
+   if (self.debug) NSLog(@"peripheralDidUpdateRSSI invoked");  
 }
 
 @end

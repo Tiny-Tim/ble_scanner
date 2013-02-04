@@ -106,11 +106,12 @@
                         <outlet property="centralManagerStatus" destination="ipT-zw-wxG" id="FFT-73-XIr"/>
                         <outlet property="hostBluetoothStatus" destination="v29-Ks-Ytq" id="oul-Au-zpL"/>
                         <outlet property="scanBarButton" destination="yvv-1l-2Uc" id="iwO-d6-oGV"/>
+                        <segue destination="Ke0-8Y-ltn" kind="push" identifier="ShowServices" id="Coo-tx-y2Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="330" y="16"/>
+            <point key="canvasLocation" x="356" y="-21"/>
         </scene>
         <!--Scan ControlTVC - Scan Options-->
         <scene sceneID="cXy-Ls-014">
@@ -176,10 +177,10 @@
             </objects>
             <point key="canvasLocation" x="801" y="11"/>
         </scene>
-        <!--Service ListTVC - ServiceList-->
+        <!--Device ListTVC - ServiceList-->
         <scene sceneID="2wh-j1-c3Q">
             <objects>
-                <tableViewController title="ServiceList" id="fwH-EV-JuX" customClass="BLEServiceListTVC" sceneMemberID="viewController">
+                <tableViewController title="ServiceList" id="fwH-EV-JuX" customClass="BLEDeviceListTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zLA-KA-a06">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,7 +204,7 @@
                     <navigationItem key="navigationItem" id="Idx-i5-Awt">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="DvM-eq-GcR">
                             <connections>
-                                <segue destination="7Ff-uJ-Fcx" kind="push" id="eH4-Xv-Wcd"/>
+                                <segue destination="7Ff-uJ-Fcx" kind="push" identifier="GetServiceData" id="eH4-Xv-Wcd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -400,46 +401,49 @@
             </objects>
             <point key="canvasLocation" x="505" y="778"/>
         </scene>
+        <!--Peripheral ServicesTVC - Services-->
+        <scene sceneID="l8x-fM-EMw">
+            <objects>
+                <tableViewController id="Ke0-8Y-ltn" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZPr-Yh-QPG">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceData" textLabel="2TR-Xy-GG0" detailTextLabel="3ev-ck-U3A" style="IBUITableViewCellStyleSubtitle" id="qUP-rs-Mzj">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2TR-Xy-GG0">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ev-ck-U3A">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ke0-8Y-ltn" id="yUo-BY-hZx"/>
+                            <outlet property="delegate" destination="Ke0-8Y-ltn" id="8hz-wa-aZl"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Services" id="6US-3b-gz9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8e-9e-sxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1057" y="714"/>
+        </scene>
     </scenes>
-    <classes>
-        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
-            <relationships>
-                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BLEScanControlTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="BLEServiceInformationTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceInformationTVC.h"/>
-        </class>
-        <class className="BLEServiceListTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServiceListTVC.h"/>
-        </class>
-        <class className="BLEViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

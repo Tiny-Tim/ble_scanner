@@ -14,6 +14,7 @@
 
 @interface BLEViewController : UIViewController <BLEScanControlDelegate,
                                                  CBCentralManagerDelegate,
+                                                 CBPeripheralDelegate,
                                                  BLEDiscoveredDevicesDelegate >
 
 

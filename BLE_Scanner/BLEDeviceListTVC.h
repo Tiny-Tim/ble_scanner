@@ -14,7 +14,7 @@
 
 @end
 
-@interface BLEServiceListTVC : UITableViewController
+@interface BLEDeviceListTVC : UITableViewController
 
 @property (nonatomic, weak)id< BLEServiceListDelegate >delegate;
 

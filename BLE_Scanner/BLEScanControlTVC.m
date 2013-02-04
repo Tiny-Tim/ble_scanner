@@ -99,12 +99,12 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSLog(@"Preparing to segue to ServiceList from ScanControl");
-    BLEServiceListTVC *serviceListTVC;
+    BLEDeviceListTVC *serviceListTVC;
     
     if ([segue.identifier isEqualToString:@"ShowServices"])
     {
         
-        if ([segue.destinationViewController isKindOfClass:[BLEServiceListTVC class]])
+        if ([segue.destinationViewController isKindOfClass:[BLEDeviceListTVC class]])
         {
             serviceListTVC= segue.destinationViewController;
             serviceListTVC.delegate = self;

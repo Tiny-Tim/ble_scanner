@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BLEServiceListTVC.h"
+#import "BLEDeviceListTVC.h"
 
 
 @protocol BLEScanControlDelegate

@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Chip Keyes. All rights reserved.
 //
 
-#import "BLEServiceListTVC.h"
+#import "BLEDeviceListTVC.h"
 
-@interface BLEServiceListTVC ()
+@interface BLEDeviceListTVC ()
 
 @property (nonatomic, strong) NSArray *services;
 @end
 
-@implementation BLEServiceListTVC
+@implementation BLEDeviceListTVC
 
 
 -(NSArray *)services
