@@ -107,7 +107,6 @@
                         <outlet property="hostBluetoothStatus" destination="v29-Ks-Ytq" id="oul-Au-zpL"/>
                         <outlet property="scanBarButton" destination="yvv-1l-2Uc" id="iwO-d6-oGV"/>
                         <segue destination="Ke0-8Y-ltn" kind="push" identifier="ShowServices" id="Coo-tx-y2Y"/>
-                        <segue destination="Eji-9F-GQZ" kind="push" identifier="ShowCharacteristics" id="Fir-F4-MHv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -176,7 +175,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKr-u4-XVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="331" y="-161"/>
+            <point key="canvasLocation" x="313" y="-233"/>
         </scene>
         <!--Device ListTVC - ServiceList-->
         <scene sceneID="2wh-j1-c3Q">
@@ -212,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6B-Qk-hp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890" y="-146"/>
+            <point key="canvasLocation" x="924" y="-233"/>
         </scene>
         <!--Service InformationTVC - AddService-->
         <scene sceneID="jj8-KB-Myo">
@@ -285,7 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHx-EV-eeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="-138"/>
+            <point key="canvasLocation" x="1466" y="-233"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
@@ -439,10 +438,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Services" id="6US-3b-gz9"/>
+                    <connections>
+                        <segue destination="Eji-9F-GQZ" kind="push" identifier="ShowCharacteristics" id="2OC-DC-b4N"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8e-9e-sxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="599" y="1288"/>
+            <point key="canvasLocation" x="313" y="616"/>
         </scene>
         <!--Peripheral CharacteristicsTVC - Characteristics-->
         <scene sceneID="9q5-6g-Ig7">
@@ -484,9 +486,51 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sa-yQ-v77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1213" y="1112"/>
+            <point key="canvasLocation" x="971" y="616"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BLECentralManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDeviceListTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceListTVC.h"/>
+        </class>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
+        </class>
+        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
+        </class>
+        <class className="BLEScanControlTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

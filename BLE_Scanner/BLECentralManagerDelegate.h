@@ -16,8 +16,6 @@
 
 -(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
 
--(void)getCharacteristicsForService: (CBService *)service sender:(id)sender;
 
--(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender;
 
 @end

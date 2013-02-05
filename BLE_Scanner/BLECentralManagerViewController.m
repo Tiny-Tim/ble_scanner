@@ -8,7 +8,7 @@
 
 #import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
-#import "BLEPeripheralCharacteristicsTVC.h"
+
 
 @interface BLECentralManagerViewController ()
 
@@ -50,11 +50,7 @@
 // peripheral record which is being processed for services
 @property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
 
-// CBService which is being processed to retrieve characteristics
-@property (nonatomic, strong)CBService *pendingServiceForCharacteristic;
 
-// CBCharacteristic being processed to retrieve descriptors
-@property (nonatomic, strong) CBCharacteristic *pendingCharacteristicForDescriptor;
 @end
 
 @implementation BLECentralManagerViewController
@@ -211,22 +207,7 @@
 }
 
 
-// Discover characteristics for Service
--(void)discoverCharacteristicsForService: (CBService *) service
-{
-    if (service.peripheral && [service.peripheral isConnected])
-    {
-        if (service.peripheral.delegate == nil)
-        {
-            service.peripheral.delegate = self;
-        }
-        
-        self.centralManagerStatus.textColor = [UIColor greenColor];
-        self.centralManagerStatus.text = @"Discovering characteristics for services.";
-        [self.centralManagerActivityIndicator startAnimating];
-        [service.peripheral discoverCharacteristics:nil forService:service];
-    }
-}
+
 
 
 // Disconnect a peripheral from Central after ensuring peripheal is in connected state
@@ -335,20 +316,7 @@
             BLEPeripheralServicesTVC *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.displayServiceTarget;
-            destination.delegate = self;
-            
-        }
-    }
-    else if ([segue.identifier isEqualToString:@"ShowCharacteristics"])
-    {
-        if (self.debug) NSLog(@"Segueing to Show Characteristics");
-        if ([segue.destinationViewController isKindOfClass:[BLEPeripheralCharacteristicsTVC class]])
-        {
-            BLEPeripheralCharacteristicsTVC *destination = segue.destinationViewController;
-            
-            destination.characteristics = self.pendingServiceForCharacteristic.characteristics;
-            
-            destination.delegate = self;
+           
             
         }
     }
@@ -399,31 +367,13 @@
 }
 
 
-// Retrieve the characteristics for a specified service and segue to the characteristic table view controller
--(void)getCharacteristicsForService: (CBService *)service sender:(id)sender
-{
-    if (self.debug) NSLog(@"getCharacteristicsForService invoked on BLECentralManagerDelegate");
-    
-    self.pendingServiceForCharacteristic = service;
-    
-    if (service.characteristics)
-    {
-        // characteristics have been cached in service, just segue
-        [self performSegueWithIdentifier:@"ShowCharacteristics" sender:self];
-    }
-    else
-    {
-        // get the characteristics from the service which will be returned from the peripheral delegate
-        [self discoverCharacteristicsForService:service];
-    }
-}
 
--(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender
-{
-    if (self.debug) NSLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
-    
-    self.pendingCharacteristicForDescriptor = characteristic;
-}
+//-(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender
+//{
+//    if (self.debug) NSLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
+//    
+//    self.pendingCharacteristicForDescriptor = characteristic;
+//}
 
 #pragma mark -  BLEScanControlDelegate
 
@@ -604,21 +554,6 @@
 #pragma mark - CBPeripheralDelegate
 
 
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
-    
-    [self.centralManagerActivityIndicator stopAnimating];
-    self.centralManagerStatus.textColor = [UIColor blackColor];
-    self.centralManagerStatus.text = @"Idle";
-    if (error == nil)
-    {
-        // segue to BLEPeripheralCharacteristicsTVC
-        [self performSegueWithIdentifier:@"ShowCharacteristics" sender:self];
-    }
-    
-    
-}
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {

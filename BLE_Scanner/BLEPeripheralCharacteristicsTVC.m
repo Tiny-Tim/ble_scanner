@@ -11,6 +11,8 @@
 
 @interface BLEPeripheralCharacteristicsTVC ()
 
+// CBCharacteristic being processed to retrieve descriptors
+@property (nonatomic, strong) CBCharacteristic *pendingCharacteristicForDescriptor;
 @end
 
 @implementation BLEPeripheralCharacteristicsTVC
@@ -102,8 +104,6 @@
     
     return cell;
 }
-
-
 
 
 

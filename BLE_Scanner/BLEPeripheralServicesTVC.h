@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
-#import "BLECentralManagerDelegate.h"
 
-@interface BLEPeripheralServicesTVC : UITableViewController
+
+@interface BLEPeripheralServicesTVC : UITableViewController <CBPeripheralDelegate>
 
 // Model for the view controller
 @property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
 
-@property (nonatomic, weak)id< BLECentralManagerDelegate>delegate;
+
 @end
