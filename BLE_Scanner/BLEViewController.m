@@ -47,7 +47,7 @@
 // selected connected peripheral to display
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
 
-@property (nonatomic, strong)BLEDiscoveryRecord *displayServiceTarget;
+@property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
 @end
 
 @implementation BLEViewController
@@ -345,7 +345,7 @@
 }
 
 // Display services for peripheral information
--(void)displayServicesForPeripheral: (BLEDiscoveryRecord *)deviceRecord sender:(id)sender;
+-(void)displayServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
 {
     NSLog(@"Display services for peripheral invoked on Discovered Devices delegate ");
    
@@ -464,7 +464,7 @@
         if (self.debug) NSLog(@"Discovered peripheral data did not include RSSI");
     }
     
-    BLEDiscoveryRecord *discoveryRecord = [[BLEDiscoveryRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
+    BLEPeripheralRecord *discoveryRecord = [[BLEPeripheralRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     
     // add the discovered peripheral to the list of discovered peripherals
     [self.discoveredDeviceList deviceDiscovered:discoveryRecord];

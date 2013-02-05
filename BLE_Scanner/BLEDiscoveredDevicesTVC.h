@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "BLEDiscoveryRecord.h"
+#import "BLEPeripheralRecord.h"
 #import "BLECentralManager.h"
 
 
@@ -16,7 +16,7 @@
 @interface BLEDiscoveredDevicesTVC : UITableViewController
 
 // Invoke to add a discovered device to the model
--(void)deviceDiscovered: (BLEDiscoveryRecord *)deviceRecord;
+-(void)deviceDiscovered: (BLEPeripheralRecord *)deviceRecord;
 
 //Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
 -(void)toggleConnectionState : (CBPeripheral *)peripheral;

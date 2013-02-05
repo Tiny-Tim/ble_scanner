@@ -33,8 +33,8 @@
 		D982747216B6F7730005477F /* BLEDeviceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEDeviceListTVC.m */; };
 		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
 		D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */; };
-		D982748916B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */; };
-		D982748A16B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */; };
+		D982748916B8C05C0005477F /* BLEPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEPeripheralRecord.m */; };
+		D982748A16B8C05C0005477F /* BLEPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEPeripheralRecord.m */; };
 		D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 		D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 		D9CB596716BC6330000A99FB /* BLEConnectButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */; };
@@ -86,8 +86,8 @@
 		D982747A16B7216C0005477F /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDiscoveredDevicesTVC.h; sourceTree = "<group>"; };
 		D982748516B89E160005477F /* BLEDiscoveredDevicesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDiscoveredDevicesTVC.m; sourceTree = "<group>"; };
-		D982748716B8C05C0005477F /* BLEDiscoveryRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDiscoveryRecord.h; sourceTree = "<group>"; };
-		D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDiscoveryRecord.m; sourceTree = "<group>"; };
+		D982748716B8C05C0005477F /* BLEPeripheralRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEPeripheralRecord.h; sourceTree = "<group>"; };
+		D982748816B8C05C0005477F /* BLEPeripheralRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEPeripheralRecord.m; sourceTree = "<group>"; };
 		D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
 		D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnectButtonCell.h; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 				D90263BA16BDE1F40058BA37 /* BLEDetailCellData.m */,
 				D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */,
 				D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */,
-				D982748716B8C05C0005477F /* BLEDiscoveryRecord.h */,
-				D982748816B8C05C0005477F /* BLEDiscoveryRecord.m */,
+				D982748716B8C05C0005477F /* BLEPeripheralRecord.h */,
+				D982748816B8C05C0005477F /* BLEPeripheralRecord.m */,
 				D982746C16B6F7210005477F /* BLEScanControlTVC.h */,
 				D982746D16B6F7210005477F /* BLEScanControlTVC.m */,
 				D982747016B6F7730005477F /* BLEDeviceListTVC.h */,
@@ -333,7 +333,7 @@
 				D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */,
 				D982747216B6F7730005477F /* BLEDeviceListTVC.m in Sources */,
 				D982748616B89E160005477F /* BLEDiscoveredDevicesTVC.m in Sources */,
-				D982748916B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */,
+				D982748916B8C05C0005477F /* BLEPeripheralRecord.m in Sources */,
 				D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */,
 				D9CB596716BC6330000A99FB /* BLEConnectButtonCell.m in Sources */,
 				D90263BB16BDE1F40058BA37 /* BLEDetailCellData.m in Sources */,
@@ -346,7 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */,
-				D982748A16B8C05C0005477F /* BLEDiscoveryRecord.m in Sources */,
+				D982748A16B8C05C0005477F /* BLEPeripheralRecord.m in Sources */,
 				D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */,
 				D90263BC16BDE1F40058BA37 /* BLEDetailCellData.m in Sources */,
 				D90263C016C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */,

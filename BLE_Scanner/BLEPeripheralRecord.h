@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 
-@interface BLEDiscoveryRecord : NSObject
+@interface BLEPeripheralRecord : NSObject
 
 
 // ---- Properties provided by Central upon discovery ----
@@ -40,8 +40,6 @@
 // a screen friendly name (if obtainable) for referencing the peripheral
 // in priority order: peripheral name, name found in advertising data, UUID String, nil
 @property (nonatomic, strong)NSString *friendlyName;
-
-
 
 // ---- API Methods ----
 

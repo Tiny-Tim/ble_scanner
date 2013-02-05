@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Chip Keyes. All rights reserved.
 //
 
-#import "BLEDiscoveryRecord.h"
+#import "BLEPeripheralRecord.h"
 #import "BLEDetailCellData.h"
 #import "CBUUID+StringExtraction.h"
 
-@implementation BLEDiscoveryRecord
+@implementation BLEPeripheralRecord
 
 @synthesize advertisementItems = _advertisementItems;
 
@@ -170,6 +170,7 @@ static NSInteger recordCount=1;
         self.advertisementData = advertisementData;
         self.rssi = RSSI;
         [self processAdvertisementData];
+        
     }
     
     NSLog(@"Friendly Name: %@",self.friendlyName);
