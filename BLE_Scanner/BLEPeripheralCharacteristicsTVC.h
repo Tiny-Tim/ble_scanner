@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLECentralManagerDelegate.h"
 
-@interface BLEPeripheralCharacteristicsTVC : UITableViewController
+@interface BLEPeripheralCharacteristicsTVC : UITableViewController <CBPeripheralDelegate>
 
 // Model for the view controller
 @property (nonatomic, strong)NSArray *characteristics;

@@ -78,7 +78,16 @@
             
         case 2:
             cell.textLabel.text = @"Value (hexadecimal)";
-            cell.detailTextLabel.text = [characteristic.value description];
+            if (characteristic.value)
+            {
+                cell.detailTextLabel.text = [characteristic.value description];
+            }
+            else
+            {
+                characteristic.service.peripheral.delegate = self;
+                
+                [characteristic.service.peripheral readValueForCharacteristic:characteristic];
+            }
             break;
             
         case 3:
@@ -109,6 +118,13 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - CBPeripheralDelegate
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    [self.tableView reloadData];
 }
 
 @end
