@@ -16,7 +16,7 @@
     [super setUp];
     
     // Set-up code here.
-    viewController = [[BLEViewController alloc]init];
+    viewController = [[BLECentralManagerViewController alloc]init];
     
 }
 

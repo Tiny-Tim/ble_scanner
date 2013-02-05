@@ -92,8 +92,10 @@
 // Accessory button is used to segue to characteristic data via CentralManager delegate
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Accessory button tapped in PeripheralServicesTVC");
     // the service corresponds to the indexPath.section item in peripheral.services array
-    
+    CBService * service = [self.deviceRecord.peripheral.services objectAtIndex:indexPath.section];
+    [self.delegate getCharacteristicsForService:service sender:self];
     
 
 }

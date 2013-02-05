@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Chip Keyes. All rights reserved.
 //
 
-#import "BLEViewController.h"
+#import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
+#import "BLEPeripheralCharacteristicsTVC.h"
 
-
-@interface BLEViewController ()
+@interface BLECentralManagerViewController ()
 
 // initiate scanning
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
@@ -47,10 +47,17 @@
 // selected connected peripheral to display
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
 
+// peripheral record which is being processed for services
 @property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
+
+// CBService which is being processed to retrieve characteristics
+@property (nonatomic, strong)CBService *pendingServiceForCharacteristic;
+
+// CBCharacteristic being processed to retrieve descriptors
+@property (nonatomic, strong) CBCharacteristic *pendingCharacteristicForDescriptor;
 @end
 
-@implementation BLEViewController
+@implementation BLECentralManagerViewController
 
 
 #pragma mark - Properties
@@ -72,7 +79,6 @@
 {
     if (! self.scanState)
     {
-        
         if (self.centralManager.state == CBCentralManagerStatePoweredOn)
         {
             self.scanState = YES;  // scanning
@@ -82,7 +88,6 @@
             
             if (self.scanForAllServices)
             {
-                
                 self.centralManagerStatus.textColor = [UIColor greenColor];
                 self.centralManagerStatus.text = @"Scanning for all services.";
                 
@@ -119,7 +124,6 @@
         self.scanBarButton.title = @"Scan";
         self.scanState = NO;
     }
-    
 }
 
 
@@ -206,8 +210,23 @@
     }
 }
 
-    
-                                      
+
+// Discover characteristics for Service
+-(void)discoverCharacteristicsForService: (CBService *) service
+{
+    if (service.peripheral && [service.peripheral isConnected])
+    {
+        if (service.peripheral.delegate == nil)
+        {
+            service.peripheral.delegate = self;
+        }
+        
+        self.centralManagerStatus.textColor = [UIColor greenColor];
+        self.centralManagerStatus.text = @"Discovering characteristics for services.";
+        [self.centralManagerActivityIndicator startAnimating];
+        [service.peripheral discoverCharacteristics:nil forService:service];
+    }
+}
 
 
 // Disconnect a peripheral from Central after ensuring peripheal is in connected state
@@ -316,16 +335,27 @@
             BLEPeripheralServicesTVC *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.displayServiceTarget;
+            destination.delegate = self;
             
         }
-        
     }
-    
+    else if ([segue.identifier isEqualToString:@"ShowCharacteristics"])
+    {
+        if (self.debug) NSLog(@"Segueing to Show Characteristics");
+        if ([segue.destinationViewController isKindOfClass:[BLEPeripheralCharacteristicsTVC class]])
+        {
+            BLEPeripheralCharacteristicsTVC *destination = segue.destinationViewController;
+            
+            destination.characteristics = self.pendingServiceForCharacteristic.characteristics;
+            
+            destination.delegate = self;
+            
+        }
+    }
 }
 
 
-
-#pragma mark - BLEDiscoveredDevicesDelegate
+#pragma mark - BLECentralManagerDelegate
 
 // Request to connect Central Manager to peripheral from list of discovered device peripherals
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
@@ -344,29 +374,56 @@
 
 }
 
-// Display services for peripheral information
--(void)displayServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
+// Display services for peripheral information and segue to services table view controller
+-(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
 {
-    NSLog(@"Display services for peripheral invoked on Discovered Devices delegate ");
+    if (self.debug) NSLog(@"getServicesForPeripheral invoked on BLECentralManagerDelegate ");
    
-    // Processing can only get here if the device is connected or if the device is disconnected services have been cached. Display the cached service list if it exists in all cases. If no caches services and device is connected then retrieve services from peripheral.
+    // Processing can only get here if the device is connected or if the device is disconnected and services have been cached. Display the cached service list if it exists in all cases. If no cache services exist and device is connected then retrieve services from peripheral.
     
-    // save selected device for use in segue
+    // save selected device for use in prepare for segue 
     self.displayServiceTarget = deviceRecord;
     
-    // cached services ae saved in the CBPeripheral object
+    // cached services are saved in the CBPeripheral object
+    // checking for cached services is postponed until here so that segueing can occur from this view controller
     if (deviceRecord.peripheral.services)
     {
         // segue to service list view controller
+        [self performSegueWithIdentifier:@"ShowServices" sender:self];
     }
     else
     {
+        // get the services from the peripheral which will be returned via the peripheral delegate
         [self discoverPeripheralServices:deviceRecord.peripheral];
-        // ask get the services from the peripheral which will be returned via the peripheral delegate
-        
     }
 }
 
+
+// Retrieve the characteristics for a specified service and segue to the characteristic table view controller
+-(void)getCharacteristicsForService: (CBService *)service sender:(id)sender
+{
+    if (self.debug) NSLog(@"getCharacteristicsForService invoked on BLECentralManagerDelegate");
+    
+    self.pendingServiceForCharacteristic = service;
+    
+    if (service.characteristics)
+    {
+        // characteristics have been cached in service, just segue
+        [self performSegueWithIdentifier:@"ShowCharacteristics" sender:self];
+    }
+    else
+    {
+        // get the characteristics from the service which will be returned from the peripheral delegate
+        [self discoverCharacteristicsForService:service];
+    }
+}
+
+-(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender
+{
+    if (self.debug) NSLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
+    
+    self.pendingCharacteristicForDescriptor = characteristic;
+}
 
 #pragma mark -  BLEScanControlDelegate
 
@@ -546,9 +603,20 @@
 
 #pragma mark - CBPeripheralDelegate
 
+
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    
+    [self.centralManagerActivityIndicator stopAnimating];
+    self.centralManagerStatus.textColor = [UIColor blackColor];
+    self.centralManagerStatus.text = @"Idle";
+    if (error == nil)
+    {
+        // segue to BLEPeripheralCharacteristicsTVC
+        [self performSegueWithIdentifier:@"ShowCharacteristics" sender:self];
+    }
+    
     
 }
 
@@ -570,11 +638,16 @@
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
     if (self.debug) NSLog(@"didDiscoverServices invoked");
+    
     [self.centralManagerActivityIndicator stopAnimating];
     self.centralManagerStatus.textColor = [UIColor blackColor];
     self.centralManagerStatus.text = @"Idle";
-    // segue to BLEPeripheralServicesTVC
-    [self performSegueWithIdentifier:@"ShowServices" sender:self];
+
+    if (error == nil)
+    {
+        // segue to BLEPeripheralServicesTVC
+        [self performSegueWithIdentifier:@"ShowServices" sender:self];
+    }
 }
 
 

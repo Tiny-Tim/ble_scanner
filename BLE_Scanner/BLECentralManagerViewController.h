@@ -12,7 +12,7 @@
 #import "BLEPeripheralRecord.h"
 #import "BLEDiscoveredDevicesTVC.h"
 
-@interface BLEViewController : UIViewController <BLEScanControlDelegate,
+@interface BLECentralManagerViewController : UIViewController <BLEScanControlDelegate,
                                                  CBCentralManagerDelegate,
                                                  CBPeripheralDelegate,
                                                  BLECentralManagerDelegate >

@@ -1,20 +1,20 @@
 //
-//  BLEServicesViewController.h
+//  BLEPeripheralCharacteristicsTVC.h
 //  BLE_Scanner
 //
-//  Created by Chip Keyes on 2/4/13.
+//  Created by Chip Keyes on 2/5/13.
 //  Copyright (c) 2013 Chip Keyes. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "BLEPeripheralRecord.h"
 #import "BLECentralManagerDelegate.h"
 
-@interface BLEPeripheralServicesTVC : UITableViewController
+@interface BLEPeripheralCharacteristicsTVC : UITableViewController
 
 // Model for the view controller
-@property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
+@property (nonatomic, strong)NSArray *characteristics;
 
 @property (nonatomic, weak)id< BLECentralManagerDelegate>delegate;
+
 @end

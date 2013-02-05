@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
-#import "BLECentralManager.h"
+#import "BLECentralManagerDelegate.h"
 
 
 

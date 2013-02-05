@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Bluetooth Client-->
+        <!--Central Manager View Controller - Bluetooth Client-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="BLEViewController" sceneMemberID="viewController">
+                <viewController id="2" customClass="BLECentralManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -107,11 +107,12 @@
                         <outlet property="hostBluetoothStatus" destination="v29-Ks-Ytq" id="oul-Au-zpL"/>
                         <outlet property="scanBarButton" destination="yvv-1l-2Uc" id="iwO-d6-oGV"/>
                         <segue destination="Ke0-8Y-ltn" kind="push" identifier="ShowServices" id="Coo-tx-y2Y"/>
+                        <segue destination="Eji-9F-GQZ" kind="push" identifier="ShowCharacteristics" id="Fir-F4-MHv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="356" y="-21"/>
+            <point key="canvasLocation" x="-450" y="275"/>
         </scene>
         <!--Scan ControlTVC - Scan Options-->
         <scene sceneID="cXy-Ls-014">
@@ -175,7 +176,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKr-u4-XVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="11"/>
+            <point key="canvasLocation" x="331" y="-161"/>
         </scene>
         <!--Device ListTVC - ServiceList-->
         <scene sceneID="2wh-j1-c3Q">
@@ -211,7 +212,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6B-Qk-hp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1336" y="16"/>
+            <point key="canvasLocation" x="890" y="-146"/>
         </scene>
         <!--Service InformationTVC - AddService-->
         <scene sceneID="jj8-KB-Myo">
@@ -284,7 +285,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHx-EV-eeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1884" y="16"/>
+            <point key="canvasLocation" x="1428" y="-138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
@@ -302,7 +303,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrC-kJ-f3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-196" y="16"/>
+            <point key="canvasLocation" x="-956" y="259"/>
         </scene>
         <!--Discovered DevicesTVC-->
         <scene sceneID="J1i-ev-rrb">
@@ -399,7 +400,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rme-rM-AhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="505" y="778"/>
+            <point key="canvasLocation" x="-39" y="1480"/>
         </scene>
         <!--Peripheral ServicesTVC - Services-->
         <scene sceneID="l8x-fM-EMw">
@@ -441,7 +442,49 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8e-9e-sxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1057" y="714"/>
+            <point key="canvasLocation" x="599" y="1288"/>
+        </scene>
+        <!--Peripheral CharacteristicsTVC - Characteristics-->
+        <scene sceneID="9q5-6g-Ig7">
+            <objects>
+                <tableViewController id="Eji-9F-GQZ" customClass="BLEPeripheralCharacteristicsTVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Zm-4c-1Ft">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShowCharacteristic" textLabel="bcn-cG-Cao" detailTextLabel="NDP-lC-E1d" style="IBUITableViewCellStyleSubtitle" id="mQg-c8-JCd">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcn-cG-Cao">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDP-lC-E1d">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Eji-9F-GQZ" id="Qc6-vd-osh"/>
+                            <outlet property="delegate" destination="Eji-9F-GQZ" id="5KU-Q0-dfH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Characteristics" id="XsH-Po-vU1"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Sa-yQ-v77" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1213" y="1112"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

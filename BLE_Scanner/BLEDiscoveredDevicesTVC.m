@@ -453,12 +453,12 @@
     
     if (indexPath.row < (deviceLabelCount - 2))
     {
-        // accessory button corresponds to a peripheral property - whihc is where we expect to find the service label we are looking for
+        // accessory button corresponds to a peripheral property - which is where we expect to find the service label we are looking for
         NSString *itemLabel = deviceLabels[indexPath.row];
         if ( [itemLabel localizedCompare:SERVICES_LABEL] == NSOrderedSame)
         {
             //match for Services row as expected dispatch handler
-            [self.delegate displayServicesForPeripheral:record sender:self];
+            [self.delegate getServicesForPeripheral:record sender:self];
         }
         else
         {

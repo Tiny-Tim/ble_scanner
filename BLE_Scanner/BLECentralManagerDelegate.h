@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BLEPeripheralRecord.h"
 
 @protocol BLECentralManagerDelegate <NSObject>
 
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 -(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 
--(void)displayServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
+-(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
+
+-(void)getCharacteristicsForService: (CBService *)service sender:(id)sender;
+
+-(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender;
 
 @end
