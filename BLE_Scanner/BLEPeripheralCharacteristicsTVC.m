@@ -43,6 +43,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -56,7 +57,7 @@
 {
 
     // Return the number of rows in the section.
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,22 +78,35 @@
             cell.textLabel.text = @"Characteristic UUID";
             cell.detailTextLabel.text = [characteristic.UUID representativeString];
             break;
-            
+          
         case 2:
-            cell.textLabel.text = @"Value (hexadecimal)";
-            if (characteristic.value)
-            {
-                cell.detailTextLabel.text = [characteristic.value description];
-            }
-            else
-            {
-                characteristic.service.peripheral.delegate = self;
-                
-                [characteristic.service.peripheral readValueForCharacteristic:characteristic];
-            }
+            cell.textLabel.text = @"Characteristic Property";
+            
+            cell.detailTextLabel.text = [[NSString alloc]initWithFormat: @"0x%x",characteristic.properties];
             break;
             
         case 3:
+            cell.textLabel.text = @"Value";
+            if (characteristic.value)
+            {
+                cell.detailTextLabel.text = [@"0x" stringByAppendingString:[characteristic.value description]];
+            }
+            else
+            {
+                if (characteristic.properties & CBCharacteristicPropertyRead)
+                {
+                    characteristic.service.peripheral.delegate = self;
+                
+                    [characteristic.service.peripheral readValueForCharacteristic:characteristic];
+                }
+                else
+                {
+                    cell.detailTextLabel.text = @"Not Readable";
+                }
+            }
+            break;
+            
+        case 4:
             cell.textLabel.text = @"Descriptors";
             cell.detailTextLabel.text = @"";
             break;
