@@ -11,6 +11,8 @@
 
 @interface BLEPeripheralCharacteristicsTVC ()
 
+@property (nonatomic) BOOL debug;
+
 // CBCharacteristic being processed to retrieve descriptors
 @property (nonatomic, strong) CBCharacteristic *pendingCharacteristicForDescriptor;
 @end
@@ -29,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _debug = YES;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -43,6 +46,30 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)logCharacteristicData: (CBCharacteristic *)characteristic
+{
+    NSLog(@"Logging characteristic data");
+    NSLog(@"Parent Service: %@",[characteristic.service.UUID representativeString]);
+    NSLog(@"Characteristic UUID: %@",[characteristic.UUID representativeString]);
+    if (characteristic.value)
+    {
+        NSLog(@"0x %@",[characteristic.value description]);
+    }
+    else
+    {
+        if (characteristic.properties & CBCharacteristicPropertyRead)
+        {
+            NSLog(@"characteristic value is readable but uread");
+        }
+        else
+        {
+            NSLog(@"characteristic value is not readable");
+
+        }
+    }
+
+    
+}
 
 #pragma mark - Table view data source
 
@@ -66,6 +93,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     CBCharacteristic * characteristic = self.characteristics[indexPath.section];
+    if (self.debug) [self logCharacteristicData:characteristic];
+    
+    cell.textLabel.text = @"";
+    cell.detailTextLabel.text = @"";
     
     switch (indexPath.row)
     {
@@ -138,7 +169,52 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    [self.tableView reloadData];
+    if (self.debug) NSLog(@"CBPeripheralDelegate didUpdateValueForCharacteristic invoked");
+    if (! error)
+    {
+        NSLog(@"Characteristic value updated for characteristic %@",[characteristic.UUID representativeString]);
+        
+        NSLog(@"Logging characteristic data in parameter");
+        [self logCharacteristicData:characteristic];
+        NSLog(@" ");
+        NSLog(@"Logging characteristic data in list");
+        // get characteristic out of array that has the same UUID
+        
+        BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
+        CBUUID *target = characteristic.UUID;
+        NSString *targetString = [target representativeString];
+        
+        test = ^(id obj, NSUInteger idx, BOOL *stop)
+        {
+            CBCharacteristic *item_characteristic = (CBCharacteristic *)obj;
+            CBUUID *uuid = item_characteristic.UUID;
+            NSString *uuidString = [uuid representativeString];
+            
+            if ([targetString localizedCompare:uuidString] == NSOrderedSame)
+            {
+                return YES;
+            }
+            return NO;
+        };
+        
+        NSIndexSet *indexes = [self.characteristics indexesOfObjectsPassingTest:test];
+        NSUInteger index=[indexes firstIndex];
+        while(index != NSNotFound)
+        {
+            [self logCharacteristicData:self.characteristics[index]];
+            index=[indexes indexGreaterThanIndex: index];
+        }
+        
+        [self.tableView reloadData];
+        
+    }
+    else
+    {
+        NSLog(@"Error updating characteristic: %@",error.description);
+        NSLog(@"Characteristic UUID %@",[characteristic.UUID representativeString]);
+    }
+    
+   // [self.tableView reloadData];
 }
 
 @end

@@ -15,6 +15,6 @@
 // Model for the view controller
 @property (nonatomic, strong)NSArray *characteristics;
 
-@property (nonatomic, weak)id< BLECentralManagerDelegate>delegate;
+
 
 @end

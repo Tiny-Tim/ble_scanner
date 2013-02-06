@@ -41,10 +41,10 @@
 
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    
+    [super viewWillAppear:animated];
+    if (self.debug) NSLog(@"Entering viewWillAppear in BLEPeripheralServicesTVC");
     NSString *titleString = [[NSString alloc]initWithFormat: @"%@ Services",self.deviceRecord.friendlyName];
     self.title = titleString;
 }
