@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="2" customClass="BLECentralManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Host Bluetooth Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
@@ -32,8 +32,8 @@
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Central Manager Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="feP-yJ-gsd"/>
                                     <constraint firstAttribute="width" constant="145" id="rF5-Qj-pi6"/>
+                                    <constraint firstAttribute="height" constant="21" id="scx-Dk-BEV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -49,21 +49,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OA6-MM-FZm"/>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWf-e9-Czv">
-                                <items>
-                                    <barButtonItem title="Scan " id="yvv-1l-2Uc">
-                                        <connections>
-                                            <action selector="scanButton" destination="2" id="UoE-BE-MOG"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="125" style="plain" systemItem="fixedSpace" id="HPV-ca-WNY"/>
-                                    <barButtonItem title="Configure Scan" id="IL3-7o-s6V">
-                                        <connections>
-                                            <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="eo5-xM-eKC"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mR5-Lk-Kup">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -78,29 +63,44 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0L2-KO-NZQ"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="3" secondAttribute="top" constant="108" id="19e-vr-mqK"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="1HS-8H-hWS"/>
-                            <constraint firstItem="TWf-e9-Czv" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="2Hh-Dl-CNs"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3Hn-Oz-7wO"/>
+                            <constraint firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" constant="17" id="3Nm-Ex-54y"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6aW-5N-VcW"/>
-                            <constraint firstItem="TWf-e9-Czv" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="8v8-QI-7Pr"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ACx-iE-Sfv"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" type="default" id="AHV-Jy-1kU"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="MRZ-Cu-pyE"/>
                             <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="137" id="PI8-rb-DMq"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q9z-NG-Hr1"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="Sg6-Pp-inc"/>
                             <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="3" id="TY5-j8-Hm0"/>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ZP0-Bo-R44"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="84" id="cn4-qd-KFl"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="WGj-1D-B6I" secondAttribute="leading" type="default" id="f5E-Zf-DS1"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fo3-Lv-SwH"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="j9Z-9w-nmt"/>
-                            <constraint firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" constant="49" id="nNU-1m-0Ao"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="OA6-MM-FZm" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="sMa-2F-eKK"/>
-                            <constraint firstItem="TWf-e9-Czv" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="szu-GP-cOA"/>
+                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="50" id="oZL-DT-VLe"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Scan " id="yvv-1l-2Uc">
+                            <connections>
+                                <action selector="scanButton" destination="2" id="UoE-BE-MOG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Configure Scan" id="IL3-7o-s6V">
+                            <connections>
+                                <segue destination="ztf-gS-juY" kind="push" identifier="ConfigureScan" id="eo5-xM-eKC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" title="Stop Connect" id="EbB-on-ZG9">
+                            <connections>
+                                <action selector="stopConnect:" destination="2" id="6ko-C6-F31"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Bluetooth Client" id="79l-V3-ftM"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="centralManagerActivityIndicator" destination="OA6-MM-FZm" id="hSJ-fS-dzC"/>
                         <outlet property="centralManagerStatus" destination="ipT-zw-wxG" id="FFT-73-XIr"/>
@@ -118,7 +118,7 @@
             <objects>
                 <tableViewController id="ztf-gS-juY" customClass="BLEScanControlTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="G16-jY-SXD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -182,7 +182,7 @@
             <objects>
                 <tableViewController title="ServiceList" id="fwH-EV-JuX" customClass="BLEDeviceListTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zLA-KA-a06">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -218,7 +218,7 @@
             <objects>
                 <tableViewController title="AddService" id="7Ff-uJ-Fcx" customClass="BLEServiceInformationTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hnk-cs-37d">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -289,13 +289,17 @@
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
             <objects>
-                <navigationController id="4lt-0t-fSs" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="4lt-0t-fSs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZG-N8-hk8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kvT-N7-50Z">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="KQy-iX-VnK"/>
                     </connections>
@@ -309,7 +313,7 @@
             <objects>
                 <viewController id="1vR-VU-Qfb" customClass="BLEDiscoveredDevicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -406,7 +410,7 @@
             <objects>
                 <viewController title="Peripheral Services TVC" id="LYe-aF-nEv" customClass="BLEServicesManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="muK-wk-d5o">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8QO-Z1-ilR">
@@ -472,7 +476,7 @@
             <objects>
                 <tableViewController id="Eji-9F-GQZ" customClass="BLEPeripheralCharacteristicsTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Zm-4c-1Ft">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -514,7 +518,7 @@
             <objects>
                 <viewController id="MUh-eR-psD" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xZd-PP-e9B">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="355"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>

@@ -16,6 +16,8 @@
 // initiate scanning
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
 
+
+
 // animate when central manager scanning, connecting, etc.
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *centralManagerActivityIndicator;
 
@@ -68,6 +70,21 @@
     }
     
     return _connectedPeripherals;
+}
+
+
+// User cancels connect request
+- (IBAction)stopConnect:(id)sender
+{
+    [self.centralManager cancelPeripheralConnection:self.selectedPeripheral];
+    
+    NSArray *toolbarItems = self.toolbarItems;
+    [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
+
+    [self.centralManagerActivityIndicator stopAnimating];
+    self.centralManagerStatus.textColor = [UIColor blackColor];
+    self.centralManagerStatus.text = @"Idle";
+    
 }
 
 
@@ -162,10 +179,13 @@
 // Cpnnect to specified peripheral if not already connected
 -(void) connectToPeripheralDevice : (CBPeripheral *)peripheral
 {
+   
     
     // Implement checks before connecting, i.e. already connected
     if (peripheral && ! [peripheral isConnected])
     {
+        NSArray *toolbarItems = self.toolbarItems;
+        [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:YES];
         if (self.debug) NSLog(@"CBCentralManager connecting to peripheral");
         self.centralManagerStatus.textColor = [UIColor greenColor];
         self.centralManagerStatus.text = @"Connecting to peripheral.";
@@ -329,9 +349,11 @@
 // Request to connect Central Manager to peripheral from list of discovered device peripherals
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 {
-    
+    self.selectedPeripheral = peripheral;
     self.centralManagerStatus.text = @"Connecting to peripheral";
     [self connectToPeripheralDevice:peripheral];
+    
+   
 }
 
 
@@ -491,10 +513,12 @@
     if(self.debug) NSLog(@"Connected to peripheral");
     
     [self.connectedPeripherals addObject:peripheral];
-    
    
     // toggle connect button label in corresponding discovered devices table view row
     [self.discoveredDeviceList toggleConnectionState:peripheral];
+    
+    NSArray *toolbarItems = self.toolbarItems;
+    [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
     
 }
 
@@ -506,14 +530,26 @@
     
         if (self.debug) NSLog(@"Peripheral succssfully disconnected.");
         
+        // Normally, following a successful connection the periphral is just removed from the peripheral list and the connect button label is toggled. However, if the user manually cancels the connect attempt, the canceled peripheral will not be in the list and the toggleConnection state should not be called.
+        
+        // we can tell if the peripheral was removed by examining the array count before and after removal
+        
+        NSUInteger preRemovalCount = [self.connectedPeripherals count];
+        
+        if (self.debug) NSLog(@"Pre-removal connected count %d",preRemovalCount);
         // remove peripheral from connected list
         [self.connectedPeripherals removeObject:peripheral];
     
         // display idle status for Central
         self.centralManagerStatus.text = @"idle";
         
-        // toggle connect button label in corresponding discovered devices table view row
-        [self.discoveredDeviceList toggleConnectionState:peripheral];
+        if (self.debug) NSLog(@"Post-removal connected count %d",[self.connectedPeripherals count]);
+        
+        if (preRemovalCount > [self.connectedPeripherals count])
+        {
+           // toggle connect button label in corresponding discovered devices table view row
+           [self.discoveredDeviceList toggleConnectionState:peripheral];
+        }
     
         // pop up a dialog to tell user peripheral was disconnected
     }
@@ -619,5 +655,6 @@
 {
    if (self.debug) NSLog(@"peripheralDidUpdateRSSI invoked");  
 }
+
 
 @end
