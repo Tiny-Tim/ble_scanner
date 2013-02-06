@@ -15,6 +15,9 @@
 
 // controls NSLogging
 @property (nonatomic) BOOL debug;
+@property (weak, nonatomic) IBOutlet UILabel *statusHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusDetailLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *statusActivityIndicator;
 
 // CBService which is being processed to retrieve characteristics
 @property (nonatomic, strong)CBService *pendingServiceForCharacteristic;
@@ -36,6 +39,16 @@
     [super viewDidLoad];
     _debug = YES;
 	// Do any additional setup after loading the view.
+    
+    if ([self.deviceRecord.peripheral isConnected])
+    {
+        self.statusDetailLabel.text = @"Connected";
+    }
+    else
+    {
+        self.statusDetailLabel.text = @"Unconnected";
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,9 +68,9 @@
             service.peripheral.delegate = self;
         }
         
-        //  self.centralManagerStatus.textColor = [UIColor greenColor];
-        //  self.centralManagerStatus.text = @"Discovering characteristics for services.";
-        //  [self.centralManagerActivityIndicator startAnimating];
+        self.statusDetailLabel.textColor = [UIColor greenColor];
+        self.statusDetailLabel.text = @"Discovering service characteristics.";
+        [self.statusActivityIndicator startAnimating];
         [service.peripheral discoverCharacteristics:nil forService:service];
     }
 }
@@ -122,9 +135,21 @@
 {
     if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
     
-    // [self.centralManagerActivityIndicator stopAnimating];
-    // self.centralManagerStatus.textColor = [UIColor blackColor];
-    // self.centralManagerStatus.text = @"Idle";
+    
+    [self.statusActivityIndicator stopAnimating];
+    self.statusDetailLabel.textColor = [UIColor blackColor];
+    
+    
+    if ([peripheral isConnected])
+    {
+       self.statusDetailLabel.text = @"Connected"; 
+    }
+    else
+    {
+        self.statusDetailLabel.text = @"Unconnected"; 
+    }
+   
+   
     if (error == nil)
     {
         // segue to BLEPeripheralCharacteristicsTVC
