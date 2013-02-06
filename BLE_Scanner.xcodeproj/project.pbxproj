@@ -14,6 +14,8 @@
 		D90263C016C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D90263BE16C011340058BA37 /* BLEPeripheralServicesTVC.m */; };
 		D90263C416C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */; };
 		D90263C516C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */; };
+		D90263C816C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */; };
+		D90263C916C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */; };
 		D9207B4116B6D35B0023FFFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4016B6D35B0023FFFA /* UIKit.framework */; };
 		D9207B4316B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B4516B6D35B0023FFFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4416B6D35B0023FFFA /* CoreGraphics.framework */; };
@@ -60,6 +62,8 @@
 		D90263C116C081050058BA37 /* BLECentralManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLECentralManagerDelegate.h; sourceTree = "<group>"; };
 		D90263C216C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEPeripheralCharacteristicsTVC.h; sourceTree = "<group>"; };
 		D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEPeripheralCharacteristicsTVC.m; sourceTree = "<group>"; };
+		D90263C616C1EC240058BA37 /* BLEServicesManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServicesManagerViewController.h; sourceTree = "<group>"; };
+		D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServicesManagerViewController.m; sourceTree = "<group>"; };
 		D9207B3C16B6D35B0023FFFA /* BLE_Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLE_Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9207B4016B6D35B0023FFFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9207B4216B6D35B0023FFFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -183,6 +187,8 @@
 				D9207B5F16B6D35B0023FFFA /* BLECentralManagerViewController.m */,
 				D90263C216C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.h */,
 				D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */,
+				D90263C616C1EC240058BA37 /* BLEServicesManagerViewController.h */,
+				D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */,
 				D9207B4716B6D35B0023FFFA /* Supporting Files */,
 			);
 			path = BLE_Scanner;
@@ -345,6 +351,7 @@
 				D90263BB16BDE1F40058BA37 /* BLEDetailCellData.m in Sources */,
 				D90263BF16C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */,
 				D90263C416C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */,
+				D90263C816C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +365,7 @@
 				D90263BC16BDE1F40058BA37 /* BLEDetailCellData.m in Sources */,
 				D90263C016C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */,
 				D90263C516C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */,
+				D90263C916C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

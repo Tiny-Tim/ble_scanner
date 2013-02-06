@@ -8,6 +8,7 @@
 
 #import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
+#import "BLEServicesManagerViewController.h"
 
 
 @interface BLECentralManagerViewController ()
@@ -311,9 +312,9 @@
     else if ([segue.identifier isEqualToString:@"ShowServices"])
     {
         if (self.debug) NSLog(@"Segueing to Show Services");
-        if ([segue.destinationViewController isKindOfClass:[BLEPeripheralServicesTVC class]])
+        if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
         {
-            BLEPeripheralServicesTVC *destination = segue.destinationViewController;
+            BLEServicesManagerViewController *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.displayServiceTarget;
            

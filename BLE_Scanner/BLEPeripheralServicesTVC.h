@@ -1,5 +1,5 @@
 //
-//  BLEServicesViewController.h
+//  BLEPeripheralServicesTVC.h
 //  BLE_Scanner
 //
 //  Created by Chip Keyes on 2/4/13.
@@ -10,11 +10,13 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
 
+#import "BLEServicesManagerViewController.h"
 
-@interface BLEPeripheralServicesTVC : UITableViewController <CBPeripheralDelegate>
+
+@interface BLEPeripheralServicesTVC : UITableViewController 
 
 // Model for the view controller
 @property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
 
-
+@property (nonatomic, weak)id<BLEServicesManagerDelegate>delegate;
 @end
