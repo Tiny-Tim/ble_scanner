@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEPeripheralRecord.h"
 
 @interface BLEDemoDispatcherViewController : UIViewController
 
+
+
+// Model for the view controller
+@property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
 @end

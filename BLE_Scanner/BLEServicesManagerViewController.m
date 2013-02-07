@@ -169,10 +169,9 @@ static NSSet *_demoServces;
         if (self.debug) NSLog(@"Segueing to Show Demo List");
         if ([segue.destinationViewController isKindOfClass:[BLEDemoDispatcherViewController  class]])
         {
-           // BLEServiceDemoDispatcherViewController *destination = segue.destinationViewController;
+            BLEDemoDispatcherViewController *destination = segue.destinationViewController;
             
-          //  destination.characteristics = self.pendingServiceForCharacteristic.characteristics;
-            
+            destination.deviceRecord = self.deviceRecord;
         }
     }
     
