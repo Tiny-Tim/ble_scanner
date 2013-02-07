@@ -33,7 +33,6 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Central Manager Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="145" id="rF5-Qj-pi6"/>
-                                    <constraint firstAttribute="height" constant="21" id="scx-Dk-BEV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -63,23 +62,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="top" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0L2-KO-NZQ"/>
-                            <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="3" secondAttribute="top" constant="108" id="19e-vr-mqK"/>
+                            <constraint firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" constant="11" id="0va-Sa-rZR"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="1HS-8H-hWS"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3Hn-Oz-7wO"/>
-                            <constraint firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" constant="17" id="3Nm-Ex-54y"/>
+                            <constraint firstAttribute="bottom" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="72" id="5ey-sy-sUE"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6aW-5N-VcW"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" type="default" id="AHV-Jy-1kU"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9zH-kB-Otf"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="EAy-qq-EVQ"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="MRZ-Cu-pyE"/>
                             <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="137" id="PI8-rb-DMq"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q9z-NG-Hr1"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="25" id="Sg6-Pp-inc"/>
+                            <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="sfQ-TO-mnD" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="RA5-sE-EuA"/>
                             <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="3" id="TY5-j8-Hm0"/>
-                            <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="84" id="cn4-qd-KFl"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="centerY" secondItem="WGj-1D-B6I" secondAttribute="centerY" type="default" id="VlM-ZE-PEl"/>
                             <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="WGj-1D-B6I" secondAttribute="leading" type="default" id="f5E-Zf-DS1"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fo3-Lv-SwH"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="j9Z-9w-nmt"/>
-                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="50" id="oZL-DT-VLe"/>
+                            <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="73" id="jUT-nt-jay"/>
+                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="41" id="uXS-1f-yFH"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="18" id="wfZ-0n-7FB"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -175,7 +175,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKr-u4-XVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="313" y="-233"/>
+            <point key="canvasLocation" x="249" y="-965"/>
         </scene>
         <!--Device ListTVC - ServiceList-->
         <scene sceneID="2wh-j1-c3Q">
@@ -211,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6B-Qk-hp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="-233"/>
+            <point key="canvasLocation" x="974" y="-979"/>
         </scene>
         <!--Service InformationTVC - AddService-->
         <scene sceneID="jj8-KB-Myo">
@@ -284,7 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHx-EV-eeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1466" y="-233"/>
+            <point key="canvasLocation" x="1550" y="-939"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
@@ -313,7 +313,7 @@
             <objects>
                 <viewController id="1vR-VU-Qfb" customClass="BLEDiscoveredDevicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="286"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -403,7 +403,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rme-rM-AhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="1218"/>
+            <point key="canvasLocation" x="-35" y="1082"/>
         </scene>
         <!--Services Manager View Controller - Peripheral Services TVC-->
         <scene sceneID="JxM-Ip-GIy">
@@ -419,13 +419,9 @@
                                     <segue destination="MUh-eR-psD" kind="embed" identifier="ServiceList" id="XTU-HE-UWH"/>
                                 </connections>
                             </containerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vz2-yh-1Ac">
-                                <items/>
-                            </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfh-oP-ntk">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="127" id="ZVo-a0-PRZ"/>
-                                    <constraint firstAttribute="height" constant="21" id="gB0-Kh-4bT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -444,32 +440,39 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="bottom" secondItem="Yfh-oP-ntk" secondAttribute="bottom" type="default" id="3Jk-nk-CgS"/>
-                            <constraint firstAttribute="bottom" secondItem="8QO-Z1-ilR" secondAttribute="bottom" constant="105" id="4bk-6c-gKO"/>
                             <constraint firstItem="tCz-W5-I1A" firstAttribute="leading" secondItem="Yfh-oP-ntk" secondAttribute="leading" type="default" id="8Me-5w-rX8"/>
-                            <constraint firstItem="Vz2-yh-1Ac" firstAttribute="trailing" secondItem="muK-wk-d5o" secondAttribute="trailing" type="default" id="B14-do-658"/>
-                            <constraint firstAttribute="bottom" secondItem="Yfh-oP-ntk" secondAttribute="bottom" constant="79" id="C6t-UN-mIE"/>
-                            <constraint firstAttribute="bottom" secondItem="tCz-W5-I1A" secondAttribute="bottom" constant="53" id="DfW-gm-iJi"/>
-                            <constraint firstItem="Vz2-yh-1Ac" firstAttribute="bottom" secondItem="muK-wk-d5o" secondAttribute="bottom" type="default" id="Fax-RN-U7y"/>
+                            <constraint firstItem="Yfh-oP-ntk" firstAttribute="top" secondItem="8QO-Z1-ilR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FhO-4w-POS"/>
                             <constraint firstItem="8QO-Z1-ilR" firstAttribute="trailing" secondItem="muK-wk-d5o" secondAttribute="trailing" type="default" id="Fwh-Pw-FQu"/>
-                            <constraint firstItem="Vz2-yh-1Ac" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" type="default" id="Sbi-rL-OJq"/>
+                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="centerY" secondItem="Yfh-oP-ntk" secondAttribute="centerY" type="default" id="JIO-Mb-Enw"/>
+                            <constraint firstAttribute="bottom" secondItem="tCz-W5-I1A" secondAttribute="bottom" constant="13" id="TyA-8i-UIb"/>
                             <constraint firstItem="8QO-Z1-ilR" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" type="default" id="Zho-Bf-h2F"/>
                             <constraint firstItem="tCz-W5-I1A" firstAttribute="trailing" secondItem="muK-wk-d5o" secondAttribute="trailing" type="default" id="d1h-lN-j82"/>
                             <constraint firstItem="xF4-e6-ZLn" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" constant="127" id="juh-8h-pD2"/>
+                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="top" secondItem="8QO-Z1-ilR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jyw-vB-Kyd"/>
+                            <constraint firstAttribute="bottom" secondItem="Yfh-oP-ntk" secondAttribute="bottom" constant="31" id="qQe-qS-kbc"/>
                             <constraint firstItem="8QO-Z1-ilR" firstAttribute="top" secondItem="muK-wk-d5o" secondAttribute="top" type="default" id="zwu-2m-hz9"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" title="Demos" id="Wpj-fP-Eu7">
+                            <connections>
+                                <action selector="demosButton:" destination="LYe-aF-nEv" id="91Y-Um-Ez6"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Services" id="1pU-Tc-sGb"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="statusActivityIndicator" destination="xF4-e6-ZLn" id="EK3-qY-xZ0"/>
                         <outlet property="statusDetailLabel" destination="tCz-W5-I1A" id="iMW-VT-cuI"/>
                         <outlet property="statusHeadingLabel" destination="Yfh-oP-ntk" id="SCP-HW-y8B"/>
                         <segue destination="Eji-9F-GQZ" kind="push" identifier="ShowCharacteristics" id="koX-DJ-fdl"/>
+                        <segue destination="pos-5a-p1i" kind="push" identifier="ShowDemoList" id="UP1-8x-2dj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O4q-Rj-E2h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="495"/>
+            <point key="canvasLocation" x="184" y="275"/>
         </scene>
         <!--Peripheral CharacteristicsTVC - Characteristics-->
         <scene sceneID="9q5-6g-Ig7">
@@ -511,14 +514,29 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sa-yQ-v77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="483"/>
+            <point key="canvasLocation" x="790" y="-295"/>
+        </scene>
+        <!--Service Demo Dispatcher View Controller - Demos-->
+        <scene sceneID="2TL-5d-tZk">
+            <objects>
+                <viewController id="pos-5a-p1i" customClass="BLEServiceDemoDispatcherViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iTY-ND-voJ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Demos" id="zcK-0c-N9f"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1281" y="380"/>
         </scene>
         <!--Peripheral ServicesTVC-->
         <scene sceneID="I9W-0W-KS0">
             <objects>
                 <viewController id="MUh-eR-psD" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xZd-PP-e9B">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="355"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="401"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -557,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xD-a8-4ZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="703" y="1209"/>
+            <point key="canvasLocation" x="585" y="1082"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

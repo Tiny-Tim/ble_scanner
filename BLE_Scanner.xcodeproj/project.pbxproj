@@ -33,6 +33,7 @@
 		D9207B6A16B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B7216B6D35B0023FFFA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9207B7016B6D35B0023FFFA /* InfoPlist.strings */; };
 		D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */; };
+		D968689816C3489100F79634 /* BLEServiceDemoDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689716C3489000F79634 /* BLEServiceDemoDispatcherViewController.m */; };
 		D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982746D16B6F7210005477F /* BLEScanControlTVC.m */; };
 		D982747216B6F7730005477F /* BLEDeviceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEDeviceListTVC.m */; };
 		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
@@ -87,6 +88,8 @@
 		D9207B7116B6D35B0023FFFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D9207B7316B6D35B0023FFFA /* BLE_ScannerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLE_ScannerTests.h; sourceTree = "<group>"; };
 		D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLE_ScannerTests.m; sourceTree = "<group>"; };
+		D968689616C3489000F79634 /* BLEServiceDemoDispatcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEServiceDemoDispatcherViewController.h; sourceTree = "<group>"; };
+		D968689716C3489000F79634 /* BLEServiceDemoDispatcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEServiceDemoDispatcherViewController.m; sourceTree = "<group>"; };
 		D982746C16B6F7210005477F /* BLEScanControlTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEScanControlTVC.h; sourceTree = "<group>"; };
 		D982746D16B6F7210005477F /* BLEScanControlTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEScanControlTVC.m; sourceTree = "<group>"; };
 		D982747016B6F7730005477F /* BLEDeviceListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceListTVC.h; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */,
 				D90263C616C1EC240058BA37 /* BLEServicesManagerViewController.h */,
 				D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */,
+				D968689616C3489000F79634 /* BLEServiceDemoDispatcherViewController.h */,
+				D968689716C3489000F79634 /* BLEServiceDemoDispatcherViewController.m */,
 				D9207B4716B6D35B0023FFFA /* Supporting Files */,
 			);
 			path = BLE_Scanner;
@@ -352,6 +357,7 @@
 				D90263BF16C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */,
 				D90263C416C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */,
 				D90263C816C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
+				D968689816C3489100F79634 /* BLEServiceDemoDispatcherViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

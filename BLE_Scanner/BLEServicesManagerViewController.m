@@ -9,21 +9,79 @@
 #import "BLEServicesManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
 #import "BLEPeripheralCharacteristicsTVC.h"
+#import "CBUUID+StringExtraction.h"
+#import "BLEServiceDemoDispatcherViewController.h"
 
 
 @interface BLEServicesManagerViewController ()
 
 // controls NSLogging
 @property (nonatomic) BOOL debug;
+
+// label for status updating used when retreieving characteristics
 @property (weak, nonatomic) IBOutlet UILabel *statusHeadingLabel;
+
+// displays current activity
 @property (weak, nonatomic) IBOutlet UILabel *statusDetailLabel;
+
+// spinner which activates when peripheral being accessed
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *statusActivityIndicator;
 
 // CBService which is being processed to retrieve characteristics
 @property (nonatomic, strong)CBService *pendingServiceForCharacteristic;
+
+
+
+- (IBAction)demosButton:(UIBarButtonItem *)sender;
+
 @end
 
 @implementation BLEServicesManagerViewController
+
+@synthesize deviceRecord = _deviceRecord;
+
+
+
+// class variable which is a set of known services for which a demo exists
+static NSSet *_demoServces; 
+
+// static initializer
++(void)initialize
+{
+   _demoServces = [NSSet setWithObjects:@"1802", @"180F",@"FFE0", nil ]; 
+}
+
+
+- (IBAction)demosButton:(UIBarButtonItem *)sender
+{
+    if (self.debug) NSLog(@"Demos button tapped.");
+    
+    // segue to demo list view controller
+     [self performSegueWithIdentifier:@"ShowDemoList" sender:self];
+    
+}
+
+
+-(void)setDeviceRecord:(BLEPeripheralRecord *)deviceRecord
+{
+    // set the property
+    _deviceRecord = deviceRecord;
+    
+    // the peripheral's services have been set at this point, determine if demos exist for any of the services
+    for (CBService *service in _deviceRecord.peripheral.services)
+    {
+        NSString *uuidString = [service.UUID representativeString];
+        
+        if ([_demoServces containsObject:uuidString])
+        {
+            //enable the demo button in the tool bar
+            [self.toolbarItems[0] setEnabled:YES];
+            break;
+        }
+    }
+    
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +91,9 @@
     }
     return self;
 }
+
+
+
 
 - (void)viewDidLoad
 {
@@ -48,6 +109,7 @@
     {
         self.statusDetailLabel.text = @"Unconnected";
     }
+    
 
 }
 
@@ -99,6 +161,17 @@
             BLEPeripheralCharacteristicsTVC *destination = segue.destinationViewController;
             
             destination.characteristics = self.pendingServiceForCharacteristic.characteristics;
+            
+        }
+    }
+    else if ([segue.identifier isEqualToString:@"ShowDemoList"])
+    {
+        if (self.debug) NSLog(@"Segueing to Show Demo List");
+        if ([segue.destinationViewController isKindOfClass:[BLEServiceDemoDispatcherViewController class]])
+        {
+           // BLEServiceDemoDispatcherViewController *destination = segue.destinationViewController;
+            
+          //  destination.characteristics = self.pendingServiceForCharacteristic.characteristics;
             
         }
     }
@@ -205,6 +278,7 @@
 {
     if (self.debug) NSLog(@"peripheralDidUpdateRSSI invoked");
 }
+
 
 
 
