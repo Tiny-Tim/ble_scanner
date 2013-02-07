@@ -34,6 +34,7 @@
 		D9207B7216B6D35B0023FFFA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9207B7016B6D35B0023FFFA /* InfoPlist.strings */; };
 		D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */; };
 		D968689816C3489100F79634 /* BLEServiceDemoDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689716C3489000F79634 /* BLEServiceDemoDispatcherViewController.m */; };
+		D968689916C40EB900F79634 /* BLEServiceDemoDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689716C3489000F79634 /* BLEServiceDemoDispatcherViewController.m */; };
 		D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982746D16B6F7210005477F /* BLEScanControlTVC.m */; };
 		D982747216B6F7730005477F /* BLEDeviceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEDeviceListTVC.m */; };
 		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
@@ -372,6 +373,7 @@
 				D90263C016C011340058BA37 /* BLEPeripheralServicesTVC.m in Sources */,
 				D90263C516C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m in Sources */,
 				D90263C916C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
+				D968689916C40EB900F79634 /* BLEServiceDemoDispatcherViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
