@@ -10,6 +10,8 @@
 #import "BLEBatteryServiceDemoViewController.h"
 #import "CBUUID+StringExtraction.h"
 
+#include "ServiceAndCharacteristicMacros.h"
+
 @interface BLEDemoDispatcherViewController ()
 
 - (IBAction)serviceButtonTapped:(UIButton *)sender;
@@ -44,11 +46,11 @@
 - (IBAction)serviceButtonTapped:(UIButton *)sender
 {
     
-    if ([sender.titleLabel.text hasPrefix:@"1802"])
+    if ([sender.titleLabel.text hasPrefix:IMMEDIATE_ALERT_SERVICE])
     {
         if (self.debug) NSLog(@"Immediate Alert Service Selected");
     }
-    else if ([sender.titleLabel.text hasPrefix:@"180F"])
+    else if ([sender.titleLabel.text hasPrefix:BATTERY_SERVICE])
     {
          if (self.debug) NSLog(@"Battery Service Selected");
         
@@ -74,7 +76,7 @@
             {
                 NSString *uuidString = [service.UUID representativeString];
                 
-                if ([[uuidString uppercaseString] localizedCompare:@"180F"] == NSOrderedSame)
+                if ([[uuidString uppercaseString] localizedCompare:BATTERY_SERVICE] == NSOrderedSame)
                 {
                     destination.batteryService = service;
                     break;

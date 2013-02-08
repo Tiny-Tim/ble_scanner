@@ -95,6 +95,7 @@
 		D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDemoDispatcherViewController.m; sourceTree = "<group>"; };
 		D968689E16C41B0400F79634 /* BLEBatteryServiceDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEBatteryServiceDemoViewController.h; sourceTree = "<group>"; };
 		D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEBatteryServiceDemoViewController.m; sourceTree = "<group>"; };
+		D96868A216C479A500F79634 /* ServiceAndCharacteristicMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceAndCharacteristicMacros.h; sourceTree = "<group>"; };
 		D982746C16B6F7210005477F /* BLEScanControlTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEScanControlTVC.h; sourceTree = "<group>"; };
 		D982746D16B6F7210005477F /* BLEScanControlTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEScanControlTVC.m; sourceTree = "<group>"; };
 		D982747016B6F7730005477F /* BLEDeviceListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceListTVC.h; sourceTree = "<group>"; };
@@ -201,6 +202,7 @@
 				D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */,
 				D968689E16C41B0400F79634 /* BLEBatteryServiceDemoViewController.h */,
 				D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */,
+				D96868A216C479A500F79634 /* ServiceAndCharacteristicMacros.h */,
 				D9207B4716B6D35B0023FFFA /* Supporting Files */,
 			);
 			path = BLE_Scanner;

@@ -12,6 +12,7 @@
 #import "CBUUID+StringExtraction.h"
 #import "BLEDemoDispatcherViewController.h"
 
+#include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEServicesManagerViewController ()
 
@@ -48,7 +49,7 @@ static NSSet *_demoServces;
 // static initializer
 +(void)initialize
 {
-   _demoServces = [NSSet setWithObjects:@"1802", @"180F",@"FFE0", nil ]; 
+   _demoServces = [NSSet setWithObjects:IMMEDIATE_ALERT_SERVICE, BATTERY_SERVICE,TI_KEYFOB_KEYPRESSED_SERVICE, nil ]; 
 }
 
 
