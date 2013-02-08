@@ -127,10 +127,8 @@
             if ([uuidString localizedCompare:BATTERY_LEVEL_CHARACTERISTIC] == NSOrderedSame)
             {
                 return YES;
-                
             }
             return NO;
-        
         }];
         
         if (index == NSNotFound)
@@ -153,7 +151,6 @@
                 if (self.debug) NSLog(@"Failed to read characteristic, peripheral not connected.");
                 [self setConnectionStatus];
             }
-            
         }
     }
     else // Need to discover characteristic then read the battery value
@@ -246,8 +243,6 @@
         if (self.debug) NSLog(@"Reading battery level");
         [self readBatteryLevel];
     }
-    
-    
 }
 
 

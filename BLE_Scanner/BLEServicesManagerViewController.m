@@ -49,7 +49,14 @@ static NSSet *_demoServices;
 // static initializer
 +(void)initialize
 {
-   _demoServices = [NSSet setWithObjects:IMMEDIATE_ALERT_SERVICE, BATTERY_SERVICE,TI_KEYFOB_KEYPRESSED_SERVICE, nil ];
+   _demoServices = [NSSet setWithObjects:
+                    IMMEDIATE_ALERT_SERVICE,
+                    Tx_POWER_SERVICE,
+                    HEART_RATE_MEASUREMENT_SERVICE,
+                    BATTERY_SERVICE,
+                    TI_KEYFOB_ACCELEROMETER_SERVICE,
+                    TI_KEYFOB_KEYPRESSED_SERVICE,
+                    nil ];
 }
 
 
@@ -187,6 +194,7 @@ static NSSet *_demoServices;
             BLEDemoDispatcherViewController *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.deviceRecord;
+            destination.demoServices = _demoServices;
         }
     }
     

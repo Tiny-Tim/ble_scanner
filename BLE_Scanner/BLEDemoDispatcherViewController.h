@@ -13,7 +13,10 @@
 @interface BLEDemoDispatcherViewController : UIViewController
 
 
-
 // Model for the view controller
 @property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
+
+
+// Set of services for which demos exist
+@property (nonatomic, copy)NSSet *demoServices;
 @end
