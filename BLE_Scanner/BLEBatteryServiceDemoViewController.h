@@ -11,5 +11,6 @@
 
 @interface BLEBatteryServiceDemoViewController : UIViewController <CBPeripheralDelegate>
 
+// Model for the controller - the batteryService being demonstrated.
 @property (nonatomic, strong) CBService* batteryService;
 @end

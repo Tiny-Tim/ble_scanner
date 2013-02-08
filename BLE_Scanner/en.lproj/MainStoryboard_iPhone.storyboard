@@ -679,15 +679,40 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96w-33-xn4">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8nK-fj-oA3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CO-hd-9Sm">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="fpk-D2-5hx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-tu-Dkh"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="viJ-Ui-afj" firstAttribute="leading" secondItem="kh7-7R-2af" secondAttribute="leading" type="default" id="6Ji-Bl-soR"/>
+                            <constraint firstItem="96w-33-xn4" firstAttribute="centerX" secondItem="1Rk-fh-JsZ" secondAttribute="centerX" type="default" id="Aux-G6-rgy"/>
+                            <constraint firstAttribute="trailing" secondItem="96w-33-xn4" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="DPJ-Cg-9gE"/>
+                            <constraint firstItem="96w-33-xn4" firstAttribute="top" secondItem="sLQ-tu-Dkh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Gwl-1w-0Xu"/>
+                            <constraint firstItem="sLQ-tu-Dkh" firstAttribute="top" secondItem="3CO-hd-9Sm" secondAttribute="top" type="default" id="I6A-mQ-mIA"/>
                             <constraint firstItem="kh7-7R-2af" firstAttribute="trailing" secondItem="1Rk-fh-JsZ" secondAttribute="trailing" type="default" id="Iw8-dW-Wvc"/>
-                            <constraint firstItem="Dqy-Cl-4pd" firstAttribute="leading" secondItem="ZKC-Gy-QLI" secondAttribute="leading" constant="58" id="Kvt-bK-9QV"/>
-                            <constraint firstItem="1Rk-fh-JsZ" firstAttribute="centerX" secondItem="ZKC-Gy-QLI" secondAttribute="centerX" type="default" id="cZ1-VS-RTP"/>
+                            <constraint firstItem="96w-33-xn4" firstAttribute="top" secondItem="3CO-hd-9Sm" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ns7-Vd-c5q"/>
+                            <constraint firstItem="sLQ-tu-Dkh" firstAttribute="centerX" secondItem="Dqy-Cl-4pd" secondAttribute="centerX" type="default" id="TXM-ff-HlI"/>
+                            <constraint firstItem="sLQ-tu-Dkh" firstAttribute="leading" secondItem="3CO-hd-9Sm" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="ZxA-Eq-HZa"/>
+                            <constraint firstItem="96w-33-xn4" firstAttribute="leading" secondItem="ZKC-Gy-QLI" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="cdk-fs-SmG"/>
                             <constraint firstItem="1Rk-fh-JsZ" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="171" id="d8v-qL-R8B"/>
                             <constraint firstItem="viJ-Ui-afj" firstAttribute="trailing" secondItem="kh7-7R-2af" secondAttribute="trailing" type="default" id="dbb-Ds-F0O"/>
+                            <constraint firstItem="3CO-hd-9Sm" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="396" id="h0O-rG-ypD"/>
+                            <constraint firstItem="3CO-hd-9Sm" firstAttribute="leading" secondItem="ZKC-Gy-QLI" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="jBc-3b-RTT"/>
                             <constraint firstItem="1Rk-fh-JsZ" firstAttribute="leading" secondItem="kh7-7R-2af" secondAttribute="leading" type="default" id="lhJ-Ri-PUd"/>
                             <constraint firstItem="viJ-Ui-afj" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="104" id="meg-Qc-rW8"/>
                             <constraint firstItem="Dqy-Cl-4pd" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="25" id="qak-YS-HfT"/>
@@ -698,6 +723,8 @@
                     <connections>
                         <outlet property="batteryLevelLabel" destination="1Rk-fh-JsZ" id="yUY-6i-M8B"/>
                         <outlet property="batteryMeter" destination="kh7-7R-2af" id="4gB-KS-WRy"/>
+                        <outlet property="peripheralStatusLabel" destination="96w-33-xn4" id="5Qj-Cl-iqu"/>
+                        <outlet property="peripheralStatusSpinner" destination="sLQ-tu-Dkh" id="7bU-ba-JdX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuW-x0-ZA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -751,71 +778,6 @@
             <point key="canvasLocation" x="585" y="1082"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="BLEBatteryServiceDemoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBatteryServiceDemoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="batteryLevelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="batteryMeter" candidateClass="UIProgressView"/>
-            </relationships>
-        </class>
-        <class className="BLECentralManagerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stopConnect:"/>
-                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BLEDeviceListTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceListTVC.h"/>
-        </class>
-        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
-            <relationships>
-                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
-        </class>
-        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
-        </class>
-        <class className="BLEScanControlTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="BLEServicesManagerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServicesManagerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="statusDetailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusHeadingLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
