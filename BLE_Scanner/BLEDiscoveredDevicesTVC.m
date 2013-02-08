@@ -237,7 +237,7 @@
     
      //if (self.debug) NSLog(@"indexes: %@", indexes);
     
-    // swap the button lablels
+    // swap the button labels
     NSUInteger sectionIndex=[indexes firstIndex];
   
     NSString *currentTitle;
@@ -250,8 +250,6 @@
         // update device data information
         data = [self updateDeviceLabelsForDevice:record];
         [[self.sections objectAtIndex:0] replaceObjectAtIndex:sectionIndex withObject:data];
-        
-        //if (self.debug) NSLog(@"row = %i",indexPath.row);
        
         // get the current title from the custom cell dictionary
         currentTitle = [BLEConnectButtonCell getButtonTitle:record.dictionaryKey];
@@ -264,14 +262,10 @@
         else
         {
             [BLEConnectButtonCell setButtonTitle:(@"Connect") AtKey:record.dictionaryKey];
-            
         }
-        
         
         sectionIndex=[indexes indexGreaterThanIndex: sectionIndex];
     }
-    
-    
         
     [self.tableView reloadData];
     
@@ -297,7 +291,6 @@
     
     // ADVERTISEMENT_ROW = number of peripheral properties + number of advertisement items
     NSUInteger numRowsSection = [[deviceItems objectAtIndex:section]count]+ [record.advertisementItems count] ;
-    
     
     //if (self.debug) NSLog(@"Setting row count in discovered device table %d",numRowsSection);
     return numRowsSection;
@@ -391,9 +384,7 @@
                     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
                 }
                 
-                
                 cell.detailTextLabel.text=@"";
-                
             }
             
         }
@@ -406,9 +397,7 @@
             
             cell.textLabel.text = data.textLabelText;
             cell.detailTextLabel.text = data.detailTextLabelText;
-            
         }
-        
     }
     
     return cell;

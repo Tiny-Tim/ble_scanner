@@ -96,12 +96,12 @@
     {
         case 0:
             cell.textLabel.text = @"Parent Service";
-            cell.detailTextLabel.text = [characteristic.service.UUID representativeString];
+            cell.detailTextLabel.text = [[characteristic.service.UUID representativeString]uppercaseString];
             break;
             
         case 1:
             cell.textLabel.text = @"Characteristic UUID";
-            cell.detailTextLabel.text = [characteristic.UUID representativeString];
+            cell.detailTextLabel.text = [[characteristic.UUID representativeString]uppercaseString];
             break;
           
         case 2:
@@ -170,13 +170,13 @@
         
         BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
         CBUUID *target = characteristic.UUID;
-        NSString *targetString = [target representativeString];
+        NSString *targetString = [[target representativeString]uppercaseString];
         
         test = ^(id obj, NSUInteger idx, BOOL *stop)
         {
             CBCharacteristic *item_characteristic = (CBCharacteristic *)obj;
             CBUUID *uuid = item_characteristic.UUID;
-            NSString *uuidString = [uuid representativeString];
+            NSString *uuidString = [[uuid representativeString]uppercaseString];
             
             if ([targetString localizedCompare:uuidString] == NSOrderedSame)
             {
@@ -202,7 +202,6 @@
         NSLog(@"Characteristic UUID %@",[characteristic.UUID representativeString]);
     }
     
-   // [self.tableView reloadData];
 }
 
 @end

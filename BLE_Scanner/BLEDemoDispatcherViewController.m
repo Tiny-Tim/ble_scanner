@@ -35,6 +35,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     _debug = YES;
+    
+    // disable demo buttons for services this peripheral does not offer
+    
 }
 
 - (void)didReceiveMemoryWarning

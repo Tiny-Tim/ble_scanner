@@ -44,12 +44,12 @@
 
 
 // class variable which is a set of known services for which a demo exists
-static NSSet *_demoServces; 
+static NSSet *_demoServices;
 
 // static initializer
 +(void)initialize
 {
-   _demoServces = [NSSet setWithObjects:IMMEDIATE_ALERT_SERVICE, BATTERY_SERVICE,TI_KEYFOB_KEYPRESSED_SERVICE, nil ]; 
+   _demoServices = [NSSet setWithObjects:IMMEDIATE_ALERT_SERVICE, BATTERY_SERVICE,TI_KEYFOB_KEYPRESSED_SERVICE, nil ];
 }
 
 
@@ -63,6 +63,30 @@ static NSSet *_demoServces;
 }
 
 
+/*
+ *
+ * Method Name:  setConnectionStatus
+ *
+ * Description:  Sets the connection status label to indicate peripheral connect status.
+ *
+ * Parameter(s): None
+ *
+ */
+-(void)setConnectionStatus
+{
+    if ([self.deviceRecord.peripheral isConnected])
+    {
+        self.statusDetailLabel.textColor = [UIColor greenColor];
+        self.statusDetailLabel.text = @"Connected";
+    }
+    else
+    {
+        self.statusDetailLabel.textColor = [UIColor redColor];
+        self.statusDetailLabel.text = @"Unconnected";
+    }
+}
+
+
 -(void)setDeviceRecord:(BLEPeripheralRecord *)deviceRecord
 {
     // set the property
@@ -73,7 +97,7 @@ static NSSet *_demoServces;
     {
         NSString *uuidString = [service.UUID representativeString];
         
-        if ([_demoServces containsObject:uuidString])
+        if ([_demoServices containsObject:uuidString])
         {
             //enable the demo button in the tool bar
             [self.toolbarItems[0] setEnabled:YES];
@@ -95,23 +119,13 @@ static NSSet *_demoServces;
 
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     _debug = YES;
 	// Do any additional setup after loading the view.
+    [self setConnectionStatus];
     
-    if ([self.deviceRecord.peripheral isConnected])
-    {
-        self.statusDetailLabel.text = @"Connected";
-    }
-    else
-    {
-        self.statusDetailLabel.text = @"Unconnected";
-    }
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -212,17 +226,8 @@ static NSSet *_demoServces;
     [self.statusActivityIndicator stopAnimating];
     self.statusDetailLabel.textColor = [UIColor blackColor];
     
+     [self setConnectionStatus];
     
-    if ([peripheral isConnected])
-    {
-       self.statusDetailLabel.text = @"Connected"; 
-    }
-    else
-    {
-        self.statusDetailLabel.text = @"Unconnected"; 
-    }
-   
-   
     if (error == nil)
     {
         // segue to BLEPeripheralCharacteristicsTVC

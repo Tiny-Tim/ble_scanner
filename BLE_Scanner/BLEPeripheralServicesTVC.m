@@ -74,7 +74,7 @@
     cell.textLabel.text = @"Service UUID";
     CBService *service = [self.deviceRecord.peripheral.services objectAtIndex:indexPath.section];
     
-    cell.detailTextLabel.text = [service.UUID representativeString];
+    cell.detailTextLabel.text = [[service.UUID representativeString]uppercaseString];
     
     return cell;
 }
