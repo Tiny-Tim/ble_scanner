@@ -9,7 +9,7 @@
 #import "BLEDemoDispatcherViewController.h"
 #import "BLEBatteryServiceDemoViewController.h"
 #import "CBUUID+StringExtraction.h"
-
+#import "BLEKeyPressDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEDemoDispatcherViewController ()
@@ -159,6 +159,13 @@
         [self performSegueWithIdentifier:@"ShowBatteryDemo" sender:self];
 
     }
+    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_KEYPRESSED_SERVICE])
+    {
+        if (self.debug) NSLog(@"Key Pressed Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowKeyPressDemo" sender:self];
+         
+    }
 }
 
 
@@ -199,6 +206,28 @@
             
         }
 
+    }
+    else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to KeyPress Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEKeyPressDemoViewController class]])
+        {
+            BLEKeyPressDemoViewController *destination = segue.destinationViewController;
+            for (CBService *service in _deviceRecord.peripheral.services)
+            {
+                NSString *uuidString = [service.UUID representativeString];
+                
+                if ([[uuidString uppercaseString] localizedCompare:TI_KEYFOB_KEYPRESSED_SERVICE] == NSOrderedSame)
+                {
+                    destination.keyPressedService = service;
+                    break;
+                }
+            }
+
+            
+        }
+        
+        
     }
 }
 

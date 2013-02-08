@@ -24,5 +24,5 @@
 
 // Characteristics
 #define BATTERY_LEVEL_CHARACTERISTIC @"2A19"
-
+#define TI_KEY_PRESSED_STATE_CHARACTERISTIC @"FFE1"
 #endif
