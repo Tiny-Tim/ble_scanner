@@ -40,6 +40,8 @@
 		D96868A616C58E6600F79634 /* redLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A416C58E6500F79634 /* redLed.png */; };
 		D96868A716C58E6600F79634 /* whiteLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A516C58E6500F79634 /* whiteLed.png */; };
 		D96868AA16C5915100F79634 /* BLEKeyPressDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */; };
+		D96868AE16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */; };
+		D96868AF16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */; };
 		D982746E16B6F7210005477F /* BLEScanControlTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982746D16B6F7210005477F /* BLEScanControlTVC.m */; };
 		D982747216B6F7730005477F /* BLEDeviceListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D982747116B6F7730005477F /* BLEDeviceListTVC.m */; };
 		D982747B16B7216C0005477F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D982747A16B7216C0005477F /* CoreBluetooth.framework */; };
@@ -103,6 +105,8 @@
 		D96868A516C58E6500F79634 /* whiteLed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteLed.png; path = ../../whiteLed.png; sourceTree = "<group>"; };
 		D96868A816C5915000F79634 /* BLEKeyPressDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEKeyPressDemoViewController.h; sourceTree = "<group>"; };
 		D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEKeyPressDemoViewController.m; sourceTree = "<group>"; };
+		D96868AC16C6C55200F79634 /* BLEAccelerometerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEAccelerometerDemoViewController.h; path = ../BLEAccelerometerDemoViewController.h; sourceTree = "<group>"; };
+		D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLEAccelerometerDemoViewController.m; path = ../BLEAccelerometerDemoViewController.m; sourceTree = "<group>"; };
 		D982746C16B6F7210005477F /* BLEScanControlTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEScanControlTVC.h; sourceTree = "<group>"; };
 		D982746D16B6F7210005477F /* BLEScanControlTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEScanControlTVC.m; sourceTree = "<group>"; };
 		D982747016B6F7730005477F /* BLEDeviceListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceListTVC.h; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 		D9207B4616B6D35B0023FFFA /* BLE_Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				D96868AC16C6C55200F79634 /* BLEAccelerometerDemoViewController.h */,
+				D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
 				D90263C116C081050058BA37 /* BLECentralManagerDelegate.h */,
 				D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */,
@@ -398,6 +404,7 @@
 				D968689C16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */,
 				D96868A016C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */,
 				D96868AA16C5915100F79634 /* BLEKeyPressDemoViewController.m in Sources */,
+				D96868AE16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +421,7 @@
 				D90263C916C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
 				D968689D16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */,
 				D96868A116C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */,
+				D96868AF16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

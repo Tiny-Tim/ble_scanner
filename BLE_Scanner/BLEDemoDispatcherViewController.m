@@ -9,7 +9,8 @@
 #import "BLEDemoDispatcherViewController.h"
 #import "BLEBatteryServiceDemoViewController.h"
 #import "CBUUID+StringExtraction.h"
-#import "BLEKeyPressDemoViewController.h"
+#import "BLEKeyPressDemoViewController.h" 
+#import "BLEAccelerometerDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEDemoDispatcherViewController ()
@@ -166,6 +167,31 @@
         [self performSegueWithIdentifier:@"ShowKeyPressDemo" sender:self];
          
     }
+    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_ACCELEROMETER_SERVICE])
+    {
+        if (self.debug) NSLog(@"Accelerometer Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
+        
+    }
+}
+
+
+-(CBService *)getService: (NSString *)serviceIdentifier forPeripheral:(CBPeripheral *)peripheral
+{
+    CBService *selectedService = nil;
+    for (CBService *service in peripheral.services)
+    {
+        NSString *uuidString = [service.UUID representativeString];
+        
+        if ([[uuidString uppercaseString] localizedCompare:serviceIdentifier] == NSOrderedSame)
+        {
+            selectedService = service;
+            break;
+        }
+    }
+
+    return selectedService;
 }
 
 
@@ -188,17 +214,8 @@
         {
             BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
             
-            for (CBService *service in _deviceRecord.peripheral.services)
-            {
-                NSString *uuidString = [service.UUID representativeString];
-                
-                if ([[uuidString uppercaseString] localizedCompare:BATTERY_SERVICE] == NSOrderedSame)
-                {
-                    destination.batteryService = service;
-                    break;
-                }
-            }
-            
+            destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
+                        
             if (! destination.batteryService)
             {
                 NSLog(@"Crash coming... expected battery service not found");
@@ -212,21 +229,21 @@
         if (self.debug) NSLog(@"Segueing to KeyPress Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEKeyPressDemoViewController class]])
         {
+           
             BLEKeyPressDemoViewController *destination = segue.destinationViewController;
-            for (CBService *service in _deviceRecord.peripheral.services)
-            {
-                NSString *uuidString = [service.UUID representativeString];
-                
-                if ([[uuidString uppercaseString] localizedCompare:TI_KEYFOB_KEYPRESSED_SERVICE] == NSOrderedSame)
-                {
-                    destination.keyPressedService = service;
-                    break;
-                }
-            }
-
+            destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.deviceRecord.peripheral];
+           
+        }
+    }
+    else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Accelerometer Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEAccelerometerDemoViewController class]])
+        {
+            BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
+            destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
             
         }
-        
         
     }
 }

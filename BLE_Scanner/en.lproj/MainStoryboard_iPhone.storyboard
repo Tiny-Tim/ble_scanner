@@ -211,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6B-Qk-hp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="-979"/>
+            <point key="canvasLocation" x="969" y="-993"/>
         </scene>
         <!--Service InformationTVC - AddService-->
         <scene sceneID="jj8-KB-Myo">
@@ -284,7 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHx-EV-eeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="-939"/>
+            <point key="canvasLocation" x="1543" y="-993"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
@@ -682,11 +682,27 @@
                         <outletCollection property="buttonCollection" destination="Mlv-qo-Vqh" id="Ggo-yg-8eW"/>
                         <segue destination="M4N-3b-Y3k" kind="push" identifier="ShowBatteryDemo" id="5jR-5r-2kd"/>
                         <segue destination="diW-He-e5H" kind="push" identifier="ShowKeyPressDemo" id="ptW-8b-AUx"/>
+                        <segue destination="3N1-Tq-W9m" kind="push" identifier="ShowAccelerometerDemo" id="Fuf-zn-MyJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
+        </scene>
+        <!--Accelerometer Demo View Controller - TI Accelerometer Demo-->
+        <scene sceneID="2rc-9r-Uux">
+            <objects>
+                <viewController id="3N1-Tq-W9m" customClass="BLEAccelerometerDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mam-Yb-6cd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="TI Accelerometer Demo" id="3bA-L0-8We"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RiU-yb-rlL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1755" y="1059"/>
         </scene>
         <!--Key Press Demo View Controller - TI Keyfob Button Press Demo-->
         <scene sceneID="B27-mL-Zpn">
@@ -766,7 +782,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhl-2F-PDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="878"/>
+            <point key="canvasLocation" x="1755" y="380"/>
         </scene>
         <!--Battery Service Demo View Controller - Battery Service Demo-->
         <scene sceneID="HFA-Ec-R4d">
@@ -851,7 +867,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuW-x0-ZA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1769" y="208"/>
+            <point key="canvasLocation" x="1755" y="-300"/>
         </scene>
         <!--Peripheral ServicesTVC-->
         <scene sceneID="I9W-0W-KS0">
