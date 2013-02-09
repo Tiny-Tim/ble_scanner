@@ -11,16 +11,19 @@
 #include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEKeyPressDemoViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *leftButtonImage;
+
 @property (weak, nonatomic) IBOutlet UIImageView *rightButtonImage;
-
-@property (weak, nonatomic) IBOutlet UILabel *leftButtonCountLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *rightButtonCountLabel;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *statusActivityIndicator;
 
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
+
+@property (nonatomic, strong) UIImage *redLEDImage;
+
+@property (nonatomic, strong)UIImage *whiteLEDImage;
+
 
 // toggle NSLog off/on
 @property (nonatomic) BOOL debug;
@@ -36,6 +39,32 @@
     }
     return self;
 }
+
+
+-(UIImage *)redLEDImage
+{
+    if (_redLEDImage == nil)
+    {
+         NSString *redLEDfilePath = [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
+        _redLEDImage = [UIImage imageWithContentsOfFile:redLEDfilePath];
+    }
+    
+    return _redLEDImage;
+}
+
+
+-(UIImage *)whiteLEDImage
+{
+    if (_whiteLEDImage == nil)
+    {
+        NSString *whiteLEDfilePath = [[NSBundle mainBundle] pathForResource:@"whiteLed" ofType:@"png"];
+        _whiteLEDImage = [UIImage imageWithContentsOfFile:whiteLEDfilePath];
+    }
+    
+    return _whiteLEDImage;
+}
+
+
 
 /*
  *
@@ -61,6 +90,31 @@
 }
 
 
+-(void)discoverKeyPressedServiceCharacteristic
+{
+    if ([self.keyPressedService.peripheral isConnected])
+    {
+        // discover keyPressed service characteristic
+        CBUUID *UUUID = [CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC];
+        NSArray *keyPressedServiceUUID = [NSArray arrayWithObject:UUUID];
+        
+        self.peripheralStatusLabel.textColor = [UIColor greenColor];
+        self.peripheralStatusLabel.text = @"Discovering service characteristics.";
+        [self.statusActivityIndicator startAnimating];
+        self.keyPressedService.peripheral.delegate =self;
+        [self.keyPressedService.peripheral discoverCharacteristics:keyPressedServiceUUID
+                                                     forService:self.keyPressedService];
+    }
+    else
+    {
+        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        [self setConnectionStatus];
+    }
+    
+}
+
+
+
 -(void)subscribeForButtonNotifications
 {
     // Check to see if peripheral has retrieved characteristics
@@ -80,7 +134,7 @@
         
         if (index == NSNotFound)
         {
-            //[self discoverBatteryCharacteristic];
+            [self discoverKeyPressedServiceCharacteristic];
         }
         else
         {
@@ -92,16 +146,21 @@
                 
             }
         }
-        
+    }
+    else
+    {
+        [self discoverKeyPressedServiceCharacteristic];
     }
 }
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     _debug = YES;
-    
+
     [self setConnectionStatus];
     
     [self subscribeForButtonNotifications];
@@ -113,51 +172,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
--(void)setLed: (UIImageView *)led ToState:(BOOL)state
-{
-    NSString *redLEDfilePath;
-    NSString *whiteLEDfilePath;
-    
-    redLEDfilePath =  [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
-    whiteLEDfilePath =  [[NSBundle mainBundle] pathForResource:@"whiteLed" ofType:@"png"];
-    if (state)
-    {
-        led.image = [UIImage imageWithContentsOfFile:redLEDfilePath];
-    }
-    else
-    {
-        led.image = [UIImage imageWithContentsOfFile:whiteLEDfilePath];
-    }
-}
-
-- (IBAction)leftTestButton
-{
-    static BOOL toggle = YES;
-    NSString *redLEDfilePath;
-    NSString *whiteLEDfilePath;
-    
-    redLEDfilePath =  [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
-    whiteLEDfilePath =  [[NSBundle mainBundle] pathForResource:@"whiteLed" ofType:@"png"];
-    
-    UIImage *redLED = [UIImage imageWithContentsOfFile:redLEDfilePath];
-    UIImage *whiteLED = [UIImage imageWithContentsOfFile:whiteLEDfilePath];
-    
-    if (toggle)
-    {
-        self.leftButtonImage.image =redLED;
-    }
-    else
-    {
-        self.leftButtonImage.image = whiteLED;
-    }
-    
-    toggle = ! toggle;
-        
-}
-
-- (IBAction)rightTestButton {
-}
 
 #pragma mark - CBPeripheralDelegate
 
@@ -180,30 +194,56 @@
         
         if (buttonValue == 0)
         {
-            [self setLed: self.leftButtonImage ToState:NO];
-            [self setLed: self.rightButtonImage ToState:NO];
+            self.leftButtonImage.image = self.whiteLEDImage;
+            self.rightButtonImage.image = self.whiteLEDImage;
+            
         }
         else if (buttonValue == 1 )
         {
-            [self setLed: self.leftButtonImage ToState:YES];
-            [self setLed: self.rightButtonImage ToState:NO];
+            self.leftButtonImage.image = self.redLEDImage;
+            self.rightButtonImage.image = self.whiteLEDImage;
+            
         }
         else if (buttonValue == 2)
         {
-            [self setLed: self.leftButtonImage ToState:NO];
-            [self setLed: self.rightButtonImage ToState:YES];
-
+            self.leftButtonImage.image = self.whiteLEDImage;
+            self.rightButtonImage.image = self.redLEDImage;
         }
         else if (buttonValue == 3)
         {
-            [self setLed: self.leftButtonImage ToState:YES];
-            [self setLed: self.rightButtonImage ToState:YES];
+            self.leftButtonImage.image = self.redLEDImage;
+            self.rightButtonImage.image = self.redLEDImage;
             
         }
             
     }
     
+    [self setConnectionStatus];
+    
 }
 
+
+/*
+ *
+ * Method Name:  peripheral:didDiscoverCharacteristicsForService:error
+ *
+ * Description:  CBPeripheralDelegate method invoked when chracteristic is discovered or error occurs when reading characteristic.
+ *
+ * Parameter(s): See CBPeripheralDelegate documentation.
+ *
+ */
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
+{
+    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    
+    [self.statusActivityIndicator stopAnimating];
+    [self setConnectionStatus];
+    
+    if (error == nil)
+    {
+        if (self.debug) NSLog(@"Subscribing to key pressed notifications");
+        [self subscribeForButtonNotifications];
+    }
+}
 
 @end
