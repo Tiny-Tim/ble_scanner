@@ -693,12 +693,15 @@
         <scene sceneID="2rc-9r-Uux">
             <objects>
                 <viewController id="3N1-Tq-W9m" customClass="BLEAccelerometerDemoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Mam-Yb-6cd">
+                    <view key="view" contentMode="redraw" id="Mam-Yb-6cd" customClass="BLEGraphView">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="TI Accelerometer Demo" id="3bA-L0-8We"/>
+                    <connections>
+                        <outlet property="graphView" destination="Mam-Yb-6cd" id="j68-uU-Uqs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RiU-yb-rlL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

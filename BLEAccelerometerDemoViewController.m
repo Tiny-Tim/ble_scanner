@@ -10,22 +10,25 @@
 #include "ServiceAndCharacteristicMacros.h"
 #import "CBUUID+StringExtraction.h"
 #import <dispatch/dispatch.h>
+#import "BLEAcclerometerValue.h"
+#import "BLEGraphView.h"
 
-#define MAX_PLOT_ITEMS 5
+
+#define MAX_PLOT_ITEMS 100
 
 // sample rate, e.g 1 sample/second  (.1 hz --> 10 seconds between samples)
-#define SAMPLE_CLOCK_FREQUENCY_HERTZ 1
+#define SAMPLE_CLOCK_FREQUENCY_HERTZ 10
 
 @interface BLEAccelerometerDemoViewController ()
 @property (nonatomic)BOOL debug;
+
+@property (strong, nonatomic) IBOutlet BLEGraphView *graphView;
 
 @property (nonatomic, strong) dispatch_source_t sampleClock;
 
 @property (nonatomic,strong) dispatch_queue_t synchronizingQueue;
 
-@property (nonatomic, strong) NSMutableArray *accelerationPlotX;
-@property (nonatomic, strong) NSMutableArray *accelerationPlotY;
-@property (nonatomic, strong) NSMutableArray *accelerationPlotZ;
+@property (nonatomic, strong) NSMutableArray *accelerationPlot;
 
 @property (nonatomic, strong) NSNumber *accelerometerXNotification;
 
@@ -36,7 +39,8 @@
 
 @implementation BLEAccelerometerDemoViewController
 
-@synthesize accelerationPlotX = _accelerationPlotX;
+@synthesize accelerationPlot = _accelerationPlot;
+
 
 
 -(NSNumber *)accelerometerXNotification
@@ -83,6 +87,15 @@
 
 -(dispatch_source_t)sampleClock
 {
+    static CGFloat minX, maxX, minY, maxY, minZ, maxZ;
+    minX = 1E6;
+    minY = 1E6;
+    minZ = 1E6;
+    maxX = -1E6;
+    maxY = -1E6;
+    maxZ = -1E6;
+    
+    
     if (! _sampleClock)
     {
         _sampleClock = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0, 0, self.synchronizingQueue);
@@ -92,54 +105,39 @@
             
             dispatch_async(self.synchronizingQueue, ^{
                 
-                // copy the accleration data into the plotting data structure
-                NSNumber *latestXValue = [self.accelerometerXNotification copy];
-                NSNumber *latestYValue = [self.accelerometerYNotification copy];
-                NSNumber *latestZValue = [self.accelerometerZNotification copy];
+                CGFloat x = ((CGFloat)[[self.accelerometerXNotification copy] charValue]) / X_CALIBRATION_SCALE + X_CALIBRATION_OFFSET;
+                
+                if (x < minX)
+                {
+                    NSLog(@"New minX %f",x);
+                    minX = x;
+                }
+                
+                if (x> maxX)
+                {
+                    NSLog(@"New maxX %f",x);
+                    maxX = x;
+                }
+                
+                CGFloat y = ((CGFloat)[[self.accelerometerYNotification copy] charValue]) / Y_CALIBRATION_SCALE + Y_CALIBRATION_OFFSET;
+                
+                 CGFloat z = ((CGFloat)[[self.accelerometerZNotification copy] charValue]) / Z_CALIBRATION_SCALE + Z_CALIBRATION_OFFSET;
+                
+                                      
+                BLEAcclerometerValue *value = [[BLEAcclerometerValue alloc]
+                                               initWithX:x withY:y withZ:z];
+                
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    if ([self.accelerationPlotX count] <  MAX_PLOT_ITEMS)
+                    if ([self.accelerationPlot count] ==  MAX_PLOT_ITEMS)
                     {
-                        [self.accelerationPlotX addObject:latestXValue];
-                    }
-                    else
-                    {
-                        [self.accelerationPlotX removeObjectAtIndex:0];
-                        [self.accelerationPlotX addObject:latestXValue];
+                        [self.accelerationPlot removeObjectAtIndex:0];
                     }
                     
-                    if ([self.accelerationPlotY count] <  MAX_PLOT_ITEMS)
-                    {
-                        [self.accelerationPlotY addObject:latestYValue];
-                    }
-                    else
-                    {
-                        [self.accelerationPlotY removeObjectAtIndex:0];
-                        [self.accelerationPlotY addObject:latestYValue];
-                    }
+                    [self.accelerationPlot addObject:value];
                     
-                    if ([self.accelerationPlotZ count] <  MAX_PLOT_ITEMS)
-                    {
-                        [self.accelerationPlotZ addObject:latestZValue];
-                    }
-                    else
-                    {
-                        [self.accelerationPlotZ removeObjectAtIndex:0];
-                        [self.accelerationPlotZ addObject:latestZValue];
-                    }
-                    
-                    
-                    // Update the plot
-                    NSUInteger maxIndex = MIN([self.accelerationPlotX count], [self.accelerationPlotY count]);
-                    maxIndex = MIN(maxIndex, [self.accelerationPlotZ count]);
-                    for (NSUInteger index =0; index < maxIndex; index++)
-                    {
-                        NSLog(@"Acc Values: %i   %i  %i",
-                              [self.accelerationPlotX[index] charValue],
-                              [self.accelerationPlotY[index] charValue],
-                              [self.accelerationPlotZ[index] charValue]);
-                    }
+                    self.graphView.accelerationData = self.accelerationPlot;
                     
                 });
                 
@@ -154,33 +152,15 @@
 }
 
 
--(NSMutableArray *)accelerationPlotX
+-(NSMutableArray *)accelerationPlot
 {
-    if (_accelerationPlotX == nil)
+    if (_accelerationPlot == nil)
     {
-        _accelerationPlotX = [NSMutableArray arrayWithCapacity:MAX_PLOT_ITEMS];
+        _accelerationPlot = [NSMutableArray arrayWithCapacity:MAX_PLOT_ITEMS];
     }
-    return _accelerationPlotX;
+    return _accelerationPlot;
 }
 
--(NSMutableArray *)accelerationPlotY
-{
-    if (_accelerationPlotY == nil)
-    {
-        _accelerationPlotY = [NSMutableArray arrayWithCapacity:MAX_PLOT_ITEMS];
-    }
-    return _accelerationPlotY;
-}
-
-
--(NSMutableArray *)accelerationPlotZ
-{
-    if (_accelerationPlotZ == nil)
-    {
-        _accelerationPlotZ = [NSMutableArray arrayWithCapacity:MAX_PLOT_ITEMS];
-    }
-    return _accelerationPlotZ;
-}
 
 
 

@@ -32,4 +32,15 @@
 
 #define TI_KEY_PRESSED_STATE_CHARACTERISTIC @"FFE1"
 
+
+// Accelerometer Calibration Coefficients
+#define  X_CALIBRATION_SCALE 55.0
+#define  X_CALIBRATION_OFFSET 0.1
+
+#define  Y_CALIBRATION_SCALE 55.0
+#define  Y_CALIBRATION_OFFSET 0.1
+
+#define  Z_CALIBRATION_SCALE 55.0
+#define  Z_CALIBRATION_OFFSET 0.1
+
 #endif
