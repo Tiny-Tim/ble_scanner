@@ -209,7 +209,7 @@
     {
         if (self.debug) NSLog(@"Characteristic value read updated.");
         
-        unsigned char batteryValue;
+       char batteryValue;
         
        [characteristic.value getBytes:&batteryValue length:1];
         
