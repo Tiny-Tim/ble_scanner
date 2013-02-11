@@ -102,7 +102,7 @@ static NSSet *_demoServices;
     // the peripheral's services have been set at this point, determine if demos exist for any of the services
     for (CBService *service in _deviceRecord.peripheral.services)
     {
-        NSString *uuidString = [service.UUID representativeString];
+        NSString *uuidString = [[service.UUID representativeString]uppercaseString];
         
         if ([_demoServices containsObject:uuidString])
         {

@@ -11,6 +11,7 @@
 #import "CBUUID+StringExtraction.h"
 #import "BLEKeyPressDemoViewController.h" 
 #import "BLEAccelerometerDemoViewController.h"
+#import "BLEHeartRateDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEDemoDispatcherViewController ()
@@ -174,6 +175,14 @@
         [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
         
     }
+    else if ([sender.titleLabel.text hasPrefix:HEART_RATE_MEASUREMENT_SERVICE])
+    {
+        if (self.debug) NSLog(@"Heart Rate Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowHeartRateDemo" sender:self];
+        
+    }
+
 }
 
 
@@ -242,6 +251,17 @@
         {
             BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
             destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+        
+    }
+    else if ([segue.identifier isEqualToString:@"ShowHeartRateDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Heart Rate Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEHeartRateDemoViewController class]])
+        {
+            BLEHeartRateDemoViewController *destination = segue.destinationViewController;
+            destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.deviceRecord.peripheral];
             
         }
         

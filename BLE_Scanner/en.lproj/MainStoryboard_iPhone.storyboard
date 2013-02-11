@@ -683,11 +683,27 @@
                         <segue destination="M4N-3b-Y3k" kind="push" identifier="ShowBatteryDemo" id="5jR-5r-2kd"/>
                         <segue destination="diW-He-e5H" kind="push" identifier="ShowKeyPressDemo" id="ptW-8b-AUx"/>
                         <segue destination="3N1-Tq-W9m" kind="push" identifier="ShowAccelerometerDemo" id="Fuf-zn-MyJ"/>
+                        <segue destination="S3t-pN-JkY" kind="push" identifier="ShowHeartRateDemo" id="5GV-Y9-IOG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
+        </scene>
+        <!--Heart Rate Demo View Controller - Heart Rate Demo-->
+        <scene sceneID="A0F-gm-jMQ">
+            <objects>
+                <viewController id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0mI-bp-0nF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1835" y="-134"/>
         </scene>
         <!--Accelerometer Demo View Controller - TI Accelerometer Demo-->
         <scene sceneID="2rc-9r-Uux">
@@ -705,7 +721,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RiU-yb-rlL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="1059"/>
+            <point key="canvasLocation" x="1835" y="1289"/>
         </scene>
         <!--Key Press Demo View Controller - TI Keyfob Button Press Demo-->
         <scene sceneID="B27-mL-Zpn">
@@ -761,6 +777,7 @@
                             <constraint firstItem="TOj-rZ-jgW" firstAttribute="bottom" secondItem="ZUL-91-RxJ" secondAttribute="bottom" type="default" id="3fX-Mj-N9a"/>
                             <constraint firstItem="ZUL-91-RxJ" firstAttribute="top" secondItem="kLo-Rv-EKJ" secondAttribute="top" constant="145" id="6Jp-Ay-Lk7"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="Omu-3B-Ksq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="B80-Qd-Xbn"/>
+                            <constraint firstAttribute="trailing" secondItem="NDv-Sa-UKK" secondAttribute="trailing" constant="69" id="CAA-oi-lfI"/>
                             <constraint firstItem="Omu-3B-Ksq" firstAttribute="centerX" secondItem="ced-Sl-fhw" secondAttribute="centerX" type="default" id="ERU-4A-2DM"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Kdq-DQ-k3a"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="NbV-aI-I7p"/>
@@ -769,7 +786,6 @@
                             <constraint firstAttribute="bottom" secondItem="ced-Sl-fhw" secondAttribute="bottom" constant="5" id="X0U-C5-9Gn"/>
                             <constraint firstItem="UeP-S6-Li6" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="e0l-gz-ArW"/>
                             <constraint firstAttribute="trailing" secondItem="TOj-rZ-jgW" secondAttribute="trailing" constant="48" id="fYg-cI-gZo"/>
-                            <constraint firstItem="TOj-rZ-jgW" firstAttribute="centerX" secondItem="NDv-Sa-UKK" secondAttribute="centerX" type="default" id="gNy-yu-sKs"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="leading" secondItem="UeP-S6-Li6" secondAttribute="leading" type="default" id="gtZ-Ap-PNg"/>
                             <constraint firstItem="Omu-3B-Ksq" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="top" type="default" id="k1G-7V-hPW"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="baseline" secondItem="NDv-Sa-UKK" secondAttribute="baseline" type="default" id="rOc-nV-HAK"/>
@@ -785,7 +801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhl-2F-PDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="380"/>
+            <point key="canvasLocation" x="1843" y="2004"/>
         </scene>
         <!--Battery Service Demo View Controller - Battery Service Demo-->
         <scene sceneID="HFA-Ec-R4d">
@@ -870,7 +886,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuW-x0-ZA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-300"/>
+            <point key="canvasLocation" x="1835" y="606"/>
         </scene>
         <!--Peripheral ServicesTVC-->
         <scene sceneID="I9W-0W-KS0">

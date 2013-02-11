@@ -26,6 +26,7 @@
 		D9076E4016C975C60010C641 /* heartbeat-7 (dragged).tiff in Resources */ = {isa = PBXBuildFile; fileRef = D9076E3616C975C60010C641 /* heartbeat-7 (dragged).tiff */; };
 		D9076E4116C975C60010C641 /* heartbeat-8 (dragged).tiff in Resources */ = {isa = PBXBuildFile; fileRef = D9076E3716C975C60010C641 /* heartbeat-8 (dragged).tiff */; };
 		D9076E4216C975C60010C641 /* heartbeat-9 (dragged).tiff in Resources */ = {isa = PBXBuildFile; fileRef = D9076E3816C975C60010C641 /* heartbeat-9 (dragged).tiff */; };
+		D9076E4516C988120010C641 /* BLEHeartRateDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */; };
 		D9207B4116B6D35B0023FFFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4016B6D35B0023FFFA /* UIKit.framework */; };
 		D9207B4316B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B4516B6D35B0023FFFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4416B6D35B0023FFFA /* CoreGraphics.framework */; };
@@ -99,6 +100,8 @@
 		D9076E3616C975C60010C641 /* heartbeat-7 (dragged).tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "heartbeat-7 (dragged).tiff"; sourceTree = "<group>"; };
 		D9076E3716C975C60010C641 /* heartbeat-8 (dragged).tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "heartbeat-8 (dragged).tiff"; sourceTree = "<group>"; };
 		D9076E3816C975C60010C641 /* heartbeat-9 (dragged).tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "heartbeat-9 (dragged).tiff"; sourceTree = "<group>"; };
+		D9076E4316C988120010C641 /* BLEHeartRateDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEHeartRateDemoViewController.h; sourceTree = "<group>"; };
+		D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEHeartRateDemoViewController.m; sourceTree = "<group>"; };
 		D9207B3C16B6D35B0023FFFA /* BLE_Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLE_Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9207B4016B6D35B0023FFFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9207B4216B6D35B0023FFFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -242,6 +245,8 @@
 				D96868B516C824A300F79634 /* AxesDrawer.m */,
 				D90263C116C081050058BA37 /* BLECentralManagerDelegate.h */,
 				D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */,
+				D9076E4316C988120010C641 /* BLEHeartRateDemoViewController.h */,
+				D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */,
 				D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */,
 				D90263B916BDE1F40058BA37 /* BLEDetailCellData.h */,
 				D90263BA16BDE1F40058BA37 /* BLEDetailCellData.m */,
@@ -319,8 +324,8 @@
 				D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */,
 				D968689E16C41B0400F79634 /* BLEBatteryServiceDemoViewController.h */,
 				D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */,
-				D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */,
 				D968689A16C412E100F79634 /* BLEDemoDispatcherViewController.h */,
+				D90263C716C1EC240058BA37 /* BLEServicesManagerViewController.m */,
 				D90263C316C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.m */,
 				D90263C616C1EC240058BA37 /* BLEServicesManagerViewController.h */,
 				D90263C216C1684B0058BA37 /* BLEPeripheralCharacteristicsTVC.h */,
@@ -474,6 +479,7 @@
 				D96868B216C822C300F79634 /* BLEGraphView.m in Sources */,
 				D96868B616C824A300F79634 /* AxesDrawer.m in Sources */,
 				D96868BA16C82C4A00F79634 /* BLEAcclerometerValue.m in Sources */,
+				D9076E4516C988120010C641 /* BLEHeartRateDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
