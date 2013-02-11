@@ -268,7 +268,7 @@
  *
  * Method Name:  enableNotifications
  *
- * Description:  Suscribes for accelerometer notificaitons which occur when the device updates accelerometer readings
+ * Description:  Suscribes for accelerometer notifications which occur when the device updates accelerometer readings
  *
  * Parameter(s): enable  YES-enables notifications, NO- disables notifications
  *

@@ -690,10 +690,10 @@
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
         </scene>
-        <!--Heart Rate Demo View Controller - Heart Rate Demo-->
+        <!--Heart Rate Demo View Controller - HeartRateDemoController-->
         <scene sceneID="A0F-gm-jMQ">
             <objects>
-                <viewController id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
+                <viewController title="HeartRateDemoController" hidesBottomBarWhenPushed="YES" id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -704,16 +704,55 @@
                                     <constraint firstAttribute="height" constant="137" id="wed-kD-soX"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xb5-7l-L5M">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="nkP-3w-KaH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybk-RE-JGx">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="CRD-is-8xg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9AO-5i-BsY"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HEART RATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo8-jM-UT0">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="156" id="TID-6q-XAO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="96O-8s-huw" firstAttribute="centerX" secondItem="UWF-hf-d6V" secondAttribute="centerX" type="default" id="1gf-SB-8y9"/>
-                            <constraint firstItem="96O-8s-huw" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="132" id="NC3-XV-Ven"/>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="76" id="3gG-4b-n7q"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="IlD-62-Njm"/>
+                            <constraint firstItem="Bo8-jM-UT0" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="231" id="KLX-Gh-kMW"/>
+                            <constraint firstAttribute="trailing" secondItem="Xb5-7l-L5M" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="XKM-eX-QB4"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="9AO-5i-BsY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="XQM-OS-1s6"/>
+                            <constraint firstItem="9AO-5i-BsY" firstAttribute="leading" secondItem="ybk-RE-JGx" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="h30-zj-14n"/>
+                            <constraint firstItem="ybk-RE-JGx" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iwI-ki-EiM"/>
+                            <constraint firstItem="Bo8-jM-UT0" firstAttribute="leading" secondItem="96O-8s-huw" secondAttribute="leading" type="default" id="mzN-vc-JXe"/>
+                            <constraint firstItem="ybk-RE-JGx" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="416" id="n2B-bA-Fil"/>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="66" id="tyw-eY-mXC"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="whS-dD-8ps"/>
+                            <constraint firstItem="9AO-5i-BsY" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="top" type="default" id="xUh-Nc-cwh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="heartBeatImage" destination="96O-8s-huw" id="2Yk-6c-O6j"/>
+                        <outlet property="heartRateMeasureLabel" destination="Bo8-jM-UT0" id="Mqe-wg-rHd"/>
+                        <outlet property="peripheralStatusLabel" destination="Xb5-7l-L5M" id="n75-oi-La1"/>
+                        <outlet property="peripheralStatusSpinner" destination="9AO-5i-BsY" id="IHx-Bg-4oZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0mI-bp-0nF" userLabel="First Responder" sceneMemberID="firstResponder"/>
