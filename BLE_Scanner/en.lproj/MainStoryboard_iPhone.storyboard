@@ -697,9 +697,24 @@
                     <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96O-8s-huw">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="Tqk-C6-ucT"/>
+                                    <constraint firstAttribute="height" constant="137" id="wed-kD-soX"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="centerX" secondItem="UWF-hf-d6V" secondAttribute="centerX" type="default" id="1gf-SB-8y9"/>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="132" id="NC3-XV-Ven"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
+                    <connections>
+                        <outlet property="heartBeatImage" destination="96O-8s-huw" id="2Yk-6c-O6j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0mI-bp-0nF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

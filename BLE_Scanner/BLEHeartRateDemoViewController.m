@@ -9,6 +9,7 @@
 #import "BLEHeartRateDemoViewController.h"
 
 @interface BLEHeartRateDemoViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *heartBeatImage;
 
 @end
 
@@ -27,7 +28,32 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    int numberOfFrames = 10;
+    NSMutableArray *imagesArray = [NSMutableArray arrayWithCapacity:numberOfFrames];
+    
+    for (int i=0; i<numberOfFrames; i++)
+    {
+        int imageIndex = i+1;
+        [imagesArray addObject:[UIImage imageNamed:
+                                [NSString stringWithFormat:@"heartbeat-%d (dragged).tiff", imageIndex]]];
+        
+    }
+    
+    self.heartBeatImage.animationImages = imagesArray;
+    self.heartBeatImage.animationDuration = 0.6;
+    [self.heartBeatImage startAnimating];
 }
+
+
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.heartBeatImage stopAnimating];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
