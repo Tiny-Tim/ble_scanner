@@ -11,4 +11,7 @@
 @interface BLEGraphView : UIView
 
 @property (nonatomic, strong) NSArray *accelerationData;
+
+
+@property (nonatomic)NSUInteger maxDataPoints;
 @end

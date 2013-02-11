@@ -16,24 +16,33 @@
 
 #define MAX_PLOT_ITEMS 100
 
-// sample rate, e.g 1 sample/second  (.1 hz --> 10 seconds between samples)
+// sample rate for acceleromter data, e.g 10 sample/second  
 #define SAMPLE_CLOCK_FREQUENCY_HERTZ 10
 
 @interface BLEAccelerometerDemoViewController ()
+
+// control NSLogging
 @property (nonatomic)BOOL debug;
 
+// pointer to graph plot view
 @property (strong, nonatomic) IBOutlet BLEGraphView *graphView;
 
+// time which drives the sampling of accelerometer data
 @property (nonatomic, strong) dispatch_source_t sampleClock;
 
+// ensures that accelerometer data writes and reads are thread safe
 @property (nonatomic,strong) dispatch_queue_t synchronizingQueue;
 
+// holds accelerometer sampled data values
 @property (nonatomic, strong) NSMutableArray *accelerationPlot;
 
+// X axis accelerometer component read from device
 @property (nonatomic, strong) NSNumber *accelerometerXNotification;
 
+// Y axis accelerometer component read from device
 @property (nonatomic, strong) NSNumber *accelerometerYNotification;
 
+// Z axis accelerometer component read from device
 @property (nonatomic, strong) NSNumber *accelerometerZNotification;
 @end
 
@@ -42,94 +51,91 @@
 @synthesize accelerationPlot = _accelerationPlot;
 
 
+#pragma mark - Properties
 
+// Getter - lazy instantiation and 0 value initialization
 -(NSNumber *)accelerometerXNotification
 {
     if (_accelerometerXNotification == nil)
     {
         _accelerometerXNotification = [NSNumber numberWithChar:0];
     }
-    
     return _accelerometerXNotification;
 }
 
 
+// Getter - lazy instantiation and 0 value initialization
 -(NSNumber *)accelerometerYNotification
 {
     if (_accelerometerYNotification == nil)
     {
         _accelerometerYNotification = [NSNumber numberWithChar:0];
     }
-    
     return _accelerometerYNotification;
 }
 
+
+// Getter - lazy instantiation and 0 value initialization
 -(NSNumber *)accelerometerZNotification
 {
     if (_accelerometerZNotification == nil)
     {
         _accelerometerZNotification = [NSNumber numberWithChar:0];
     }
-    
     return _accelerometerZNotification;
 }
 
+
+// Create the synchronizing queue for reading and writing acceleometer values 
 -(dispatch_queue_t) synchronizingQueue
 {
     if (! _synchronizingQueue)
     {
         _synchronizingQueue = dispatch_queue_create("acceleration_queue", NULL);
-        
     }
-    
     return _synchronizingQueue;
 }
 
+
+/*
+ *
+ * Method Name:  sampleClock
+ *
+ * Description:  Provides sampling functionality of the accelerometer data received from the peripheral device. The sampling timer runs on the synchronizing queue. Accelerometer data obtained from the device is copied to a temporary location on the synchronizing queue as well which provides thread safe reading and writing of the device data. Accelerometer data is then moved into the plottng data structure and plotted using the main dispatch queue.
+ *
+ * Parameter(s): None
+ *
+ */
 -(dispatch_source_t)sampleClock
 {
-    static CGFloat minX, maxX, minY, maxY, minZ, maxZ;
-    minX = 1E6;
-    minY = 1E6;
-    minZ = 1E6;
-    maxX = -1E6;
-    maxY = -1E6;
-    maxZ = -1E6;
-    
-    
     if (! _sampleClock)
     {
         _sampleClock = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0, 0, self.synchronizingQueue);
-       
-
+        
         dispatch_source_set_event_handler(_sampleClock, ^{
             
             dispatch_async(self.synchronizingQueue, ^{
+                CGFloat x, y, z;
                 
-                CGFloat x = ((CGFloat)[[self.accelerometerXNotification copy] charValue]) / X_CALIBRATION_SCALE + X_CALIBRATION_OFFSET;
+                // clip,scale and apply zero offest to uncalibrated accelerometer data
+                x = (CGFloat)[[self.accelerometerXNotification copy] charValue];
+                x = [self clipValue:x toCeiling:X_CALIBRATION_SCALE];
+                x =  x/ X_CALIBRATION_SCALE + X_CALIBRATION_OFFSET;
                 
-                if (x < minX)
-                {
-                    NSLog(@"New minX %f",x);
-                    minX = x;
-                }
+                y = (CGFloat)[[self.accelerometerYNotification copy] charValue];
+                y = [self clipValue:y toCeiling:Y_CALIBRATION_SCALE];
+                y =  y/ Y_CALIBRATION_SCALE + Y_CALIBRATION_OFFSET;
                 
-                if (x> maxX)
-                {
-                    NSLog(@"New maxX %f",x);
-                    maxX = x;
-                }
+                z = (CGFloat)[[self.accelerometerZNotification copy] charValue];
+                z = [self clipValue:z toCeiling:Z_CALIBRATION_SCALE];
+                z =  z/ Z_CALIBRATION_SCALE + Z_CALIBRATION_OFFSET;
                 
-                CGFloat y = ((CGFloat)[[self.accelerometerYNotification copy] charValue]) / Y_CALIBRATION_SCALE + Y_CALIBRATION_OFFSET;
-                
-                 CGFloat z = ((CGFloat)[[self.accelerometerZNotification copy] charValue]) / Z_CALIBRATION_SCALE + Z_CALIBRATION_OFFSET;
-                
-                                      
                 BLEAcclerometerValue *value = [[BLEAcclerometerValue alloc]
                                                initWithX:x withY:y withZ:z];
                 
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
+                    // Add accelerometer reading to plot array, throwing out oldest data if necessary. The array provides a history of the accelerometer data for plotting. Default history length is 10 seconds when sampled at 10 hz.
                     if ([self.accelerationPlot count] ==  MAX_PLOT_ITEMS)
                     {
                         [self.accelerationPlot removeObjectAtIndex:0];
@@ -137,21 +143,21 @@
                     
                     [self.accelerationPlot addObject:value];
                     
+                    // Plot the accelerometer data
                     self.graphView.accelerationData = self.accelerationPlot;
+                    self.graphView.maxDataPoints = MAX_PLOT_ITEMS;
                     
                 });
-                
             });
         });
         
         dispatch_resume(_sampleClock);
-        
     }
-    
     return _sampleClock;
 }
 
 
+// Lazily initialize the array which holds sampled accelerometer data
 -(NSMutableArray *)accelerationPlot
 {
     if (_accelerationPlot == nil)
@@ -162,36 +168,38 @@
 }
 
 
+#pragma mark- Private Helper Methods
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+/*
+ *
+ * Method Name:  clipValue
+ *
+ * Description:  Clips accelerometer data values to max and min limits for plotting
+ *
+ * Parameter(s): value: accelerometer value
+ *               limit: the clip ceiling
+ *
+ */
+-(CGFloat) clipValue: (CGFloat)value toCeiling:(CGFloat) limit
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    CGFloat clipped = value;
+    if (clipped > limit) clipped = limit;
+    if (clipped < -limit) clipped = -limit;
+    
+    return clipped;
 }
 
 
-dispatch_source_t CreateDispatchTimer(uint64_t interval,
-                                      uint64_t leeway,
-                                      dispatch_queue_t queue,
-                                      dispatch_block_t block)
-{
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
-                                                     0, 0, queue);
-    if (timer)
-    {
-        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
-        dispatch_source_set_event_handler(timer, block);
-        dispatch_resume(timer);
-    }
-    return timer;
-}
-
-
-
+/*
+ *
+ * Method Name:  discoverAccelerometerServiceCharacteristics
+ *
+ * Description:  Initiates and configures peripheral for discovering and reading acceleromter characteristics
+ *
+ * Parameter(s): None
+ *
+ */
 -(void)discoverAccelerometerServiceCharacteristics
 {
     if ([self.accelerometerService.peripheral isConnected])
@@ -200,21 +208,31 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         CBUUID *UUUID = [CBUUID UUIDWithString:TI_KEYFOB_ACCELEROMETER_SERVICE];
         NSArray *accelerometerServiceUUID = [NSArray arrayWithObject:UUUID];
         
-       // self.peripheralStatusLabel.textColor = [UIColor greenColor];
-       // self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-       // [self.statusActivityIndicator startAnimating];
-       
+        // self.peripheralStatusLabel.textColor = [UIColor greenColor];
+        // self.peripheralStatusLabel.text = @"Discovering service characteristics.";
+        // [self.statusActivityIndicator startAnimating];
+        
         [self.accelerometerService.peripheral discoverCharacteristics:accelerometerServiceUUID
-                                                        forService:self.accelerometerService];
+                                                           forService:self.accelerometerService];
     }
     else
     {
         if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
-       // [self setConnectionStatus];
+        // [self setConnectionStatus];
     }
     
 }
 
+
+/*
+ *
+ * Method Name:  enableAccelerometer
+ *
+ * Description:  Enables or disables accelerometer on the device according to enable parameter.
+ *
+ * Parameter(s): enable - YES enables accelerometer, NO disables acceleromter
+ *
+ */
 -(void)enableAccelerometer : (BOOL) enable
 {
     // get the characteristic out of the chracteristic array
@@ -222,6 +240,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         
         CBCharacteristic *characteristic = (CBCharacteristic *)obj;
         
+        // Get the enable/disable characteristic from the listof characteristics
         NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
         if ([uuidString localizedCompare:TI_ENABLE_ACCELEROMETER] == NSOrderedSame)
         {
@@ -230,6 +249,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         return NO;
     }];
     
+    // Either enable or disable accelerometer using the characteristic
     if (index != NSNotFound)
     {
         CBCharacteristic *enableAccelerometer = self.accelerometerService.characteristics[index];
@@ -243,9 +263,19 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 }
 
 
+
+/*
+ *
+ * Method Name:  enableNotifications
+ *
+ * Description:  Suscribes for accelerometer notificaitons which occur when the device updates accelerometer readings
+ *
+ * Parameter(s): enable  YES-enables notifications, NO- disables notifications
+ *
+ */
 -(void)enableNotifications : (BOOL) enable
 {
-    // just iterate over the short characteristic arrray and process the desired characteristics
+    // just iterate over the short characteristic array and process the desired characteristics
     BOOL processedX = NO;
     BOOL processedY = NO;
     BOOL processedZ = NO;
@@ -263,26 +293,35 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         {
             [self.accelerometerService.peripheral setNotifyValue:enable forCharacteristic:characteristic];
             processedY = YES;
-
+            
         }
         else if ([uuidString localizedCompare:TI_ACCELEROMETER_Z_VALUE] == NSOrderedSame)
         {
             [self.accelerometerService.peripheral setNotifyValue:enable forCharacteristic:characteristic];
             processedZ = YES;
-
+            
         }
         
+        // stop looking for enable characteristics after all three accleration components have been set
         if (processedX && processedY && processedZ) break;
-            
     }
-    
 }
 
 
--(void)subscribeForAccelerationNotifications
+/*
+ *
+ * Method Name:  enableAccelerometerAndSubscribeForAccelerationNotifications
+ *
+ * Description:  Performs two principal functions, namely enabling the acceleromter (turning it on) and additionally subscribes for notifications notifying the controller when accelerometer data has changed. If the chracteristics have not been read, they are first discovered and the peripheral delegate function didDiscoverCharacteristicsForService then issues commands to turn on the accelerometer and subscribes the controller for notifications.
+ *
+ * Parameter(s): None
+ *
+ */
+-(void)enableAccelerometerAndSubscribeForAccelerationNotifications
 {
     if (! self.accelerometerService.characteristics)
     {
+        // read the chracteristics - the delegate method didDiscoverCharacteristicsForService will then issue the enableAcccelerometer and notification commands.
         [self discoverAccelerometerServiceCharacteristics];
     }
     else
@@ -292,15 +331,33 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         
         // ask for accelerometer data notifications
         [self enableNotifications:YES];
-        
-        
     }
 }
 
 
 
+#pragma mark- View Controller Lifecycle
 
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+
+/*
+ *
+ * Method Name:  viewDidLoad
+ *
+ * Description:  Set up the view before it coes on screen by configuring the sampling timer and reading the acceleromter characteristics. Once the characteristics are read, enable the acceleromter and subscribe for notifications when accelerometer data changes on the device.
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -321,14 +378,22 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         // Turn the accelerometer on and subscribe for notifications
         // Use the peripheral delegate to chain functionality if characteristics have not been discovered, and to enable and subscribe as needed
         // discover the characteristics
-        [self subscribeForAccelerationNotifications];
+        [self enableAccelerometerAndSubscribeForAccelerationNotifications];
     }
    
 }
 
 
 
-
+/*
+ *
+ * Method Name:  viewWillDisappear
+ *
+ * Description:  Stop processing accelerometer data when view is not visible. Stop the sampling timer, disable the accelerometer on the device and unsubscribe from notifications.
+ *
+ * Parameter(s): animated is the UIKit view parameter passed up to parent view.
+ *
+ */
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -341,6 +406,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
     
     
 }
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -357,7 +425,17 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 
 
 
-
+/*
+ *
+ * Method Name:  didUpdateValueForCharacteristic
+ *
+ * Description:  Handles arrival of new acceleromter data from device.
+ *
+ * Parameter(s): peripheral- peripheral that sent the data
+ *               characteristic - chracreristic containing data corresponding to x,y, or z axial accelerometer
+ *               error - any error encountered when reading data
+ *
+ */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     
@@ -376,24 +454,20 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
              dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerXNotification = [NSNumber numberWithChar:value];
              });
-           // NSLog(@"X axis: %i",value);
         }
         else if ([uuidString localizedCompare:TI_ACCELEROMETER_Y_VALUE] == NSOrderedSame)
         {
             dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerYNotification = [NSNumber numberWithChar:value];
             });
-          //   NSLog(@"Y axis: %i",value);
+        
         }
         else if ([uuidString localizedCompare:TI_ACCELEROMETER_Z_VALUE] == NSOrderedSame)
         {
             dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerZNotification = [NSNumber numberWithChar:value];
             });
-         //   NSLog(@"Z axis: %i",value);
-            
         }
-        
     }
     else
     {

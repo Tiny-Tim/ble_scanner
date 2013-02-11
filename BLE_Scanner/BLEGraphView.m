@@ -10,11 +10,15 @@
 #import "AxesDrawer.h"
 #import "BLEAcclerometerValue.h"
 
+// 20 points for left margin pad when setting origin of graph
+#define GRAPH_LEFT_MARGIN 20
 
 @interface BLEGraphView()
 
+// location within frame of the graph's origin
 @property (nonatomic) CGPoint graphOrigin;
 
+// graphScale corresponding to the number of frame points per graph function value
 @property (nonatomic) CGFloat graphScale;
 
 @end
@@ -25,8 +29,32 @@
 
 @synthesize graphScale = _graphScale;
 
-  
 
+#pragma mark- Properties
+/*
+ *
+ * Method Name:  maxDataPoints
+ *
+ * Description:  The maximum number of data points to be shown on screen at one time. This represents the visible accelerometer history which is nominally 100 points sampled at 10 hz.
+ *
+ * Parameter(s): 
+ *
+ */
+-(NSUInteger)maxDataPoints
+{
+    // protect against 0 value
+    if (_maxDataPoints == 0)
+    {
+        // error prevention to avoid a divide by 0 error if dat not specified.
+        _maxDataPoints = 100;
+    }
+    
+    return _maxDataPoints;
+}
+
+
+
+// Acceleration data to be plotted. Each element in the array contains an object with three values corresponding to the three axial acceleration components.
 -(void)setAccelerationData:(NSArray *)accelerationData
 {
     _accelerationData = accelerationData;
@@ -34,17 +62,16 @@
     [self setNeedsDisplay];
 }
 
-// Get the grqph origin coordinates
+// Lazy initializer for graph origin which is centered vertically and offset from left edge by a specified margin amount.
 -(CGPoint) graphOrigin
 {
 
     if ( (_graphOrigin.x == 0) && (_graphOrigin.y == 0) )
     {
-        // set the graph origin 20 points from left edge and centered vertically
-        // in the center of the view
+        // set the graph origin near the left edge and centered vertically in the view
         CGPoint origin;
-        // content scale factor is the number of pixels representing each point (noramlly 1.0 or 2.0)
-        origin.x = self.bounds.origin.x + 20;
+        
+        origin.x = self.bounds.origin.x + GRAPH_LEFT_MARGIN;
        
         origin.y = self.bounds.origin.y + self.bounds.size.height/2;
         _graphOrigin = origin;
@@ -77,14 +104,9 @@
     
     if (needsRedraw)
     {
-        // Ask the delegate to store the scale
-    //    [self.dataSource storeOriginInUserDefaults:_graphOrigin];
-        
         // request redraw
         [self setNeedsDisplay];
     }
-    
-    
 }   
 
 
@@ -93,13 +115,15 @@
 {
     if (! _graphScale)
     {
-        // points per graph unit
-        return 3;
+        // divide the number of points in bounds.size.width (minus margin) by the max number of data points to be displayed at once.
+       
+        _graphScale = (self.bounds.size.width - GRAPH_LEFT_MARGIN) / self.maxDataPoints;
+        
+        [self setNeedsDisplay];
     }
-    else
-    {
-        return _graphScale;
-    }
+    
+    return _graphScale;
+    
 }
 
 
@@ -110,14 +134,12 @@
     {
         _graphScale = scale;
         
-        // Ask the delegate to store the scale
-     //   [self.dataSource storeScaleInUserDefaults:_scale];
-        
         [self setNeedsDisplay];
     }
 }
 
 
+#pragma mark- Controller Lifecycle
 
 -(void)setup
 {
@@ -142,6 +164,18 @@
 }
 
 
+#pragma mark- Private helper methods
+
+
+/*
+ *
+ * Method Name:  translateGraphToViewCoordinates
+ *
+ * Description:  scales the accelerometer data to be plotted in view coordinates
+ *
+ * Parameter(s): graphValue - point to be plotted
+ *
+ */
 - (CGPoint) translateGraphToViewCoordinates:(CGPoint)graphValue
 {
     CGPoint viewPoint;
@@ -153,6 +187,16 @@
 }
 
 
+/*
+ *
+ * Method Name:  plotFunction 
+ *
+ * Description:  Plots the provided axial accelerometer component data using different colors for each component.
+ *
+ * Parameter(s): component - index signifying which component is being plotted
+ *               context - graphical context to plot in
+ *
+ */
 -(void) plotFunction: (NSUInteger)component usingContext:(CGContextRef)context
 {
     BOOL firstPoint = YES;
@@ -228,9 +272,15 @@
 
 
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+/*
+ *
+ * Method Name:  drawRect
+ *
+ * Description:  draws the plot of the three acceleromter components
+ *
+ * Parameter(s): none
+ *
+ */
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
@@ -246,12 +296,12 @@
     // Draw each accelerometer component a a function on the same graph
     for (NSUInteger component=0; component < 3; component++)
     {
-       
+        // do the plotting
         [self plotFunction:component usingContext:context];
     }
     
+    // restore context
     UIGraphicsPopContext();
-    
 }
 
 
