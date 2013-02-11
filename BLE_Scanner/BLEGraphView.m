@@ -152,6 +152,83 @@
     return viewPoint;
 }
 
+
+-(void) plotFunction: (NSUInteger)component usingContext:(CGContextRef)context
+{
+    BOOL firstPoint = YES;
+    UIColor *strokeColor;
+    
+    // set the stroke color
+    if (component == 0)
+    {
+        // X axis accelerometer color
+        strokeColor = [UIColor redColor];
+    }
+    else if (component == 1)
+    {
+        // Y axis accelerometer color
+        strokeColor = [UIColor greenColor];
+    }
+    else if (component == 2)
+    {
+        // Z axis accelerometer color
+        strokeColor = [UIColor blueColor];
+    }
+    else
+    {
+        // should never reach here
+        strokeColor = [UIColor blackColor];
+    }
+    
+    [strokeColor setStroke];
+    
+    for (int i=0; i< [self.accelerationData count]; i++)
+    {
+        CGPoint plotValue;
+        
+        // X value represents the sample number of the acceleration data
+        plotValue.x = i;
+        
+        BLEAcclerometerValue *accel_data = self.accelerationData[i];
+        switch (component)
+        {
+            // X axis accelerometer value
+            case 0:
+                plotValue.y = -accel_data.xAxisValue;
+                break;
+                
+             // Y axis accelerometer value
+            case 1:
+                 plotValue.y = -accel_data.yAxisValue;
+                break;
+            // Z axis accelerometer value
+            case 2:
+                plotValue.y = -accel_data.zAxisValue;
+                break;
+                
+            default:
+                // unreachable
+                break;
+        }
+        
+        CGPoint viewCoordinatePoint = [self translateGraphToViewCoordinates:plotValue];
+        
+        if (firstPoint)
+        {
+            CGContextMoveToPoint(context, viewCoordinatePoint.x, viewCoordinatePoint.y);
+            firstPoint = NO;
+        }
+        
+        CGContextAddLineToPoint(context, viewCoordinatePoint.x, viewCoordinatePoint.y);
+        
+    }
+    CGContextStrokePath(context);
+}
+
+
+
+
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -166,100 +243,12 @@
     // draw axes
     [AxesDrawer drawAxesInRect:self.bounds originAtPoint:self.graphOrigin scale:self.graphScale];
     
-    BOOL firstPoint = YES;
-    
-    for (int i=0; i< [self.accelerationData count]; i++)
+    // Draw each accelerometer component a a function on the same graph
+    for (NSUInteger component=0; component < 3; component++)
     {
-        CGPoint graphValueAccelX;
-         
-        graphValueAccelX.x = i;
-        
-        
-        BLEAcclerometerValue *value = self.accelerationData[i];
-        graphValueAccelX.y = -value.xAxisValue;
-               
-        
-        CGPoint pointX = [self translateGraphToViewCoordinates:graphValueAccelX];
-    
-        if (firstPoint)
-        {
-            CGContextMoveToPoint(context, pointX.x, pointX.y);
-            firstPoint = NO;
-        }
-        
-        UIColor *red = [UIColor redColor];
-        [red setStroke];
-        
-        CGContextAddLineToPoint(context, pointX.x, pointX.y);
-        
-        
+       
+        [self plotFunction:component usingContext:context];
     }
-    CGContextStrokePath(context);
-    
-    firstPoint = YES;
-    
-    for (int i=0; i< [self.accelerationData count]; i++)
-    {
-        CGPoint graphValueAccelX;
-        
-        graphValueAccelX.x = i;
-        
-        
-        BLEAcclerometerValue *value = self.accelerationData[i];
-        graphValueAccelX.y = -value.yAxisValue;
-        
-        
-        CGPoint pointX = [self translateGraphToViewCoordinates:graphValueAccelX];
-        
-        if (firstPoint)
-        {
-            CGContextMoveToPoint(context, pointX.x, pointX.y);
-            firstPoint = NO;
-        }
-        
-        UIColor *green = [UIColor greenColor];
-        [green setStroke];
-        
-        CGContextAddLineToPoint(context, pointX.x, pointX.y);
-        
-        
-    }
-
-    CGContextStrokePath(context);
-    firstPoint = YES;
-    
-    for (int i=0; i< [self.accelerationData count]; i++)
-    {
-        CGPoint graphValueAccelX;
-        
-        graphValueAccelX.x = i;
-        
-        
-        BLEAcclerometerValue *value = self.accelerationData[i];
-        graphValueAccelX.y = -value.zAxisValue;
-        
-        
-        CGPoint pointX = [self translateGraphToViewCoordinates:graphValueAccelX];
-        
-        if (firstPoint)
-        {
-            CGContextMoveToPoint(context, pointX.x, pointX.y);
-            firstPoint = NO;
-        }
-        
-        UIColor *blue = [UIColor blueColor];
-        [blue setStroke];
-        
-        CGContextAddLineToPoint(context, pointX.x, pointX.y);
-        
-        
-    }
-
-   
-    
-    
-    
-    CGContextStrokePath(context);
     
     UIGraphicsPopContext();
     
