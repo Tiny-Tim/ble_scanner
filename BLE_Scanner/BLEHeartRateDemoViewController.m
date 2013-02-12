@@ -36,12 +36,55 @@
 // holds the heart beat animation image frames
 @property (nonatomic, strong) NSArray *heartBeatAnimationFrames;
 
+
+@property (weak, nonatomic) IBOutlet UILabel *energyExpendedLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *sensorContactStatusLabel;
+
+@property (nonatomic) BOOL sensorContactStatusAvailable;
+
+@property (nonatomic) BOOL sensorContactState;
+
 @end
 
 @implementation BLEHeartRateDemoViewController
 
+@synthesize sensorContactState = _sensorContactState;
+@synthesize sensorContactStatusAvailable = _sensorContactStatusAvailable;
+
 
 #pragma mark- Properties
+
+
+-(void)setSensorContactStatusAvailable:(BOOL)sensorContactStatus
+{
+    _sensorContactStatusAvailable = sensorContactStatus;
+    if (! _sensorContactStatusAvailable)
+    {
+        self.sensorContactStatusLabel.text = @"Sensor Contact Status: Unavailable";
+    }
+}
+
+-(void)setSensorContactState:(BOOL)sensorContact
+{
+    if (_sensorContactState != sensorContact)
+    {
+        _sensorContactState = sensorContact;
+        
+        if (self.sensorContactStatusAvailable)
+        {
+            if (_sensorContactState)
+            {
+               self.sensorContactStatusLabel.text = @"Sensor Contact Status: Good";
+            }
+            else
+            {
+                self.sensorContactStatusLabel.text = @"Sensor Contact Status: Poor/No Contact";
+            }
+        }
+    }
+}
+
 
 /*
  *
@@ -93,6 +136,9 @@
     
     // clear the UI measurement label
     self.heartRateMeasureLabel.text = @"";
+     
+    // clear the sensor contact label
+    self.sensorContactStatusLabel.text = @"";
     
     // set the peripheral delegate to self
     self.heartRateService.peripheral.delegate =self;
@@ -329,6 +375,9 @@
             const uint8_t *reportData = [characteristic.value bytes];
             NSUInteger bpm = 0;
             
+            NSUInteger flag = reportData[0];
+            NSLog(@"flag = %i",flag);
+            
             // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
             if ((reportData[0] & 0x01) == 0)
             {
@@ -342,6 +391,19 @@
             }
             if (self.debug) NSLog(@"Heart Rate Measurement Rcvd: %i",bpm);
             [self processHeartRateMeasurement:bpm];
+            
+            // Determine if sensor contact information is available
+            if ( (reportData[0] & 0x04) != 0)
+            {
+                self.sensorContactStatusAvailable = YES;
+                // contact info is available, retrieve it
+                self.sensorContactState = ( (reportData[0] & 0x02) != 0);
+                
+            }
+            else
+            {
+                self.sensorContactStatusAvailable = NO;
+            }
         }
     }
     else
