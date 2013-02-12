@@ -36,14 +36,23 @@
 // holds the heart beat animation image frames
 @property (nonatomic, strong) NSArray *heartBeatAnimationFrames;
 
-
+// label for reporting expended energy level
 @property (weak, nonatomic) IBOutlet UILabel *energyExpendedLabel;
 
+// label for reporting sensor contact status
 @property (weak, nonatomic) IBOutlet UILabel *sensorContactStatusLabel;
 
+// state variable indicating whether device reports sensor contact status
 @property (nonatomic) BOOL sensorContactStatusAvailable;
 
+//current value of sensor contact state 
 @property (nonatomic) BOOL sensorContactState;
+
+// state variable indicating whether expended energy has ever been reported
+@property (nonatomic) BOOL energyExpendedStatusAvailable;
+
+// expended energy level in Joules
+@property (nonatomic) NSUInteger energyExpended;
 
 @end
 
@@ -51,11 +60,63 @@
 
 @synthesize sensorContactState = _sensorContactState;
 @synthesize sensorContactStatusAvailable = _sensorContactStatusAvailable;
-
+@synthesize energyExpendedStatusAvailable = _energyExpendedStatusAvailable;
+@synthesize energyExpended = _energyExpended;
 
 #pragma mark- Properties
 
 
+/*
+ *
+ * Method Name:  setEnergyExpendedStatusAvailable
+ *
+ * Description:  Setter for corresponding property which also updates UI when not available.
+ *
+ * Parameter(s): energyExpendedStatus - status reported by device
+ *
+ */
+-(void)setEnergyExpendedStatusAvailable:(BOOL)energyExpendedStatus
+{
+    _energyExpendedStatusAvailable = energyExpendedStatus;
+    if (! _energyExpendedStatusAvailable)
+    {
+        self.energyExpendedLabel.text = @"Energy expended data not available.";
+    }
+}
+
+
+/*
+ *
+ * Method Name:  setEnergyExpended
+ *
+ * Description:  Setter for the energy expended data value. Updates the UI when data changes.
+ *
+ * Parameter(s): energyExpended - energy expended in Joules as reported by device
+ *
+ */
+-(void)setEnergyExpended:(NSUInteger)energyExpended
+{
+    if (_energyExpended != energyExpended)
+    {
+        _energyExpended = energyExpended;
+        
+        if (self.energyExpendedStatusAvailable)
+        {
+            self.energyExpendedLabel.text = [NSString stringWithFormat:@"Energy expended (Joules):  %i",_energyExpended];
+        }
+    }
+}
+
+
+/*
+ *
+ * Method Name:  setSensorContactStatusAvailable
+ *
+ * Description:  Setter for contact status property.
+ *
+ * Parameter(s): sensorContactStatus - status as reported by device
+ *
+ */
 -(void)setSensorContactStatusAvailable:(BOOL)sensorContactStatus
 {
     _sensorContactStatusAvailable = sensorContactStatus;
@@ -65,6 +126,16 @@
     }
 }
 
+
+/*
+ *
+ * Method Name:  setSensorContactState
+ *
+ * Description:  Setter for contact state property.
+ *
+ * Parameter(s): sensorContact - sensor contact state as reported by device.
+ *
+ */
 -(void)setSensorContactState:(BOOL)sensorContact
 {
     if (_sensorContactState != sensorContact)
@@ -84,6 +155,7 @@
         }
     }
 }
+
 
 
 /*
@@ -140,6 +212,9 @@
     // clear the sensor contact label
     self.sensorContactStatusLabel.text = @"";
     
+    self.energyExpendedStatusAvailable = NO;
+
+    
     // set the peripheral delegate to self
     self.heartRateService.peripheral.delegate =self;
     
@@ -151,7 +226,6 @@
     
     // subscribe for notifications to changes of heart rate
     [self enableForHeartRateMeasurementNotifications: YES];
-    
     
 }
 
@@ -342,6 +416,19 @@
 }
 
 
+-(void)processExpendedEnergyData :(const uint8_t *)reportData
+{
+    // Check to see if expended energy is being reported. It is reported periodically.
+    if ( (reportData[0] & 0x08) != 0)
+    {
+        self.energyExpendedStatusAvailable = YES;
+        // read the expended energy data
+        self.energyExpended = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[2]));
+    }
+
+    
+}
+
 #pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -404,6 +491,8 @@
             {
                 self.sensorContactStatusAvailable = NO;
             }
+            
+            [self processExpendedEnergyData:reportData];
         }
     }
     else
