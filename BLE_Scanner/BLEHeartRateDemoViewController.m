@@ -194,6 +194,15 @@
 }
 
 
+/*
+ *
+ * Method Name:  viewDidLoad
+ *
+ * Description:  Perform initilizations for view controller.
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -214,7 +223,6 @@
     
     self.energyExpendedStatusAvailable = NO;
 
-    
     // set the peripheral delegate to self
     self.heartRateService.peripheral.delegate =self;
     
@@ -288,11 +296,20 @@
 }
 
 
+/*
+ *
+ * Method Name:  discoverHeartRateMeasurementServiceCharacteristic
+ *
+ * Description:  Discover the heart rate service characteristic for obtaining herat rate measurements. This method only looks for a single chracteristic corresponding to the heart rate measurement.
+ *
+ * Parameter(s): None
+ *
+ */
 -(void)discoverHeartRateMeasurementServiceCharacteristic
 {
     if ([self.heartRateService.peripheral isConnected])
     {
-        // discover keyPressed service characteristic
+        // discover heart rate measurement service characteristic
         CBUUID *UUUID = [CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC];
         NSArray *heartRateServiceUUID = [NSArray arrayWithObject:UUUID];
         
@@ -312,7 +329,15 @@
 }
 
 
-
+/*
+ *
+ * Method Name:  enableForHeartRateMeasurementNotifications
+ *
+ * Description:  Enables or disables notification of heart rate measurements.
+ *
+ * Parameter(s): enable- boolean where Yes enables notifications and NO disables notifications
+ *
+ */
 -(void)enableForHeartRateMeasurementNotifications : (BOOL) enable
 {
     // Check to see if peripheral has retrieved characteristics
@@ -351,7 +376,7 @@
 }
 
 
-
+// start the animation of the heart beat image
 -(void)startHeartBeatAnimation
 {
     self.heartBeatImage.animationImages = self.heartBeatAnimationFrames;
@@ -360,7 +385,7 @@
     self.animationStarted = YES;
 }
 
-
+//stop the animation of the heart beat
 -(void)stopHeartBeatAnimation
 {
     [self.heartBeatImage stopAnimating];
@@ -371,6 +396,15 @@
     self.heartBeatImage.image = self.heartBeatAnimationFrames[0];
 }
 
+/*
+ *
+ * Method Name:  setupHeartBeatAnimation
+ *
+ * Description:  Sets up the image array containing the image frames used for animating the heart beat animation. Sets the initial image in the iage view to the first frame but does not start animation. Animation begins when a heart rate measurement is returned by the device.
+ *
+ * Parameter(s): None
+ *
+ */
 -(void)setupHeartBeatAnimation
 {
     int numberOfFrames = 10;
@@ -416,6 +450,15 @@
 }
 
 
+/*
+ *
+ * Method Name:  processExpendedEnergyData
+ *
+ * Description:  Processes the expended energy data value returned from the device.
+ *
+ * Parameter(s): reportData - raw data read from the characteristic
+ *
+ */
 -(void)processExpendedEnergyData :(const uint8_t *)reportData
 {
     // Check to see if expended energy is being reported. It is reported periodically.

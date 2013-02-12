@@ -11,6 +11,6 @@
 
 @interface BLEHeartRateDemoViewController : UIViewController <CBPeripheralDelegate>
 
-
+// Heart Rate Measurement Service - model for the controller
 @property (nonatomic, strong) CBService *heartRateService;
 @end
