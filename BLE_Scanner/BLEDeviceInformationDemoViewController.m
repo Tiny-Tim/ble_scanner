@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *peripheralStatusSpinner;
 
 @property (weak, nonatomic) IBOutlet UILabel *manufacturerLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *modelNumberLabel;
 @end
 
 @implementation BLEDeviceInformationDemoViewController
@@ -81,7 +83,7 @@
 }
 
 
--(void)readManufacturerName
+-(void)readCharacteristic: (NSString *)uuid
 {
     // determine if the required characteristic has been discovered, if not then discover it
     if (self.deviceInformationService.characteristics)
@@ -91,7 +93,7 @@
             CBCharacteristic *characteristic = (CBCharacteristic *)obj;
             
             NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:MANUFACTURER_NAME_STRING_CHARACTERISTIC ] == NSOrderedSame)
+            if ([uuidString localizedCompare:uuid ] == NSOrderedSame)
             {
                 return YES;
             }
@@ -100,7 +102,7 @@
         
         if (index == NSNotFound)
         {
-            NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+            NSLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
             
         }
         else
@@ -108,7 +110,7 @@
             if ([self.deviceInformationService.peripheral isConnected])
             {
                 self.peripheralStatusLabel.textColor = [UIColor greenColor];
-                self.peripheralStatusLabel.text = @"Reading Manufacturer Name.";
+                self.peripheralStatusLabel.text = @"Reading Characteristic.";
                 [self.peripheralStatusSpinner startAnimating];
                 [self.deviceInformationService.peripheral readValueForCharacteristic:self.deviceInformationService.characteristics[index]];
                 
@@ -117,7 +119,7 @@
     }
     else
     {
-        NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+        NSLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
         
     }
     
@@ -137,22 +139,28 @@
     self.manufacturerLabel.text = @"";
     
     BOOL foundManufacturerName = NO;
+    BOOL foundModelNumber = NO;
     for (CBCharacteristic * characteristic in self.deviceInformationService.characteristics)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MANUFACTURER_NAME_STRING_CHARACTERISTIC  ]])
         {
             foundManufacturerName = YES;
         }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC  ]])
+        {
+            foundModelNumber = YES;
+        }
             
     }
     
-    if ( ! foundManufacturerName)
+    if ( ! (foundManufacturerName && foundModelNumber))
     {
         [self discoverDeviceInformationServiceCharacteristics];
     }
     else
     {
-        [self readManufacturerName];
+        [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC];
+        [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC ];
     }
 }
 
@@ -221,11 +229,15 @@
             if (self.debug) NSLog(@"Manufacturer Name = %@", manufacturer);
             self.manufacturerLabel.text = [NSString stringWithFormat: @"Manufacturer:  %@",manufacturer];
         }
-//        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
-//        {
-//            
-//            
-//        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC ]])
+        {
+            NSString *model;
+            model = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            
+            if (self.debug) NSLog(@"Model Number = %@", model);
+            self.modelNumberLabel.text = [NSString stringWithFormat: @"Model Number:  %@",model];
+            
+        }
     }
     else
     {
@@ -259,13 +271,14 @@
         {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MANUFACTURER_NAME_STRING_CHARACTERISTIC]])
             {
-                 // read manufacturer name
-                [self readManufacturerName];
+                // read manufacturer name
+                [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC];
             }
-//            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
-//            {
-//                
-//            }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC ]])
+            {
+                // read model number
+                [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC];
+            }
         }
         
     }

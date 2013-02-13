@@ -745,11 +745,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Model Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUU-cF-9Pe">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="tgx-eH-Pp4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NuV-do-Utu" firstAttribute="top" secondItem="0ED-bX-YLv" secondAttribute="top" constant="67" id="0L6-NN-9hX"/>
+                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="leading" secondItem="NuV-do-Utu" secondAttribute="leading" type="default" id="42V-4y-TMh"/>
                             <constraint firstAttribute="trailing" secondItem="Kp8-Vf-ToG" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7dj-XV-ja1"/>
+                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="top" secondItem="NuV-do-Utu" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ajc-Ja-uYR"/>
+                            <constraint firstAttribute="trailing" secondItem="sUU-cF-9Pe" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="BQ9-Pg-YA1"/>
                             <constraint firstItem="c7i-1b-ysi" firstAttribute="leading" secondItem="NSq-S9-f78" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="DGk-b0-hRo"/>
                             <constraint firstItem="Kp8-Vf-ToG" firstAttribute="top" secondItem="c7i-1b-ysi" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FiQ-Gd-iyC"/>
                             <constraint firstItem="c7i-1b-ysi" firstAttribute="top" secondItem="NSq-S9-f78" secondAttribute="top" type="default" id="PyK-yd-nAi"/>
@@ -763,6 +774,7 @@
                     <navigationItem key="navigationItem" title="Device Info Demo" id="lMN-cf-Ecs"/>
                     <connections>
                         <outlet property="manufacturerLabel" destination="NuV-do-Utu" id="TZh-t5-gMk"/>
+                        <outlet property="modelNumberLabel" destination="sUU-cF-9Pe" id="KRE-LH-9NG"/>
                         <outlet property="peripheralStatusLabel" destination="Kp8-Vf-ToG" id="bg3-VV-pIU"/>
                         <outlet property="peripheralStatusSpinner" destination="c7i-1b-ysi" id="kgC-KA-ncR"/>
                     </connections>
