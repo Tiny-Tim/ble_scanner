@@ -922,6 +922,91 @@
     <resources>
         <image name="whiteLed.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="BLEAccelerometerDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEAccelerometerDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="BLEGraphView"/>
+            </relationships>
+        </class>
+        <class className="BLEBatteryServiceDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBatteryServiceDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="batteryLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="batteryMeter" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLECentralManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDeviceListTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceListTVC.h"/>
+        </class>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGraphView.h"/>
+        </class>
+        <class className="BLEKeyPressDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEKeyPressDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rightButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
+        </class>
+        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
+        </class>
+        <class className="BLEScanControlTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEScanControlTVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scanForAllServices" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="scanForSelectedServices" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="BLEServicesManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServicesManagerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="statusDetailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusHeadingLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
