@@ -248,7 +248,7 @@
             foundHeartRateMeasurement = YES;
             
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
         {
             foundBodySensor = YES;
         }
@@ -262,6 +262,11 @@
     {
         // (re)discover characteristics for the service and drive the workflow from the peripheral delegate didDiscoverCharacteristicsForServiceMethod
         [self discoverHeartRateMeasurementServiceCharacteristics];
+    }
+    else
+    {
+        [self enableForHeartRateMeasurementNotifications: YES];
+        [self readBodySensorLocation];
     }
     
 }
@@ -312,7 +317,7 @@
             CBCharacteristic *characteristic = (CBCharacteristic *)obj;
             
             NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:BODY_SENSOR_LOCATION] == NSOrderedSame)
+            if ([uuidString localizedCompare:BODY_SENSOR_LOCATION_CHARACTERISTIC ] == NSOrderedSame)
             {
                 return YES;
             }
@@ -613,7 +618,7 @@
             
             [self processExpendedEnergyData:reportData];
         }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
         {
             NSData * updatedValue = characteristic.value;
             uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
@@ -690,7 +695,7 @@
                 [self enableForHeartRateMeasurementNotifications: YES];
 
             }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
             {
                 // read the body sensor location
                 if (self.debug) NSLog(@"Reading Body Sensor Location");
