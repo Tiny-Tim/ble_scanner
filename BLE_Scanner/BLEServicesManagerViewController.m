@@ -52,6 +52,7 @@ static NSSet *_demoServices;
    _demoServices = [NSSet setWithObjects:
                     IMMEDIATE_ALERT_SERVICE,
                     Tx_POWER_SERVICE,
+                    DEVICE_INFORMATION_SERVICE,
                     HEART_RATE_MEASUREMENT_SERVICE,
                     BATTERY_SERVICE,
                     TI_KEYFOB_ACCELEROMETER_SERVICE,
@@ -102,7 +103,7 @@ static NSSet *_demoServices;
     // the peripheral's services have been set at this point, determine if demos exist for any of the services
     for (CBService *service in _deviceRecord.peripheral.services)
     {
-        NSString *uuidString = [service.UUID representativeString];
+        NSString *uuidString = [[service.UUID representativeString]uppercaseString];
         
         if ([_demoServices containsObject:uuidString])
         {

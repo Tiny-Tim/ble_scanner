@@ -18,5 +18,6 @@
 
 
 // Set of services for which demos exist
+// Currently defined in BLEServiceManagerViewController
 @property (nonatomic, copy)NSSet *demoServices;
 @end

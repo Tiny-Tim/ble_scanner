@@ -610,6 +610,22 @@
                                     <action selector="serviceButtonTapped:" destination="pos-5a-p1i" eventType="touchUpInside" id="5aa-pr-ktR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Laa-GP-GcU">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="180A - Device Information Service">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="serviceButtonTapped:" destination="pos-5a-p1i" eventType="touchUpInside" id="TR5-H3-oyT"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzl-6N-HBO">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="FFA0 - TI Keyfob Accelerometer">
@@ -647,24 +663,27 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="pdI-BK-LVj" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="0Lr-rx-gDR"/>
                             <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="0cz-tK-emR"/>
+                            <constraint firstAttribute="bottom" secondItem="Ywr-0c-pGM" secondAttribute="bottom" constant="185" id="0hG-Rg-erI"/>
                             <constraint firstItem="6wF-Cc-Ewg" firstAttribute="centerX" secondItem="iTY-ND-voJ" secondAttribute="centerX" type="default" id="1ax-p4-MnO"/>
                             <constraint firstItem="tzl-6N-HBO" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="1hv-lI-0fq"/>
                             <constraint firstItem="pdI-BK-LVj" firstAttribute="trailing" secondItem="tzl-6N-HBO" secondAttribute="trailing" type="default" id="3AC-Vg-sl3"/>
                             <constraint firstItem="lMN-by-8ob" firstAttribute="centerX" secondItem="tzl-6N-HBO" secondAttribute="centerX" type="default" id="7a7-Fy-9uX"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="trailing" secondItem="Mlv-qo-Vqh" secondAttribute="trailing" type="default" id="7je-8l-b29"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="218" id="A2y-10-BZv"/>
                             <constraint firstItem="tzl-6N-HBO" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="AA0-0l-Ein"/>
                             <constraint firstAttribute="bottom" secondItem="tzl-6N-HBO" secondAttribute="bottom" constant="83" id="Bkf-DD-ULa"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="top" secondItem="Mlv-qo-Vqh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="CMt-5q-WBO"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="leading" secondItem="CyZ-Pf-pVK" secondAttribute="leading" type="default" id="C61-0L-uDW"/>
                             <constraint firstItem="tzl-6N-HBO" firstAttribute="top" secondItem="lMN-by-8ob" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Cem-Eg-j4W"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="leading" secondItem="Mlv-qo-Vqh" secondAttribute="leading" type="default" id="GPp-bb-vEE"/>
                             <constraint firstItem="lMN-by-8ob" firstAttribute="trailing" secondItem="nGY-HX-Bzh" secondAttribute="trailing" type="default" id="Gef-8M-ED5"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="CyZ-Pf-pVK" secondAttribute="leading" type="default" id="Gh0-wM-dSh"/>
                             <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="Gzs-Un-E3c"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="trailing" secondItem="CyZ-Pf-pVK" secondAttribute="trailing" type="default" id="Inx-v8-ydT"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="top" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ovs-9h-Wex"/>
                             <constraint firstItem="lMN-by-8ob" firstAttribute="top" secondItem="6wF-Cc-Ewg" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="PS3-da-Hgy"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="top" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="PTX-jO-Ltd"/>
                             <constraint firstItem="ENC-RB-f4z" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="62" id="SJT-yJ-9y1"/>
                             <constraint firstItem="CyZ-Pf-pVK" firstAttribute="top" secondItem="ENC-RB-f4z" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Z9z-qh-8nq"/>
                             <constraint firstItem="nGY-HX-Bzh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="15" id="csD-Go-MlV"/>
                             <constraint firstItem="nGY-HX-Bzh" firstAttribute="leading" secondItem="iTY-ND-voJ" secondAttribute="leading" constant="11" id="iaR-cO-5O7"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="CyZ-Pf-pVK" secondAttribute="trailing" type="default" id="l7N-V0-Kel"/>
                             <constraint firstItem="lMN-by-8ob" firstAttribute="leading" secondItem="nGY-HX-Bzh" secondAttribute="leading" type="default" id="lTx-Ab-IZm"/>
                             <constraint firstItem="ENC-RB-f4z" firstAttribute="leading" secondItem="CyZ-Pf-pVK" secondAttribute="leading" type="default" id="tDX-MX-AbC"/>
                             <constraint firstItem="pdI-BK-LVj" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="ueG-hs-aSA"/>
@@ -680,14 +699,137 @@
                         <outletCollection property="buttonCollection" destination="tzl-6N-HBO" id="7Tl-gf-4Sh"/>
                         <outletCollection property="buttonCollection" destination="pdI-BK-LVj" id="QG4-a6-UnH"/>
                         <outletCollection property="buttonCollection" destination="Mlv-qo-Vqh" id="Ggo-yg-8eW"/>
+                        <outletCollection property="buttonCollection" destination="Laa-GP-GcU" id="tU2-R8-8Pu"/>
                         <segue destination="M4N-3b-Y3k" kind="push" identifier="ShowBatteryDemo" id="5jR-5r-2kd"/>
                         <segue destination="diW-He-e5H" kind="push" identifier="ShowKeyPressDemo" id="ptW-8b-AUx"/>
                         <segue destination="3N1-Tq-W9m" kind="push" identifier="ShowAccelerometerDemo" id="Fuf-zn-MyJ"/>
+                        <segue destination="S3t-pN-JkY" kind="push" identifier="ShowHeartRateDemo" id="5GV-Y9-IOG"/>
+                        <segue destination="6uk-ct-buK" kind="push" identifier="ShowDeviceInformationDemo" id="tFR-NZ-cX0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
+        </scene>
+        <!--Device Information Demo View Controller - Device Info Demo-->
+        <scene sceneID="og5-jy-8mG">
+            <objects>
+                <viewController id="6uk-ct-buK" customClass="BLEDeviceInformationDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ED-bX-YLv">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Device Info Demo" id="lMN-cf-Ecs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AdX-oq-IPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2469" y="-878"/>
+        </scene>
+        <!--Heart Rate Demo View Controller - HeartRateDemoController-->
+        <scene sceneID="A0F-gm-jMQ">
+            <objects>
+                <viewController title="HeartRateDemoController" hidesBottomBarWhenPushed="YES" id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96O-8s-huw">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="Tqk-C6-ucT"/>
+                                    <constraint firstAttribute="height" constant="137" id="wed-kD-soX"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xb5-7l-L5M">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="pfM-rK-wPg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybk-RE-JGx">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="CRD-is-8xg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9AO-5i-BsY"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HEART RATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo8-jM-UT0">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="156" id="TID-6q-XAO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Energy Expended" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-se-oep">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="QvX-ml-gIf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sensor Contact Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SND-SL-gTB">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="oHH-bv-0KQ"/>
+                                    <constraint firstAttribute="width" constant="255" id="qRy-8r-d5B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Body Sensor Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFU-0a-ZnT">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Jf9-cq-NXx"/>
+                                    <constraint firstAttribute="width" constant="267" id="tz3-zx-OBA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Emn-se-oep" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2nW-ZJ-sEB"/>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="76" id="3gG-4b-n7q"/>
+                            <constraint firstItem="MFU-0a-ZnT" firstAttribute="trailing" secondItem="Emn-se-oep" secondAttribute="trailing" type="default" id="5UW-dq-sSH"/>
+                            <constraint firstAttribute="bottom" secondItem="SND-SL-gTB" secondAttribute="bottom" constant="175" id="8QY-20-w1n"/>
+                            <constraint firstAttribute="bottom" secondItem="Xb5-7l-L5M" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="CS2-PF-qbu"/>
+                            <constraint firstItem="9AO-5i-BsY" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="top" type="default" id="FfY-av-cia"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="IlD-62-Njm"/>
+                            <constraint firstAttribute="bottom" secondItem="Emn-se-oep" secondAttribute="bottom" constant="133" id="OWD-0m-b9p"/>
+                            <constraint firstItem="SND-SL-gTB" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Odv-ww-qaY"/>
+                            <constraint firstAttribute="bottom" secondItem="MFU-0a-ZnT" secondAttribute="bottom" constant="214" id="Qjy-Wo-5GA"/>
+                            <constraint firstAttribute="trailing" secondItem="Xb5-7l-L5M" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="XKM-eX-QB4"/>
+                            <constraint firstItem="96O-8s-huw" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="48" id="axU-Mv-hZc"/>
+                            <constraint firstItem="9AO-5i-BsY" firstAttribute="leading" secondItem="ybk-RE-JGx" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="h30-zj-14n"/>
+                            <constraint firstItem="ybk-RE-JGx" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iwI-ki-EiM"/>
+                            <constraint firstItem="Bo8-jM-UT0" firstAttribute="leading" secondItem="96O-8s-huw" secondAttribute="leading" type="default" id="mzN-vc-JXe"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="oFm-8m-kfo"/>
+                            <constraint firstItem="Bo8-jM-UT0" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="204" id="otD-fB-bXL"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="9AO-5i-BsY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="tFM-B0-V4A"/>
+                            <constraint firstItem="MFU-0a-ZnT" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="yqQ-Fw-XcB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="bodySensorLocationLabel" destination="MFU-0a-ZnT" id="6Sn-HV-YHV"/>
+                        <outlet property="energyExpendedLabel" destination="Emn-se-oep" id="e0p-1O-Ywl"/>
+                        <outlet property="heartBeatImage" destination="96O-8s-huw" id="2Yk-6c-O6j"/>
+                        <outlet property="heartRateMeasureLabel" destination="Bo8-jM-UT0" id="Mqe-wg-rHd"/>
+                        <outlet property="peripheralStatusLabel" destination="Xb5-7l-L5M" id="n75-oi-La1"/>
+                        <outlet property="peripheralStatusSpinner" destination="9AO-5i-BsY" id="IHx-Bg-4oZ"/>
+                        <outlet property="sensorContactStatusLabel" destination="SND-SL-gTB" id="Xmt-Wf-gRd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0mI-bp-0nF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2483" y="-130"/>
         </scene>
         <!--Accelerometer Demo View Controller - TI Accelerometer Demo-->
         <scene sceneID="2rc-9r-Uux">
@@ -705,7 +847,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RiU-yb-rlL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="1059"/>
+            <point key="canvasLocation" x="2475" y="1289"/>
         </scene>
         <!--Key Press Demo View Controller - TI Keyfob Button Press Demo-->
         <scene sceneID="B27-mL-Zpn">
@@ -761,6 +903,7 @@
                             <constraint firstItem="TOj-rZ-jgW" firstAttribute="bottom" secondItem="ZUL-91-RxJ" secondAttribute="bottom" type="default" id="3fX-Mj-N9a"/>
                             <constraint firstItem="ZUL-91-RxJ" firstAttribute="top" secondItem="kLo-Rv-EKJ" secondAttribute="top" constant="145" id="6Jp-Ay-Lk7"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="Omu-3B-Ksq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="B80-Qd-Xbn"/>
+                            <constraint firstAttribute="trailing" secondItem="NDv-Sa-UKK" secondAttribute="trailing" constant="69" id="CAA-oi-lfI"/>
                             <constraint firstItem="Omu-3B-Ksq" firstAttribute="centerX" secondItem="ced-Sl-fhw" secondAttribute="centerX" type="default" id="ERU-4A-2DM"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Kdq-DQ-k3a"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="NbV-aI-I7p"/>
@@ -769,7 +912,6 @@
                             <constraint firstAttribute="bottom" secondItem="ced-Sl-fhw" secondAttribute="bottom" constant="5" id="X0U-C5-9Gn"/>
                             <constraint firstItem="UeP-S6-Li6" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="e0l-gz-ArW"/>
                             <constraint firstAttribute="trailing" secondItem="TOj-rZ-jgW" secondAttribute="trailing" constant="48" id="fYg-cI-gZo"/>
-                            <constraint firstItem="TOj-rZ-jgW" firstAttribute="centerX" secondItem="NDv-Sa-UKK" secondAttribute="centerX" type="default" id="gNy-yu-sKs"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="leading" secondItem="UeP-S6-Li6" secondAttribute="leading" type="default" id="gtZ-Ap-PNg"/>
                             <constraint firstItem="Omu-3B-Ksq" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="top" type="default" id="k1G-7V-hPW"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="baseline" secondItem="NDv-Sa-UKK" secondAttribute="baseline" type="default" id="rOc-nV-HAK"/>
@@ -785,7 +927,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhl-2F-PDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="380"/>
+            <point key="canvasLocation" x="2475" y="2044"/>
         </scene>
         <!--Battery Service Demo View Controller - Battery Service Demo-->
         <scene sceneID="HFA-Ec-R4d">
@@ -870,7 +1012,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuW-x0-ZA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-300"/>
+            <point key="canvasLocation" x="2483" y="582"/>
         </scene>
         <!--Peripheral ServicesTVC-->
         <scene sceneID="I9W-0W-KS0">

@@ -11,7 +11,9 @@
 #import "CBUUID+StringExtraction.h"
 #import "BLEKeyPressDemoViewController.h" 
 #import "BLEAccelerometerDemoViewController.h"
+#import "BLEHeartRateDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
+#include "BLEDeviceInformationDemoViewController.h"
 
 @interface BLEDemoDispatcherViewController ()
 
@@ -29,11 +31,16 @@
 @synthesize demoServices = _demoServices;
 
 
+#pragma mark- Properties
+
 // copy the demo services set which is used to configure demo buttons in UI
 -(void)setDemoServices:(NSSet *)demoServices
 {
     _demoServices = [demoServices copy];
 }
+
+
+#pragma mark- View Controller Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +50,106 @@
     }
     return self;
 }
+
+
+// Usual initializations.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    _debug = YES;
+    
+    // disable demo buttons for services this peripheral does not offer
+    [self synchDemosWithDevice];
+    
+    
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+/*
+ *
+ * Method Name:  prepareForSegue
+ *
+ * Description:  Segue to a view controller which presents a demo of the service corresponding to the segue name.
+ *
+ * Parameter(s): segue - the segue which corresponds to the demo controller
+ *               sender - initiator of the segue
+ *
+ */
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowBatteryDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Battery Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEBatteryServiceDemoViewController class]])
+        {
+            BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
+            
+            destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+            if (! destination.batteryService)
+            {
+                NSLog(@"Crash coming... expected battery service not found");
+            }
+            
+        }
+        
+    }
+    else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to KeyPress Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEKeyPressDemoViewController class]])
+        {
+            
+            BLEKeyPressDemoViewController *destination = segue.destinationViewController;
+            destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+    }
+    else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Accelerometer Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEAccelerometerDemoViewController class]])
+        {
+            BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
+            destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+        
+    }
+    else if ([segue.identifier isEqualToString:@"ShowHeartRateDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Heart Rate Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEHeartRateDemoViewController class]])
+        {
+            BLEHeartRateDemoViewController *destination = segue.destinationViewController;
+            destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+        
+    }
+    else if ([segue.identifier isEqualToString:@"ShowDeviceInformationDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Device Information Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEDeviceInformationDemoViewController class]])
+        {
+            BLEDeviceInformationDemoViewController *destination = segue.destinationViewController;
+            destination.deviceInformationService = [self getService:DEVICE_INFORMATION_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+        
+    }
+}
+
+
+#pragma mark- Prvate Methods
 
 
 
@@ -116,25 +223,6 @@
 }
 
 
-// Usual initializations.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    _debug = YES;
-    
-    // disable demo buttons for services this peripheral does not offer
-    [self synchDemosWithDevice];
-    
-    
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 /*
@@ -174,6 +262,22 @@
         [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
         
     }
+    else if ([sender.titleLabel.text hasPrefix:HEART_RATE_MEASUREMENT_SERVICE])
+    {
+        if (self.debug) NSLog(@"Heart Rate Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowHeartRateDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:DEVICE_INFORMATION_SERVICE])
+    {
+        if (self.debug) NSLog(@"Device Information Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowDeviceInformationDemo" sender:self];
+        
+    }
+    
+
 }
 
 
@@ -195,57 +299,5 @@
 }
 
 
-/*
- *
- * Method Name:  prepareForSegue
- *
- * Description:  Segue to a view controller which presents a demo of the service corresponding to the segue name.
- *
- * Parameter(s): segue - the segue which corresponds to the demo controller
- *               sender - initiator of the segue
- *
- */
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"ShowBatteryDemo"])
-    {
-        if (self.debug) NSLog(@"Segueing to Battery Demo");
-        if ([segue.destinationViewController isKindOfClass:[BLEBatteryServiceDemoViewController class]])
-        {
-            BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
-            
-            destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
-                        
-            if (! destination.batteryService)
-            {
-                NSLog(@"Crash coming... expected battery service not found");
-            }
-            
-        }
-
-    }
-    else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
-    {
-        if (self.debug) NSLog(@"Segueing to KeyPress Demo");
-        if ([segue.destinationViewController isKindOfClass:[BLEKeyPressDemoViewController class]])
-        {
-           
-            BLEKeyPressDemoViewController *destination = segue.destinationViewController;
-            destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.deviceRecord.peripheral];
-           
-        }
-    }
-    else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
-    {
-        if (self.debug) NSLog(@"Segueing to Accelerometer Demo");
-        if ([segue.destinationViewController isKindOfClass:[BLEAccelerometerDemoViewController class]])
-        {
-            BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
-            destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
-        }
-        
-    }
-}
 
 @end
