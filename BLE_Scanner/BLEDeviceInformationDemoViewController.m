@@ -24,6 +24,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *manufacturerLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *modelNumberLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *firmwareRevisionLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *serialNumberLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *hardwareRevisionLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *softwareRevisionLabel;
+
 @end
 
 @implementation BLEDeviceInformationDemoViewController
@@ -137,9 +146,19 @@
     self.deviceInformationService.peripheral.delegate =self;
     
     self.manufacturerLabel.text = @"";
+    self.firmwareRevisionLabel.text = @"";
+    self.modelNumberLabel.text = @"";
+    self.serialNumberLabel.text = @"";
+    self.hardwareRevisionLabel.text = @"";
+    self.softwareRevisionLabel.text = @"";
     
     BOOL foundManufacturerName = NO;
+    BOOL foundFirmwareRevision = NO;
     BOOL foundModelNumber = NO;
+    BOOL serialNumberFound = NO;
+    BOOL hardwareRevisionFound = NO;
+    BOOL softwareRevisionFound = NO;
+    
     for (CBCharacteristic * characteristic in self.deviceInformationService.characteristics)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MANUFACTURER_NAME_STRING_CHARACTERISTIC  ]])
@@ -150,10 +169,28 @@
         {
             foundModelNumber = YES;
         }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:FIRMWARE_REVISION_STRING_CHARACTERISTIC  ]])
+        {
+            foundFirmwareRevision = YES;
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SERIAL_NUMBER_STRING_CHARACTERISTIC  ]])
+        {
+            serialNumberFound = YES;
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HARDWARE_REVISION_STRING_CHARACTERISTIC  ]])
+        {
+            hardwareRevisionFound = YES;
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SOFTWARE_REVISION_STRING_CHARACTERISTIC  ]])
+        {
+            softwareRevisionFound = YES;
+        }
             
     }
     
-    if ( ! (foundManufacturerName && foundModelNumber))
+    if ( ! (foundManufacturerName && foundModelNumber &&
+            foundFirmwareRevision && serialNumberFound &&
+            hardwareRevisionFound && softwareRevisionFound))
     {
         [self discoverDeviceInformationServiceCharacteristics];
     }
@@ -161,6 +198,11 @@
     {
         [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC];
         [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC ];
+        [self readCharacteristic:FIRMWARE_REVISION_STRING_CHARACTERISTIC ];
+        [self readCharacteristic:SERIAL_NUMBER_STRING_CHARACTERISTIC ];
+        [self readCharacteristic:HARDWARE_REVISION_STRING_CHARACTERISTIC ];
+        [self readCharacteristic:SOFTWARE_REVISION_STRING_CHARACTERISTIC ];
+        
     }
 }
 
@@ -238,6 +280,43 @@
             self.modelNumberLabel.text = [NSString stringWithFormat: @"Model Number:  %@",model];
             
         }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:FIRMWARE_REVISION_STRING_CHARACTERISTIC ]])
+        {
+            NSString *fwRevision;
+            fwRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            
+            if (self.debug) NSLog(@"Firmware Revision = %@", fwRevision);
+            self.firmwareRevisionLabel.text = [NSString stringWithFormat: @"Firmware Revision:  %@",fwRevision];
+            
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SERIAL_NUMBER_STRING_CHARACTERISTIC ]])
+        {
+            NSString *serialNumber;
+            serialNumber = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            
+            if (self.debug) NSLog(@"Serial Number = %@", serialNumber);
+            self.serialNumberLabel.text = [NSString stringWithFormat: @"Serial Number:  %@",serialNumber];
+            
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HARDWARE_REVISION_STRING_CHARACTERISTIC ]])
+        {
+            NSString *hwRevision;
+            hwRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            
+            if (self.debug) NSLog(@"Hardware Revision = %@", hwRevision);
+            self.hardwareRevisionLabel.text = [NSString stringWithFormat: @"Hardware Revision:  %@",hwRevision];
+            
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SOFTWARE_REVISION_STRING_CHARACTERISTIC ]])
+        {
+            NSString *swRevision;
+            swRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            
+            if (self.debug) NSLog(@"Software Revision = %@", swRevision);
+            self.softwareRevisionLabel.text = [NSString stringWithFormat: @"Software Revision:  %@",swRevision];
+            
+        }
+
     }
     else
     {
@@ -269,16 +348,9 @@
         // iterate through the characteristics and take approproate actions
         for (CBCharacteristic *characteristic in service.characteristics )
         {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MANUFACTURER_NAME_STRING_CHARACTERISTIC]])
-            {
-                // read manufacturer name
-                [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC];
-            }
-            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC ]])
-            {
-                // read model number
-                [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC];
-            }
+            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+            [self readCharacteristic:uuidString];
+
         }
         
     }

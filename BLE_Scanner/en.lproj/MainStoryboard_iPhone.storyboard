@@ -721,7 +721,7 @@
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSq-S9-f78">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="127" id="peQ-v2-ncA"/>
+                                    <constraint firstAttribute="width" constant="127" id="NbZ-Sl-C3g"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -739,7 +739,6 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Manufacturer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-do-Utu">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="OJc-iL-FZR"/>
-                                    <constraint firstAttribute="width" constant="275" id="gFo-GR-3wN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -753,30 +752,79 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Firmware Revision" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUf-01-cmb">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="275" id="MP7-gQ-wzW"/>
+                                    <constraint firstAttribute="height" constant="21" id="dUi-fK-Vbq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Serial Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4o-aY-X0M">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="efn-ad-ycP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hardware Revision" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlI-wM-dfu">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="XEY-Ce-1FK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Software Revision" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU7-1I-TvQ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ret-mc-IIM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NuV-do-Utu" firstAttribute="top" secondItem="0ED-bX-YLv" secondAttribute="top" constant="67" id="0L6-NN-9hX"/>
-                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="leading" secondItem="NuV-do-Utu" secondAttribute="leading" type="default" id="42V-4y-TMh"/>
+                            <constraint firstItem="x4o-aY-X0M" firstAttribute="top" secondItem="sUU-cF-9Pe" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="5JE-dR-Fre"/>
+                            <constraint firstItem="GUf-01-cmb" firstAttribute="top" secondItem="gU7-1I-TvQ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="5V5-vO-xqi"/>
                             <constraint firstAttribute="trailing" secondItem="Kp8-Vf-ToG" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7dj-XV-ja1"/>
+                            <constraint firstItem="GUf-01-cmb" firstAttribute="trailing" secondItem="gU7-1I-TvQ" secondAttribute="trailing" type="default" id="9Oq-tX-CqO"/>
                             <constraint firstItem="sUU-cF-9Pe" firstAttribute="top" secondItem="NuV-do-Utu" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ajc-Ja-uYR"/>
-                            <constraint firstAttribute="trailing" secondItem="sUU-cF-9Pe" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="BQ9-Pg-YA1"/>
                             <constraint firstItem="c7i-1b-ysi" firstAttribute="leading" secondItem="NSq-S9-f78" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="DGk-b0-hRo"/>
+                            <constraint firstItem="NuV-do-Utu" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="DMn-4T-Fwa"/>
                             <constraint firstItem="Kp8-Vf-ToG" firstAttribute="top" secondItem="c7i-1b-ysi" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FiQ-Gd-iyC"/>
+                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="trailing" secondItem="NuV-do-Utu" secondAttribute="trailing" type="default" id="GTp-H0-TNi"/>
+                            <constraint firstItem="NlI-wM-dfu" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="O3Y-IG-V3D"/>
                             <constraint firstItem="c7i-1b-ysi" firstAttribute="top" secondItem="NSq-S9-f78" secondAttribute="top" type="default" id="PyK-yd-nAi"/>
+                            <constraint firstItem="gU7-1I-TvQ" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="QO4-iE-dF0"/>
+                            <constraint firstItem="gU7-1I-TvQ" firstAttribute="top" secondItem="NlI-wM-dfu" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="T3N-oV-xJd"/>
+                            <constraint firstItem="x4o-aY-X0M" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="UM6-go-bLu"/>
+                            <constraint firstItem="x4o-aY-X0M" firstAttribute="trailing" secondItem="NlI-wM-dfu" secondAttribute="trailing" type="default" id="Ydy-f1-I9H"/>
+                            <constraint firstItem="gU7-1I-TvQ" firstAttribute="trailing" secondItem="NlI-wM-dfu" secondAttribute="trailing" type="default" id="Z8n-J5-Gd9"/>
                             <constraint firstItem="NSq-S9-f78" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bDW-YK-9Pd"/>
                             <constraint firstItem="Kp8-Vf-ToG" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="dLP-pz-IjF"/>
-                            <constraint firstAttribute="trailing" secondItem="NuV-do-Utu" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="hfd-aE-att"/>
+                            <constraint firstItem="GUf-01-cmb" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="fwn-F2-qYl"/>
+                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="leading" secondItem="0ED-bX-YLv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="fyf-fZ-ByZ"/>
                             <constraint firstAttribute="bottom" secondItem="Kp8-Vf-ToG" secondAttribute="bottom" constant="12" id="hgO-Qc-5VV"/>
+                            <constraint firstItem="sUU-cF-9Pe" firstAttribute="trailing" secondItem="x4o-aY-X0M" secondAttribute="trailing" type="default" id="ih5-bu-fNA"/>
                             <constraint firstItem="Kp8-Vf-ToG" firstAttribute="top" secondItem="NSq-S9-f78" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jIU-1k-gh6"/>
+                            <constraint firstItem="NlI-wM-dfu" firstAttribute="top" secondItem="x4o-aY-X0M" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="lH1-Me-HNb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Device Info Demo" id="lMN-cf-Ecs"/>
                     <connections>
+                        <outlet property="firmwareRevisionLabel" destination="GUf-01-cmb" id="O5f-e0-3H0"/>
+                        <outlet property="hardwareRevisionLabel" destination="NlI-wM-dfu" id="NTM-jV-kNq"/>
                         <outlet property="manufacturerLabel" destination="NuV-do-Utu" id="TZh-t5-gMk"/>
                         <outlet property="modelNumberLabel" destination="sUU-cF-9Pe" id="KRE-LH-9NG"/>
                         <outlet property="peripheralStatusLabel" destination="Kp8-Vf-ToG" id="bg3-VV-pIU"/>
                         <outlet property="peripheralStatusSpinner" destination="c7i-1b-ysi" id="kgC-KA-ncR"/>
+                        <outlet property="serialNumberLabel" destination="x4o-aY-X0M" id="bOy-dH-doF"/>
+                        <outlet property="softwareRevisionLabel" destination="gU7-1I-TvQ" id="od3-bc-70o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AdX-oq-IPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
