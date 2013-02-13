@@ -705,11 +705,44 @@
                         <segue destination="3N1-Tq-W9m" kind="push" identifier="ShowAccelerometerDemo" id="Fuf-zn-MyJ"/>
                         <segue destination="S3t-pN-JkY" kind="push" identifier="ShowHeartRateDemo" id="5GV-Y9-IOG"/>
                         <segue destination="6uk-ct-buK" kind="push" identifier="ShowDeviceInformationDemo" id="tFR-NZ-cX0"/>
+                        <segue destination="f5s-E8-QVe" kind="push" identifier="ShowTransmitPowerDemo" id="73b-eh-hQA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
+        </scene>
+        <!--Transmit Power Demo View Controller-->
+        <scene sceneID="PeJ-f1-Etg">
+            <objects>
+                <viewController id="f5s-E8-QVe" customClass="BLETransmitPowerDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RyI-ko-QWm">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Transmit Power" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zY1-sR-1eV">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="228" id="0aq-Ye-ch5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zY1-sR-1eV" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="60" id="HHn-v7-m8k"/>
+                            <constraint firstItem="zY1-sR-1eV" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="39" id="Inn-zQ-gHX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hHx-zu-DXN"/>
+                    <connections>
+                        <outlet property="transmitPowerLabel" destination="zY1-sR-1eV" id="ytM-8Q-x9N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4sZ-qI-fAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2467" y="-1641"/>
         </scene>
         <!--Device Information Demo View Controller - Device Info Demo-->
         <scene sceneID="og5-jy-8mG">

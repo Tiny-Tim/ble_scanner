@@ -14,6 +14,7 @@
 #import "BLEHeartRateDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 #include "BLEDeviceInformationDemoViewController.h"
+#include "BLETransmitPowerDemoViewController.h"
 
 @interface BLEDemoDispatcherViewController ()
 
@@ -146,6 +147,17 @@
         }
         
     }
+    else if ([segue.identifier isEqualToString:@"ShowTransmitPowerDemo"])
+    {
+        if (self.debug) NSLog(@"Segueing to Transmit Power Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLETransmitPowerDemoViewController class]])
+        {
+            BLETransmitPowerDemoViewController *destination = segue.destinationViewController;
+            destination.transmitPowerService = [self getService:Tx_POWER_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            
+        }
+        
+    }
 }
 
 
@@ -274,6 +286,13 @@
         if (self.debug) NSLog(@"Device Information Service Selected");
         
         [self performSegueWithIdentifier:@"ShowDeviceInformationDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:Tx_POWER_SERVICE])
+    {
+        if (self.debug) NSLog(@"Transmit Power Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowTransmitPowerDemo" sender:self];
         
     }
     
