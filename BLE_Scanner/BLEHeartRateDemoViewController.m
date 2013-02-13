@@ -54,6 +54,8 @@
 // expended energy level in Joules
 @property (nonatomic) NSUInteger energyExpended;
 
+@property (weak, nonatomic) IBOutlet UILabel *bodySensorLocationLabel;
+
 @end
 
 @implementation BLEHeartRateDemoViewController
@@ -221,6 +223,8 @@
     // clear the sensor contact label
     self.sensorContactStatusLabel.text = @"";
     
+    self.bodySensorLocationLabel.text = @"";
+    
     self.energyExpendedStatusAvailable = NO;
 
     // set the peripheral delegate to self
@@ -232,8 +236,33 @@
     // display the peripheral connection status
     [self setConnectionStatus];
     
-    // subscribe for notifications to changes of heart rate
-    [self enableForHeartRateMeasurementNotifications: YES];
+    
+    // It is unknown whether all of the chracteristics for the service have been discovered or only a subset at this point depending upon the entries in service.characteristics.
+    // We'll look for the services we need and if any are missing then (re)discover all of them
+    BOOL foundHeartRateMeasurement = NO;
+    BOOL foundBodySensor = NO;
+    for (CBCharacteristic *characteristic in self.heartRateService.characteristics)
+    {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC]])
+        {
+            foundHeartRateMeasurement = YES;
+            
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+        {
+            foundBodySensor = YES;
+        }
+        
+        if ( foundHeartRateMeasurement  &&  foundBodySensor)
+        {
+            break;
+        }
+    }
+    if ( ! ( foundHeartRateMeasurement  &&  foundBodySensor))
+    {
+        // (re)discover characteristics for the service and drive the workflow from the peripheral delegate didDiscoverCharacteristicsForServiceMethod
+        [self discoverHeartRateMeasurementServiceCharacteristics];
+    }
     
 }
 
@@ -272,6 +301,52 @@
 
 #pragma mark- Private Methods
 
+
+-(void)readBodySensorLocation
+{
+    // determine if the required characteristic has been discovered, if not then discover it
+    if (self.heartRateService.characteristics)
+    {
+        NSUInteger index = [self.heartRateService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            
+            CBCharacteristic *characteristic = (CBCharacteristic *)obj;
+            
+            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+            if ([uuidString localizedCompare:BODY_SENSOR_LOCATION] == NSOrderedSame)
+            {
+                return YES;
+            }
+            return NO;
+        }];
+        
+        if (index == NSNotFound)
+        {
+            NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+
+        }
+        else
+        {
+            if ([self.heartRateService.peripheral isConnected])
+            {
+                self.peripheralStatusLabel.textColor = [UIColor greenColor];
+                self.peripheralStatusLabel.text = @"Reading body sensor location.";
+                [self.peripheralStatusSpinner startAnimating];
+                [self.heartRateService.peripheral readValueForCharacteristic:self.heartRateService.characteristics[index]];
+                
+            }
+        }
+    }
+    else
+    {
+        NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+
+    }
+
+    
+}
+
+
+
 /*
  *
  * Method Name:  setConnectionStatus
@@ -298,27 +373,25 @@
 
 /*
  *
- * Method Name:  discoverHeartRateMeasurementServiceCharacteristic
+ * Method Name:  discoverHeartRateMeasurementServiceCharacteristics
  *
- * Description:  Discover the heart rate service characteristic for obtaining herat rate measurements. This method only looks for a single chracteristic corresponding to the heart rate measurement.
+ * Description:  Discover, or re-discover all of the heart rate service characteristics.
  *
- * Parameter(s): None
+ * Parameter(s): 
  *
  */
--(void)discoverHeartRateMeasurementServiceCharacteristic
+-(void)discoverHeartRateMeasurementServiceCharacteristics 
 {
     if ([self.heartRateService.peripheral isConnected])
     {
-        // discover heart rate measurement service characteristic
-        CBUUID *UUUID = [CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC];
-        NSArray *heartRateServiceUUID = [NSArray arrayWithObject:UUUID];
         
         self.peripheralStatusLabel.textColor = [UIColor greenColor];
         self.peripheralStatusLabel.text = @"Discovering service characteristics.";
         [self.peripheralStatusSpinner startAnimating];
         
-        [self.heartRateService.peripheral discoverCharacteristics:heartRateServiceUUID
+        [self.heartRateService.peripheral discoverCharacteristics:nil
                                                         forService:self.heartRateService];
+        
     }
     else
     {
@@ -357,7 +430,7 @@
         
         if (index == NSNotFound)
         {
-            [self discoverHeartRateMeasurementServiceCharacteristic];
+             NSLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
         }
         else
         {
@@ -371,10 +444,9 @@
     }
     else
     {
-        [self discoverHeartRateMeasurementServiceCharacteristic];
+        NSLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
     }
 }
-
 
 // start the animation of the heart beat image
 -(void)startHeartBeatAnimation
@@ -494,6 +566,10 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    
+    [self.peripheralStatusSpinner stopAnimating];
+    [self setConnectionStatus];
+    
     if (!error)
     {
         if (self.debug) NSLog(@"Characteristic value  updated.");
@@ -537,6 +613,46 @@
             
             [self processExpendedEnergyData:reportData];
         }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+        {
+            NSData * updatedValue = characteristic.value;
+            uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
+            if(dataPointer)
+            {
+                uint8_t location = dataPointer[0];
+                NSString*  locationString;
+                switch (location)
+                {
+                    case 0:
+                        locationString = @"Other";
+                        break;
+                    case 1:
+                        locationString = @"Chest";
+                        break;
+                    case 2:
+                        locationString = @"Wrist";
+                        break;
+                    case 3:
+                        locationString = @"Finger";
+                        break;
+                    case 4:
+                        locationString = @"Hand";
+                        break;
+                    case 5:
+                        locationString = @"Ear Lobe";
+                        break;
+                    case 6:
+                        locationString = @"Foot";
+                        break;
+                    default:
+                        locationString = @"Reserved";
+                        break;
+                }
+                if (self.debug) NSLog(@"Body Sensor Location = %@ (%d)", locationString, location);
+                self.bodySensorLocationLabel.text = [NSString stringWithFormat:@"Body Sensor Location = %@",locationString];
+            }
+
+        }
     }
     else
     {
@@ -565,8 +681,27 @@
     
     if (error == nil)
     {
-        if (self.debug) NSLog(@"Subscribing to key pressed notifications");
-        [self enableForHeartRateMeasurementNotifications: YES];
+        // iterate through the characteristics and take approproate actions
+        for (CBCharacteristic *characteristic in service.characteristics )
+        {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC]])
+            {
+                if (self.debug) NSLog(@"Subscribing to heart rate measurement notifications");
+                [self enableForHeartRateMeasurementNotifications: YES];
+
+            }
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION]])
+            {
+                // read the body sensor location
+                if (self.debug) NSLog(@"Reading Body Sensor Location");
+                [self readBodySensorLocation];
+            }
+        }
+        
+    }
+    else
+    {
+        NSLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
     }
 }
 
