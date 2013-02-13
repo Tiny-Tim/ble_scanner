@@ -52,6 +52,7 @@ static NSSet *_demoServices;
    _demoServices = [NSSet setWithObjects:
                     IMMEDIATE_ALERT_SERVICE,
                     Tx_POWER_SERVICE,
+                    DEVICE_INFORMATION_SERVICE,
                     HEART_RATE_MEASUREMENT_SERVICE,
                     BATTERY_SERVICE,
                     TI_KEYFOB_ACCELEROMETER_SERVICE,
