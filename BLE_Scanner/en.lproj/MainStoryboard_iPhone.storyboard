@@ -710,7 +710,7 @@
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
         </scene>
-        <!--Leash Demo View Controller-->
+        <!--Leash Demo View Controller - Leash Demo-->
         <scene sceneID="PeJ-f1-Etg">
             <objects>
                 <viewController id="f5s-E8-QVe" customClass="BLELeashDemoViewController" sceneMemberID="viewController">
@@ -736,23 +736,50 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyC-rm-8Wx">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="he8-Ed-vcH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJo-fZ-wHd">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="bom-If-kqq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bBW-6o-aSm"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="bBW-6o-aSm" firstAttribute="leading" secondItem="qJo-fZ-wHd" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="0s4-MJ-ut6"/>
                             <constraint firstItem="SVk-nM-FxG" firstAttribute="trailing" secondItem="8QI-v8-yGv" secondAttribute="trailing" type="default" id="5bc-zQ-zn7"/>
+                            <constraint firstItem="qJo-fZ-wHd" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="425" id="761-6r-UIs"/>
+                            <constraint firstItem="bBW-6o-aSm" firstAttribute="top" secondItem="qJo-fZ-wHd" secondAttribute="top" type="default" id="7jd-n8-kN4"/>
+                            <constraint firstItem="qJo-fZ-wHd" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="7pa-Nv-WGV"/>
                             <constraint firstItem="8QI-v8-yGv" firstAttribute="leading" secondItem="zY1-sR-1eV" secondAttribute="leading" type="default" id="840-j2-ShA"/>
+                            <constraint firstItem="AyC-rm-8Wx" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="9sr-yZ-HxB"/>
+                            <constraint firstItem="AyC-rm-8Wx" firstAttribute="top" secondItem="bBW-6o-aSm" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Gev-Tu-D3O"/>
                             <constraint firstItem="zY1-sR-1eV" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="60" id="HHn-v7-m8k"/>
                             <constraint firstItem="zY1-sR-1eV" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="39" id="Inn-zQ-gHX"/>
                             <constraint firstItem="8QI-v8-yGv" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="110" id="Jod-yD-qs0"/>
+                            <constraint firstItem="AyC-rm-8Wx" firstAttribute="top" secondItem="qJo-fZ-wHd" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="LFA-sf-1Yp"/>
                             <constraint firstItem="SVk-nM-FxG" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="167" id="cPZ-Q9-rQL"/>
                             <constraint firstItem="8QI-v8-yGv" firstAttribute="trailing" secondItem="zY1-sR-1eV" secondAttribute="trailing" type="default" id="ewQ-67-ffq"/>
+                            <constraint firstAttribute="trailing" secondItem="AyC-rm-8Wx" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="f0R-XH-EvU"/>
                             <constraint firstItem="SVk-nM-FxG" firstAttribute="leading" secondItem="8QI-v8-yGv" secondAttribute="leading" type="default" id="fLN-0p-zPk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hHx-zu-DXN"/>
+                    <navigationItem key="navigationItem" title="Leash Demo" id="hHx-zu-DXN"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="bBW-6o-aSm" id="09h-OY-Wgr"/>
                         <outlet property="pathLossLabel" destination="SVk-nM-FxG" id="xCV-aH-FEg"/>
                         <outlet property="rssiPowerLabel" destination="8QI-v8-yGv" id="bTo-8O-ugb"/>
+                        <outlet property="statusLabel" destination="AyC-rm-8Wx" id="PzB-0A-7xs"/>
                         <outlet property="transmitPowerLabel" destination="zY1-sR-1eV" id="ytM-8Q-x9N"/>
                     </connections>
                 </viewController>

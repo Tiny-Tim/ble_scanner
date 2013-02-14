@@ -17,8 +17,6 @@
 #define PROXIMITY_THRESHOLD_OFF 60
 
 @interface BLELeashDemoViewController ()
-// DLogging control
-@property (nonatomic) BOOL debug;
 
 @property (weak, nonatomic) IBOutlet UILabel *transmitPowerLabel;
 
@@ -26,6 +24,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *pathLossLabel;
 
 @property (nonatomic, strong) dispatch_source_t rssiUpdateClock;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 
 @property (nonatomic) NSInteger transmitPower;
@@ -79,92 +81,43 @@
 
 
 
-/*
- *
- * Method Name:  setConnectionStatus
- *
- * Description:  Sets the connection status label to indicate peripheral connect status.
- *
- * Parameter(s): None
- *
- */
--(void)setConnectionStatus
-{
-    if ([self.transmitPowerService.peripheral isConnected])
-    {
-       // self.peripheralStatusLabel.textColor = [UIColor greenColor];
-      //  self.peripheralStatusLabel.text = @"Connected";
-    }
-    else
-    {
-       // self.peripheralStatusLabel.textColor = [UIColor redColor];
-       // self.peripheralStatusLabel.text = @"Unconnected";
-    }
-}
 
 
 
 
 -(void)discoverServiceCharacteristics : (CBService *)service
 {
-    if ([service.peripheral isConnected])
+    
+    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
+    if (discoverIssued)
     {
         
-       // self.peripheralStatusLabel.textColor = [UIColor greenColor];
-      //  self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-      //  [self.peripheralStatusSpinner startAnimating];
-        
-        [service.peripheral discoverCharacteristics:nil
-                                        forService:service];
+       self.statusLabel.textColor = [UIColor greenColor];
+       self.statusLabel.text = @"Discovering service characteristics.";
+       [self.activityIndicator startAnimating];
         
     }
     else
     {
         DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [self setConnectionStatus];
+        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.statusLabel];
     }
     
 }
 
--(void)readCharacteristic: (NSString *)uuid
+-(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
 {
-    // determine if the required characteristic has been discovered, if not then discover it
-    if (self.transmitPowerService.characteristics)
+    BOOL readIssued = NO;
+    
+    readIssued = [[self class]readCharacteristic:uuid forService:service];
+    if (readIssued)
     {
-        NSUInteger index = [self.transmitPowerService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            
-            CBCharacteristic *characteristic = (CBCharacteristic *)obj;
-            
-            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:uuid ] == NSOrderedSame)
-            {
-                return YES;
-            }
-            return NO;
-        }];
-        
-        if (index == NSNotFound)
-        {
-            DLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
-            
-        }
-        else
-        {
-            if ([self.transmitPowerService.peripheral isConnected])
-            {
-              //  self.peripheralStatusLabel.textColor = [UIColor greenColor];
-              //  self.peripheralStatusLabel.text = @"Reading Characteristic.";
-              //  [self.peripheralStatusSpinner startAnimating];
-                [self.transmitPowerService.peripheral readValueForCharacteristic:self.transmitPowerService.characteristics[index]];
-                
-            }
-        }
+        self.statusLabel.textColor = [UIColor greenColor];
+        self.statusLabel.text = @"Reading Characteristic.";
+        [self.activityIndicator startAnimating];
     }
-    else
-    {
-        DLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
-        
-    }
+    
+    
     
     
 }
@@ -175,8 +128,6 @@
     [super viewDidLoad];
     self.transmitPowerLabel.text = @"";
     self.rssiPowerLabel.text = @"";
-    
-    self.debug = YES;
     
     self.alarmCharacteristicDiscovered = NO;
   
@@ -223,7 +174,7 @@
     }
     else
     {
-         [self readCharacteristic:TRANSMIT_POWER_LEVEL_CHARACTERISTIC];
+         [self readCharacteristic:TRANSMIT_POWER_LEVEL_CHARACTERISTIC forService:self.transmitPowerService];
     }
     
 }
@@ -335,8 +286,8 @@
 {
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
-   // [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    // [self.peripheralStatusSpinner stopAnimating];
+    [[self class]setPeripheral:peripheral ConnectionStatus:self.statusLabel];
     
     if (error == nil)
     {
@@ -346,7 +297,7 @@
             for (CBCharacteristic *characteristic in service.characteristics )
             {
                 NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-                [self readCharacteristic:uuidString];
+                [self readCharacteristic:uuidString forService:self.transmitPowerService];
                 
             }
         }

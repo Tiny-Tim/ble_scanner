@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDemoViewController.h"
 
 
-@interface BLELeashDemoViewController : UIViewController  <CBPeripheralDelegate>
+@interface BLELeashDemoViewController : BLEDemoViewController
 
 @property (nonatomic, strong) CBService * transmitPowerService;
 @property (nonatomic, strong) CBService * immediateAlertService;
