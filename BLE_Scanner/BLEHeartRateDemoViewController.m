@@ -209,6 +209,9 @@
     self.statusLabel = self.peripheralStatusLabel;
     self.statusSpinner = self.peripheralStatusSpinner;
     
+    // set the peripheral delegate to self
+    self.heartRateService.peripheral.delegate =self;
+    
     // initialize debug,animation, and last read measurement state variables
     self.animationStarted = NO;
     
@@ -224,8 +227,6 @@
     
     self.energyExpendedStatusAvailable = NO;
 
-    // set the peripheral delegate to self
-    self.heartRateService.peripheral.delegate =self;
     
     // set up the animation image data
     [self setupHeartBeatAnimation];

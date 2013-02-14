@@ -227,12 +227,12 @@
                 break;
             }
             
-            if ([UUIDString localizedCompare:Tx_POWER_SERVICE])
+            if ([UUIDString localizedCompare:Tx_POWER_SERVICE] == NSOrderedSame)
             {
                 transmitPowerFound = YES;
             }
             
-            if ([UUIDString localizedCompare:IMMEDIATE_ALERT_SERVICE])
+            if ([UUIDString localizedCompare:IMMEDIATE_ALERT_SERVICE] == NSOrderedSame)
             {
                 immediateAlertFound = YES;
             }
