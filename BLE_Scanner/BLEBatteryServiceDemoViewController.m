@@ -46,11 +46,11 @@
 
 /*
  *
- * Method Name:  <#name#>
+ * Method Name:  discoverServiceCharacteristics
  *
- * Description:  <#description#>
+ * Description:  Issues comand to discover characteristics for service and updates UI with discovery status.
  *
- * Parameter(s): <#parameters#>
+ * Parameter(s): service - service for which characteristics are being discovered
  *
  */
 -(void)discoverServiceCharacteristics : (CBService *)service

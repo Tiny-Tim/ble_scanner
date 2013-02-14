@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDemoViewController.h"
 
-@interface BLEKeyPressDemoViewController : UIViewController<CBPeripheralDelegate>
-
+@interface BLEKeyPressDemoViewController : BLEDemoViewController
 @property (nonatomic, strong) CBService * keyPressedService;
 @end

@@ -62,59 +62,41 @@
 }
 
 
-
 /*
  *
- * Method Name:  setConnectionStatus
+ * Method Name:  discoverServiceCharacteristics
  *
- * Description:  Sets the connection status label to indicate peripheral connect status.
+ * Description:  Issues comand to discover characteristics for service and updates UI with discovery status.
  *
- * Parameter(s): None
+ * Parameter(s): service - service for which characteristics are being discovered
  *
  */
--(void)setConnectionStatus
+-(void)discoverServiceCharacteristics : (CBService *)service
 {
-    if ([self.keyPressedService.peripheral isConnected])
+    
+    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
+    if (discoverIssued)
     {
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Connected";
-    }
-    else
-    {
-        self.peripheralStatusLabel.textColor = [UIColor redColor];
-        self.peripheralStatusLabel.text = @"Unconnected";
-    }
-}
-
-
--(void)discoverKeyPressedServiceCharacteristic
-{
-    if ([self.keyPressedService.peripheral isConnected])
-    {
-        // discover keyPressed service characteristic
-        CBUUID *UUUID = [CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC];
-        NSArray *keyPressedServiceUUID = [NSArray arrayWithObject:UUUID];
         
         self.peripheralStatusLabel.textColor = [UIColor greenColor];
         self.peripheralStatusLabel.text = @"Discovering service characteristics.";
         [self.statusActivityIndicator startAnimating];
-        self.keyPressedService.peripheral.delegate =self;
-        [self.keyPressedService.peripheral discoverCharacteristics:keyPressedServiceUUID
-                                                     forService:self.keyPressedService];
+        
     }
     else
     {
         DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [self setConnectionStatus];
+        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.peripheralStatusLabel];
     }
     
 }
 
 
 
+
 -(void)subscribeForButtonNotifications
 {
-    // Check to see if peripheral has retrieved characteristics
+    
     if (self.keyPressedService.characteristics)
     {
         NSUInteger index = [self.keyPressedService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -131,7 +113,7 @@
         
         if (index == NSNotFound)
         {
-            [self discoverKeyPressedServiceCharacteristic];
+            DLog(@"Error State: Expected Characteristic  %@ Not Available.",TI_KEY_PRESSED_STATE_CHARACTERISTIC);
         }
         else
         {
@@ -146,7 +128,7 @@
     }
     else
     {
-        [self discoverKeyPressedServiceCharacteristic];
+        DLog(@"Error State: Expected Characteristic  %@ Not Available.",TI_KEY_PRESSED_STATE_CHARACTERISTIC);
     }
 }
 
@@ -156,10 +138,32 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-   
-    [self setConnectionStatus];
     
-    [self subscribeForButtonNotifications];
+    self.keyPressedService.peripheral.delegate =self;
+   
+    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    
+    BOOL keyPressedFound = NO;
+    for (CBCharacteristic * characteristic in self.keyPressedService.characteristics)
+    {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
+        {
+            keyPressedFound = YES;
+        }
+    }
+    
+    if ( keyPressedFound)
+    {
+         [self subscribeForButtonNotifications];
+    }
+    else
+    {
+        // discover service characteristics
+        [self discoverServiceCharacteristics:self.keyPressedService];
+    }
+
+    
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -173,7 +177,14 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    if (!error)
+    {
+        DLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    }
+    else
+    {
+        DLog(@"Error occurred in didUpdateNotificationStateForCharacteristic: %@", error.description);
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -182,39 +193,47 @@
     
     if (!error)
     {
-        DLog(@"Characteristic value  updated.");
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
+        {
+            DLog(@"Characteristic value  updated.");
+            
+            unsigned char buttonValue;
+            
+            [characteristic.value getBytes:&buttonValue length:1];
+            
+            if (buttonValue == 0)
+            {
+                self.leftButtonImage.image = self.whiteLEDImage;
+                self.rightButtonImage.image = self.whiteLEDImage;
+                
+            }
+            else if (buttonValue == 1 )
+            {
+                self.leftButtonImage.image = self.redLEDImage;
+                self.rightButtonImage.image = self.whiteLEDImage;
+                
+            }
+            else if (buttonValue == 2)
+            {
+                self.leftButtonImage.image = self.whiteLEDImage;
+                self.rightButtonImage.image = self.redLEDImage;
+            }
+            else if (buttonValue == 3)
+            {
+                self.leftButtonImage.image = self.redLEDImage;
+                self.rightButtonImage.image = self.redLEDImage;
+                
+            }
+        }
         
-        unsigned char buttonValue;
-        
-        [characteristic.value getBytes:&buttonValue length:1];
-        
-        if (buttonValue == 0)
-        {
-            self.leftButtonImage.image = self.whiteLEDImage;
-            self.rightButtonImage.image = self.whiteLEDImage;
-            
-        }
-        else if (buttonValue == 1 )
-        {
-            self.leftButtonImage.image = self.redLEDImage;
-            self.rightButtonImage.image = self.whiteLEDImage;
-            
-        }
-        else if (buttonValue == 2)
-        {
-            self.leftButtonImage.image = self.whiteLEDImage;
-            self.rightButtonImage.image = self.redLEDImage;
-        }
-        else if (buttonValue == 3)
-        {
-            self.leftButtonImage.image = self.redLEDImage;
-            self.rightButtonImage.image = self.redLEDImage;
-            
-        }
-            
+    }
+    else
+    {
+        DLog(@"Error Updating Characteristic: %@",error.description);
     }
     
-    [self setConnectionStatus];
+    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+
     
 }
 
@@ -233,12 +252,17 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.statusActivityIndicator stopAnimating];
-    [self setConnectionStatus];
+    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+
     
     if (error == nil)
     {
         DLog(@"Subscribing to key pressed notifications");
         [self subscribeForButtonNotifications];
+    }
+    else
+    {
+        DLog(@"Error Discovering Characteristics: %@",error.description);
     }
 }
 
