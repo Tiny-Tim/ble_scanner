@@ -43,118 +43,60 @@
 }
 
 
-/*
- *
- * Method Name:  setConnectionStatus
- *
- * Description:  Sets the connection status label to indicate peripheral connect status.
- *
- * Parameter(s): None
- *
- */
--(void)setConnectionStatus
-{
-    if ([self.batteryService.peripheral isConnected])
-    {
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Connected";
-    }
-    else
-    {
-        self.peripheralStatusLabel.textColor = [UIColor redColor];
-        self.peripheralStatusLabel.text = @"Unconnected";
-    }
-}
-
 
 /*
  *
- * Method Name:  discoverBatteryCharacteristic
+ * Method Name:  <#name#>
  *
- * Description:  Gets the battery chracteristic from the peripheral
+ * Description:  <#description#>
  *
  * Parameter(s): <#parameters#>
  *
  */
--(void)discoverBatteryCharacteristic
+-(void)discoverServiceCharacteristics : (CBService *)service
 {
-    if ([self.batteryService.peripheral isConnected])
+    
+    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
+    if (discoverIssued)
     {
-        // discover battery service characteristic
-        CBUUID *UUUID = [CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC];
-        NSArray *batteryServiceUUID = [NSArray arrayWithObject:UUUID];
         
         self.peripheralStatusLabel.textColor = [UIColor greenColor];
         self.peripheralStatusLabel.text = @"Discovering service characteristics.";
         [self.peripheralStatusSpinner startAnimating];
-        self.batteryService.peripheral.delegate =self;
-        [self.batteryService.peripheral discoverCharacteristics:batteryServiceUUID
-                                                     forService:self.batteryService];
+        
     }
     else
     {
         DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [self setConnectionStatus];
+        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.peripheralStatusLabel];
     }
     
 }
 
+
+
 /*
  *
- * Method Name:  readBatteryLevel
+ * Method Name:  <#name#>
  *
- * Description:  Reads the battery level characteristic if the characteristic has been discovered. If the characteristic has not been discovered then a discovery request is invoked and the peripheral delegate for this controller will invoke this method once the characteristic is obtained.
+ * Description:  <#description#>
  *
- * Parameter(s): None
+ * Parameter(s): <#parameters#>
  *
  */
--(void)readBatteryLevel
+-(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
 {
-  //  CBCharacteristic *batteryLevelCharacteristic= nil;;
+    BOOL readIssued = NO;
     
-    // Check to see if peripheral has retrieved characteristics
-    if (self.batteryService.characteristics)
+    readIssued = [[self class]readCharacteristic:uuid forService:service];
+    if (readIssued)
     {
-        
-        NSUInteger index = [self.batteryService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            
-            CBCharacteristic *characteristic = (CBCharacteristic *)obj;
-            
-            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:BATTERY_LEVEL_CHARACTERISTIC] == NSOrderedSame)
-            {
-                return YES;
-            }
-            return NO;
-        }];
-        
-        if (index == NSNotFound)
-        {
-            [self discoverBatteryCharacteristic];
-        }
-        else
-        {
-            if ([self.batteryService.peripheral isConnected])
-            {
-                // read battery level
-                self.batteryService.peripheral.delegate = self;
-                self.peripheralStatusLabel.textColor = [UIColor greenColor];
-                self.peripheralStatusLabel.text = @"Reading battery level.";
-                [self.peripheralStatusSpinner startAnimating];
-                [self.batteryService.peripheral readValueForCharacteristic:self.batteryService.characteristics[index]];
-            }
-            else
-            {
-                DLog(@"Failed to read characteristic, peripheral not connected.");
-                [self setConnectionStatus];
-            }
-        }
-    }
-    else // Need to discover characteristic then read the battery value
-    {
-        [self discoverBatteryCharacteristic];
+        self.peripheralStatusLabel.textColor = [UIColor greenColor];
+        self.peripheralStatusLabel.text = @"Reading Characteristic.";
+        [self.peripheralStatusSpinner startAnimating];
     }
 }
+
 
 
 /*
@@ -169,11 +111,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
     
-    [self setConnectionStatus];
+    self.batteryService.peripheral.delegate = self;
     
-    [self readBatteryLevel];
+    [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    
+    // determine if BATTERY_LEVEL_CHARACTERISTIC has been discovered
+    BOOL batteryFound = NO;
+    for (CBCharacteristic * characteristic in self.batteryService.characteristics)
+    {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC ]])
+        {
+            batteryFound = YES;
+        }
+    }
+    
+    if ( batteryFound)
+    {
+        [self readCharacteristic:BATTERY_LEVEL_CHARACTERISTIC forService:self.batteryService];
+    }
+    else
+    {
+        // discover service characteristics
+        [self discoverServiceCharacteristics:self.batteryService];
+    }
     
 }
 
@@ -199,20 +161,28 @@
 {
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    
     if (!error)
     {
-        DLog(@"Characteristic value read updated.");
         
-       char batteryValue;
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC ]])
+        {
+            DLog(@"Characteristic value read updated.");
         
-       [characteristic.value getBytes:&batteryValue length:1];
+            char batteryValue;
+            [characteristic.value getBytes:&batteryValue length:1];
         
-        self.batteryLevel = (NSUInteger)batteryValue;
-        DLog(@"Battery level read: %i",self.batteryLevel);
-        self.batteryMeter.progress = (float)self.batteryLevel /100.0;
-        self.batteryLevelLabel.text = [NSString  stringWithFormat: @"%i%%",self.batteryLevel];
+            self.batteryLevel = (NSUInteger)batteryValue;
+            DLog(@"Battery level read: %i",self.batteryLevel);
+            self.batteryMeter.progress = (float)self.batteryLevel /100.0;
+            self.batteryLevelLabel.text = [NSString  stringWithFormat: @"%i%%",self.batteryLevel];
+        }
         
+    }
+    else
+    {
+        DLog(@"Error Updating Characteristic: %@",error.description);
     }
 }
 
@@ -231,12 +201,16 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+     [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
     
     if (error == nil)
     {
         DLog(@"Reading battery level");
-        [self readBatteryLevel];
+        [self readCharacteristic:BATTERY_LEVEL_CHARACTERISTIC forService:self.batteryService];
+    }
+    else
+    {
+        DLog(@"Error Updating Characteristic: %@",error.description);
     }
 }
 

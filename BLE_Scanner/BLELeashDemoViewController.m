@@ -116,10 +116,6 @@
         self.statusLabel.text = @"Reading Characteristic.";
         [self.activityIndicator startAnimating];
     }
-    
-    
-    
-    
 }
 
 
@@ -141,6 +137,8 @@
     BOOL foundAlert = NO;
     dispatch_source_set_timer(self.rssiUpdateClock, DISPATCH_TIME_NOW, 1ull * NSEC_PER_SEC / RSSI_UPDATE_FREQUENCY_HERTZ, 1ull * NSEC_PER_SEC/100);
     
+    
+    // determine if ALERT_LEVEL_CHARACTERISTIC has been discovered
     for (CBCharacteristic * characteristic in self.immediateAlertService.characteristics)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:ALERT_LEVEL_CHARACTERISTIC ]])

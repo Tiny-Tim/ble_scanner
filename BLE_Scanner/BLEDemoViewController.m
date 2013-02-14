@@ -93,16 +93,13 @@
         
         if (index == NSNotFound)
         {
-            DLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
+            DLog(@"Error State: Expected Characteristic  %@ Not Available.",uuid);
             
         }
         else
         {
             if ([service.peripheral isConnected])
             {
-                //  self.peripheralStatusLabel.textColor = [UIColor greenColor];
-                //  self.peripheralStatusLabel.text = @"Reading Characteristic.";
-                //  [self.peripheralStatusSpinner startAnimating];
                 [service.peripheral readValueForCharacteristic:service.characteristics[index]];
                 readIssued = YES;
                 
@@ -111,7 +108,7 @@
     }
     else
     {
-        DLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
+        DLog(@"Error State: Expected Characteristic %@ Not Available.",uuid);
         
     }
 

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDemoViewController.h"
 
-@interface BLEBatteryServiceDemoViewController : UIViewController <CBPeripheralDelegate>
+@interface BLEBatteryServiceDemoViewController : BLEDemoViewController
 
 // Model for the controller - the batteryService being demonstrated.
 @property (nonatomic, strong) CBService* batteryService;
