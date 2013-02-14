@@ -21,9 +21,6 @@
 
 @interface BLEAccelerometerDemoViewController ()
 
-// control NSLogging
-@property (nonatomic)BOOL debug;
-
 // pointer to graph plot view
 @property (strong, nonatomic) IBOutlet BLEGraphView *graphView;
 
@@ -101,7 +98,7 @@
  *
  * Method Name:  sampleClock
  *
- * Description:  Provides sampling functionality of the accelerometer data received from the peripheral device. The sampling timer runs on the synchronizing queue. Accelerometer data obtained from the device is copied to a temporary location on the synchronizing queue as well which provides thread safe reading and writing of the device data. Accelerometer data is then moved into the plottng data structure and plotted using the main dispatch queue.
+ * Description:  Provides sampling functionality of the accelerometer data received from the peripheral device. The sampling timer runs on the synchronizing queue. Accelerometer data obtained from the device is copied to a temporary location on the synchronizing queue as well which provides thread safe reading and writing of the device data. Accelerometer data is then moved into the plotting data structure and plotted using the main dispatch queue.
  *
  * Parameter(s): None
  *
@@ -217,7 +214,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
         // [self setConnectionStatus];
     }
     
@@ -302,7 +299,7 @@
             
         }
         
-        // stop looking for enable characteristics after all three accleration components have been set
+        // stop looking for enable characteristics after all three acceleration components have been set
         if (processedX && processedY && processedZ) break;
     }
 }
@@ -365,9 +362,7 @@
     
      self.accelerometerService.peripheral.delegate = self;
     
-    _debug = YES;
-    
-    if (self.debug) NSLog(@"Entering Acclerometer Demo viewDidLoad");
+    DLog(@"Entering Acclerometer Demo viewDidLoad");
     
     dispatch_source_set_timer(self.sampleClock, DISPATCH_TIME_NOW, 1ull * NSEC_PER_SEC / SAMPLE_CLOCK_FREQUENCY_HERTZ, 1ull * NSEC_PER_SEC/100);
   
@@ -398,15 +393,12 @@
 {
     [super viewWillDisappear:animated];
     dispatch_source_cancel(self.sampleClock);
-    self.sampleClock = nil;
-    
+    self.sampleClock = nil;    
       
     [self enableAccelerometer:NO];
     [self enableNotifications:NO];
     
-    
 }
-
 
 
 - (void)didReceiveMemoryWarning
@@ -420,7 +412,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
 
 
@@ -443,7 +435,7 @@
     {
         char value;
         
-      //  if (self.debug) NSLog(@"Characteristic value  updated.");
+      //  DLog(@"Characteristic value  updated.");
         // determine which characteristic
         NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
         
@@ -471,7 +463,7 @@
     }
     else
     {
-        NSLog(@"Error occurred reading characteristic: %@",error.description);
+        DLog(@"Error occurred reading characteristic: %@",error.description);
     }
 }
 
@@ -487,7 +479,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     // turn on accelerometer
     [self enableAccelerometer: YES];

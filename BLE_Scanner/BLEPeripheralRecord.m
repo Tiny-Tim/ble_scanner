@@ -122,7 +122,7 @@ static NSInteger recordCount=1;
     {
         if ([key isKindOfClass:[NSString class]])
         {
-            NSLog(@"Advertising key: %@",key);
+            DLog(@"Advertising key: %@",key);
             id value = [self.advertisementData objectForKey:key];
             if ([value isKindOfClass:[NSString class]])
             {
@@ -173,7 +173,7 @@ static NSInteger recordCount=1;
         
     }
     
-    NSLog(@"Friendly Name: %@",self.friendlyName);
+    DLog(@"Friendly Name: %@",self.friendlyName);
     
     return self;
 }

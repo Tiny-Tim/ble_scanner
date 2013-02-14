@@ -22,9 +22,6 @@
 //Label which displays battery life percentage as an integer
 @property (weak, nonatomic) IBOutlet UILabel *batteryLevelLabel;
 
-// toggle NSLog off/on
-@property (nonatomic) BOOL debug;
-
 // Label which displays peripheral status and activity.
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
 
@@ -96,7 +93,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
         [self setConnectionStatus];
     }
     
@@ -148,7 +145,7 @@
             }
             else
             {
-                if (self.debug) NSLog(@"Failed to read characteristic, peripheral not connected.");
+                DLog(@"Failed to read characteristic, peripheral not connected.");
                 [self setConnectionStatus];
             }
         }
@@ -173,8 +170,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    _debug = YES;
     
     [self setConnectionStatus];
     
@@ -207,14 +202,14 @@
     [self setConnectionStatus];
     if (!error)
     {
-        if (self.debug) NSLog(@"Characteristic value read updated.");
+        DLog(@"Characteristic value read updated.");
         
        char batteryValue;
         
        [characteristic.value getBytes:&batteryValue length:1];
         
         self.batteryLevel = (NSUInteger)batteryValue;
-        if (self.debug) NSLog(@"Battery level read: %i",self.batteryLevel);
+        DLog(@"Battery level read: %i",self.batteryLevel);
         self.batteryMeter.progress = (float)self.batteryLevel /100.0;
         self.batteryLevelLabel.text = [NSString  stringWithFormat: @"%i%%",self.batteryLevel];
         
@@ -233,14 +228,14 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
     [self setConnectionStatus];
     
     if (error == nil)
     {
-        if (self.debug) NSLog(@"Reading battery level");
+        DLog(@"Reading battery level");
         [self readBatteryLevel];
     }
 }

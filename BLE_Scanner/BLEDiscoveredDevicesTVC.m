@@ -29,9 +29,6 @@
 // data structure conatining lables for rows in table
 @property (nonatomic, strong) NSMutableArray *sections;
 
-// controls NSLogging
-@property (nonatomic) BOOL debug;
-
 
 - (IBAction)connectButton:(UIButton *)sender;
 
@@ -79,7 +76,7 @@
     NSIndexPath *indexPath;
     BLEPeripheralRecord * record;
     
-    if (self.debug) NSLog(@"Connect Button pressed.");
+    DLog(@"Connect Button pressed.");
     
     // the sender is the button
     // sender super view is the content view of the cell
@@ -90,7 +87,7 @@
         
         // retrieve the indexPath
         indexPath = [self.tableView indexPathForCell:owningCell];
-        if (self.debug) NSLog(@"Section index:  %i",indexPath.section);
+        DLog(@"Section index:  %i",indexPath.section);
         // get the device record
         record = [self.deviceRecords objectAtIndex:indexPath.section];
     
@@ -107,7 +104,7 @@
         }
         else if ([buttonTitle localizedCompare:@"Disconnect"] == NSOrderedSame)
         {
-            if (self.debug) NSLog(@"Button pressed with Disconnect title");
+            DLog(@"Button pressed with Disconnect title");
             // Ask the CBCentralManager to connect to the device
             [self.delegate disconnectPeripheral:record.peripheral sender:owningCell];
 
@@ -196,7 +193,6 @@
     // preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
     
-     _debug = YES;
 }
 
 
@@ -235,7 +231,7 @@
     
     NSIndexSet *indexes = [self.deviceRecords indexesOfObjectsPassingTest:test];
     
-     //if (self.debug) NSLog(@"indexes: %@", indexes);
+     //DLog(@"indexes: %@", indexes);
     
     // swap the button labels
     NSUInteger sectionIndex=[indexes firstIndex];
@@ -292,7 +288,7 @@
     // ADVERTISEMENT_ROW = number of peripheral properties + number of advertisement items
     NSUInteger numRowsSection = [[deviceItems objectAtIndex:section]count]+ [record.advertisementItems count] ;
     
-    //if (self.debug) NSLog(@"Setting row count in discovered device table %d",numRowsSection);
+    //DLog(@"Setting row count in discovered device table %d",numRowsSection);
     return numRowsSection;
 }
 
@@ -303,7 +299,7 @@
     static NSString *AdvertisementCellIdentifier = @"Advertisement";
     static NSString *ConnectCellIdentifier = @"Connect";
     
-    //if (self.debug) NSLog(@"Index= %i",indexPath.row);
+    //DLog(@"Index= %i",indexPath.row);
     
     // get the labels which correspond to the peripheral    
     NSArray *labelData = [[self.sections objectAtIndex:0] objectAtIndex:indexPath.section];
@@ -409,7 +405,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     if (self.debug) NSLog(@"Did Select Row invoked");
+     DLog(@"Did Select Row invoked");
     
 }
 
@@ -418,7 +414,7 @@
 // Perform a matching test with the path index to identify what peripheral (section) and row is associated with the accessory button and then dispatch the execution of the handler to back to the central view controller.
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.debug) NSLog(@"Accessory button tapped");
+    DLog(@"Accessory button tapped");
     
     // the section corresponds to a unique peripheral
     
@@ -451,12 +447,12 @@
         }
         else
         {
-            NSLog(@"Accessory button selected for row not expecting to have an accessory button.");
+            DLog(@"Accessory button selected for row not expecting to have an accessory button.");
         }
     }
     else
     {
-        NSLog(@"Accessory button selected for row not expecting to have an accessory button.");
+        DLog(@"Accessory button selected for row not expecting to have an accessory button.");
     }
    
 }

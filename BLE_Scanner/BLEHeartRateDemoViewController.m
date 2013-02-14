@@ -12,9 +12,6 @@
 
 @interface BLEHeartRateDemoViewController ()
 
-// NSLogging control
-@property (nonatomic) BOOL debug;
-
 // ImageView for heart beat animation
 @property (weak, nonatomic) IBOutlet UIImageView *heartBeatImage;
 
@@ -211,8 +208,6 @@
 	// Do any additional setup after loading the view.
     
     // initialize debug,animation, and last read measurement state variables
-    self.debug = YES;
-    
     self.animationStarted = NO;
     
     self.lastMeasurement = 0;
@@ -326,7 +321,7 @@
         
         if (index == NSNotFound)
         {
-            NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+            DLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
 
         }
         else
@@ -343,7 +338,7 @@
     }
     else
     {
-        NSLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
+        DLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
 
     }
 
@@ -400,7 +395,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
         [self setConnectionStatus];
     }
     
@@ -435,7 +430,7 @@
         
         if (index == NSNotFound)
         {
-             NSLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
+             DLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
         }
         else
         {
@@ -449,7 +444,7 @@
     }
     else
     {
-        NSLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
+        DLog(@"Error State: Expected Heart Rate Measurement Characteristic Not Available.");
     }
 }
 
@@ -553,7 +548,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
 
 
@@ -577,7 +572,7 @@
     
     if (!error)
     {
-        if (self.debug) NSLog(@"Characteristic value  updated.");
+        DLog(@"Characteristic value  updated.");
         
         // Determine which characteristic was updated
         /* Updated value for heart rate measurement received */
@@ -587,7 +582,7 @@
             NSUInteger bpm = 0;
             
             NSUInteger flag = reportData[0];
-            NSLog(@"flag = %i",flag);
+            DLog(@"flag = %i",flag);
             
             // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
             if ((reportData[0] & 0x01) == 0)
@@ -600,7 +595,7 @@
                 /* uint16 bpm */
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
             }
-            if (self.debug) NSLog(@"Heart Rate Measurement Rcvd: %i",bpm);
+            DLog(@"Heart Rate Measurement Rcvd: %i",bpm);
             [self processHeartRateMeasurement:bpm];
             
             // Determine if sensor contact information is available
@@ -653,7 +648,7 @@
                         locationString = @"Reserved";
                         break;
                 }
-                if (self.debug) NSLog(@"Body Sensor Location = %@ (%d)", locationString, location);
+                DLog(@"Body Sensor Location = %@ (%d)", locationString, location);
                 self.bodySensorLocationLabel.text = [NSString stringWithFormat:@"Body Sensor Location = %@",locationString];
             }
 
@@ -661,7 +656,7 @@
     }
     else
     {
-        NSLog(@"Error reading characteristic: %@", error.description);
+        DLog(@"Error reading characteristic: %@", error.description);
     };
     
     [self setConnectionStatus];
@@ -679,7 +674,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
     [self setConnectionStatus];
@@ -691,14 +686,14 @@
         {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC]])
             {
-                if (self.debug) NSLog(@"Subscribing to heart rate measurement notifications");
+                DLog(@"Subscribing to heart rate measurement notifications");
                 [self enableForHeartRateMeasurementNotifications: YES];
 
             }
             else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
             {
                 // read the body sensor location
-                if (self.debug) NSLog(@"Reading Body Sensor Location");
+                DLog(@"Reading Body Sensor Location");
                 [self readBodySensorLocation];
             }
         }
@@ -706,7 +701,7 @@
     }
     else
     {
-        NSLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
+        DLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
     }
 }
 

@@ -16,8 +16,6 @@
 
 @interface BLEServicesManagerViewController ()
 
-// controls NSLogging
-@property (nonatomic) BOOL debug;
 
 // label for status updating used when retreieving characteristics
 @property (weak, nonatomic) IBOutlet UILabel *statusHeadingLabel;
@@ -63,7 +61,7 @@ static NSSet *_demoServices;
 
 - (IBAction)demosButton:(UIBarButtonItem *)sender
 {
-    if (self.debug) NSLog(@"Demos button tapped.");
+    DLog(@"Demos button tapped.");
     
     // segue to demo list view controller
      [self performSegueWithIdentifier:@"ShowDemoList" sender:self];
@@ -130,7 +128,6 @@ static NSSet *_demoServices;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _debug = YES;
 	// Do any additional setup after loading the view.
     [self setConnectionStatus];
     
@@ -167,7 +164,7 @@ static NSSet *_demoServices;
 {
     if ([segue.identifier isEqualToString:@"ServiceList"])
     {
-        if (self.debug) NSLog(@"Segueing to Show Service List");
+        DLog(@"Segueing to Show Service List");
         if ([segue.destinationViewController isKindOfClass:[BLEPeripheralServicesTVC class]])
         {
             BLEPeripheralServicesTVC  *destination = segue.destinationViewController;
@@ -178,7 +175,7 @@ static NSSet *_demoServices;
     }
     else if ([segue.identifier isEqualToString:@"ShowCharacteristics"])
     {
-        if (self.debug) NSLog(@"Segueing to Show Characteristics");
+        DLog(@"Segueing to Show Characteristics");
         if ([segue.destinationViewController isKindOfClass:[BLEPeripheralCharacteristicsTVC class]])
         {
             BLEPeripheralCharacteristicsTVC *destination = segue.destinationViewController;
@@ -189,7 +186,7 @@ static NSSet *_demoServices;
     }
     else if ([segue.identifier isEqualToString:@"ShowDemoList"])
     {
-        if (self.debug) NSLog(@"Segueing to Show Demo List");
+        DLog(@"Segueing to Show Demo List");
         if ([segue.destinationViewController isKindOfClass:[BLEDemoDispatcherViewController  class]])
         {
             BLEDemoDispatcherViewController *destination = segue.destinationViewController;
@@ -205,7 +202,7 @@ static NSSet *_demoServices;
 // Retrieve the characteristics for a specified service and segue to the characteristic table view controller
 -(void)getCharacteristicsForService: (CBService *)service sender:(id)sender
 {
-    if (self.debug) NSLog(@"getCharacteristicsForService invoked in BLEPeripheralServicesTVC");
+    DLog(@"getCharacteristicsForService invoked in BLEPeripheralServicesTVC");
     
     self.pendingServiceForCharacteristic = service;
     
@@ -229,7 +226,7 @@ static NSSet *_demoServices;
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     
     [self.statusActivityIndicator stopAnimating];
@@ -248,13 +245,13 @@ static NSSet *_demoServices;
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverDescriptorsForCharacteristic invoked");
+    DLog(@"didDiscoverDescriptorsForCharacteristic invoked");
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverIncludedServicesForService invoked");
+    DLog(@"didDiscoverIncludedServicesForService invoked");
 }
 
 
@@ -262,35 +259,35 @@ static NSSet *_demoServices;
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateValueForCharacteristic invoked");
+    DLog(@"didUpdateValueForCharacteristic invoked");
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateValueForDescriptor invoked");
+    DLog(@"didUpdateValueForDescriptor invoked");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didWriteValueForCharacteristic invoked");
+    DLog(@"didWriteValueForCharacteristic invoked");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didWriteValueForDescriptor invoked");
+    DLog(@"didWriteValueForDescriptor invoked");
 }
 
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    if (self.debug) NSLog(@"peripheralDidUpdateRSSI invoked");
+    DLog(@"peripheralDidUpdateRSSI invoked");
 }
 
 

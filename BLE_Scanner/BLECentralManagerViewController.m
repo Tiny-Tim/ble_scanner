@@ -36,8 +36,6 @@
 // flag which holds current scan configuration state (scan for all services or for specific services)
 @property (nonatomic) BOOL scanForAllServices;
 
-// controls NSLogging
-@property (nonatomic) BOOL debug;
 
 // flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
@@ -98,7 +96,7 @@
             self.scanState = YES;  // scanning
             self.scanBarButton.title = @"Stop";
             
-            if (self.debug) NSLog(@"Starting scan...");
+            DLog(@"Starting scan...");
             
             if (self.scanForAllServices)
             {
@@ -120,13 +118,13 @@
         }
         else
         {
-            if (self.debug) NSLog(@"Scan request not executed, central manager not in powered on state");
-            if (self.debug) NSLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
+            DLog(@"Scan request not executed, central manager not in powered on state");
+            DLog(@"Central Manager state: %@",[ [self class] getCBCentralStateName: self.centralManager.state]);
         }
     }
     else  // stop scanning
     {
-        if (self.debug) NSLog(@"Scan stopped");
+        DLog(@"Scan stopped");
         [self.centralManagerActivityIndicator stopAnimating];
         self.centralManagerStatus.textColor = [UIColor blackColor];
         self.centralManagerStatus.text = @"Idle";
@@ -186,7 +184,7 @@
     {
         NSArray *toolbarItems = self.toolbarItems;
         [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:YES];
-        if (self.debug) NSLog(@"CBCentralManager connecting to peripheral");
+        DLog(@"CBCentralManager connecting to peripheral");
         self.centralManagerStatus.textColor = [UIColor greenColor];
         self.centralManagerStatus.text = @"Connecting to peripheral.";
         [self.centralManagerActivityIndicator startAnimating];
@@ -194,11 +192,11 @@
     }
     else if (peripheral)
     {
-        if (self.debug) NSLog(@"Request for CentralManager to connect to a connected peripheral ignored.");
+        DLog(@"Request for CentralManager to connect to a connected peripheral ignored.");
     }
     else
     {
-        if (self.debug) NSLog(@"Request to connect CentralManager to nil peripheral pointer ignored.");
+        DLog(@"Request to connect CentralManager to nil peripheral pointer ignored.");
     }
         
 }
@@ -223,7 +221,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Request to discover peripheral services not executed");
+        DLog(@"Request to discover peripheral services not executed");
     }
 }
 
@@ -237,16 +235,16 @@
     // Ensure peripheral is connected
     if (peripheral && [peripheral isConnected])
     {
-        if (self.debug) NSLog(@"CBCentralManager disconnecting peripheral");
+        DLog(@"CBCentralManager disconnecting peripheral");
         [self.centralManager cancelPeripheralConnection:peripheral];
     }
     else if (peripheral)
     {
-        if (self.debug) NSLog(@"Request for CentralManager to disconnect an unconnected peripheral ignored.");
+        DLog(@"Request for CentralManager to disconnect an unconnected peripheral ignored.");
     }
     else
     {
-        if (self.debug) NSLog(@"Request to disconnect CentralManager to nil peripheral pointer ignored.");
+        DLog(@"Request to disconnect CentralManager to nil peripheral pointer ignored.");
     }
 }
 
@@ -293,7 +291,6 @@
     
     _scanState = NO;  // not scanning
     
-    _debug = YES;
 
 }
 
@@ -307,12 +304,12 @@
 // Seque to either the embedded discovered services table view controller or to scan control table view controller
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (self.debug) NSLog(@"Preparing to segue from ScanControl");
+    DLog(@"Preparing to segue from ScanControl");
     BLEScanControlTVC *scanConfigure;
     
     if ([segue.identifier isEqualToString:@"ConfigureScan"])
     {
-        if (self.debug) NSLog(@"Segueing to Configure Scan");
+        DLog(@"Segueing to Configure Scan");
         if ([segue.destinationViewController isKindOfClass:[BLEScanControlTVC class]])
         {
             scanConfigure = segue.destinationViewController;
@@ -322,7 +319,7 @@
     }
     else if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
     {
-        if (self.debug) NSLog(@"Segueing to Discovered Devices");
+        DLog(@"Segueing to Discovered Devices");
           if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
           {
               self.discoveredDeviceList = segue.destinationViewController;
@@ -331,7 +328,7 @@
     }
     else if ([segue.identifier isEqualToString:@"ShowServices"])
     {
-        if (self.debug) NSLog(@"Segueing to Show Services");
+        DLog(@"Segueing to Show Services");
         if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
         {
             BLEServicesManagerViewController *destination = segue.destinationViewController;
@@ -368,7 +365,7 @@
 // Display services for peripheral information and segue to services table view controller
 -(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
 {
-    if (self.debug) NSLog(@"getServicesForPeripheral invoked on BLECentralManagerDelegate ");
+    DLog(@"getServicesForPeripheral invoked on BLECentralManagerDelegate ");
    
     // Processing can only get here if the device is connected or if the device is disconnected and services have been cached. Display the cached service list if it exists in all cases. If no cache services exist and device is connected then retrieve services from peripheral.
     
@@ -393,7 +390,7 @@
 
 //-(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender
 //{
-//    if (self.debug) NSLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
+//    DLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
 //    
 //    self.pendingCharacteristicForDescriptor = characteristic;
 //}
@@ -403,7 +400,7 @@
 // Scan for all services unless services list is not nil. If services are provided then scan just for those services.
 -(void) scanForServices: (NSArray *)services sender:(id)sender
 {
-    if (self.debug) NSLog(@"scan for all services delegate method invoked");
+    DLog(@"scan for all services delegate method invoked");
     // set scan control to scan for all services
     self.scanForAllServices = YES;
     
@@ -421,7 +418,7 @@
 // CBCentralManager state changed
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    if (self.debug) NSLog(@"Central Manager Delegate DidUpdate State Invoked");
+    DLog(@"Central Manager Delegate DidUpdate State Invoked");
     
     if (self.centralManager.state ==CBCentralManagerStatePoweredOn)
     {
@@ -447,10 +444,10 @@
 {
     
     
-    if (self.debug) NSLog(@"A peripheral was discovered during scan.");
+    DLog(@"A peripheral was discovered during scan.");
     
     // log the peripheral name
-    if (self.debug) NSLog(@"Peripheral Name:  %@",peripheral.name);
+    DLog(@"Peripheral Name:  %@",peripheral.name);
     
     // log the peripheral UUID
     CFUUIDRef uuid = peripheral.UUID;
@@ -458,21 +455,21 @@
     {
         CFStringRef s = CFUUIDCreateString(NULL, uuid);
         NSString *uuid_string = CFBridgingRelease(s);
-        if (self.debug)  NSLog(@"Peripheral UUID: %@",uuid_string);
+         DLog(@"Peripheral UUID: %@",uuid_string);
     }
     else
     {
-        NSLog(@"Discovered peripheral provided no UUID on initial discovery");
+        DLog(@"Discovered peripheral provided no UUID on initial discovery");
     }
     
     
     // create a UUID from the NSString
  //   CFUUIDRef uuidCopy = CFUUIDCreateFromString (NULL, CFBridgingRetain(uuid_string));
  //   BOOL areEqual = CFEqual(uuid, uuidCopy);
- //   if (self.debug) NSLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
+ //   DLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
         
     // log the advertisement keys
-    if (self.debug) NSLog(@"Logging advertisement keys descriptions");
+    DLog(@"Logging advertisement keys descriptions");
     NSArray *keys = [advertisementData allKeys];
     for (id key in keys)
     {
@@ -480,18 +477,19 @@
         {
             id value = [advertisementData objectForKey:key];
             
-            if (self.debug) NSLog(@"advertisement key:  %@  value:  %@",key, [value description]);
+            DLog(@"advertisement key:  %@  value:  %@",key, [value description]);
         }
     }
     
     if (RSSI)
     {
         // log the rssi value
-        if (self.debug) NSLog(@"RSSI value: %i", [RSSI shortValue]);
+        DLog(@"RSSI value: %i", [RSSI shortValue]);
+        DLog(@"RSSI value: %i", [RSSI shortValue]);
     }
     else
     {
-        if (self.debug) NSLog(@"Discovered peripheral data did not include RSSI");
+        DLog(@"Discovered peripheral data did not include RSSI");
     }
     
     BLEPeripheralRecord *discoveryRecord = [[BLEPeripheralRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
@@ -510,7 +508,7 @@
     self.centralManagerStatus.textColor = [UIColor blackColor];
     self.centralManagerStatus.text = @"Idle";
    
-    if(self.debug) NSLog(@"Connected to peripheral");
+    DLog(@"Connected to peripheral");
     
     [self.connectedPeripherals addObject:peripheral];
    
@@ -528,7 +526,7 @@
     if (! error)
     {
     
-        if (self.debug) NSLog(@"Peripheral succssfully disconnected.");
+        DLog(@"Peripheral succssfully disconnected.");
         
         // Normally, following a successful connection the periphral is just removed from the peripheral list and the connect button label is toggled. However, if the user manually cancels the connect attempt, the canceled peripheral will not be in the list and the toggleConnection state should not be called.
         
@@ -536,14 +534,14 @@
         
         NSUInteger preRemovalCount = [self.connectedPeripherals count];
         
-        if (self.debug) NSLog(@"Pre-removal connected count %d",preRemovalCount);
+        DLog(@"Pre-removal connected count %d",preRemovalCount);
         // remove peripheral from connected list
         [self.connectedPeripherals removeObject:peripheral];
     
         // display idle status for Central
         self.centralManagerStatus.text = @"idle";
         
-        if (self.debug) NSLog(@"Post-removal connected count %d",[self.connectedPeripherals count]);
+        DLog(@"Post-removal connected count %d",[self.connectedPeripherals count]);
         
         if (preRemovalCount > [self.connectedPeripherals count])
         {
@@ -555,7 +553,7 @@
     }
     else 
     {
-        if (self.debug) NSLog(@"Error disconnecting: %@",[error localizedDescription]);
+        DLog(@"Error disconnecting: %@",[error localizedDescription]);
         
         // This could occur for several reasons, a connection may have ben dropped by the system without the user initiating a disconnect, or a disconnect request could fail.
         
@@ -570,21 +568,21 @@
 //Invoked whenever the central manager fails to create a connection with the peripheral.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    if(self.debug) NSLog(@"Failed to connect to peripheral");
+    DLog(@"Failed to connect to peripheral");
 }
 
 
 //Invoked when the central manager retrieves the list of peripherals currently connected to the system.
 - (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
 {
-    if (self.debug) NSLog(@"Central Manager didRetrieveConnectedPeripherals invoked.");
+    DLog(@"Central Manager didRetrieveConnectedPeripherals invoked.");
 }
 
 
 //Invoked when the central manager retrieves the list of known peripherals.
 - (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
 {
-    if (self.debug) NSLog(@"Central Manager didRetrievePeripherals invoked.");
+    DLog(@"Central Manager didRetrievePeripherals invoked.");
 }
 
 
@@ -594,13 +592,13 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverDescriptorsForCharacteristic invoked");
+    DLog(@"didDiscoverDescriptorsForCharacteristic invoked");
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
 {
-     if (self.debug) NSLog(@"didDiscoverIncludedServicesForService invoked");
+     DLog(@"didDiscoverIncludedServicesForService invoked");
 }
 
 
@@ -609,7 +607,7 @@
 //If successful, "error" is nil and discovered services, if any, have been merged into the "services" property of the peripheral. If unsuccessful, "error" is set with the encountered failure.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverServices invoked");
+    DLog(@"didDiscoverServices invoked");
     
     [self.centralManagerActivityIndicator stopAnimating];
     self.centralManagerStatus.textColor = [UIColor blackColor];
@@ -625,35 +623,35 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked"); 
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked"); 
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateValueForCharacteristic invoked");
+    DLog(@"didUpdateValueForCharacteristic invoked");
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-     if (self.debug) NSLog(@"didUpdateValueForDescriptor invoked");
+     DLog(@"didUpdateValueForDescriptor invoked");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didWriteValueForCharacteristic invoked");
+    DLog(@"didWriteValueForCharacteristic invoked");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didWriteValueForDescriptor invoked"); 
+    DLog(@"didWriteValueForDescriptor invoked"); 
 }
 
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
-   if (self.debug) NSLog(@"peripheralDidUpdateRSSI invoked");  
+   DLog(@"peripheralDidUpdateRSSI invoked");  
 }
 
 

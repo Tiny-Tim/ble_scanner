@@ -24,9 +24,6 @@
 
 @property (nonatomic, strong)UIImage *whiteLEDImage;
 
-
-// toggle NSLog off/on
-@property (nonatomic) BOOL debug;
 @end
 
 @implementation BLEKeyPressDemoViewController
@@ -107,7 +104,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
         [self setConnectionStatus];
     }
     
@@ -159,8 +156,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _debug = YES;
-
+   
     [self setConnectionStatus];
     
     [self subscribeForButtonNotifications];
@@ -177,7 +173,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -186,7 +182,7 @@
     
     if (!error)
     {
-        if (self.debug) NSLog(@"Characteristic value  updated.");
+        DLog(@"Characteristic value  updated.");
         
         unsigned char buttonValue;
         
@@ -234,14 +230,14 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.statusActivityIndicator stopAnimating];
     [self setConnectionStatus];
     
     if (error == nil)
     {
-        if (self.debug) NSLog(@"Subscribing to key pressed notifications");
+        DLog(@"Subscribing to key pressed notifications");
         [self subscribeForButtonNotifications];
     }
 }

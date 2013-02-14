@@ -98,7 +98,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"Preparing to segue to ServiceList from ScanControl");
+    DLog(@"Preparing to segue to ServiceList from ScanControl");
     BLEDeviceListTVC *serviceListTVC;
     
     if ([segue.identifier isEqualToString:@"ShowServices"])
@@ -123,12 +123,12 @@
 // Remember state of selection using user defaults (for both scan selection choice and services).
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Configure Scan Control Row Selected");
+    DLog(@"Configure Scan Control Row Selected");
     
     // identify which row was selected
     if (indexPath.row == 0)
     {
-        NSLog(@"User selected scan for all services.");
+        DLog(@"User selected scan for all services.");
         
         BOOL checkState = [[self.checkMarkState objectAtIndex:(ALL_SERVICE_INDEX)]boolValue];
         if (checkState)
@@ -153,7 +153,7 @@
     }
     else if (indexPath.row == 1)
     {
-        NSLog(@"User selected scan for specific services.");
+        DLog(@"User selected scan for specific services.");
         
         BOOL checkState = [[self.checkMarkState objectAtIndex:(SELECT_SERVICE_INDEX)]boolValue];
         if (checkState)

@@ -14,17 +14,21 @@
 #import "BLEHeartRateDemoViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 #include "BLEDeviceInformationDemoViewController.h"
-#include "BLETransmitPowerDemoViewController.h"
+#include "BLELeashDemoViewController.h"
 
 @interface BLEDemoDispatcherViewController ()
 
 // Button handler
 - (IBAction)serviceButtonTapped:(UIButton *)sender;
 
+- (IBAction)leashButtonHandler;
+
+@property (weak, nonatomic) IBOutlet UIButton *leashButton;
+
 // Collection of buttons on the UI VIew
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *buttonCollection;
 
-@property (nonatomic) BOOL debug;
+
 @end
 
 @implementation BLEDemoDispatcherViewController
@@ -58,7 +62,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _debug = YES;
+    
     
     // disable demo buttons for services this peripheral does not offer
     [self synchDemosWithDevice];
@@ -88,7 +92,7 @@
 {
     if ([segue.identifier isEqualToString:@"ShowBatteryDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to Battery Demo");
+        DLog(@"Segueing to Battery Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEBatteryServiceDemoViewController class]])
         {
             BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
@@ -97,7 +101,7 @@
             
             if (! destination.batteryService)
             {
-                NSLog(@"Crash coming... expected battery service not found");
+                DLog(@"Crash coming... expected battery service not found");
             }
             
         }
@@ -105,7 +109,7 @@
     }
     else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to KeyPress Demo");
+        DLog(@"Segueing to KeyPress Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEKeyPressDemoViewController class]])
         {
             
@@ -116,7 +120,7 @@
     }
     else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to Accelerometer Demo");
+        DLog(@"Segueing to Accelerometer Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEAccelerometerDemoViewController class]])
         {
             BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
@@ -127,7 +131,7 @@
     }
     else if ([segue.identifier isEqualToString:@"ShowHeartRateDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to Heart Rate Demo");
+        DLog(@"Segueing to Heart Rate Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEHeartRateDemoViewController class]])
         {
             BLEHeartRateDemoViewController *destination = segue.destinationViewController;
@@ -138,7 +142,7 @@
     }
     else if ([segue.identifier isEqualToString:@"ShowDeviceInformationDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to Device Information Demo");
+        DLog(@"Segueing to Device Information Demo");
         if ([segue.destinationViewController isKindOfClass:[BLEDeviceInformationDemoViewController class]])
         {
             BLEDeviceInformationDemoViewController *destination = segue.destinationViewController;
@@ -147,13 +151,14 @@
         }
         
     }
-    else if ([segue.identifier isEqualToString:@"ShowTransmitPowerDemo"])
+    else if ([segue.identifier isEqualToString:@"ShowLeashDemo"])
     {
-        if (self.debug) NSLog(@"Segueing to Transmit Power Demo");
-        if ([segue.destinationViewController isKindOfClass:[BLETransmitPowerDemoViewController class]])
+        DLog(@"Segueing to Leash Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLELeashDemoViewController class]])
         {
-            BLETransmitPowerDemoViewController *destination = segue.destinationViewController;
+            BLELeashDemoViewController *destination = segue.destinationViewController;
             destination.transmitPowerService = [self getService:Tx_POWER_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.immediateAlertService = [self getService:IMMEDIATE_ALERT_SERVICE forPeripheral:self.deviceRecord.peripheral];
             
         }
         
@@ -206,6 +211,9 @@
     NSEnumerator *enumerator = [self.demoServices objectEnumerator];
     NSString *demoServiceID;
     
+    BOOL transmitPowerFound = NO;
+    BOOL immediateAlertFound = NO;
+    
     while ((demoServiceID = [enumerator nextObject]))
     {
         bool matchFound = NO;
@@ -218,6 +226,17 @@
                 matchFound = YES;
                 break;
             }
+            
+            if ([UUIDString localizedCompare:Tx_POWER_SERVICE])
+            {
+                transmitPowerFound = YES;
+            }
+            
+            if ([UUIDString localizedCompare:IMMEDIATE_ALERT_SERVICE])
+            {
+                immediateAlertFound = YES;
+            }
+            
         }
         
         if (!matchFound)
@@ -230,6 +249,15 @@
             // enable corresponding demo button
             [self configureDemoButton:demoServiceID enablement:YES];
         }
+    }
+    
+    if (transmitPowerFound && immediateAlertFound)
+    {
+        self.leashButton.enabled = YES;
+    }
+    else
+    {
+        self.leashButton.enabled = NO;
     }
        
 }
@@ -251,52 +279,51 @@
     
     if ([sender.titleLabel.text hasPrefix:IMMEDIATE_ALERT_SERVICE])
     {
-        if (self.debug) NSLog(@"Immediate Alert Service Selected");
+        DLog(@"Immediate Alert Service Selected");
     }
     else if ([sender.titleLabel.text hasPrefix:BATTERY_SERVICE])
     {
-         if (self.debug) NSLog(@"Battery Service Selected");
+         DLog(@"Battery Service Selected");
         
         [self performSegueWithIdentifier:@"ShowBatteryDemo" sender:self];
 
     }
     else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_KEYPRESSED_SERVICE])
     {
-        if (self.debug) NSLog(@"Key Pressed Service Selected");
+        DLog(@"Key Pressed Service Selected");
         
         [self performSegueWithIdentifier:@"ShowKeyPressDemo" sender:self];
          
     }
     else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_ACCELEROMETER_SERVICE])
     {
-        if (self.debug) NSLog(@"Accelerometer Service Selected");
+        DLog(@"Accelerometer Service Selected");
         
         [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
         
     }
     else if ([sender.titleLabel.text hasPrefix:HEART_RATE_MEASUREMENT_SERVICE])
     {
-        if (self.debug) NSLog(@"Heart Rate Service Selected");
+        DLog(@"Heart Rate Service Selected");
         
         [self performSegueWithIdentifier:@"ShowHeartRateDemo" sender:self];
         
     }
     else if ([sender.titleLabel.text hasPrefix:DEVICE_INFORMATION_SERVICE])
     {
-        if (self.debug) NSLog(@"Device Information Service Selected");
+        DLog(@"Device Information Service Selected");
         
         [self performSegueWithIdentifier:@"ShowDeviceInformationDemo" sender:self];
         
     }
-    else if ([sender.titleLabel.text hasPrefix:Tx_POWER_SERVICE])
-    {
-        if (self.debug) NSLog(@"Transmit Power Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowTransmitPowerDemo" sender:self];
-        
-    }
+    
     
 
+}
+
+- (IBAction)leashButtonHandler
+{
+    [self performSegueWithIdentifier:@"ShowLeashDemo" sender:self];
 }
 
 

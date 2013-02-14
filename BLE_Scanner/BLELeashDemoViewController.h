@@ -1,5 +1,5 @@
 //
-//  BLETransmitPowerDemoViewController.h
+//  BLELeashDemoViewController.h
 //  BLE_Scanner
 //
 //  Created by Chip Keyes on 2/13/13.
@@ -10,8 +10,9 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 
-@interface BLETransmitPowerDemoViewController : UIViewController  <CBPeripheralDelegate>
+@interface BLELeashDemoViewController : UIViewController  <CBPeripheralDelegate>
 
 @property (nonatomic, strong) CBService * transmitPowerService;
+@property (nonatomic, strong) CBService * immediateAlertService;
 
 @end

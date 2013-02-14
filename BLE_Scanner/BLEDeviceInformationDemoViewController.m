@@ -12,9 +12,6 @@
 
 @interface BLEDeviceInformationDemoViewController ()
 
-// NSLogging control
-@property (nonatomic) BOOL debug;
-
 // Label which displays peripheral status and activity.
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
 
@@ -85,7 +82,7 @@
     }
     else
     {
-        if (self.debug) NSLog(@"Failed to discover characteristic, peripheral not connected.");
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
         [self setConnectionStatus];
     }
     
@@ -111,7 +108,7 @@
         
         if (index == NSNotFound)
         {
-            NSLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
+            DLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
             
         }
         else
@@ -128,7 +125,7 @@
     }
     else
     {
-        NSLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
+        DLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
         
     }
     
@@ -139,8 +136,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    _debug = YES;
     
     // set the peripheral delegate to self
     self.deviceInformationService.peripheral.delegate =self;
@@ -235,7 +230,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
 
 
@@ -259,7 +254,7 @@
     
     if (!error)
     {
-        if (self.debug) NSLog(@"Characteristic value  updated.");
+        DLog(@"Characteristic value  updated.");
         
         // Determine which characteristic was updated
         /* Updated value for heart rate measurement received */
@@ -268,7 +263,7 @@
             NSString *manufacturer;
             manufacturer = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Manufacturer Name = %@", manufacturer);
+            DLog(@"Manufacturer Name = %@", manufacturer);
             self.manufacturerLabel.text = [NSString stringWithFormat: @"Manufacturer:  %@",manufacturer];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC ]])
@@ -276,7 +271,7 @@
             NSString *model;
             model = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Model Number = %@", model);
+            DLog(@"Model Number = %@", model);
             self.modelNumberLabel.text = [NSString stringWithFormat: @"Model Number:  %@",model];
             
         }
@@ -285,7 +280,7 @@
             NSString *fwRevision;
             fwRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Firmware Revision = %@", fwRevision);
+            DLog(@"Firmware Revision = %@", fwRevision);
             self.firmwareRevisionLabel.text = [NSString stringWithFormat: @"Firmware Revision:  %@",fwRevision];
             
         }
@@ -294,7 +289,7 @@
             NSString *serialNumber;
             serialNumber = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Serial Number = %@", serialNumber);
+            DLog(@"Serial Number = %@", serialNumber);
             self.serialNumberLabel.text = [NSString stringWithFormat: @"Serial Number:  %@",serialNumber];
             
         }
@@ -303,7 +298,7 @@
             NSString *hwRevision;
             hwRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Hardware Revision = %@", hwRevision);
+            DLog(@"Hardware Revision = %@", hwRevision);
             self.hardwareRevisionLabel.text = [NSString stringWithFormat: @"Hardware Revision:  %@",hwRevision];
             
         }
@@ -312,7 +307,7 @@
             NSString *swRevision;
             swRevision = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
             
-            if (self.debug) NSLog(@"Software Revision = %@", swRevision);
+            DLog(@"Software Revision = %@", swRevision);
             self.softwareRevisionLabel.text = [NSString stringWithFormat: @"Software Revision:  %@",swRevision];
             
         }
@@ -320,7 +315,7 @@
     }
     else
     {
-        NSLog(@"Error reading characteristic: %@", error.description);
+        DLog(@"Error reading characteristic: %@", error.description);
     };
     
     [self setConnectionStatus];
@@ -338,7 +333,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.debug) NSLog(@"didDiscoverCharacteristicsForService invoked");
+    DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
     [self setConnectionStatus];
@@ -356,7 +351,7 @@
     }
     else
     {
-        NSLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
+        DLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
     }
 }
 

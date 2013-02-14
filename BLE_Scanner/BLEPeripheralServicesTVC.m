@@ -11,9 +11,6 @@
 
 @interface BLEPeripheralServicesTVC ()
 
-// controls NSLogging
-@property (nonatomic) BOOL debug;
-
 @end
 
 @implementation BLEPeripheralServicesTVC
@@ -30,14 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _debug = YES;
-
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.debug) NSLog(@"Entering viewWillAppear in BLEPeripheralServicesTVC");
+    DLog(@"Entering viewWillAppear in BLEPeripheralServicesTVC");
     NSString *titleString = [[NSString alloc]initWithFormat: @"%@ Services",self.deviceRecord.friendlyName];
     self.title = titleString;
 }
@@ -92,7 +87,7 @@
 // Accessory button is used to segue to characteristic data via CentralManager delegate
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Accessory button tapped in PeripheralServicesTVC");
+    DLog(@"Accessory button tapped in PeripheralServicesTVC");
     // the service corresponds to the indexPath.section item in peripheral.services array
     CBService * service = [self.deviceRecord.peripheral.services objectAtIndex:indexPath.section];
     
