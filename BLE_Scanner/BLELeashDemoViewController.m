@@ -27,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
 
 
 @property (nonatomic) NSInteger transmitPower;
@@ -80,48 +80,13 @@
 
 
 
-
-
-
-
-
--(void)discoverServiceCharacteristics : (CBService *)service
-{
-    
-    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
-    if (discoverIssued)
-    {
-        
-       self.statusLabel.textColor = [UIColor greenColor];
-       self.statusLabel.text = @"Discovering service characteristics.";
-       [self.activityIndicator startAnimating];
-        
-    }
-    else
-    {
-        DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.statusLabel];
-    }
-    
-}
-
--(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
-{
-    BOOL readIssued = NO;
-    
-    readIssued = [[self class]readCharacteristic:uuid forService:service];
-    if (readIssued)
-    {
-        self.statusLabel.textColor = [UIColor greenColor];
-        self.statusLabel.text = @"Reading Characteristic.";
-        [self.activityIndicator startAnimating];
-    }
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.activityIndicator;
+    
     self.transmitPowerLabel.text = @"";
     self.rssiPowerLabel.text = @"";
     
@@ -223,10 +188,7 @@
     {
         if ([self.immediateAlertService.peripheral isConnected])
         {
-            //  self.peripheralStatusLabel.textColor = [UIColor greenColor];
-            //  self.peripheralStatusLabel.text = @"Reading Characteristic.";
-            //  [self.peripheralStatusSpinner startAnimating];
-            
+                        
             char value = enable ? 1 : 0;
             NSData *data = [NSData dataWithBytes:&value length:1 ];
            
@@ -284,8 +246,8 @@
 {
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
-    // [self.peripheralStatusSpinner stopAnimating];
-    [[self class]setPeripheral:peripheral ConnectionStatus:self.statusLabel];
+    [self.activityIndicator stopAnimating];
+    [self displayPeripheralConnectStatus: peripheral];
     
     if (error == nil)
     {
@@ -317,8 +279,6 @@
     if (!error)
     {
         DLog(@"RSSI Updated");
-        
-        
         
         self.rssiPowerLabel.text = [NSString stringWithFormat:@"Updated RSSI (dBm): %i", [peripheral.RSSI shortValue]];
         

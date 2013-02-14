@@ -206,6 +206,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.peripheralStatusSpinner;
     
     // initialize debug,animation, and last read measurement state variables
     self.animationStarted = NO;
@@ -229,7 +231,8 @@
     [self setupHeartBeatAnimation];
     
     // display the peripheral connection status
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+
     
     
     // It is unknown whether all of the chracteristics for the service have been discovered or only a subset at this point depending upon the entries in service.characteristics.
@@ -322,7 +325,6 @@
         if (index == NSNotFound)
         {
             DLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
-
         }
         else
         {
@@ -332,7 +334,6 @@
                 self.peripheralStatusLabel.text = @"Reading body sensor location.";
                 [self.peripheralStatusSpinner startAnimating];
                 [self.heartRateService.peripheral readValueForCharacteristic:self.heartRateService.characteristics[index]];
-                
             }
         }
     }
@@ -342,33 +343,9 @@
 
     }
 
-    
 }
 
 
-
-/*
- *
- * Method Name:  setConnectionStatus
- *
- * Description:  Sets the connection status label to indicate peripheral connect status.
- *
- * Parameter(s): None
- *
- */
--(void)setConnectionStatus
-{
-    if ([self.heartRateService.peripheral isConnected])
-    {
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Connected";
-    }
-    else
-    {
-        self.peripheralStatusLabel.textColor = [UIColor redColor];
-        self.peripheralStatusLabel.text = @"Unconnected";
-    }
-}
 
 
 /*
@@ -396,7 +373,8 @@
     else
     {
         DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [self setConnectionStatus];
+        [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+
     }
     
 }
@@ -568,7 +546,8 @@
 {
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+
     
     if (!error)
     {
@@ -659,7 +638,8 @@
         DLog(@"Error reading characteristic: %@", error.description);
     };
     
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+
 }
 
 
@@ -677,7 +657,8 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+
     
     if (error == nil)
     {

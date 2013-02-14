@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLEDemoViewController.h"
 
-#import <CoreBluetooth/CoreBluetooth.h>
-
-@interface BLEAccelerometerDemoViewController : UIViewController <CBPeripheralDelegate>
+@interface BLEAccelerometerDemoViewController : BLEDemoViewController
 
 @property (nonatomic, strong) CBService * accelerometerService;
 @end

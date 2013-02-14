@@ -11,10 +11,16 @@
 
 @interface BLEDemoViewController : UIViewController  <CBPeripheralDelegate>
 
-+(void)setPeripheral : (CBPeripheral *)peripheral ConnectionStatus :(UILabel *)statusLabel;
+-(void)displayPeripheralConnectStatus : (CBPeripheral *)peripheral;
 
-+(BOOL)discoverServiceCharacteristics : (CBService *)service;
+-(void)discoverServiceCharacteristics : (CBService *)service;
 
-+(BOOL)readCharacteristic: (NSString *)uuid forService:(CBService *)service;
+-(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service;
+
+// Label which displays peripheral status and activity.
+@property (weak, nonatomic)  UILabel *statusLabel;
+
+// Spinner activity indicator which is active when device is being accessed.
+@property (weak, nonatomic)  UIActivityIndicatorView *statusSpinner;
 
 @end

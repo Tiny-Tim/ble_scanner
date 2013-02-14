@@ -46,37 +46,46 @@
  * Parameter(s): None
  *
  */
-+(void)setPeripheral : (CBPeripheral *)peripheral ConnectionStatus :(UILabel *)statusLabel
+-(void)displayPeripheralConnectStatus : (CBPeripheral *)peripheral
 {
     if ([peripheral isConnected])
     {
-        statusLabel.textColor = [UIColor greenColor];
-        statusLabel.text = @"Connected";
+        self.statusLabel.textColor = [UIColor greenColor];
+        self.statusLabel.text = @"Connected";
     }
     else
     {
-        statusLabel.textColor = [UIColor redColor];
-        statusLabel.text = @"Unconnected";
+        self.statusLabel.textColor = [UIColor redColor];
+        self.statusLabel.text = @"Unconnected";
     }
 }
 
 
-+(BOOL)discoverServiceCharacteristics : (CBService *)service
+-(void)discoverServiceCharacteristics : (CBService *)service
 {
-    BOOL isConnected = NO;
-    isConnected = [service.peripheral isConnected];
+    
+    BOOL isConnected = [service.peripheral isConnected];
     if (isConnected)
     {
+        self.statusLabel.textColor = [UIColor greenColor];
+        self.statusLabel.text = @"Discovering service characteristics.";
+        [self.statusSpinner startAnimating];
         [service.peripheral discoverCharacteristics:nil
                                          forService:service];
     }
-    return isConnected;
+    else
+    {
+        DLog(@"Failed to discover characteristic, peripheral not connected.");
+        [self displayPeripheralConnectStatus:service.peripheral ];
+
+    }
+   
 }
 
 
-+(BOOL)readCharacteristic: (NSString *)uuid forService:(CBService *)service
+-(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
 {
-    BOOL readIssued = NO;
+   
     if (service.characteristics)
     {
         NSUInteger index = [service.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -100,9 +109,10 @@
         {
             if ([service.peripheral isConnected])
             {
+                self.statusLabel.textColor = [UIColor greenColor];
+                self.statusLabel.text = @"Reading Characteristic.";
+                [self.statusSpinner startAnimating];
                 [service.peripheral readValueForCharacteristic:service.characteristics[index]];
-                readIssued = YES;
-                
             }
         }
     }
@@ -111,7 +121,6 @@
         DLog(@"Error State: Expected Characteristic %@ Not Available.",uuid);
         
     }
-
-    return readIssued;
+ 
 }
 @end

@@ -62,36 +62,6 @@
 }
 
 
-/*
- *
- * Method Name:  discoverServiceCharacteristics
- *
- * Description:  Issues comand to discover characteristics for service and updates UI with discovery status.
- *
- * Parameter(s): service - service for which characteristics are being discovered
- *
- */
--(void)discoverServiceCharacteristics : (CBService *)service
-{
-    
-    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
-    if (discoverIssued)
-    {
-        
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-        [self.statusActivityIndicator startAnimating];
-        
-    }
-    else
-    {
-        DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.peripheralStatusLabel];
-    }
-    
-}
-
-
 
 
 -(void)subscribeForButtonNotifications
@@ -137,11 +107,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.statusActivityIndicator;
     
     self.keyPressedService.peripheral.delegate =self;
    
-    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
     
     BOOL keyPressedFound = NO;
     for (CBCharacteristic * characteristic in self.keyPressedService.characteristics)
@@ -232,7 +204,7 @@
         DLog(@"Error Updating Characteristic: %@",error.description);
     }
     
-    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
 
     
 }
@@ -252,7 +224,7 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.statusActivityIndicator stopAnimating];
-    [[self class]setPeripheral:self.keyPressedService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
 
     
     if (error == nil)

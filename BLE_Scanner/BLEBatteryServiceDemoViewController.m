@@ -46,61 +46,6 @@
 
 /*
  *
- * Method Name:  discoverServiceCharacteristics
- *
- * Description:  Issues comand to discover characteristics for service and updates UI with discovery status.
- *
- * Parameter(s): service - service for which characteristics are being discovered
- *
- */
--(void)discoverServiceCharacteristics : (CBService *)service
-{
-    
-    BOOL discoverIssued = [[self class]discoverServiceCharacteristics:service];
-    if (discoverIssued)
-    {
-        
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-        [self.peripheralStatusSpinner startAnimating];
-        
-    }
-    else
-    {
-        DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [[self class]setPeripheral:service.peripheral ConnectionStatus:self.peripheralStatusLabel];
-    }
-    
-}
-
-
-
-/*
- *
- * Method Name:  <#name#>
- *
- * Description:  <#description#>
- *
- * Parameter(s): <#parameters#>
- *
- */
--(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
-{
-    BOOL readIssued = NO;
-    
-    readIssued = [[self class]readCharacteristic:uuid forService:service];
-    if (readIssued)
-    {
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Reading Characteristic.";
-        [self.peripheralStatusSpinner startAnimating];
-    }
-}
-
-
-
-/*
- *
  * Method Name:  viewDidLoad
  *
  * Description:  Complete setup of view controller.
@@ -111,11 +56,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.peripheralStatusSpinner;
     
     self.batteryService.peripheral.delegate = self;
     
-    [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.batteryService.peripheral];
     
     // determine if BATTERY_LEVEL_CHARACTERISTIC has been discovered
     BOOL batteryFound = NO;
@@ -161,7 +107,7 @@
 {
     
     [self.peripheralStatusSpinner stopAnimating];
-    [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.batteryService.peripheral];
     
     if (!error)
     {
@@ -201,7 +147,7 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
-     [[self class]setPeripheral:self.batteryService.peripheral ConnectionStatus:self.peripheralStatusLabel];
+    [self displayPeripheralConnectStatus:self.batteryService.peripheral];
     
     if (error == nil)
     {

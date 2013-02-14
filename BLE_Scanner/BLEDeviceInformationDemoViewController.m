@@ -43,99 +43,14 @@
     return self;
 }
 
-/*
- *
- * Method Name:  setConnectionStatus
- *
- * Description:  Sets the connection status label to indicate peripheral connect status.
- *
- * Parameter(s): None
- *
- */
--(void)setConnectionStatus
-{
-    if ([self.deviceInformationService.peripheral isConnected])
-    {
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Connected";
-    }
-    else
-    {
-        self.peripheralStatusLabel.textColor = [UIColor redColor];
-        self.peripheralStatusLabel.text = @"Unconnected";
-    }
-}
 
-
--(void)discoverDeviceInformationServiceCharacteristics
-{
-    if ([self.deviceInformationService.peripheral isConnected])
-    {
-        
-        self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-        [self.peripheralStatusSpinner startAnimating];
-        
-        [self.deviceInformationService.peripheral discoverCharacteristics:nil
-                                                       forService:self.deviceInformationService];
-        
-    }
-    else
-    {
-        DLog(@"Failed to discover characteristic, peripheral not connected.");
-        [self setConnectionStatus];
-    }
-    
-}
-
-
--(void)readCharacteristic: (NSString *)uuid
-{
-    // determine if the required characteristic has been discovered, if not then discover it
-    if (self.deviceInformationService.characteristics)
-    {
-        NSUInteger index = [self.deviceInformationService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            
-            CBCharacteristic *characteristic = (CBCharacteristic *)obj;
-            
-            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:uuid ] == NSOrderedSame)
-            {
-                return YES;
-            }
-            return NO;
-        }];
-        
-        if (index == NSNotFound)
-        {
-            DLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",uuid);
-            
-        }
-        else
-        {
-            if ([self.deviceInformationService.peripheral isConnected])
-            {
-                self.peripheralStatusLabel.textColor = [UIColor greenColor];
-                self.peripheralStatusLabel.text = @"Reading Characteristic.";
-                [self.peripheralStatusSpinner startAnimating];
-                [self.deviceInformationService.peripheral readValueForCharacteristic:self.deviceInformationService.characteristics[index]];
-                
-            }
-        }
-    }
-    else
-    {
-        DLog(@"Error State: Expected Body Sensor Characteristic %@ Not Available.",uuid);
-        
-    }
-    
-
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.peripheralStatusSpinner;
     
     // set the peripheral delegate to self
     self.deviceInformationService.peripheral.delegate =self;
@@ -187,16 +102,16 @@
             foundFirmwareRevision && serialNumberFound &&
             hardwareRevisionFound && softwareRevisionFound))
     {
-        [self discoverDeviceInformationServiceCharacteristics];
+        [self discoverServiceCharacteristics:self.deviceInformationService];
     }
     else
     {
-        [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC];
-        [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC ];
-        [self readCharacteristic:FIRMWARE_REVISION_STRING_CHARACTERISTIC ];
-        [self readCharacteristic:SERIAL_NUMBER_STRING_CHARACTERISTIC ];
-        [self readCharacteristic:HARDWARE_REVISION_STRING_CHARACTERISTIC ];
-        [self readCharacteristic:SOFTWARE_REVISION_STRING_CHARACTERISTIC ];
+        [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC forService:self.deviceInformationService] ;
+        [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC forService:self.deviceInformationService];
+        [self readCharacteristic:FIRMWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
+        [self readCharacteristic:SERIAL_NUMBER_STRING_CHARACTERISTIC forService:self.deviceInformationService];
+        [self readCharacteristic:HARDWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
+        [self readCharacteristic:SOFTWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
         
     }
 }
@@ -250,7 +165,7 @@
 {
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.deviceInformationService.peripheral];
     
     if (!error)
     {
@@ -318,7 +233,7 @@
         DLog(@"Error reading characteristic: %@", error.description);
     };
     
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.deviceInformationService.peripheral];
 }
 
 
@@ -336,7 +251,7 @@
     DLog(@"didDiscoverCharacteristicsForService invoked");
     
     [self.peripheralStatusSpinner stopAnimating];
-    [self setConnectionStatus];
+    [self displayPeripheralConnectStatus:self.deviceInformationService.peripheral];
     
     if (error == nil)
     {
@@ -344,7 +259,7 @@
         for (CBCharacteristic *characteristic in service.characteristics )
         {
             NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            [self readCharacteristic:uuidString];
+            [self readCharacteristic:uuidString forService:service];
 
         }
         

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDemoViewController.h"
 
-@interface BLEHeartRateDemoViewController : UIViewController <CBPeripheralDelegate>
+@interface BLEHeartRateDemoViewController : BLEDemoViewController
 
 // Heart Rate Measurement Service - model for the controller
 @property (nonatomic, strong) CBService *heartRateService;

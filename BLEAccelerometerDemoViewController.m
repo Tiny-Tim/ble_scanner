@@ -188,37 +188,6 @@
 }
 
 
-/*
- *
- * Method Name:  discoverAccelerometerServiceCharacteristics
- *
- * Description:  Initiates and configures peripheral for discovering and reading acceleromter characteristics
- *
- * Parameter(s): None
- *
- */
--(void)discoverAccelerometerServiceCharacteristics
-{
-    if ([self.accelerometerService.peripheral isConnected])
-    {
-        // discover accelerometer service characteristics
-        CBUUID *UUUID = [CBUUID UUIDWithString:TI_KEYFOB_ACCELEROMETER_SERVICE];
-        NSArray *accelerometerServiceUUID = [NSArray arrayWithObject:UUUID];
-        
-        // self.peripheralStatusLabel.textColor = [UIColor greenColor];
-        // self.peripheralStatusLabel.text = @"Discovering service characteristics.";
-        // [self.statusActivityIndicator startAnimating];
-        
-        [self.accelerometerService.peripheral discoverCharacteristics:accelerometerServiceUUID
-                                                           forService:self.accelerometerService];
-    }
-    else
-    {
-        DLog(@"Failed to discover characteristic, peripheral not connected.");
-        // [self setConnectionStatus];
-    }
-    
-}
 
 
 /*
@@ -319,7 +288,7 @@
     if (! self.accelerometerService.characteristics)
     {
         // read the chracteristics - the delegate method didDiscoverCharacteristicsForService will then issue the enableAcccelerometer and notification commands.
-        [self discoverAccelerometerServiceCharacteristics];
+        [self discoverServiceCharacteristics : self.accelerometerService];
     }
     else
     {
@@ -358,11 +327,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    self.statusLabel = nil;
+    self.statusSpinner = nil;
     
      self.accelerometerService.peripheral.delegate = self;
     
-    DLog(@"Entering Acclerometer Demo viewDidLoad");
+    DLog(@"Entering Accelerometer Demo viewDidLoad");
     
     dispatch_source_set_timer(self.sampleClock, DISPATCH_TIME_NOW, 1ull * NSEC_PER_SEC / SAMPLE_CLOCK_FREQUENCY_HERTZ, 1ull * NSEC_PER_SEC/100);
   
