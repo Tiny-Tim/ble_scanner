@@ -16,8 +16,6 @@
 // initiate scanning
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanBarButton;
 
-
-
 // animate when central manager scanning, connecting, etc.
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *centralManagerActivityIndicator;
 
@@ -36,14 +34,11 @@
 // flag which holds current scan configuration state (scan for all services or for specific services)
 @property (nonatomic) BOOL scanForAllServices;
 
-
 // flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
 
-
 // list of connected peripherals
 @property (nonatomic, strong)NSMutableArray *connectedPeripherals;
-
 
 // selected connected peripheral to display
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
@@ -51,25 +46,11 @@
 // peripheral record which is being processed for services
 @property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
 
-
 @end
 
 @implementation BLECentralManagerViewController
 
-
-#pragma mark - Properties
-
-
--(NSMutableArray *)connectedPeripherals
-{
-    if (_connectedPeripherals == nil)
-    {
-        _connectedPeripherals = [NSMutableArray array];
-    }
-    
-    return _connectedPeripherals;
-}
-
+#pragma mark- Actions
 
 // User cancels connect request
 - (IBAction)stopConnect:(id)sender
@@ -78,7 +59,7 @@
     
     NSArray *toolbarItems = self.toolbarItems;
     [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
-
+    
     [self.centralManagerActivityIndicator stopAnimating];
     self.centralManagerStatus.textColor = [UIColor blackColor];
     self.centralManagerStatus.text = @"Idle";
@@ -132,14 +113,30 @@
         {
             [self.centralManager stopScan];
         }
-
+        
         self.scanBarButton.title = @"Scan";
         self.scanState = NO;
     }
 }
 
 
-#pragma mark - Helper Functions
+#pragma mark - Properties
+
+
+-(NSMutableArray *)connectedPeripherals
+{
+    if (_connectedPeripherals == nil)
+    {
+        _connectedPeripherals = [NSMutableArray array];
+    }
+    
+    return _connectedPeripherals;
+}
+
+
+
+
+#pragma mark - Private Functions
 
 // Converts CBCentralManagerState to a string... implement as a category on CBCentralManagerState?
 +(NSString *)getCBCentralStateName:(CBCentralManagerState) state
@@ -202,7 +199,7 @@
 }
 
 
-// check status of CBCentralManager??
+// Discover services for peripheral and update UI activity indicators
 -(void) discoverPeripheralServices : (CBPeripheral *)peripheral
 {
     // Implement checks before connecting, i.e. already connected
@@ -216,6 +213,7 @@
         self.centralManagerStatus.textColor = [UIColor greenColor];
         self.centralManagerStatus.text = @"Discovering peripheral services.";
         [self.centralManagerActivityIndicator startAnimating];
+        // Discover all services
         [peripheral discoverServices:nil];
         
     }
@@ -305,19 +303,9 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DLog(@"Preparing to segue from ScanControl");
-    BLEScanControlTVC *scanConfigure;
     
-    if ([segue.identifier isEqualToString:@"ConfigureScan"])
-    {
-        DLog(@"Segueing to Configure Scan");
-        if ([segue.destinationViewController isKindOfClass:[BLEScanControlTVC class]])
-        {
-            scanConfigure = segue.destinationViewController;
-            scanConfigure.delegate = self;
-            
-        }
-    }
-    else if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
+    
+    if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
     {
         DLog(@"Segueing to Discovered Devices");
           if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
@@ -388,13 +376,6 @@
 
 
 
-//-(void)getDescriptorsForCharacteristic: (CBCharacteristic *)characteristic sender:(id)sender
-//{
-//    DLog(@"getDescriptorsForCharacteristic invoked on BLECentralManagerDelegate");
-//    
-//    self.pendingCharacteristicForDescriptor = characteristic;
-//}
-
 #pragma mark -  BLEScanControlDelegate
 
 // Scan for all services unless services list is not nil. If services are provided then scan just for those services.
@@ -442,8 +423,6 @@
 // A peripheral was discovered during scan.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    
-    
     DLog(@"A peripheral was discovered during scan.");
     
     // log the peripheral name
@@ -485,7 +464,6 @@
     {
         // log the rssi value
         DLog(@"RSSI value: %i", [RSSI shortValue]);
-        DLog(@"RSSI value: %i", [RSSI shortValue]);
     }
     else
     {
@@ -525,7 +503,6 @@
 {
     if (! error)
     {
-    
         DLog(@"Peripheral succssfully disconnected.");
         
         // Normally, following a successful connection the periphral is just removed from the peripheral list and the connect button label is toggled. However, if the user manually cancels the connect attempt, the canceled peripheral will not be in the list and the toggleConnection state should not be called.
@@ -549,7 +526,6 @@
            [self.discoveredDeviceList toggleConnectionState:peripheral];
         }
     
-        // pop up a dialog to tell user peripheral was disconnected
     }
     else 
     {

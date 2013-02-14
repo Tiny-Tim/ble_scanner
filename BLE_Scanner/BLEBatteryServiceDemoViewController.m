@@ -33,6 +33,8 @@
 @implementation BLEBatteryServiceDemoViewController
 
 
+#pragma mark- View Controller Lifecycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,7 +43,6 @@
     }
     return self;
 }
-
 
 
 /*
@@ -111,7 +112,6 @@
     
     if (!error)
     {
-        
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC ]])
         {
             DLog(@"Characteristic value read updated.");
@@ -124,7 +124,6 @@
             self.batteryMeter.progress = (float)self.batteryLevel /100.0;
             self.batteryLevelLabel.text = [NSString  stringWithFormat: @"%i%%",self.batteryLevel];
         }
-        
     }
     else
     {

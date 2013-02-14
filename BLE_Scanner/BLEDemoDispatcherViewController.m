@@ -35,6 +35,68 @@
 
 @synthesize demoServices = _demoServices;
 
+#pragma mark- Actions
+
+// Dedicated (unique) button for transitioning to demo whihc uses two services.
+- (IBAction)leashButtonHandler
+{
+    [self performSegueWithIdentifier:@"ShowLeashDemo" sender:self];
+}
+
+
+/*
+ *
+ * Method Name:  serviceButtonTapped
+ *
+ * Description:  Handler for demo button tapp on the UI. Identifies the corresponding demo controller by parsing the button title text.
+ *
+ * Parameter(s): The button tapped.
+ *
+ */
+- (IBAction)serviceButtonTapped:(UIButton *)sender
+{
+    
+    if ([sender.titleLabel.text hasPrefix:IMMEDIATE_ALERT_SERVICE])
+    {
+        DLog(@"Immediate Alert Service Selected");
+    }
+    else if ([sender.titleLabel.text hasPrefix:BATTERY_SERVICE])
+    {
+        DLog(@"Battery Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowBatteryDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_KEYPRESSED_SERVICE])
+    {
+        DLog(@"Key Pressed Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowKeyPressDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_ACCELEROMETER_SERVICE])
+    {
+        DLog(@"Accelerometer Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:HEART_RATE_MEASUREMENT_SERVICE])
+    {
+        DLog(@"Heart Rate Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowHeartRateDemo" sender:self];
+        
+    }
+    else if ([sender.titleLabel.text hasPrefix:DEVICE_INFORMATION_SERVICE])
+    {
+        DLog(@"Device Information Service Selected");
+        
+        [self performSegueWithIdentifier:@"ShowDeviceInformationDemo" sender:self];
+        
+    }
+}
+
 
 #pragma mark- Properties
 
@@ -43,6 +105,7 @@
 {
     _demoServices = [demoServices copy];
 }
+
 
 
 #pragma mark- View Controller Lifecycle
@@ -61,14 +124,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
     
     // disable demo buttons for services this peripheral does not offer
     [self synchDemosWithDevice];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,14 +156,7 @@
             BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
             
             destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
-            if (! destination.batteryService)
-            {
-                DLog(@"Crash coming... expected battery service not found");
-            }
-            
         }
-        
     }
     else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
     {
@@ -115,7 +166,6 @@
             
             BLEKeyPressDemoViewController *destination = segue.destinationViewController;
             destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
@@ -125,9 +175,7 @@
         {
             BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
             destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
         }
-        
     }
     else if ([segue.identifier isEqualToString:@"ShowHeartRateDemo"])
     {
@@ -136,9 +184,7 @@
         {
             BLEHeartRateDemoViewController *destination = segue.destinationViewController;
             destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
         }
-        
     }
     else if ([segue.identifier isEqualToString:@"ShowDeviceInformationDemo"])
     {
@@ -147,9 +193,7 @@
         {
             BLEDeviceInformationDemoViewController *destination = segue.destinationViewController;
             destination.deviceInformationService = [self getService:DEVICE_INFORMATION_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
         }
-        
     }
     else if ([segue.identifier isEqualToString:@"ShowLeashDemo"])
     {
@@ -159,16 +203,11 @@
             BLELeashDemoViewController *destination = segue.destinationViewController;
             destination.transmitPowerService = [self getService:Tx_POWER_SERVICE forPeripheral:self.deviceRecord.peripheral];
             destination.immediateAlertService = [self getService:IMMEDIATE_ALERT_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            
         }
-        
     }
 }
 
-
 #pragma mark- Prvate Methods
-
-
 
 /*
  *
@@ -199,7 +238,7 @@
  *
  * Method Name:  synchDemosWithDevice
  *
- * Description:  Identify peripheral services which match demo services. Disable any demo service button not implemented by the device.
+ * Description:  Identify peripheral services which match demo services. Disable any demo service button not implemented by the device. 
  *
  * Parameter(s): None.
  *
@@ -236,7 +275,6 @@
             {
                 immediateAlertFound = YES;
             }
-            
         }
         
         if (!matchFound)
@@ -263,70 +301,15 @@
 }
 
 
-
-
 /*
  *
- * Method Name:  serviceButtonTapped
+ * Method Name:  getService: forPeripheral
  *
- * Description:  Handler for demo button tapp on the UI. Identifies the corresponding demo controller by parsing the button title text.
+ * Description:  <#description#>
  *
- * Parameter(s): The button tapped.
+ * Parameter(s): <#parameters#>
  *
  */
-- (IBAction)serviceButtonTapped:(UIButton *)sender
-{
-    
-    if ([sender.titleLabel.text hasPrefix:IMMEDIATE_ALERT_SERVICE])
-    {
-        DLog(@"Immediate Alert Service Selected");
-    }
-    else if ([sender.titleLabel.text hasPrefix:BATTERY_SERVICE])
-    {
-         DLog(@"Battery Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowBatteryDemo" sender:self];
-
-    }
-    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_KEYPRESSED_SERVICE])
-    {
-        DLog(@"Key Pressed Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowKeyPressDemo" sender:self];
-         
-    }
-    else if ([sender.titleLabel.text hasPrefix:TI_KEYFOB_ACCELEROMETER_SERVICE])
-    {
-        DLog(@"Accelerometer Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowAccelerometerDemo" sender:self];
-        
-    }
-    else if ([sender.titleLabel.text hasPrefix:HEART_RATE_MEASUREMENT_SERVICE])
-    {
-        DLog(@"Heart Rate Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowHeartRateDemo" sender:self];
-        
-    }
-    else if ([sender.titleLabel.text hasPrefix:DEVICE_INFORMATION_SERVICE])
-    {
-        DLog(@"Device Information Service Selected");
-        
-        [self performSegueWithIdentifier:@"ShowDeviceInformationDemo" sender:self];
-        
-    }
-    
-    
-
-}
-
-- (IBAction)leashButtonHandler
-{
-    [self performSegueWithIdentifier:@"ShowLeashDemo" sender:self];
-}
-
-
 -(CBService *)getService: (NSString *)serviceIdentifier forPeripheral:(CBPeripheral *)peripheral
 {
     CBService *selectedService = nil;
@@ -343,7 +326,6 @@
 
     return selectedService;
 }
-
 
 
 @end

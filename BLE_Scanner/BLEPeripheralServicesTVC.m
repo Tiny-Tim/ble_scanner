@@ -94,9 +94,6 @@
     [self.delegate getCharacteristicsForService:service sender:self];
     // NEW:  invoke a method on the containing view controller to get characteristics for service
     
-   // [self getCharacteristicsForService:service sender:self];
-    
-
 }
 
 

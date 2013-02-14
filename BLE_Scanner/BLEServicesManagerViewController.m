@@ -16,7 +16,6 @@
 
 @interface BLEServicesManagerViewController ()
 
-
 // label for status updating used when retreieving characteristics
 @property (weak, nonatomic) IBOutlet UILabel *statusHeadingLabel;
 
@@ -28,7 +27,6 @@
 
 // CBService which is being processed to retrieve characteristics
 @property (nonatomic, strong)CBService *pendingServiceForCharacteristic;
-
 
 
 - (IBAction)demosButton:(UIBarButtonItem *)sender;
@@ -59,6 +57,7 @@ static NSSet *_demoServices;
 }
 
 
+#pragma mark- Actions
 - (IBAction)demosButton:(UIBarButtonItem *)sender
 {
     DLog(@"Demos button tapped.");
@@ -69,30 +68,9 @@ static NSSet *_demoServices;
 }
 
 
-/*
- *
- * Method Name:  setConnectionStatus
- *
- * Description:  Sets the connection status label to indicate peripheral connect status.
- *
- * Parameter(s): None
- *
- */
--(void)setConnectionStatus
-{
-    if ([self.deviceRecord.peripheral isConnected])
-    {
-        self.statusDetailLabel.textColor = [UIColor greenColor];
-        self.statusDetailLabel.text = @"Connected";
-    }
-    else
-    {
-        self.statusDetailLabel.textColor = [UIColor redColor];
-        self.statusDetailLabel.text = @"Unconnected";
-    }
-}
+#pragma mark- Properties
 
-
+// Setter for deviceRecord - the model for the controller
 -(void)setDeviceRecord:(BLEPeripheralRecord *)deviceRecord
 {
     // set the property
@@ -110,9 +88,9 @@ static NSSet *_demoServices;
             break;
         }
     }
-    
 }
 
+#pragma mark- View Controller Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -127,11 +105,10 @@ static NSSet *_demoServices;
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [self setConnectionStatus];
-    
+    [super viewDidLoad];	
+    [self setConnectionStatus];    
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -139,27 +116,15 @@ static NSSet *_demoServices;
     // Dispose of any resources that can be recreated.
 }
 
-
-// Discover characteristics for Service
--(void)discoverCharacteristicsForService: (CBService *) service
-{
-    if (service.peripheral && [service.peripheral isConnected])
-    {
-        if (service.peripheral.delegate == nil)
-        {
-            service.peripheral.delegate = self;
-        }
-        
-        self.statusDetailLabel.textColor = [UIColor greenColor];
-        self.statusDetailLabel.text = @"Discovering service characteristics.";
-        [self.statusActivityIndicator startAnimating];
-        [service.peripheral discoverCharacteristics:nil forService:service];
-    }
-}
-
-
-
-
+/*
+ *
+ * Method Name:  prepareForSegue
+ *
+ * Description:  Seques to next scene in response to user action
+ *
+ * Parameter(s): seque - segue to execute
+ *
+ */
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"ServiceList"])
@@ -198,7 +163,54 @@ static NSSet *_demoServices;
     
 }
 
+#pragma mark- Private Methods
+
+/*
+ *
+ * Method Name:  setConnectionStatus
+ *
+ * Description:  Sets the connection status label to indicate peripheral connect status.
+ *
+ * Parameter(s): None
+ *
+ */
+-(void)setConnectionStatus
+{
+    if ([self.deviceRecord.peripheral isConnected])
+    {
+        self.statusDetailLabel.textColor = [UIColor greenColor];
+        self.statusDetailLabel.text = @"Connected";
+    }
+    else
+    {
+        self.statusDetailLabel.textColor = [UIColor redColor];
+        self.statusDetailLabel.text = @"Unconnected";
+    }
+}
+
+
+// Discover characteristics for Service
+-(void)discoverCharacteristicsForService: (CBService *) service
+{
+    if (service.peripheral && [service.peripheral isConnected])
+    {
+        if (service.peripheral.delegate == nil)
+        {
+            service.peripheral.delegate = self;
+        }
+        
+        self.statusDetailLabel.textColor = [UIColor greenColor];
+        self.statusDetailLabel.text = @"Discovering service characteristics.";
+        [self.statusActivityIndicator startAnimating];
+        [service.peripheral discoverCharacteristics:nil forService:service];
+    }
+}
+
+
+
 #pragma mark - BLEServicesManagerDelegate
+
+
 // Retrieve the characteristics for a specified service and segue to the characteristic table view controller
 -(void)getCharacteristicsForService: (CBService *)service sender:(id)sender
 {
@@ -227,7 +239,6 @@ static NSSet *_demoServices;
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     DLog(@"didDiscoverCharacteristicsForService invoked");
-    
     
     [self.statusActivityIndicator stopAnimating];
     self.statusDetailLabel.textColor = [UIColor blackColor];
@@ -289,8 +300,6 @@ static NSSet *_demoServices;
 {
     DLog(@"peripheralDidUpdateRSSI invoked");
 }
-
-
 
 
 

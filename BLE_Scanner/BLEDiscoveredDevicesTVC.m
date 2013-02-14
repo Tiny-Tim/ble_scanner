@@ -7,7 +7,6 @@
 //
 
 #import "BLEDiscoveredDevicesTVC.h"
-//#import "CBUUID+StringExtraction.h"
 #import "BLEConnectButtonCell.h"
 #import "BLEDetailCellData.h"
 
