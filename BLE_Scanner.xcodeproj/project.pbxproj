@@ -57,8 +57,6 @@
 		D96868A616C58E6600F79634 /* redLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A416C58E6500F79634 /* redLed.png */; };
 		D96868A716C58E6600F79634 /* whiteLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A516C58E6500F79634 /* whiteLed.png */; };
 		D96868AA16C5915100F79634 /* BLEKeyPressDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */; };
-		D96868AE16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */; };
-		D96868AF16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */; };
 		D96868B216C822C300F79634 /* BLEGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868B116C822C200F79634 /* BLEGraphView.m */; };
 		D96868B316C822C300F79634 /* BLEGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868B116C822C200F79634 /* BLEGraphView.m */; };
 		D96868B616C824A300F79634 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868B516C824A300F79634 /* AxesDrawer.m */; };
@@ -71,6 +69,7 @@
 		D982748A16B8C05C0005477F /* BLEPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D982748816B8C05C0005477F /* BLEPeripheralRecord.m */; };
 		D98274E316BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
 		D98274E416BA042A0005477F /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */; };
+		D9B17E7416CDDF30000A627C /* BLEAccelerometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */; };
 		D9CB596716BC6330000A99FB /* BLEConnectButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */; };
 /* End PBXBuildFile section */
 
@@ -145,8 +144,6 @@
 		D96868A516C58E6500F79634 /* whiteLed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteLed.png; path = ../../whiteLed.png; sourceTree = "<group>"; };
 		D96868A816C5915000F79634 /* BLEKeyPressDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEKeyPressDemoViewController.h; sourceTree = "<group>"; };
 		D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEKeyPressDemoViewController.m; sourceTree = "<group>"; };
-		D96868AC16C6C55200F79634 /* BLEAccelerometerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEAccelerometerDemoViewController.h; path = ../BLEAccelerometerDemoViewController.h; sourceTree = "<group>"; };
-		D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLEAccelerometerDemoViewController.m; path = ../BLEAccelerometerDemoViewController.m; sourceTree = "<group>"; };
 		D96868B016C822C200F79634 /* BLEGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEGraphView.h; sourceTree = "<group>"; };
 		D96868B116C822C200F79634 /* BLEGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEGraphView.m; sourceTree = "<group>"; };
 		D96868B416C824A300F79634 /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
@@ -160,6 +157,8 @@
 		D982748816B8C05C0005477F /* BLEPeripheralRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEPeripheralRecord.m; sourceTree = "<group>"; };
 		D98274E116BA042A0005477F /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		D98274E216BA042A0005477F /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
+		D9B17E7216CDDF30000A627C /* BLEAccelerometerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEAccelerometerDemoViewController.h; sourceTree = "<group>"; };
+		D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEAccelerometerDemoViewController.m; sourceTree = "<group>"; };
 		D9CB596516BC6330000A99FB /* BLEConnectButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnectButtonCell.h; sourceTree = "<group>"; };
 		D9CB596616BC6330000A99FB /* BLEConnectButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEConnectButtonCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +241,8 @@
 		D9207B4616B6D35B0023FFFA /* BLE_Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				D9B17E7216CDDF30000A627C /* BLEAccelerometerDemoViewController.h */,
+				D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */,
 				D96868B816C82C4A00F79634 /* BLEAcclerometerValue.h */,
 				D96868B916C82C4A00F79634 /* BLEAcclerometerValue.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
@@ -323,8 +324,6 @@
 				D9076E4F16CBF9D60010C641 /* BLELeashDemoViewController.m */,
 				D9076E4616CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.h */,
 				D9076E4716CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m */,
-				D96868AD16C6C55200F79634 /* BLEAccelerometerDemoViewController.m */,
-				D96868AC16C6C55200F79634 /* BLEAccelerometerDemoViewController.h */,
 				D96868A816C5915000F79634 /* BLEKeyPressDemoViewController.h */,
 				D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */,
 				D982748416B89E160005477F /* BLEDiscoveredDevicesTVC.h */,
@@ -484,7 +483,6 @@
 				D968689C16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */,
 				D96868A016C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */,
 				D96868AA16C5915100F79634 /* BLEKeyPressDemoViewController.m in Sources */,
-				D96868AE16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */,
 				D96868B216C822C300F79634 /* BLEGraphView.m in Sources */,
 				D96868B616C824A300F79634 /* AxesDrawer.m in Sources */,
 				D96868BA16C82C4A00F79634 /* BLEAcclerometerValue.m in Sources */,
@@ -492,6 +490,7 @@
 				D9076E4816CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m in Sources */,
 				D9076E5016CBF9D60010C641 /* BLELeashDemoViewController.m in Sources */,
 				D9076E5316CD497A0010C641 /* BLEDemoViewController.m in Sources */,
+				D9B17E7416CDDF30000A627C /* BLEAccelerometerDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +507,6 @@
 				D90263C916C1EC240058BA37 /* BLEServicesManagerViewController.m in Sources */,
 				D968689D16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */,
 				D96868A116C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */,
-				D96868AF16C6C55200F79634 /* BLEAccelerometerDemoViewController.m in Sources */,
 				D96868B316C822C300F79634 /* BLEGraphView.m in Sources */,
 				D96868B716C824A300F79634 /* AxesDrawer.m in Sources */,
 				D96868BB16C82C4A00F79634 /* BLEAcclerometerValue.m in Sources */,
