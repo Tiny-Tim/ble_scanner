@@ -11,5 +11,6 @@
 
 @interface BLEGenericAccessDemoViewController : BLEDemoViewController
 
+// the GAP service which is the model for the controller
 @property (nonatomic, strong) CBService *genericAccessProfileService;
 @end

@@ -575,9 +575,53 @@
                     <view key="view" contentMode="scaleToFill" id="JJ9-jp-PC5">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUl-Jv-H8A">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="eye-YE-Now"/>
+                                    <constraint firstAttribute="width" constant="280" id="zoc-3Q-8Lz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iss-Ta-ooz">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="NGd-9d-F4i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q8v-zt-lIC"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Device Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gh-yg-2NN">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="i1R-Ka-9Yf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2Gh-yg-2NN" firstAttribute="leading" secondItem="JJ9-jp-PC5" secondAttribute="leading" constant="28" id="0VU-Nb-lIC"/>
+                            <constraint firstItem="iss-Ta-ooz" firstAttribute="top" secondItem="JJ9-jp-PC5" secondAttribute="top" constant="425" id="0ob-iA-2Vd"/>
+                            <constraint firstItem="ZUl-Jv-H8A" firstAttribute="top" secondItem="q8v-zt-lIC" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Njo-il-gLM"/>
+                            <constraint firstItem="q8v-zt-lIC" firstAttribute="centerX" secondItem="ZUl-Jv-H8A" secondAttribute="centerX" type="default" id="SPz-cs-Hvd"/>
+                            <constraint firstItem="iss-Ta-ooz" firstAttribute="leading" secondItem="JJ9-jp-PC5" secondAttribute="leading" constant="19" id="Sj6-LO-TU8"/>
+                            <constraint firstItem="ZUl-Jv-H8A" firstAttribute="top" secondItem="iss-Ta-ooz" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="V4K-ha-R5D"/>
+                            <constraint firstItem="ZUl-Jv-H8A" firstAttribute="leading" secondItem="iss-Ta-ooz" secondAttribute="leading" type="default" id="evX-Lq-c9k"/>
+                            <constraint firstItem="2Gh-yg-2NN" firstAttribute="top" secondItem="JJ9-jp-PC5" secondAttribute="top" constant="43" id="s9l-zF-I8w"/>
+                            <constraint firstItem="q8v-zt-lIC" firstAttribute="top" secondItem="iss-Ta-ooz" secondAttribute="top" type="default" id="x2E-C2-MgI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Generic Access Profile" id="SXm-EJ-lcY"/>
+                    <connections>
+                        <outlet property="deviceNameLabel" destination="2Gh-yg-2NN" id="ijT-Mb-nPA"/>
+                        <outlet property="peripheralStatusLabel" destination="ZUl-Jv-H8A" id="gw4-zY-yOE"/>
+                        <outlet property="peripheralStatusSpinner" destination="q8v-zt-lIC" id="pV1-7g-b18"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWr-mp-9ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -30,9 +30,29 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *softwareRevisionLabel;
 
+@property (nonatomic, readonly)NSSet *readCharacteristics;
+
 @end
 
 @implementation BLEDeviceInformationDemoViewController
+
+@synthesize readCharacteristics = _readCharacteristics;
+
+#pragma mark- Properties
+
+
+// set of characteristics which can be read for this service
+-(NSSet *)readCharacteristics
+{
+    if (! _readCharacteristics)
+    {
+        _readCharacteristics = [NSSet setWithObjects:MANUFACTURER_NAME_STRING_CHARACTERISTIC, MODEL_NUMBER_STRING_CHARACTERISTIC, FIRMWARE_REVISION_STRING_CHARACTERISTIC, SERIAL_NUMBER_STRING_CHARACTERISTIC,HARDWARE_REVISION_STRING_CHARACTERISTIC,SOFTWARE_REVISION_STRING_CHARACTERISTIC, nil];
+    }
+    
+    return _readCharacteristics;
+}
+
+#pragma mark- Controller Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -139,6 +159,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 
 #pragma mark - CBPeripheralDelegate
@@ -258,8 +280,13 @@
         // iterate through the characteristics and take approproate actions
         for (CBCharacteristic *characteristic in service.characteristics )
         {
+            
             NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            [self readCharacteristic:uuidString forService:service];
+            
+            if ([self.readCharacteristics containsObject:uuidString])
+            {
+                [self readCharacteristic:uuidString forService:service];
+            }
 
         }
         

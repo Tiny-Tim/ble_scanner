@@ -161,21 +161,19 @@
  *
  * Method Name:  setLastMeasurement
  *
- * Description:  Setter for lastMeasurement which also updates UI when changed
- *
+ * Description:  Setter for lastMeasurement which also updates UI 
  * Parameter(s): lastMeasurement - new value for property
  *
  */
 -(void)setLastMeasurement:(NSUInteger)lastMeasure
 {
-    if (_lastMeasurement != lastMeasure)
-    {
-        _lastMeasurement = lastMeasure;
+    
+    _lastMeasurement = lastMeasure;
         
-        //Update UI 
-        self.heartRateMeasureLabel.text = [NSString stringWithFormat:@"Heart Rate:  %i",lastMeasure];
+    //Update UI 
+    self.heartRateMeasureLabel.text = [NSString stringWithFormat:@"Heart Rate:  %i",lastMeasure];
         
-    }
+    
 }
 
 
@@ -214,8 +212,6 @@
     
     // initialize debug,animation, and last read measurement state variables
     self.animationStarted = NO;
-    
-    self.lastMeasurement = 0;
     
     // clear the UI measurement label
     self.heartRateMeasureLabel.text = @"";
@@ -265,7 +261,7 @@
     else
     {
         [self enableForHeartRateMeasurementNotifications: YES];
-        [self readBodySensorLocation];
+        [self readCharacteristic:BODY_SENSOR_LOCATION_CHARACTERISTIC forService:self.heartRateService];
     }
     
 }
@@ -305,50 +301,6 @@
 
 #pragma mark- Private Methods
 
-
--(void)readBodySensorLocation
-{
-    // determine if the required characteristic has been discovered, if not then discover it
-    if (self.heartRateService.characteristics)
-    {
-        NSUInteger index = [self.heartRateService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            
-            CBCharacteristic *characteristic = (CBCharacteristic *)obj;
-            
-            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            if ([uuidString localizedCompare:BODY_SENSOR_LOCATION_CHARACTERISTIC ] == NSOrderedSame)
-            {
-                return YES;
-            }
-            return NO;
-        }];
-        
-        if (index == NSNotFound)
-        {
-            DLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
-        }
-        else
-        {
-            if ([self.heartRateService.peripheral isConnected])
-            {
-                self.peripheralStatusLabel.textColor = [UIColor greenColor];
-                self.peripheralStatusLabel.text = @"Reading body sensor location.";
-                [self.peripheralStatusSpinner startAnimating];
-                [self.heartRateService.peripheral readValueForCharacteristic:self.heartRateService.characteristics[index]];
-            }
-        }
-    }
-    else
-    {
-        DLog(@"Error State: Expected Body Sensor Characteristic Not Available.");
-
-    }
-
-}
-
-
-
-
 /*
  *
  * Method Name:  discoverHeartRateMeasurementServiceCharacteristics
@@ -369,7 +321,6 @@
         
         [self.heartRateService.peripheral discoverCharacteristics:nil
                                                         forService:self.heartRateService];
-        
     }
     else
     {
@@ -676,7 +627,7 @@
             {
                 // read the body sensor location
                 DLog(@"Reading Body Sensor Location");
-                [self readBodySensorLocation];
+                [self readCharacteristic:BODY_SENSOR_LOCATION_CHARACTERISTIC forService:self.heartRateService];
             }
         }
         
