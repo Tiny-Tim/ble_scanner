@@ -46,6 +46,7 @@ static NSSet *_demoServices;
 +(void)initialize
 {
    _demoServices = [NSSet setWithObjects:
+                    GENERIC_ACCESS_PROFILE,
                     IMMEDIATE_ALERT_SERVICE,
                     Tx_POWER_SERVICE,
                     DEVICE_INFORMATION_SERVICE,

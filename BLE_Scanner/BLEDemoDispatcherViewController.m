@@ -15,6 +15,7 @@
 #include "ServiceAndCharacteristicMacros.h"
 #include "BLEDeviceInformationDemoViewController.h"
 #include "BLELeashDemoViewController.h"
+#include "BLEGenericAccessDemoViewController.h"
 
 @interface BLEDemoDispatcherViewController ()
 
@@ -56,9 +57,10 @@
 - (IBAction)serviceButtonTapped:(UIButton *)sender
 {
     
-    if ([sender.titleLabel.text hasPrefix:IMMEDIATE_ALERT_SERVICE])
+    if ([sender.titleLabel.text hasPrefix:GENERIC_ACCESS_PROFILE])
     {
-        DLog(@"Immediate Alert Service Selected");
+        DLog(@"Generic Access Profile Service Selected");
+        [self performSegueWithIdentifier:@"ShowGenericAccessDemo" sender:self];
     }
     else if ([sender.titleLabel.text hasPrefix:BATTERY_SERVICE])
     {
@@ -158,6 +160,17 @@
             destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
         }
     }
+    else if ([segue.identifier isEqualToString:@"ShowGenericAccessDemo"])
+    {
+        DLog(@"Segueing to Generic Access Demo");
+        if ([segue.destinationViewController isKindOfClass:[BLEGenericAccessDemoViewController class]])
+        {
+            
+            BLEGenericAccessDemoViewController *destination = segue.destinationViewController;
+            destination.genericAccessProfileService= [self getService:GENERIC_ACCESS_PROFILE forPeripheral:self.deviceRecord.peripheral];
+        }
+    }
+
     else if ([segue.identifier isEqualToString:@"ShowKeyPressDemo"])
     {
         DLog(@"Segueing to KeyPress Demo");

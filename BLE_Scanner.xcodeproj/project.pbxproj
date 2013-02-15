@@ -33,6 +33,9 @@
 		D9076E5016CBF9D60010C641 /* BLELeashDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4F16CBF9D60010C641 /* BLELeashDemoViewController.m */; };
 		D9076E5316CD497A0010C641 /* BLEDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E5216CD49790010C641 /* BLEDemoViewController.m */; };
 		D9076E5416CD497A0010C641 /* BLEDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E5216CD49790010C641 /* BLEDemoViewController.m */; };
+		D914D3DE16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */; };
+		D914D3E116CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */; };
+		D914D3E216CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */; };
 		D9207B4116B6D35B0023FFFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4016B6D35B0023FFFA /* UIKit.framework */; };
 		D9207B4316B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B4516B6D35B0023FFFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4416B6D35B0023FFFA /* CoreGraphics.framework */; };
@@ -112,6 +115,10 @@
 		D9076E4F16CBF9D60010C641 /* BLELeashDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLELeashDemoViewController.m; sourceTree = "<group>"; };
 		D9076E5116CD49790010C641 /* BLEDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDemoViewController.h; sourceTree = "<group>"; };
 		D9076E5216CD49790010C641 /* BLEDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDemoViewController.m; sourceTree = "<group>"; };
+		D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEBluetoothWebServiceViewController.h; sourceTree = "<group>"; };
+		D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEBluetoothWebServiceViewController.m; sourceTree = "<group>"; };
+		D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEGenericAccessDemoViewController.h; sourceTree = "<group>"; };
+		D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEGenericAccessDemoViewController.m; sourceTree = "<group>"; };
 		D9207B3C16B6D35B0023FFFA /* BLE_Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLE_Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9207B4016B6D35B0023FFFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9207B4216B6D35B0023FFFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -241,11 +248,13 @@
 		D9207B4616B6D35B0023FFFA /* BLE_Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				D9B17E7216CDDF30000A627C /* BLEAccelerometerDemoViewController.h */,
-				D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */,
 				D96868B816C82C4A00F79634 /* BLEAcclerometerValue.h */,
 				D96868B916C82C4A00F79634 /* BLEAcclerometerValue.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
+				D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */,
+				D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */,
+				D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */,
+				D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */,
 				D96868B016C822C200F79634 /* BLEGraphView.h */,
 				D96868B116C822C200F79634 /* BLEGraphView.m */,
 				D96868B416C824A300F79634 /* AxesDrawer.h */,
@@ -316,6 +325,8 @@
 		D96868AB16C5E4B700F79634 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */,
+				D9B17E7216CDDF30000A627C /* BLEAccelerometerDemoViewController.h */,
 				D9076E4316C988120010C641 /* BLEHeartRateDemoViewController.h */,
 				D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */,
 				D9076E5116CD49790010C641 /* BLEDemoViewController.h */,
@@ -491,6 +502,8 @@
 				D9076E5016CBF9D60010C641 /* BLELeashDemoViewController.m in Sources */,
 				D9076E5316CD497A0010C641 /* BLEDemoViewController.m in Sources */,
 				D9B17E7416CDDF30000A627C /* BLEAccelerometerDemoViewController.m in Sources */,
+				D914D3DE16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m in Sources */,
+				D914D3E116CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +525,7 @@
 				D96868BB16C82C4A00F79634 /* BLEAcclerometerValue.m in Sources */,
 				D9076E4916CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m in Sources */,
 				D9076E5416CD497A0010C641 /* BLEDemoViewController.m in Sources */,
+				D914D3E216CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

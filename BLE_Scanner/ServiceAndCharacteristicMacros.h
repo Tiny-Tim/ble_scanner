@@ -10,6 +10,8 @@
 #define BLE_Scanner_ServiceAndCharacteristicMacros_h
 
 //Services
+#define GENERIC_ACCESS_PROFILE @"1800"
+
 #define IMMEDIATE_ALERT_SERVICE @"1802"
 
 #define Tx_POWER_SERVICE @"1804"

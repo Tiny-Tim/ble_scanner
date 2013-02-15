@@ -228,6 +228,34 @@
             </objects>
             <point key="canvasLocation" x="-35" y="1082"/>
         </scene>
+        <!--Bluetooth Web Service View Controller-->
+        <scene sceneID="J94-A4-dS6">
+            <objects>
+                <viewController id="cTJ-3q-b4B" customClass="BLEBluetoothWebServiceViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KFb-8j-fSN">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-km-OcN">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xPj-km-OcN" firstAttribute="bottom" secondItem="KFb-8j-fSN" secondAttribute="bottom" type="default" id="OTa-lH-90R"/>
+                            <constraint firstItem="xPj-km-OcN" firstAttribute="trailing" secondItem="KFb-8j-fSN" secondAttribute="trailing" type="default" id="Tw3-kh-K6m"/>
+                            <constraint firstItem="xPj-km-OcN" firstAttribute="leading" secondItem="KFb-8j-fSN" secondAttribute="leading" type="default" id="gir-nM-KHq"/>
+                            <constraint firstItem="xPj-km-OcN" firstAttribute="top" secondItem="KFb-8j-fSN" secondAttribute="top" type="default" id="tQn-QD-oJx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="xPj-km-OcN" id="QbZ-2O-G8C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VVh-Vo-T8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="432" y="1047"/>
+        </scene>
         <!--Services Manager View Controller - Peripheral Services TVC-->
         <scene sceneID="JxM-Ip-GIy">
             <objects>
@@ -280,6 +308,12 @@
                         <barButtonItem enabled="NO" title="Demos" id="Wpj-fP-Eu7">
                             <connections>
                                 <action selector="demosButton:" destination="LYe-aF-nEv" id="91Y-Um-Ez6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="rf9-kn-ioG"/>
+                        <barButtonItem title="Web" id="1FP-7r-Ovb">
+                            <connections>
+                                <segue destination="cTJ-3q-b4B" kind="modal" identifier="OpenBluetoothServices" modalTransitionStyle="partialCurl" id="C88-Mj-UF4"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -368,7 +402,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENC-RB-f4z">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="1802 - Immediate Alert Service">
+                                <state key="normal" title="1800 - Generic Access Profile">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -527,11 +561,27 @@
                         <segue destination="S3t-pN-JkY" kind="push" identifier="ShowHeartRateDemo" id="5GV-Y9-IOG"/>
                         <segue destination="6uk-ct-buK" kind="push" identifier="ShowDeviceInformationDemo" id="tFR-NZ-cX0"/>
                         <segue destination="f5s-E8-QVe" kind="push" identifier="ShowLeashDemo" id="73b-eh-hQA"/>
+                        <segue destination="7ZS-ve-R0r" kind="push" identifier="ShowGenericAccessDemo" id="5Wo-9Z-jjV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VcF-sS-En0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1111" y="402"/>
+        </scene>
+        <!--Generic Access Demo View Controller - Generic Access Profile-->
+        <scene sceneID="xbF-8l-IYo">
+            <objects>
+                <viewController id="7ZS-ve-R0r" customClass="BLEGenericAccessDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JJ9-jp-PC5">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Generic Access Profile" id="SXm-EJ-lcY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QWr-mp-9ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2469" y="-2307"/>
         </scene>
         <!--Leash Demo View Controller - Leash Demo-->
         <scene sceneID="PeJ-f1-Etg">
@@ -1062,7 +1112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xD-a8-4ZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="585" y="1082"/>
+            <point key="canvasLocation" x="985" y="1148"/>
         </scene>
     </scenes>
     <resources>
