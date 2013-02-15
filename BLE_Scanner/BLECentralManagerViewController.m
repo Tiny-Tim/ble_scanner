@@ -31,9 +31,6 @@
 // reference to embedded discovered device list table view controller
 @property (nonatomic, strong) BLEDiscoveredDevicesTVC *discoveredDeviceList;
 
-// flag which holds current scan configuration state (scan for all services or for specific services)
-@property (nonatomic) BOOL scanForAllServices;
-
 // flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
 
@@ -79,22 +76,11 @@
             
             DLog(@"Starting scan...");
             
-            if (self.scanForAllServices)
-            {
-                self.centralManagerStatus.textColor = [UIColor greenColor];
-                self.centralManagerStatus.text = @"Scanning for all services.";
+            self.centralManagerStatus.textColor = [UIColor greenColor];
+            self.centralManagerStatus.text = @"Scanning for all services.";
                 
-                [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-            }
-            else
-            {
-                self.centralManagerStatus.textColor = [UIColor greenColor];
-                self.centralManagerStatus.text = @"Scanning for specified services.";
-                // scan only for services specified by user
-                
-                // tbd fix this to pass in array of services
-                [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-            }
+            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+            
             [self.centralManagerActivityIndicator startAnimating];
         }
         else
@@ -284,12 +270,8 @@
     // Initialize central manager providing self as its delegate
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
-    // default is to scan for all services if scan is not configured
-    _scanForAllServices = YES;
-    
     _scanState = NO;  // not scanning
     
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -303,8 +285,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DLog(@"Preparing to segue from ScanControl");
-    
-    
+
     if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
     {
         DLog(@"Segueing to Discovered Devices");
@@ -372,25 +353,6 @@
         // get the services from the peripheral which will be returned via the peripheral delegate
         [self discoverPeripheralServices:deviceRecord.peripheral];
     }
-}
-
-
-
-#pragma mark -  BLEScanControlDelegate
-
-// Scan for all services unless services list is not nil. If services are provided then scan just for those services.
--(void) scanForServices: (NSArray *)services sender:(id)sender
-{
-    DLog(@"scan for all services delegate method invoked");
-    // set scan control to scan for all services
-    self.scanForAllServices = YES;
-    
-    // fix when implemented
-    if (services != nil)
-    {
-       // self.scanForAllServices = NO;
-    }
-   
 }
 
 

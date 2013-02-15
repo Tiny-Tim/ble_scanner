@@ -11,10 +11,14 @@
 
 @interface BLEDemoViewController : UIViewController  <CBPeripheralDelegate>
 
+// Description:  Sets the connection status label to indicate peripheral connect status.
 -(void)displayPeripheralConnectStatus : (CBPeripheral *)peripheral;
 
+// Description:  Discovcer all characteristics for specified service
 -(void)discoverServiceCharacteristics : (CBService *)service;
 
+
+// Description:  reads a specified characteristic for a specified service. It is the caller's responsibility to ensure the characteristic has been discovered.
 -(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service;
 
 // Label which displays peripheral status and activity.

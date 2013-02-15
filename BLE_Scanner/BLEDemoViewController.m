@@ -15,6 +15,9 @@
 
 @implementation BLEDemoViewController
 
+
+#pragma mark- View Controller Lifecycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,6 +40,8 @@
 }
 
 
+
+#pragma mark- Common methods which demo controllers inheriting from lass can use
 /*
  *
  * Method Name:  setConnectionStatus
@@ -61,6 +66,15 @@
 }
 
 
+/*
+ *
+ * Method Name:  discoverServiceCharacteristics
+ *
+ * Description:  Discovcer all characteristics for specified service
+ *
+ * Parameter(s): service - the service to discover characeristics for
+ *
+ */
 -(void)discoverServiceCharacteristics : (CBService *)service
 {
     
@@ -79,15 +93,26 @@
         [self displayPeripheralConnectStatus:service.peripheral ];
 
     }
-   
 }
 
 
+
+/*
+ *
+ * Method Name:  readCharacteristic: forService
+ *
+ * Description:  reads a specified characteristic for a specified service. It is the caller's responsibility to ensure the characteristic has been discovered.
+ *
+ * Parameter(s): uuid - string representation of the UUID for the charactersitic to read
+ *               service - the service to which the characteristic belongs
+ *
+ */
 -(void)readCharacteristic: (NSString *)uuid forService:(CBService *)service
 {
    
     if (service.characteristics)
     {
+        // Ensure the characteristic is in the service array of characteristics
         NSUInteger index = [service.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             
             CBCharacteristic *characteristic = (CBCharacteristic *)obj;
@@ -103,7 +128,6 @@
         if (index == NSNotFound)
         {
             DLog(@"Error State: Expected Characteristic  %@ Not Available.",uuid);
-            
         }
         else
         {
