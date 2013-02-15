@@ -28,21 +28,14 @@
 
 @implementation BLEKeyPressDemoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark- Properties
 
-
+// Red LED image used to signal button is pressed.
 -(UIImage *)redLEDImage
 {
     if (_redLEDImage == nil)
     {
-         NSString *redLEDfilePath = [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
+        NSString *redLEDfilePath = [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
         _redLEDImage = [UIImage imageWithContentsOfFile:redLEDfilePath];
     }
     
@@ -50,6 +43,7 @@
 }
 
 
+// White LED image used to signal button is not pressed.
 -(UIImage *)whiteLEDImage
 {
     if (_whiteLEDImage == nil)
@@ -63,7 +57,68 @@
 
 
 
+#pragma mark- Controller Lifecycle
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+
+// General setup and initializations whihc occur when controller is instantiated
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	
+    self.statusLabel = self.peripheralStatusLabel;
+    self.statusSpinner = self.statusActivityIndicator;
+    
+    self.keyPressedService.peripheral.delegate =self;
+    
+    [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
+    
+    BOOL keyPressedFound = NO;
+    for (CBCharacteristic * characteristic in self.keyPressedService.characteristics)
+    {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
+        {
+            keyPressedFound = YES;
+        }
+    }
+    
+    if ( keyPressedFound)
+    {
+        [self subscribeForButtonNotifications];
+    }
+    else
+    {
+        // discover service characteristics
+        [self discoverServiceCharacteristics:self.keyPressedService];
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark- Private Methods
+
+/*
+ *
+ * Method Name:  subscribeForButtonNotifications
+ *
+ * Description:  subscribe for notification from device whenever a button on the device is pressed.
+ *
+ * Parameter(s): None
+ *
+ */
 -(void)subscribeForButtonNotifications
 {
     
@@ -104,46 +159,6 @@
 
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	
-    self.statusLabel = self.peripheralStatusLabel;
-    self.statusSpinner = self.statusActivityIndicator;
-    
-    self.keyPressedService.peripheral.delegate =self;
-   
-    [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
-    
-    BOOL keyPressedFound = NO;
-    for (CBCharacteristic * characteristic in self.keyPressedService.characteristics)
-    {
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
-        {
-            keyPressedFound = YES;
-        }
-    }
-    
-    if ( keyPressedFound)
-    {
-         [self subscribeForButtonNotifications];
-    }
-    else
-    {
-        // discover service characteristics
-        [self discoverServiceCharacteristics:self.keyPressedService];
-    }
-
-    
-   
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - CBPeripheralDelegate
 
@@ -159,10 +174,18 @@
     }
 }
 
+
+/*
+ *
+ * Method Name:  didUpdateValueForCharacteristic
+ *
+ * Description:  Updates UI by toggling LED colors when buttons are pressed or released on device.
+ *
+ * Parameter(s): See core bluetooth doc.
+ *
+ */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-   
-    
     if (!error)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
@@ -173,6 +196,7 @@
             
             [characteristic.value getBytes:&buttonValue length:1];
             
+            // both buttons not pressed
             if (buttonValue == 0)
             {
                 self.leftButtonImage.image = self.whiteLEDImage;
@@ -181,23 +205,24 @@
             }
             else if (buttonValue == 1 )
             {
+                // left button pressed
                 self.leftButtonImage.image = self.redLEDImage;
                 self.rightButtonImage.image = self.whiteLEDImage;
                 
             }
             else if (buttonValue == 2)
             {
+                // right button pressed
                 self.leftButtonImage.image = self.whiteLEDImage;
                 self.rightButtonImage.image = self.redLEDImage;
             }
             else if (buttonValue == 3)
             {
+                // both buttons pressed
                 self.leftButtonImage.image = self.redLEDImage;
                 self.rightButtonImage.image = self.redLEDImage;
-                
             }
         }
-        
     }
     else
     {
@@ -205,8 +230,6 @@
     }
     
     [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
-
-    
 }
 
 

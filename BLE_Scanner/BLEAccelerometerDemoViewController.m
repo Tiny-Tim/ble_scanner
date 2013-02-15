@@ -188,8 +188,6 @@
 }
 
 
-
-
 /*
  *
  * Method Name:  enableAccelerometer
@@ -222,7 +220,6 @@
         
         char value = enable ? 1 : 0;
         NSData *data = [NSData dataWithBytes:&value length:1 ];
-        
         
         [self.accelerometerService.peripheral writeValue:data forCharacteristic:enableAccelerometer type:CBCharacteristicWriteWithoutResponse];
     };

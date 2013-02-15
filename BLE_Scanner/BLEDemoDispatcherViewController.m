@@ -38,7 +38,7 @@
 
 #pragma mark- Actions
 
-// Dedicated (unique) button for transitioning to demo whihc uses two services.
+// Dedicated (unique) button for transitioning to demo which uses two services.
 - (IBAction)leashButtonHandler
 {
     [self performSegueWithIdentifier:@"ShowLeashDemo" sender:self];
@@ -318,9 +318,12 @@
  *
  * Method Name:  getService: forPeripheral
  *
- * Description:  <#description#>
+ * Description:  Finds the service in the peripheral's array of services which corresponds to the provided parameters.
  *
- * Parameter(s): <#parameters#>
+ *  Returns - the requested service or nil if service not found.
+ *
+ * Parameter(s): serviceIdentifier - string representation of the  service UUID
+ *               peripheral - the peripheral to search for the service
  *
  */
 -(CBService *)getService: (NSString *)serviceIdentifier forPeripheral:(CBPeripheral *)peripheral

@@ -10,36 +10,46 @@
 #include "ServiceAndCharacteristicMacros.h"
 #import "CBUUID+StringExtraction.h"
 
-// RSSI Update frequency
-#define RSSI_UPDATE_FREQUENCY_HERTZ 1
-#define MAX_RSSI_SAMPLES 3
+
 #define PROXIMITY_THRESHOLD_ON 67
 #define PROXIMITY_THRESHOLD_OFF 60
 
 @interface BLELeashDemoViewController ()
 
+// displays TX Power read from device
 @property (weak, nonatomic) IBOutlet UILabel *transmitPowerLabel;
 
+// displays RSSI 
 @property (weak, nonatomic) IBOutlet UILabel *rssiPowerLabel;
+
+// displays computed path loss
 @property (weak, nonatomic) IBOutlet UILabel *pathLossLabel;
 
+// Drives the sampling of RSSI values 
 @property (nonatomic, strong) dispatch_source_t rssiUpdateClock;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
 
-
+// integer value of TXPower
 @property (nonatomic) NSInteger transmitPower;
 
+// RSSI samples which are smoothed (averaged) to help with spiked readings
 @property (nonatomic, strong) NSMutableArray *filterRSSI;
 
+// State variable indicating that immediate alarm has been discovered 
 @property (nonatomic) BOOL alarmCharacteristicDiscovered;
 @end
 
 @implementation BLELeashDemoViewController
 
+#pragma mark- Properties
 
+
+// Small array holding RSSI sampls to be smoothed.
+
+#define MAX_RSSI_SAMPLES 3
 -(NSMutableArray *)filterRSSI
 {
     if (_filterRSSI == nil)
@@ -50,16 +60,9 @@
 }
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
+// Sampling clock for reading RSSI values
+// RSSI Update frequency
+#define RSSI_UPDATE_FREQUENCY_HERTZ 1
 -(dispatch_source_t)rssiUpdateClock
 {
     if (! _rssiUpdateClock)
@@ -80,6 +83,19 @@
 
 
 
+#pragma mark- Controller Lifecycle
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+
+
+// Set up controller
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -152,11 +168,9 @@
     self.transmitPowerService.peripheral.delegate = nil;
     self.immediateAlertService.peripheral.delegate = nil;
 
-    
-    
-    
-    
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -165,6 +179,17 @@
 }
 
 
+#pragma mark- Private Methods
+
+/*
+ *
+ * Method Name:  enableAlarm
+ *
+ * Description:  Turn immediate alarm on and off.
+ *
+ * Parameter(s): enable - boolean indicationg desired on/off state
+ *
+ */
 -(void)enableAlarm: (BOOL) enable
 {
     NSUInteger index = [self.immediateAlertService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -194,11 +219,8 @@
            
             [self.immediateAlertService.peripheral writeValue:data
                         forCharacteristic:self.immediateAlertService.characteristics[index] type:CBCharacteristicWriteWithoutResponse ];
-                
-            
         }
     }
-
 }
 
 
@@ -274,6 +296,17 @@
     
 }
 
+
+/*
+ *
+ * Method Name:  peripheralDidUpdateRSSI
+ *
+ * Description:  Process (smooth) RSSI values when periodically read.
+ *               Toggles immediate alarm on/off depending upon path loss thresholds.
+ *
+ * Parameter(s): See Core Bluetooth Documentation.
+ *
+ */
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
     if (!error)
@@ -310,7 +343,6 @@
             }
             
         }
-        
         if ((pathLoss) < PROXIMITY_THRESHOLD_OFF)
         {
             
@@ -319,10 +351,8 @@
             {
                 [self enableAlarm:NO];
             }
-            
         }
     }
-            
 }
 
 @end

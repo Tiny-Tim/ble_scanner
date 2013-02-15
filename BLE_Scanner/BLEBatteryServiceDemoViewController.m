@@ -112,6 +112,8 @@
     
     if (!error)
     {
+        // Handle each characteristic uniquely
+        
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC ]])
         {
             DLog(@"Characteristic value read updated.");
@@ -136,7 +138,9 @@
  *
  * Method Name:  peripheral:didDiscoverCharacteristicsForService:error
  *
- * Description:  CBPeripheralDelegate method invoked when chracteristic is discovered or error occurs when reading characteristic.
+ * Description:  CBPeripheralDelegate method invoked when characteristic is discovered or error occurs when reading characteristic.
+ *
+ *  For this implementationin the corresponding to the battery service, a request to read the battery level is issued when the service characteristics are discovered.
  *
  * Parameter(s): See CBPeripheralDelegate documentation.
  *

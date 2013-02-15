@@ -328,7 +328,6 @@
         [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
 
     }
-    
 }
 
 
@@ -368,7 +367,6 @@
             {
                 // sign up for notifications
                 [self.heartRateService.peripheral setNotifyValue:enable forCharacteristic:self.heartRateService.characteristics[index]];
-                
             }
         }
     }

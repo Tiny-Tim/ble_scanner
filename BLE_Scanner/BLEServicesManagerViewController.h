@@ -11,9 +11,7 @@
 #import "BLEPeripheralRecord.h"
 
 
-
 @protocol BLEServicesManagerDelegate <NSObject>
-
 
 -(void)getCharacteristicsForService: (CBService *)service sender:(id)sender;
 
