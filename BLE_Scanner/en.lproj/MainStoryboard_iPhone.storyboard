@@ -13,41 +13,30 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Host Bluetooth Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Pyi-mm-FyJ"/>
-                                    <constraint firstAttribute="width" constant="173" id="ixA-jB-kow"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Unknown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v29-Ks-Ytq">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="248" id="IRO-hJ-8h5"/>
-                                    <constraint firstAttribute="height" constant="21" id="Vgv-di-CKS"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Central Manager Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGj-1D-B6I">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="145" id="rF5-Qj-pi6"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Idle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipT-zw-wxG">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="XQ5-RA-Dhs"/>
-                                    <constraint firstAttribute="width" constant="302" id="g6O-os-iXn"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OA6-MM-FZm"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OA6-MM-FZm">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="QQV-5s-3Xw"/>
+                                </constraints>
+                            </activityIndicatorView>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mR5-Lk-Kup">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -63,22 +52,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ipT-zw-wxG" secondAttribute="bottom" constant="11" id="0va-Sa-rZR"/>
-                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="Bnd-GX-pvb" secondAttribute="leading" type="default" id="1HS-8H-hWS"/>
+                            <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="4Hx-xZ-5WM"/>
                             <constraint firstAttribute="bottom" secondItem="mR5-Lk-Kup" secondAttribute="bottom" constant="72" id="5ey-sy-sUE"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="6aW-5N-VcW"/>
                             <constraint firstItem="v29-Ks-Ytq" firstAttribute="top" secondItem="Bnd-GX-pvb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9zH-kB-Otf"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="EAy-qq-EVQ"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="MRZ-Cu-pyE"/>
-                            <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="137" id="PI8-rb-DMq"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Q9z-NG-Hr1"/>
                             <constraint firstItem="mR5-Lk-Kup" firstAttribute="top" secondItem="sfQ-TO-mnD" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="RA5-sE-EuA"/>
-                            <constraint firstItem="WGj-1D-B6I" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="3" id="TY5-j8-Hm0"/>
-                            <constraint firstItem="OA6-MM-FZm" firstAttribute="centerY" secondItem="WGj-1D-B6I" secondAttribute="centerY" type="default" id="VlM-ZE-PEl"/>
-                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="WGj-1D-B6I" secondAttribute="leading" type="default" id="f5E-Zf-DS1"/>
+                            <constraint firstItem="OA6-MM-FZm" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="top" type="default" id="VPq-vZ-bme"/>
                             <constraint firstItem="sfQ-TO-mnD" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fo3-Lv-SwH"/>
-                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="25" id="j9Z-9w-nmt"/>
-                            <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="3" secondAttribute="top" constant="73" id="jUT-nt-jay"/>
-                            <constraint firstAttribute="bottom" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="41" id="uXS-1f-yFH"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="top" secondItem="WGj-1D-B6I" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="iKZ-cc-nE5"/>
+                            <constraint firstItem="Bnd-GX-pvb" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="j9Z-9w-nmt"/>
+                            <constraint firstItem="v29-Ks-Ytq" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="jTP-m9-zTg"/>
+                            <constraint firstAttribute="trailing" secondItem="OA6-MM-FZm" secondAttribute="trailing" constant="108" id="q8Z-yI-yuP"/>
+                            <constraint firstItem="sfQ-TO-mnD" firstAttribute="top" secondItem="v29-Ks-Ytq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="rcp-NZ-jxm"/>
+                            <constraint firstItem="ipT-zw-wxG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="v4L-BK-Iho"/>
                             <constraint firstItem="Bnd-GX-pvb" firstAttribute="top" secondItem="3" secondAttribute="top" constant="18" id="wfZ-0n-7FB"/>
                         </constraints>
                     </view>
@@ -97,6 +85,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Bluetooth Client" id="79l-V3-ftM"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="centralManagerActivityIndicator" destination="OA6-MM-FZm" id="hSJ-fS-dzC"/>
                         <outlet property="centralManagerStatus" destination="ipT-zw-wxG" id="FFT-73-XIr"/>
@@ -107,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-450" y="275"/>
+            <point key="canvasLocation" x="-541" y="275"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CNX-XU-EP6">
@@ -136,7 +125,7 @@
             <objects>
                 <viewController id="1vR-VU-Qfb" customClass="BLEDiscoveredDevicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="286"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="289"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -190,9 +179,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-VF-I38">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="86" id="KW2-Ak-LYh"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <state key="normal" title="Connect">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -209,8 +195,8 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="7Ne-VF-I38" firstAttribute="centerX" secondItem="Anm-uw-5qd" secondAttribute="centerX" type="default" id="dHL-em-dDv"/>
                                     <constraint firstItem="7Ne-VF-I38" firstAttribute="top" secondItem="Anm-uw-5qd" secondAttribute="top" constant="8" id="gWP-Mo-CN6"/>
-                                    <constraint firstItem="7Ne-VF-I38" firstAttribute="centerX" secondItem="Anm-uw-5qd" secondAttribute="centerX" type="default" id="jgE-CT-sn0"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="connectDisconnectButton" destination="7Ne-VF-I38" id="ENM-3f-E0X"/>
@@ -272,17 +258,13 @@
                             </containerView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfh-oP-ntk">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="127" id="ZVo-a0-PRZ"/>
+                                    <constraint firstAttribute="height" constant="18" id="pc2-kD-cnq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCz-W5-I1A">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="6G7-G5-WLe"/>
-                                    <constraint firstAttribute="width" constant="315" id="Vlg-30-lHu"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -291,16 +273,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tCz-W5-I1A" firstAttribute="leading" secondItem="Yfh-oP-ntk" secondAttribute="leading" type="default" id="8Me-5w-rX8"/>
+                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="centerX" secondItem="8QO-Z1-ilR" secondAttribute="centerX" type="default" id="2mX-Gs-Hn1"/>
+                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="centerX" secondItem="muK-wk-d5o" secondAttribute="centerX" type="default" id="5wj-vm-dfq"/>
+                            <constraint firstItem="Yfh-oP-ntk" firstAttribute="top" secondItem="muK-wk-d5o" secondAttribute="top" constant="411" id="692-dU-AaQ"/>
+                            <constraint firstItem="tCz-W5-I1A" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="E2E-Rf-kgo"/>
                             <constraint firstItem="Yfh-oP-ntk" firstAttribute="top" secondItem="8QO-Z1-ilR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FhO-4w-POS"/>
-                            <constraint firstItem="8QO-Z1-ilR" firstAttribute="trailing" secondItem="muK-wk-d5o" secondAttribute="trailing" type="default" id="Fwh-Pw-FQu"/>
-                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="centerY" secondItem="Yfh-oP-ntk" secondAttribute="centerY" type="default" id="JIO-Mb-Enw"/>
-                            <constraint firstAttribute="bottom" secondItem="tCz-W5-I1A" secondAttribute="bottom" constant="13" id="TyA-8i-UIb"/>
                             <constraint firstItem="8QO-Z1-ilR" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" type="default" id="Zho-Bf-h2F"/>
-                            <constraint firstItem="tCz-W5-I1A" firstAttribute="trailing" secondItem="muK-wk-d5o" secondAttribute="trailing" type="default" id="d1h-lN-j82"/>
-                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" constant="127" id="juh-8h-pD2"/>
+                            <constraint firstAttribute="bottom" secondItem="tCz-W5-I1A" secondAttribute="bottom" constant="8" id="cxH-Wz-rFY"/>
                             <constraint firstItem="xF4-e6-ZLn" firstAttribute="top" secondItem="8QO-Z1-ilR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jyw-vB-Kyd"/>
-                            <constraint firstAttribute="bottom" secondItem="Yfh-oP-ntk" secondAttribute="bottom" constant="31" id="qQe-qS-kbc"/>
+                            <constraint firstItem="Yfh-oP-ntk" firstAttribute="leading" secondItem="muK-wk-d5o" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="roq-VV-XDB"/>
+                            <constraint firstItem="xF4-e6-ZLn" firstAttribute="bottom" secondItem="Yfh-oP-ntk" secondAttribute="bottom" type="default" id="rre-vt-Now"/>
                             <constraint firstItem="8QO-Z1-ilR" firstAttribute="top" secondItem="muK-wk-d5o" secondAttribute="top" type="default" id="zwu-2m-hz9"/>
                         </constraints>
                     </view>
@@ -383,24 +365,24 @@
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Bluetooth 4.0 Registered Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGY-HX-Bzh">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="5YE-sb-BkZ"/>
-                                    <constraint firstAttribute="width" constant="296" id="uzX-2a-5Ia"/>
+                                    <constraint firstAttribute="width" constant="294" id="aTc-K2-Uod"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Non Registered Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMN-by-8ob">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="294" id="fcK-0c-MZ8"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="_______________________________" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wF-Cc-Ewg">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENC-RB-f4z">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="237" id="qfY-aL-kAr"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="1800 - Generic Access Profile">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -449,6 +431,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mlv-qo-Vqh">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="237" id="cZM-5X-aFM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="180D - Heart Rate Service">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -517,32 +502,26 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="pdI-BK-LVj" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="0Lr-rx-gDR"/>
                             <constraint firstItem="nGY-HX-Bzh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="15" id="0fP-o2-Om0"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Laa-GP-GcU" secondAttribute="trailing" type="default" id="2az-gs-j5P"/>
-                            <constraint firstItem="pdI-BK-LVj" firstAttribute="trailing" secondItem="tzl-6N-HBO" secondAttribute="trailing" type="default" id="3AC-Vg-sl3"/>
-                            <constraint firstAttribute="bottom" secondItem="6wF-Cc-Ewg" secondAttribute="bottom" constant="191" id="4Pg-6U-92t"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="trailing" secondItem="CyZ-Pf-pVK" secondAttribute="trailing" type="default" id="4JW-bF-OJ8"/>
                             <constraint firstItem="Mlv-qo-Vqh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="179" id="504-2d-IP6"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="7Fg-2O-QPA"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="Eye-bc-DFw"/>
-                            <constraint firstItem="Laa-GP-GcU" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="119" id="H9B-dC-SOc"/>
-                            <constraint firstItem="Laa-GP-GcU" firstAttribute="leading" secondItem="ENC-RB-f4z" secondAttribute="leading" type="default" id="Hf3-mv-4Fh"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Laa-GP-GcU" secondAttribute="leading" type="default" id="IdR-q2-deZ"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="centerX" secondItem="Ywr-0c-pGM" secondAttribute="centerX" type="default" id="MVc-yy-Ah9"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="leading" secondItem="nGY-HX-Bzh" secondAttribute="leading" type="default" id="Peo-dP-VcT"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="trailing" secondItem="nGY-HX-Bzh" secondAttribute="trailing" type="default" id="QYT-68-X0m"/>
-                            <constraint firstItem="ENC-RB-f4z" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="62" id="SJT-yJ-9y1"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="leading" secondItem="6wF-Cc-Ewg" secondAttribute="leading" type="default" id="UFO-cF-ZLh"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="Wmq-0m-H8b"/>
-                            <constraint firstItem="Laa-GP-GcU" firstAttribute="trailing" secondItem="ENC-RB-f4z" secondAttribute="trailing" type="default" id="cYb-Vp-qzD"/>
-                            <constraint firstAttribute="bottom" secondItem="tzl-6N-HBO" secondAttribute="bottom" constant="79" id="cnH-Mc-lwn"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="iTY-ND-voJ" secondAttribute="leading" constant="40" id="CSx-qo-Sdq"/>
+                            <constraint firstAttribute="bottom" secondItem="tzl-6N-HBO" secondAttribute="bottom" constant="83" id="Dan-8R-S1R"/>
+                            <constraint firstItem="tzl-6N-HBO" firstAttribute="top" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="EnJ-N1-uzy"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="G18-Zd-SbN"/>
+                            <constraint firstItem="ENC-RB-f4z" firstAttribute="centerX" secondItem="iTY-ND-voJ" secondAttribute="centerX" type="default" id="M4m-FM-9zO"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="MpY-OQ-Pp0"/>
+                            <constraint firstItem="tzl-6N-HBO" firstAttribute="leading" secondItem="pdI-BK-LVj" secondAttribute="leading" type="default" id="PYc-Up-JZR"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="119" id="TFf-e9-mpy"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="centerX" secondItem="nGY-HX-Bzh" secondAttribute="centerX" type="default" id="Tqg-PV-xia"/>
+                            <constraint firstItem="ENC-RB-f4z" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="59" id="TyT-5L-O1H"/>
+                            <constraint firstItem="ENC-RB-f4z" firstAttribute="trailing" secondItem="Laa-GP-GcU" secondAttribute="trailing" type="default" id="YCE-zc-NRW"/>
+                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="centerX" secondItem="lMN-by-8ob" secondAttribute="centerX" type="default" id="be9-ER-Dea"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="trailing" secondItem="tzl-6N-HBO" secondAttribute="trailing" type="default" id="dLq-Lq-SFg"/>
                             <constraint firstItem="Ywr-0c-pGM" firstAttribute="top" secondItem="Mlv-qo-Vqh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ejH-en-z9Z"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="trailing" secondItem="tzl-6N-HBO" secondAttribute="trailing" type="default" id="hFE-6t-hMA"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="hYy-eB-2XB"/>
-                            <constraint firstAttribute="bottom" secondItem="lMN-by-8ob" secondAttribute="bottom" constant="196" id="nEg-cy-Eek"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="pT9-q1-WkM"/>
-                            <constraint firstAttribute="bottom" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="134" id="qg8-mI-Ibh"/>
-                            <constraint firstItem="pdI-BK-LVj" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="ueG-hs-aSA"/>
-                            <constraint firstItem="nGY-HX-Bzh" firstAttribute="leading" secondItem="iTY-ND-voJ" secondAttribute="leading" constant="11" id="woL-mt-lnq"/>
-                            <constraint firstItem="6wF-Cc-Ewg" firstAttribute="trailing" secondItem="lMN-by-8ob" secondAttribute="trailing" type="default" id="zvy-dd-yBU"/>
+                            <constraint firstItem="ENC-RB-f4z" firstAttribute="leading" secondItem="Laa-GP-GcU" secondAttribute="leading" type="default" id="uBZ-xh-gX6"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="ulX-hI-hsr"/>
+                            <constraint firstAttribute="bottom" secondItem="lMN-by-8ob" secondAttribute="bottom" constant="194" id="vEc-A5-che"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="leading" secondItem="CyZ-Pf-pVK" secondAttribute="leading" type="default" id="wqX-fX-Dmv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Demos" id="zcK-0c-N9f"/>
@@ -1117,7 +1096,7 @@
             <objects>
                 <viewController id="MUh-eR-psD" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xZd-PP-e9B">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="401"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="403"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1162,6 +1141,136 @@
     <resources>
         <image name="whiteLed.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="BLEAccelerometerDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEAccelerometerDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="BLEGraphView"/>
+            </relationships>
+        </class>
+        <class className="BLEBatteryServiceDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBatteryServiceDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="batteryLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="batteryMeter" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEBluetoothWebServiceViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBluetoothWebServiceViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="BLECentralManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stopConnect:"/>
+                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="leashButtonHandler"/>
+                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="leashButton" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoViewController.h"/>
+        </class>
+        <class className="BLEDeviceInformationDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceInformationDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="firmwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hardwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="manufacturerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="modelNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="serialNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="softwareRevisionLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEGenericAccessDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGenericAccessDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="deviceNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGraphView.h"/>
+        </class>
+        <class className="BLEHeartRateDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEHeartRateDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bodySensorLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="energyExpendedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heartBeatImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="heartRateMeasureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="sensorContactStatusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEKeyPressDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEKeyPressDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rightButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLELeashDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLELeashDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="pathLossLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rssiPowerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="transmitPowerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
+        </class>
+        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
+        </class>
+        <class className="BLEServicesManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEServicesManagerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="statusDetailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusHeadingLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
