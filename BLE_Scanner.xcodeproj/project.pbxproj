@@ -29,10 +29,10 @@
 		D9076E4516C988120010C641 /* BLEHeartRateDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */; };
 		D9076E4816CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4716CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m */; };
 		D9076E4916CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4716CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m */; };
-		D9076E4D16CB301B0010C641 /* tumblr.png in Resources */ = {isa = PBXBuildFile; fileRef = D9076E4C16CB301B0010C641 /* tumblr.png */; };
 		D9076E5016CBF9D60010C641 /* BLELeashDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E4F16CBF9D60010C641 /* BLELeashDemoViewController.m */; };
 		D9076E5316CD497A0010C641 /* BLEDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E5216CD49790010C641 /* BLEDemoViewController.m */; };
 		D9076E5416CD497A0010C641 /* BLEDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9076E5216CD49790010C641 /* BLEDemoViewController.m */; };
+		D911143E16D033A7003CDFAA /* haraldgormsson.png in Resources */ = {isa = PBXBuildFile; fileRef = D911143D16D033A7003CDFAA /* haraldgormsson.png */; };
 		D914D3DE16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */; };
 		D914D3E116CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */; };
 		D914D3E216CEB0E000771B65 /* BLEGenericAccessDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */; };
@@ -110,11 +110,11 @@
 		D9076E4416C988120010C641 /* BLEHeartRateDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEHeartRateDemoViewController.m; sourceTree = "<group>"; };
 		D9076E4616CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceInformationDemoViewController.h; sourceTree = "<group>"; };
 		D9076E4716CB1C3C0010C641 /* BLEDeviceInformationDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDeviceInformationDemoViewController.m; sourceTree = "<group>"; };
-		D9076E4C16CB301B0010C641 /* tumblr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tumblr.png; sourceTree = "<group>"; };
 		D9076E4E16CBF9D60010C641 /* BLELeashDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLELeashDemoViewController.h; sourceTree = "<group>"; };
 		D9076E4F16CBF9D60010C641 /* BLELeashDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLELeashDemoViewController.m; sourceTree = "<group>"; };
 		D9076E5116CD49790010C641 /* BLEDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDemoViewController.h; sourceTree = "<group>"; };
 		D9076E5216CD49790010C641 /* BLEDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDemoViewController.m; sourceTree = "<group>"; };
+		D911143D16D033A7003CDFAA /* haraldgormsson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = haraldgormsson.png; path = ../haraldgormsson.png; sourceTree = "<group>"; };
 		D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEBluetoothWebServiceViewController.h; sourceTree = "<group>"; };
 		D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEBluetoothWebServiceViewController.m; sourceTree = "<group>"; };
 		D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEGenericAccessDemoViewController.h; sourceTree = "<group>"; };
@@ -216,7 +216,6 @@
 		D9207B3116B6D35B0023FFFA = {
 			isa = PBXGroup;
 			children = (
-				D9076E4C16CB301B0010C641 /* tumblr.png */,
 				D982747A16B7216C0005477F /* CoreBluetooth.framework */,
 				D9207B4616B6D35B0023FFFA /* BLE_Scanner */,
 				D9207B6D16B6D35B0023FFFA /* BLE_ScannerTests */,
@@ -279,6 +278,7 @@
 		D9207B4716B6D35B0023FFFA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D911143D16D033A7003CDFAA /* haraldgormsson.png */,
 				D9207B4F16B6D35B0023FFFA /* BLEAppDelegate.h */,
 				D9207B5016B6D35B0023FFFA /* BLEAppDelegate.m */,
 				D96868A316C58DFE00F79634 /* Images */,
@@ -445,7 +445,7 @@
 				D9076E4016C975C60010C641 /* heartbeat-7 (dragged).tiff in Resources */,
 				D9076E4116C975C60010C641 /* heartbeat-8 (dragged).tiff in Resources */,
 				D9076E4216C975C60010C641 /* heartbeat-9 (dragged).tiff in Resources */,
-				D9076E4D16CB301B0010C641 /* tumblr.png in Resources */,
+				D911143E16D033A7003CDFAA /* haraldgormsson.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
