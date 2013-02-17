@@ -9,6 +9,7 @@
 #import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
 #import "BLEServicesManagerViewController.h"
+#import "BLECentralManagerClientProtocol.h"
 
 
 @interface BLECentralManagerViewController ()
@@ -42,6 +43,8 @@
 
 // peripheral record which is being processed for services
 @property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
+
+@property (nonatomic, strong)NSMutableArray *notifyWhenPeripheralConnectStateChangesList;
 
 @end
 
@@ -109,6 +112,25 @@
 #pragma mark - Properties
 
 
+-(void)addSenderToNotifyConnectStateChangeList:(id)sender
+{
+    NSUInteger index = [self.notifyWhenPeripheralConnectStateChangesList indexOfObjectIdenticalTo:sender];
+    if (index == NSNotFound)
+    {
+        [self.notifyWhenPeripheralConnectStateChangesList addObject:sender];
+    }
+}
+
+-(NSMutableArray *)notifyWhenPeripheralConnectStateChangesList
+{
+    if (_notifyWhenPeripheralConnectStateChangesList == nil)
+    {
+        _notifyWhenPeripheralConnectStateChangesList = [NSMutableArray array];
+    }
+    
+    return _notifyWhenPeripheralConnectStateChangesList;
+}
+
 // Lazy instantiation of discovered peripheral list.
 -(NSMutableArray *)discoveredPeripherals
 {
@@ -125,6 +147,21 @@
 
 
 #pragma mark - Private Functions
+
+
+-(void)notifyClientsPeripheralConnectStatusChanged:(CBPeripheral *)peripheral
+{
+    DLog(@"Notifying CentralManager Clients of peripheral connect state change");
+    for (id client in self.notifyWhenPeripheralConnectStateChangesList)
+    {
+        if ([client conformsToProtocol: @protocol(BLECentralManagerClientProtocol)])
+        {
+            [client peripheralConnectStateChanged: peripheral];
+        }
+    }
+ 
+}
+
 
 /*
  *
@@ -296,7 +333,7 @@
     {
         if (! record.peripheral.isConnected)
         {
-            // remove from list and update buttons in discovered devices
+            // update buttons in discovered devices
             [self.discoveredDeviceListTVC toggleConnectionState:record.peripheral];
         }
     }
@@ -374,7 +411,7 @@
 }
 
 
-#pragma - Controller Lifecycle
+#pragma mark- Controller Lifecycle
 
 -(void)awakeFromNib
 {
@@ -410,7 +447,7 @@
 // Seque to either the embedded discovered services table view controller or to scan control table view controller
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    DLog(@"Preparing to segue from ScanControl");
+    DLog(@"Preparing to segue from CentralManager");
 
     if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
     {
@@ -429,6 +466,7 @@
             BLEServicesManagerViewController *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.displayServiceTarget;
+            destination.centralManagerDelegate = self;
         }
     }
 }
@@ -441,6 +479,8 @@
 {
     self.selectedPeripheral = peripheral;
     self.centralManagerStatus.text = @"Connecting to peripheral";
+    
+    [self addSenderToNotifyConnectStateChangeList:sender];
     [self connectToPeripheralDevice:peripheral];
 }
 
@@ -449,6 +489,7 @@
 -(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender
 {
     self.centralManagerStatus.text = @"Disconnecting peripheral";
+    [self addSenderToNotifyConnectStateChangeList:sender];
     [self disconnectPeripheralDevice:peripheral];
 
 }
@@ -533,6 +574,9 @@
     NSArray *toolbarItems = self.toolbarItems;
     [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
     
+    //notify any clients tacking peripheral connect status
+    [self notifyClientsPeripheralConnectStatusChanged:peripheral];
+    
 }
 
 //Invoked whenever an existing connection with the peripheral is torn down.
@@ -542,7 +586,8 @@
     {
         DLog(@"Peripheral succssfully disconnected.");
     
-        [self synchronizeConnectedPeripherals];            
+        [self synchronizeConnectedPeripherals];
+        [self notifyClientsPeripheralConnectStatusChanged:peripheral];
     }
     else 
     {
@@ -554,6 +599,7 @@
         [self synchronizeConnectedPeripherals];
         
     }
+     
 }
 
 

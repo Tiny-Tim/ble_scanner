@@ -53,6 +53,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bodySensorLocationLabel;
 
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *connectButton;
+
+- (IBAction)connectButtonHandler:(id)sender;
+
+
 @end
 
 @implementation BLEHeartRateDemoViewController
@@ -61,6 +67,26 @@
 @synthesize sensorContactStatusAvailable = _sensorContactStatusAvailable;
 @synthesize energyExpendedStatusAvailable = _energyExpendedStatusAvailable;
 @synthesize energyExpended = _energyExpended;
+
+
+#pragma mark- Actions
+
+#define CONNECT_STRING     @"Connect"
+#define DISCONNECT_STRING  @"Disconnect"
+
+- (IBAction)connectButtonHandler:( UIBarButtonItem *)sender
+{
+    if ([sender.title localizedCaseInsensitiveCompare:DISCONNECT_STRING] == NSOrderedSame)
+    {
+        [self.centralManagerDelegate disconnectPeripheral:self.heartRateService.peripheral sender:self];
+    }
+    else if ( [sender.title localizedCaseInsensitiveCompare:CONNECT_STRING] == NSOrderedSame)
+    {
+        [self.centralManagerDelegate connectPeripheral:self.heartRateService.peripheral sender:self];
+    }
+}
+
+
 
 #pragma mark- Properties
 
@@ -176,7 +202,41 @@
     
 }
 
+#pragma mark- BLECentralManagerClientProtocol Methods
 
+
+-(void)peripheralConnectStateChanged:(CBPeripheral *)peripheral
+{
+    DLog(@"Heart Rate Demo notified of peripheral state change");
+    CFUUIDRef uuid = peripheral.UUID;
+    NSString *uuid_string=nil;
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        uuid_string = CFBridgingRelease(s);
+    }
+    
+    NSString *hr_uuid_string;
+    if (uuid_string)
+    {
+        CFUUIDRef hrUUID = self.heartRateService.peripheral.UUID;
+        if (hrUUID)
+        {
+            CFStringRef s = CFUUIDCreateString(NULL, hrUUID );
+            hr_uuid_string = CFBridgingRelease(s);
+            
+            if (hr_uuid_string)
+            {
+                if ([hr_uuid_string localizedCaseInsensitiveCompare:uuid_string] == NSOrderedSame)
+                {
+                    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
+                }
+            }
+
+        }
+    }
+
+}
 
 #pragma mark- View Controller Lifecycle
 
@@ -300,6 +360,24 @@
 
 
 #pragma mark- Private Methods
+
+
+// Description:  Sets the connection status label to indicate peripheral connect status.
+-(void)displayPeripheralConnectStatus : (CBPeripheral *)peripheral
+{
+    [super displayPeripheralConnectStatus:peripheral];
+    
+    if ([peripheral isConnected])
+    {
+        self.connectButton.title= DISCONNECT_STRING;
+    }
+    else
+    {
+         self.connectButton.title= CONNECT_STRING;
+    }
+}
+
+
 
 /*
  *

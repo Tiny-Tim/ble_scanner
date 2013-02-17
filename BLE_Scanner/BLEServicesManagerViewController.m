@@ -152,13 +152,14 @@ static NSSet *_demoServices;
     }
     else if ([segue.identifier isEqualToString:@"ShowDemoList"])
     {
-        DLog(@"Segueing to Show Demo List");
+        DLog(@"Segueing to Demo Dispatcher");
         if ([segue.destinationViewController isKindOfClass:[BLEDemoDispatcherViewController  class]])
         {
             BLEDemoDispatcherViewController *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.deviceRecord;
             destination.demoServices = _demoServices;
+            destination.centralManagerDelegate = self.centralManagerDelegate;
         }
     }
     

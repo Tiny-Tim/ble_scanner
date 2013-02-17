@@ -1,5 +1,5 @@
 //
-//  BLECentralManager.h
+//  BLECentralManagerDelegate.h
 //  BLE_Scanner
 //
 //  Created by Chip Keyes on 2/4/13.

@@ -197,6 +197,7 @@
         {
             BLEHeartRateDemoViewController *destination = segue.destinationViewController;
             destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.centralManagerDelegate = self.centralManagerDelegate;
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowDeviceInformationDemo"])

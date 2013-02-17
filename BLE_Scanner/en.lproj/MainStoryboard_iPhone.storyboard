@@ -358,7 +358,7 @@
         <!--Demo Dispatcher View Controller - Demos-->
         <scene sceneID="2TL-5d-tZk">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="pos-5a-p1i" customClass="BLEDemoDispatcherViewController" sceneMemberID="viewController">
+                <viewController id="pos-5a-p1i" customClass="BLEDemoDispatcherViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iTY-ND-voJ">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -806,9 +806,9 @@
         <!--Heart Rate Demo View Controller - HeartRateDemoController-->
         <scene sceneID="A0F-gm-jMQ">
             <objects>
-                <viewController title="HeartRateDemoController" hidesBottomBarWhenPushed="YES" id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
+                <viewController title="HeartRateDemoController" id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96O-8s-huw">
@@ -818,16 +818,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xb5-7l-L5M">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="pfM-rK-wPg"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybk-RE-JGx">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="127" id="CRD-is-8xg"/>
+                                    <constraint firstAttribute="height" constant="18" id="umL-ox-eSC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -843,27 +840,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Energy Expended" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-se-oep">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="QvX-ml-gIf"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sensor Contact Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SND-SL-gTB">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="oHH-bv-0KQ"/>
-                                    <constraint firstAttribute="width" constant="255" id="qRy-8r-d5B"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Body Sensor Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFU-0a-ZnT">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Jf9-cq-NXx"/>
-                                    <constraint firstAttribute="width" constant="267" id="tz3-zx-OBA"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -871,31 +857,37 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="MFU-0a-ZnT" firstAttribute="top" secondItem="Bo8-jM-UT0" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="1Ua-TR-FJz"/>
                             <constraint firstItem="Emn-se-oep" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2nW-ZJ-sEB"/>
                             <constraint firstItem="96O-8s-huw" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="76" id="3gG-4b-n7q"/>
-                            <constraint firstItem="MFU-0a-ZnT" firstAttribute="trailing" secondItem="Emn-se-oep" secondAttribute="trailing" type="default" id="5UW-dq-sSH"/>
-                            <constraint firstAttribute="bottom" secondItem="SND-SL-gTB" secondAttribute="bottom" constant="175" id="8QY-20-w1n"/>
-                            <constraint firstAttribute="bottom" secondItem="Xb5-7l-L5M" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="CS2-PF-qbu"/>
-                            <constraint firstItem="9AO-5i-BsY" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="top" type="default" id="FfY-av-cia"/>
+                            <constraint firstAttribute="bottom" secondItem="Emn-se-oep" secondAttribute="bottom" constant="133" id="7Ba-xl-umg"/>
+                            <constraint firstAttribute="bottom" secondItem="Xb5-7l-L5M" secondAttribute="bottom" constant="31" id="A8l-EY-T0T"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="9AO-5i-BsY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="BRT-Fe-9w5"/>
                             <constraint firstItem="Xb5-7l-L5M" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="IlD-62-Njm"/>
-                            <constraint firstAttribute="bottom" secondItem="Emn-se-oep" secondAttribute="bottom" constant="133" id="OWD-0m-b9p"/>
                             <constraint firstItem="SND-SL-gTB" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Odv-ww-qaY"/>
-                            <constraint firstAttribute="bottom" secondItem="MFU-0a-ZnT" secondAttribute="bottom" constant="214" id="Qjy-Wo-5GA"/>
-                            <constraint firstAttribute="trailing" secondItem="Xb5-7l-L5M" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="XKM-eX-QB4"/>
+                            <constraint firstItem="9AO-5i-BsY" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="top" type="default" id="VLp-2w-COe"/>
                             <constraint firstItem="96O-8s-huw" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="48" id="axU-Mv-hZc"/>
                             <constraint firstItem="9AO-5i-BsY" firstAttribute="leading" secondItem="ybk-RE-JGx" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="h30-zj-14n"/>
                             <constraint firstItem="ybk-RE-JGx" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iwI-ki-EiM"/>
                             <constraint firstItem="Bo8-jM-UT0" firstAttribute="leading" secondItem="96O-8s-huw" secondAttribute="leading" type="default" id="mzN-vc-JXe"/>
-                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="oFm-8m-kfo"/>
                             <constraint firstItem="Bo8-jM-UT0" firstAttribute="top" secondItem="UWF-hf-d6V" secondAttribute="top" constant="204" id="otD-fB-bXL"/>
-                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="9AO-5i-BsY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="tFM-B0-V4A"/>
+                            <constraint firstAttribute="bottom" secondItem="SND-SL-gTB" secondAttribute="bottom" constant="171" id="uVI-fE-YRJ"/>
+                            <constraint firstItem="Xb5-7l-L5M" firstAttribute="top" secondItem="ybk-RE-JGx" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="yLn-lw-pjA"/>
                             <constraint firstItem="MFU-0a-ZnT" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="yqQ-Fw-XcB"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Disconnect" id="LPA-BU-MKn">
+                            <connections>
+                                <action selector="connectButtonHandler:" destination="S3t-pN-JkY" id="eGA-u5-jFd"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bodySensorLocationLabel" destination="MFU-0a-ZnT" id="6Sn-HV-YHV"/>
+                        <outlet property="connectButton" destination="LPA-BU-MKn" id="JP7-pP-tvb"/>
                         <outlet property="energyExpendedLabel" destination="Emn-se-oep" id="e0p-1O-Ywl"/>
                         <outlet property="heartBeatImage" destination="96O-8s-huw" id="2Yk-6c-O6j"/>
                         <outlet property="heartRateMeasureLabel" destination="Bo8-jM-UT0" id="Mqe-wg-rHd"/>

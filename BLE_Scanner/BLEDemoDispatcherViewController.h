@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
+#import "BLECentralManagerDelegate.h"
 
 @interface BLEDemoDispatcherViewController : UIViewController
 
@@ -20,4 +21,8 @@
 // Set of services for which demos exist
 // Currently defined in BLEServiceManagerViewController
 @property (nonatomic, copy)NSSet *demoServices;
+
+// reference to central manager used connect and disconnect peripheral
+@property (nonatomic, strong)id<BLECentralManagerDelegate>centralManagerDelegate;
+
 @end
