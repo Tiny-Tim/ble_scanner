@@ -28,14 +28,14 @@
 // CBCentral Manager 
 @property (strong, nonatomic) CBCentralManager *centralManager;
 
-// reference to embedded discovered device list table view controller
-@property (nonatomic, strong) BLEDiscoveredDevicesTVC *discoveredDeviceList;
+// reference to discovered device list table view controller - a child controller
+@property (nonatomic, strong) BLEDiscoveredDevicesTVC *discoveredDeviceListTVC;
 
 // flag indicating whether scanning is currently active
 @property (nonatomic) BOOL scanState;
 
-// list of connected peripherals
-@property (nonatomic, strong)NSMutableArray *connectedPeripherals;
+// list of discovered peripherals
+@property (nonatomic, strong)NSMutableArray *discoveredPeripherals;
 
 // selected connected peripheral to display
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
@@ -109,20 +109,77 @@
 #pragma mark - Properties
 
 
--(NSMutableArray *)connectedPeripherals
+// Lazy instantiation of discovered peripheral list.
+-(NSMutableArray *)discoveredPeripherals
 {
-    if (_connectedPeripherals == nil)
+    if (_discoveredPeripherals == nil)
     {
-        _connectedPeripherals = [NSMutableArray array];
+        // provide an empty array so that the table view code will not have to deal with nil source data
+        _discoveredPeripherals = [NSMutableArray array];
     }
     
-    return _connectedPeripherals;
+    return _discoveredPeripherals;
 }
 
 
 
 
 #pragma mark - Private Functions
+
+/*
+ *
+ * Method Name:  logDiscoveredDeviceInformation
+ *
+ * Description:  log discovered device information for debug support
+ *
+ * Parameter(s): peripheral - discovered device
+ *               advertisementData - advertisement data broadcasted by device
+ *               RSSI - received signal strength indicator
+ *
+ */
+-(void)logDiscoveredDeviceInformation:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
+{
+    DLog(@"A peripheral was discovered during scan.");
+    
+    // log the peripheral name
+    DLog(@"Peripheral Name:  %@",peripheral.name);
+    
+    // log the peripheral UUID
+    CFUUIDRef uuid = peripheral.UUID;
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        NSString *uuid_string = CFBridgingRelease(s);
+        DLog(@"Peripheral UUID: %@",uuid_string);
+    }
+    else
+    {
+        DLog(@"Discovered peripheral provided no UUID on initial discovery");
+    }
+    
+    // log the advertisement keys
+    DLog(@"Logging advertisement keys descriptions");
+    NSArray *keys = [advertisementData allKeys];
+    for (id key in keys)
+    {
+        if ([key isKindOfClass:[NSString class]])
+        {
+            id value = [advertisementData objectForKey:key];
+            
+            DLog(@"advertisement key:  %@  value:  %@",key, [value description]);
+        }
+    }
+    if (RSSI)
+    {
+        // log the rssi value
+        DLog(@"RSSI value: %i", [RSSI shortValue]);
+    }
+    else
+    {
+        DLog(@"Discovered peripheral data did not include RSSI");
+    }
+}
+
 
 // Converts CBCentralManagerState to a string... implement as a category on CBCentralManagerState?
 +(NSString *)getCBCentralStateName:(CBCentralManagerState) state
@@ -194,13 +251,11 @@
         {
             peripheral.delegate = self;
         }
-        
         self.centralManagerStatus.textColor = [UIColor greenColor];
         self.centralManagerStatus.text = @"Discovering peripheral services.";
         [self.centralManagerActivityIndicator startAnimating];
         // Discover all services
         [peripheral discoverServices:nil];
-        
     }
     else
     {
@@ -237,20 +292,87 @@
 // and update button labels to allow it to be re-connected
 -(void)synchronizeConnectedPeripherals
 {
-    NSArray *peripheralList = [self.connectedPeripherals copy];
-    for (CBPeripheral *peripheral in peripheralList)
+    for (BLEPeripheralRecord *record in self.discoveredPeripherals)
     {
-        if (! peripheral.isConnected)
+        if (! record.peripheral.isConnected)
         {
             // remove from list and update buttons in discovered devices
-            [self.connectedPeripherals removeObject:peripheral];
-            [self.discoveredDeviceList toggleConnectionState:peripheral];
+            [self.discoveredDeviceListTVC toggleConnectionState:record.peripheral];
         }
     }
-    
+        
     // update the table to reflect change of peripheral state
-    [self.discoveredDeviceList.tableView reloadData];
+    [self.discoveredDeviceListTVC.tableView reloadData];
 }
+
+
+/*
+ *
+ * Method Name:  updateDiscoveredPeripheralList
+ *
+ * Description:  Examines a newly discovered device to determine if it has previously been discovered. If not, then the new device is added to the device list and the table view is updated.
+ *  
+ *  If the devie is being rediscovered, then the entry int he list is replaced with the new record since it may contain additional advertising data in some active discovery modes.
+ *
+ * Parameter(s): newRecord - device record corresponding to newly discovered device
+ *
+ */
+-(void)updateDiscoveredPeripheralList:(BLEPeripheralRecord *)newRecord
+{
+    // determine if the list contain a corresponding entry based upon UUID
+    BOOL matchFound = NO;
+    
+    // stringify the UUID of the newly discovered device
+    CFUUIDRef newUUID = newRecord.peripheral.UUID;
+    NSString *newUUIDString = nil;
+    if (newUUID)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, newUUID);
+        newUUIDString = CFBridgingRelease(s);
+    }
+    
+    // If we have a UUID string to compare with then look at the list
+    if (newUUIDString)
+    {
+        NSUInteger index = 0;
+        // look for match in previously discovered devices
+        for (BLEPeripheralRecord *record in self.discoveredPeripherals)
+        {
+            CFUUIDRef uuid = record.peripheral.UUID;
+            if (uuid)
+            {
+                CFStringRef s = CFUUIDCreateString(NULL, uuid);
+                NSString *uuid_string = CFBridgingRelease(s);
+                
+                if ([uuid_string localizedCaseInsensitiveCompare:newUUIDString] == NSOrderedSame)
+                {
+                    matchFound = YES;
+                    [self.discoveredPeripherals replaceObjectAtIndex:index withObject:newRecord];
+                    self.discoveredDeviceListTVC.discoveredPeripherals = self.discoveredPeripherals;
+                    break;
+                    
+                }
+            }
+            
+            index+=1;
+        }
+        
+        if (! matchFound)
+        {
+            // add the new record
+            [self.discoveredPeripherals addObject:newRecord];
+            self.discoveredDeviceListTVC.discoveredPeripherals = self.discoveredPeripherals;
+        }
+    }
+    else
+    {
+        // a peripheral was discoveredwith no UUID - add it to the list (revisit)
+        // is this possible? Should we keep it?
+        [self.discoveredPeripherals addObject:newRecord];
+        self.discoveredDeviceListTVC.discoveredPeripherals = self.discoveredPeripherals;
+    }
+}
+
 
 #pragma - Controller Lifecycle
 
@@ -259,7 +381,6 @@
     [super awakeFromNib];
     
 }
-
 
 - (void)viewDidLoad
 {
@@ -296,8 +417,8 @@
         DLog(@"Segueing to Discovered Devices");
           if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
           {
-              self.discoveredDeviceList = segue.destinationViewController;
-              self.discoveredDeviceList.delegate = self;
+              self.discoveredDeviceListTVC = segue.destinationViewController;
+              self.discoveredDeviceListTVC.delegate = self;
           }
     }
     else if ([segue.identifier isEqualToString:@"ShowServices"])
@@ -308,8 +429,6 @@
             BLEServicesManagerViewController *destination = segue.destinationViewController;
             
             destination.deviceRecord = self.displayServiceTarget;
-           
-            
         }
     }
 }
@@ -359,7 +478,6 @@
 }
 
 
-
 #pragma mark - CBCentralManagerDelegate
 // CBCentralManager state changed
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -388,58 +506,14 @@
 // A peripheral was discovered during scan.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    DLog(@"A peripheral was discovered during scan.");
-    
-    // log the peripheral name
-    DLog(@"Peripheral Name:  %@",peripheral.name);
-    
-    // log the peripheral UUID
-    CFUUIDRef uuid = peripheral.UUID;
-    if (uuid)
-    {
-        CFStringRef s = CFUUIDCreateString(NULL, uuid);
-        NSString *uuid_string = CFBridgingRelease(s);
-         DLog(@"Peripheral UUID: %@",uuid_string);
-    }
-    else
-    {
-        DLog(@"Discovered peripheral provided no UUID on initial discovery");
-    }
+    [self logDiscoveredDeviceInformation:peripheral advertisementData:advertisementData RSSI:RSSI];
     
     
-    // create a UUID from the NSString
- //   CFUUIDRef uuidCopy = CFUUIDCreateFromString (NULL, CFBridgingRetain(uuid_string));
- //   BOOL areEqual = CFEqual(uuid, uuidCopy);
- //   DLog(@"Comparing 2 UUIDs result: %@", areEqual ? @"YES" : @"NO" ) ;
-        
-    // log the advertisement keys
-    DLog(@"Logging advertisement keys descriptions");
-    NSArray *keys = [advertisementData allKeys];
-    for (id key in keys)
-    {
-        if ([key isKindOfClass:[NSString class]])
-        {
-            id value = [advertisementData objectForKey:key];
-            
-            DLog(@"advertisement key:  %@  value:  %@",key, [value description]);
-        }
-    }
-    
-    if (RSSI)
-    {
-        // log the rssi value
-        DLog(@"RSSI value: %i", [RSSI shortValue]);
-    }
-    else
-    {
-        DLog(@"Discovered peripheral data did not include RSSI");
-    }
     
     BLEPeripheralRecord *discoveryRecord = [[BLEPeripheralRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     
-    // add the discovered peripheral to the list of discovered peripherals
-    [self.discoveredDeviceList deviceDiscovered:discoveryRecord];
-    
+    // if this device is unknown add it to the list, otherwise replace entry with updated information
+    [self updateDiscoveredPeripheralList:discoveryRecord];
     
 }
 
@@ -453,10 +527,8 @@
    
     DLog(@"Connected to peripheral");
     
-    [self.connectedPeripherals addObject:peripheral];
-   
-    // toggle connect button label in corresponding discovered devices table view row
-    [self.discoveredDeviceList toggleConnectionState:peripheral];
+    // toggle connect button label in corresponding discovered devices table view row in the BLEDiscoveredDevicesTVC
+    [self.discoveredDeviceListTVC toggleConnectionState:peripheral];
     
     NSArray *toolbarItems = self.toolbarItems;
     [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
@@ -469,28 +541,8 @@
     if (! error)
     {
         DLog(@"Peripheral succssfully disconnected.");
-        
-        // Normally, following a successful connection the periphral is just removed from the peripheral list and the connect button label is toggled. However, if the user manually cancels the connect attempt, the canceled peripheral will not be in the list and the toggleConnection state should not be called.
-        
-        // we can tell if the peripheral was removed by examining the array count before and after removal
-        
-        NSUInteger preRemovalCount = [self.connectedPeripherals count];
-        
-        DLog(@"Pre-removal connected count %d",preRemovalCount);
-        // remove peripheral from connected list
-        [self.connectedPeripherals removeObject:peripheral];
     
-        // display idle status for Central
-        self.centralManagerStatus.text = @"idle";
-        
-        DLog(@"Post-removal connected count %d",[self.connectedPeripherals count]);
-        
-        if (preRemovalCount > [self.connectedPeripherals count])
-        {
-           // toggle connect button label in corresponding discovered devices table view row
-           [self.discoveredDeviceList toggleConnectionState:peripheral];
-        }
-    
+        [self synchronizeConnectedPeripherals];            
     }
     else 
     {
@@ -502,7 +554,6 @@
         [self synchronizeConnectedPeripherals];
         
     }
-    
 }
 
 
@@ -528,8 +579,6 @@
 
 
 #pragma mark - CBPeripheralDelegate
-
-
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {

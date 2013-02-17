@@ -23,7 +23,7 @@
 
 
 // The model for this table view controller
-@property (nonatomic, strong)NSMutableArray *deviceRecords;
+//@property (nonatomic, strong)NSMutableArray *deviceRecords;
 
 // data structure conatining lables for rows in table
 @property (nonatomic, strong) NSMutableArray *sections;
@@ -37,18 +37,39 @@
 @implementation BLEDiscoveredDevicesTVC
 
 @synthesize sections = _sections;
-@synthesize deviceRecords = _deviceRecords;
+@synthesize discoveredPeripherals = _discoveredPeripherals;
 
 
--(NSMutableArray *)deviceRecords
+-(NSArray *)discoveredPeripherals
 {
-    if (_deviceRecords == nil)
+    if (_discoveredPeripherals == nil)
     {
-        _deviceRecords = [NSMutableArray array];
+        _discoveredPeripherals = [NSMutableArray array];
     }
     
-    return _deviceRecords;
+    return _discoveredPeripherals;
 }
+
+-(void)setDiscoveredPeripherals:(NSArray *)discoveredPeripherals
+{
+    _discoveredPeripherals = discoveredPeripherals;
+    if (_discoveredPeripherals)
+    {
+        
+        // set up the sections
+        for (BLEPeripheralRecord *record in discoveredPeripherals)
+        {
+            // this array will be added to section
+            NSMutableArray *deviceInfo;
+            //
+            deviceInfo = [self updateDeviceLabelsForDevice:record];
+            [[self.sections objectAtIndex:0] addObject:deviceInfo];
+        }
+        
+        [self.tableView reloadData];
+    }
+}
+
 
 // DiscoveredDevicesTVC model.
 // 
@@ -88,7 +109,7 @@
         indexPath = [self.tableView indexPathForCell:owningCell];
         DLog(@"Section index:  %i",indexPath.section);
         // get the device record
-        record = [self.deviceRecords objectAtIndex:indexPath.section];
+        record = [self.discoveredPeripherals objectAtIndex:indexPath.section];
     
     
         // retrieve the current title of the button
@@ -149,25 +170,6 @@
 }
 
 
-//Invoked when a BLE peripheral is discovered
--(void)deviceDiscovered: (BLEPeripheralRecord *)deviceRecord
-{
-       
-    // add the deviceRecord to the list of discovered devices
-    [self.deviceRecords addObject:deviceRecord];
-    
-    // this array will be added to section
-    NSMutableArray *deviceInfo; 
-    
-    deviceInfo = [self updateDeviceLabelsForDevice:deviceRecord];
-    
-    
-    // add peripheral item data to section array
-    [[self.sections objectAtIndex:0] addObject:deviceInfo];
-    
-    [self.tableView reloadData];
-    
-}
 
 -(void)awakeFromNib
 {
@@ -228,7 +230,7 @@
         return NO;
     };
     
-    NSIndexSet *indexes = [self.deviceRecords indexesOfObjectsPassingTest:test];
+    NSIndexSet *indexes = [self.discoveredPeripherals indexesOfObjectsPassingTest:test];
     
      //DLog(@"indexes: %@", indexes);
     
@@ -240,7 +242,7 @@
     {
         // the index represents the section number which corresponds to the peripheral
         NSMutableArray *data; 
-        BLEPeripheralRecord *record = [self.deviceRecords objectAtIndex:sectionIndex];
+        BLEPeripheralRecord *record = [self.discoveredPeripherals objectAtIndex:sectionIndex];
         
         // update device data information
         data = [self updateDeviceLabelsForDevice:record];
@@ -271,21 +273,30 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // one section per discovered device
-    return [self.deviceRecords count];
+    return [self.discoveredPeripherals count];
 }
 
 
 // Number rows in section equals the number of peripheral properties in the sections array being displayed + the number of advertisement items being displayed.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSUInteger numRowsSection;
+    
+    if ([self.discoveredPeripherals count] > 0)
+    {
     // access the array which had labels for each peripheral - corresponds to peripheral properties + ad label + button
     NSArray *deviceItems = [self.sections objectAtIndex:0];
 
     // access the device record for the section
-    BLEPeripheralRecord * record = [self.deviceRecords objectAtIndex:section];
+    BLEPeripheralRecord * record = [self.discoveredPeripherals objectAtIndex:section];
     
     // ADVERTISEMENT_ROW = number of peripheral properties + number of advertisement items
-    NSUInteger numRowsSection = [[deviceItems objectAtIndex:section]count]+ [record.advertisementItems count] ;
+    numRowsSection = [[deviceItems objectAtIndex:section]count]+ [record.advertisementItems count] ;
+    }
+    else
+    {
+        numRowsSection = 0;
+    }
     
     //DLog(@"Setting row count in discovered device table %d",numRowsSection);
     return numRowsSection;
@@ -303,7 +314,7 @@
     // get the labels which correspond to the peripheral    
     NSArray *labelData = [[self.sections objectAtIndex:0] objectAtIndex:indexPath.section];
     // access the device record for the section
-    BLEPeripheralRecord * record = [self.deviceRecords objectAtIndex:indexPath.section];
+    BLEPeripheralRecord * record = [self.discoveredPeripherals objectAtIndex:indexPath.section];
 
     NSUInteger buttonRow = [labelData count] + [record.advertisementItems count] - 1;
     if (indexPath.row == [labelData count]-2)
@@ -432,7 +443,7 @@
     NSArray *deviceLabels = [deviceItems objectAtIndex:indexPath.section];
     
     NSUInteger deviceLabelCount = [deviceLabels count];
-    BLEPeripheralRecord * record= [self.deviceRecords objectAtIndex:indexPath.section];
+    BLEPeripheralRecord * record= [self.discoveredPeripherals objectAtIndex:indexPath.section];
    
     
     if (indexPath.row < (deviceLabelCount - 2))
