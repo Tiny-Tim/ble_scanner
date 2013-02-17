@@ -161,7 +161,6 @@
 -(void) connectToPeripheralDevice : (CBPeripheral *)peripheral
 {
    
-    
     // Implement checks before connecting, i.e. already connected
     if (peripheral && ! [peripheral isConnected])
     {
@@ -271,7 +270,13 @@
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
     _scanState = NO;  // not scanning
-    
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    DLog(@"Entering viewWillAppear Central Manager View Controller");
 }
 
 - (void)didReceiveMemoryWarning
@@ -318,8 +323,6 @@
     self.selectedPeripheral = peripheral;
     self.centralManagerStatus.text = @"Connecting to peripheral";
     [self connectToPeripheralDevice:peripheral];
-    
-   
 }
 
 
