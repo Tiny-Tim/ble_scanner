@@ -8,7 +8,7 @@
 
 #import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
-#import "BLEServicesManagerViewController.h"
+
 #import "BLECentralManagerClientProtocol.h"
 
 
@@ -42,7 +42,7 @@
 @property (nonatomic, strong)CBPeripheral *selectedPeripheral;
 
 // peripheral record which is being processed for services
-@property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
+//@property (nonatomic, strong)BLEPeripheralRecord *displayServiceTarget;
 
 @property (nonatomic, strong)NSMutableArray *notifyWhenPeripheralConnectStateChangesList;
 
@@ -349,7 +349,7 @@
  *
  * Description:  Examines a newly discovered device to determine if it has previously been discovered. If not, then the new device is added to the device list and the table view is updated.
  *  
- *  If the devie is being rediscovered, then the entry int he list is replaced with the new record since it may contain additional advertising data in some active discovery modes.
+ *  If the device is being rediscovered, then the entry int he list is replaced with the new record since it may contain additional advertising data in some active discovery modes.
  *
  * Parameter(s): newRecord - device record corresponding to newly discovered device
  *
@@ -427,7 +427,19 @@
     // Initialize central manager providing self as its delegate
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
-    _scanState = NO;  // not scanning
+    // initial scan state 
+    _scanState = NO;  
+    
+    
+    //iPad specific initializations
+    if (self.splitViewController)
+    {
+        // Get a handle to the detail view controller
+        UINavigationController* detailRoot = [[self.splitViewController viewControllers] lastObject];
+        self.discoveredDeviceListTVC = (BLEDiscoveredDevicesTVC *)detailRoot.topViewController;
+        
+        self.discoveredDeviceListTVC.delegate = self;
+    }
 }
 
 
@@ -458,17 +470,17 @@
               self.discoveredDeviceListTVC.delegate = self;
           }
     }
-    else if ([segue.identifier isEqualToString:@"ShowServices"])
-    {
-        DLog(@"Segueing to Show Services");
-        if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
-        {
-            BLEServicesManagerViewController *destination = segue.destinationViewController;
-            
-            destination.deviceRecord = self.displayServiceTarget;
-            destination.centralManagerDelegate = self;
-        }
-    }
+//    else if ([segue.identifier isEqualToString:@"ShowServices"])
+//    {
+//        DLog(@"Segueing to Show Services");
+//        if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
+//        {
+//            BLEServicesManagerViewController *destination = segue.destinationViewController;
+//            
+//            destination.deviceRecord = self.displayServiceTarget;
+//            destination.centralManagerDelegate = self;
+//        }
+//    }
 }
 
 
@@ -495,29 +507,29 @@
 }
 
 // Display services for peripheral information and segue to services table view controller
--(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
-{
-    DLog(@"getServicesForPeripheral invoked on BLECentralManagerDelegate ");
-   
-    // Processing can only get here if the device is connected or if the device is disconnected and services have been cached. Display the cached service list if it exists in all cases. If no cache services exist and device is connected then retrieve services from peripheral.
-    
-    // save selected device for use in prepare for segue 
-    self.displayServiceTarget = deviceRecord;
-    
-    // cached services are saved in the CBPeripheral object
-    // checking for cached services is postponed until here so that segueing can occur from this view controller
-    if (deviceRecord.peripheral.services)
-    {
-        // segue to service list view controller
-        [self performSegueWithIdentifier:@"ShowServices" sender:self];
-    }
-    else
-    {
-        // get the services from the peripheral which will be returned via the peripheral delegate
-        [self discoverPeripheralServices:deviceRecord.peripheral];
-    }
-}
-
+//-(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
+//{
+//    DLog(@"getServicesForPeripheral invoked on BLECentralManagerDelegate ");
+//   
+//    // Processing can only get here if the device is connected or if the device is disconnected and services have been cached. Display the cached service list if it exists in all cases. If no cache services exist and device is connected then retrieve services from peripheral.
+//    
+//    // save selected device for use in prepare for segue 
+//    self.displayServiceTarget = deviceRecord;
+//    
+//    // cached services are saved in the CBPeripheral object
+//    // checking for cached services is postponed until here so that segueing can occur from this view controller
+//    if (deviceRecord.peripheral.services)
+//    {
+//        // segue to service list view controller
+//        [self performSegueWithIdentifier:@"ShowServices" sender:self];
+//    }
+//    else
+//    {
+//        // get the services from the peripheral which will be returned via the peripheral delegate
+//        [self discoverPeripheralServices:deviceRecord.peripheral];
+//    }
+//}
+//
 
 #pragma mark - CBCentralManagerDelegate
 // CBCentralManager state changed

@@ -28,9 +28,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-  //  NSURL * webPage = [NSURL URLWithString:@"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx"];
-    
-    NSURL * webPage = [NSURL URLWithString:@"https://developer.bluetooth.org"];
+    NSURL * webPage = [NSURL URLWithString:@"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx"];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:webPage];
     

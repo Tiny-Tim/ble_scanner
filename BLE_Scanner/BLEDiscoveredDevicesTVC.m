@@ -9,6 +9,7 @@
 #import "BLEDiscoveredDevicesTVC.h"
 #import "BLEConnectButtonCell.h"
 #import "BLEDetailCellData.h"
+#import "BLEServicesManagerViewController.h"
 
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
@@ -39,6 +40,9 @@
 @synthesize sections = _sections;
 @synthesize discoveredPeripherals = _discoveredPeripherals;
 
+
+
+#pragma mark- Properties
 
 -(NSArray *)discoveredPeripherals
 {
@@ -90,6 +94,8 @@
     return _sections;
 }
 
+
+#pragma mark- Actions
 - (IBAction)connectButton:(UIButton*)sender
 {
     UITableViewCell *owningCell;
@@ -135,6 +141,8 @@
 }
 
 
+#pragma mark- Private Methods
+
 // Update the information presented to the user as the peripheral becomes connected or changes state
 -(NSMutableArray *)updateDeviceLabelsForDevice:(BLEPeripheralRecord *)deviceRecord
 {
@@ -170,6 +178,40 @@
 }
 
 
+-(BLEPeripheralRecord *)findDeviceRecord:(CBPeripheral *)peripheral
+{
+    BLEPeripheralRecord *returnRecord = nil;
+    
+    // stringify the peripheral UUID
+    CFUUIDRef uuid = peripheral.UUID;
+    NSString *targetString;
+    if (uuid)
+    {
+        CFStringRef s = CFUUIDCreateString(NULL, uuid);
+        targetString = CFBridgingRelease(s);
+        
+        for (BLEPeripheralRecord *record in self.discoveredPeripherals)
+        {
+            CFUUIDRef uuidPeripheral = record.peripheral.UUID;
+            if (uuidPeripheral)
+            {
+                CFStringRef s = CFUUIDCreateString(NULL, uuid);
+                NSString *peripheralString = CFBridgingRelease(s);
+                
+                if ( [peripheralString localizedCaseInsensitiveCompare:targetString] == NSOrderedSame)
+                {
+                    returnRecord = record;
+                    break;
+                }
+            }
+        }
+        
+    }
+    
+    return returnRecord;
+}
+
+#pragma mark- View Controller Lifecycle
 
 -(void)awakeFromNib
 {
@@ -199,7 +241,25 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    DLog(@"Preparing to segue from CentralManager");
     
+    if ([segue.identifier isEqualToString:@"ShowServices"])
+    {
+        DLog(@"Segueing to Show Services");
+        if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
+        {
+            BLEServicesManagerViewController *destination = segue.destinationViewController;
+            
+            // find the device record containing the peripheral in sender argument
+            if ([sender isKindOfClass:[CBPeripheral class]])
+            {
+                CBPeripheral *peripheral = (CBPeripheral *)sender;
+                destination.deviceRecord = [self findDeviceRecord:peripheral];
+                destination.centralManagerDelegate = self.delegate;
+            }
+        }
+    }
+
 }
 
 
@@ -209,6 +269,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark- Public Methods
 
 //Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
 -(void)toggleConnectionState : (CBPeripheral *)peripheral;
@@ -453,7 +515,9 @@
         if ( [itemLabel localizedCompare:SERVICES_LABEL] == NSOrderedSame)
         {
             //match for Services row as expected dispatch handler
-            [self.delegate getServicesForPeripheral:record sender:self];
+          //  [self.delegate getServicesForPeripheral:record sender:self];
+            record.peripheral.delegate = self;
+            [record.peripheral discoverServices:nil];
         }
         else
         {
@@ -466,5 +530,43 @@
     }
    
 }
+
+
+#pragma mark - CBPeripheralDelegate
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    DLog(@"didDiscoverDescriptorsForCharacteristic invoked");
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
+{
+    DLog(@"didDiscoverIncludedServicesForService invoked");
+}
+
+
+// Invoked upon completion of a -[discoverServices:] request.
+//
+//If successful, "error" is nil and discovered services, if any, have been merged into the "services" property of the peripheral. If unsuccessful, "error" is set with the encountered failure.
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
+{
+    DLog(@"didDiscoverServices invoked");
+    
+ //   [self.centralManagerActivityIndicator stopAnimating];
+ //   self.centralManagerStatus.textColor = [UIColor blackColor];
+ //   self.centralManagerStatus.text = @"Idle";
+    
+    if (error == nil)
+    {
+        // segue to BLEPeripheralServicesTVC - set sender as peripheral which can then be found in the list of devices
+        [self performSegueWithIdentifier:@"ShowServices" sender:peripheral];
+    }
+    else
+    {
+        DLog(@"Error in didDiscoverServices: %@",error.description);
+    }
+}
+
 
 @end

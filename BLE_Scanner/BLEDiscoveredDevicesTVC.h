@@ -13,7 +13,7 @@
 
 
 
-@interface BLEDiscoveredDevicesTVC : UITableViewController
+@interface BLEDiscoveredDevicesTVC : UITableViewController <CBPeripheralDelegate>
 
 
 //Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
