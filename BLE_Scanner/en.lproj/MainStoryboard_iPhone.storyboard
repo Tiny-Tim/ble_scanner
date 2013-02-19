@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="2" customClass="BLECentralManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Host Bluetooth Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-GX-pvb">
@@ -108,7 +108,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kvT-N7-50Z">
-                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -123,8 +123,8 @@
         <scene sceneID="J1i-ev-rrb">
             <objects>
                 <viewController id="1vR-VU-Qfb" customClass="BLEDiscoveredDevicesTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="289"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ctn-re-IDy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="201"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -221,7 +221,7 @@
             <objects>
                 <viewController id="cTJ-3q-b4B" customClass="BLEBluetoothWebServiceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KFb-8j-fSN">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-km-OcN">
@@ -249,7 +249,7 @@
             <objects>
                 <tableViewController id="Eji-9F-GQZ" customClass="BLEPeripheralCharacteristicsTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Zm-4c-1Ft">
-                        <rect key="frame" x="0.0" y="64" width="320" height="181"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -291,18 +291,18 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" id="pos-5a-p1i" customClass="BLEDemoDispatcherViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="iTY-ND-voJ">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Bluetooth 4.0 Registered Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGY-HX-Bzh">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="294" id="aTc-K2-Uod"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Non Registered Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMN-by-8ob">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="294" id="mUh-oh-LPB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -341,7 +341,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywr-0c-pGM">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="237" id="QXo-mC-UM8"/>
+                                    <constraint firstAttribute="width" constant="237" id="NOI-3O-Ogj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="180F - Battery Service">
@@ -359,9 +359,6 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mlv-qo-Vqh">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="237" id="cZM-5X-aFM"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="180D - Heart Rate Service">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -394,6 +391,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzl-6N-HBO">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="237" id="pS1-Wn-ASi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="FFA0 - TI Keyfob Accelerometer">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -428,36 +428,35 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="pdI-BK-LVj" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="0Lr-rx-gDR"/>
                             <constraint firstItem="nGY-HX-Bzh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="15" id="0fP-o2-Om0"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="222" id="24K-hc-eeB"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="2Qa-u0-Ivl"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="top" secondItem="Ywr-0c-pGM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="44v-HI-JWF"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="trailing" secondItem="Mlv-qo-Vqh" secondAttribute="trailing" type="default" id="4Pl-9r-mCz"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="leading" secondItem="nGY-HX-Bzh" secondAttribute="leading" type="default" id="6Cf-MM-6dQ"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Laa-GP-GcU" secondAttribute="trailing" type="default" id="6Lb-RM-Tw3"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="centerX" secondItem="lMN-by-8ob" secondAttribute="centerX" type="default" id="8W6-Hr-lkF"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="top" secondItem="Laa-GP-GcU" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AUQ-2w-TI3"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Laa-GP-GcU" secondAttribute="leading" type="default" id="BmY-Pf-pYj"/>
-                            <constraint firstItem="tzl-6N-HBO" firstAttribute="top" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="EnJ-N1-uzy"/>
-                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="top" secondItem="lMN-by-8ob" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ew7-jv-l3Z"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="CyZ-Pf-pVK" secondAttribute="leading" type="default" id="FT5-1s-CIE"/>
-                            <constraint firstItem="tzl-6N-HBO" firstAttribute="leading" secondItem="pdI-BK-LVj" secondAttribute="leading" type="default" id="PYc-Up-JZR"/>
-                            <constraint firstItem="Laa-GP-GcU" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="119" id="TFf-e9-mpy"/>
-                            <constraint firstItem="ENC-RB-f4z" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="59" id="TyT-5L-O1H"/>
-                            <constraint firstItem="ENC-RB-f4z" firstAttribute="trailing" secondItem="Laa-GP-GcU" secondAttribute="trailing" type="default" id="YCE-zc-NRW"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="trailing" secondItem="tzl-6N-HBO" secondAttribute="trailing" type="default" id="bPp-fT-4t6"/>
-                            <constraint firstItem="lMN-by-8ob" firstAttribute="trailing" secondItem="nGY-HX-Bzh" secondAttribute="trailing" type="default" id="bXR-ue-lGy"/>
-                            <constraint firstItem="nGY-HX-Bzh" firstAttribute="leading" secondItem="iTY-ND-voJ" secondAttribute="leading" constant="11" id="dF5-S3-lrM"/>
-                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="centerX" secondItem="iTY-ND-voJ" secondAttribute="centerX" type="default" id="j56-8A-4kp"/>
-                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="baseline" secondItem="lMN-by-8ob" secondAttribute="baseline" type="default" id="tSZ-Qm-cxk"/>
-                            <constraint firstItem="ENC-RB-f4z" firstAttribute="leading" secondItem="Laa-GP-GcU" secondAttribute="leading" type="default" id="uBZ-xh-gX6"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="leading" secondItem="Laa-GP-GcU" secondAttribute="leading" type="default" id="0rI-iL-9oF"/>
+                            <constraint firstItem="tzl-6N-HBO" firstAttribute="centerX" secondItem="lMN-by-8ob" secondAttribute="centerX" type="default" id="2Zo-09-88S"/>
+                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="trailing" secondItem="Ywr-0c-pGM" secondAttribute="trailing" type="default" id="2oI-wg-89h"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="trailing" secondItem="Mlv-qo-Vqh" secondAttribute="trailing" type="default" id="3Po-ea-yqk"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="103" id="8eR-Gp-HTX"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="161" id="G1G-qc-3ay"/>
+                            <constraint firstItem="tzl-6N-HBO" firstAttribute="leading" secondItem="iTY-ND-voJ" secondAttribute="leading" constant="40" id="HUq-RL-qwo"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="top" secondItem="iTY-ND-voJ" secondAttribute="top" constant="227" id="IhH-80-4wv"/>
+                            <constraint firstItem="lMN-by-8ob" firstAttribute="leading" secondItem="nGY-HX-Bzh" secondAttribute="leading" type="default" id="LRU-kI-rCI"/>
+                            <constraint firstItem="lMN-by-8ob" firstAttribute="trailing" secondItem="nGY-HX-Bzh" secondAttribute="trailing" type="default" id="ODT-BR-cVS"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="trailing" secondItem="ENC-RB-f4z" secondAttribute="trailing" type="default" id="TEV-vY-GaV"/>
+                            <constraint firstItem="Mlv-qo-Vqh" firstAttribute="trailing" secondItem="Laa-GP-GcU" secondAttribute="trailing" type="default" id="Y62-uv-w9t"/>
+                            <constraint firstAttribute="bottom" secondItem="pdI-BK-LVj" secondAttribute="bottom" constant="27" id="ate-Qu-Xv3"/>
+                            <constraint firstAttribute="bottom" secondItem="tzl-6N-HBO" secondAttribute="bottom" constant="88" id="f4V-3u-FLJ"/>
+                            <constraint firstAttribute="bottom" secondItem="CyZ-Pf-pVK" secondAttribute="bottom" constant="153" id="gmg-Yp-EzG"/>
+                            <constraint firstAttribute="bottom" secondItem="lMN-by-8ob" secondAttribute="bottom" constant="215" id="h9I-jC-xxc"/>
+                            <constraint firstItem="Laa-GP-GcU" firstAttribute="leading" secondItem="ENC-RB-f4z" secondAttribute="leading" type="default" id="hxJ-3h-NB4"/>
+                            <constraint firstItem="pdI-BK-LVj" firstAttribute="leading" secondItem="tzl-6N-HBO" secondAttribute="leading" type="default" id="iwv-rW-zp5"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="centerX" secondItem="iTY-ND-voJ" secondAttribute="centerX" type="default" id="kaD-oK-YLD"/>
+                            <constraint firstItem="ENC-RB-f4z" firstAttribute="top" secondItem="nGY-HX-Bzh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="pty-PB-73w"/>
+                            <constraint firstItem="Ywr-0c-pGM" firstAttribute="leading" secondItem="Mlv-qo-Vqh" secondAttribute="leading" type="default" id="qDU-94-YeP"/>
+                            <constraint firstItem="CyZ-Pf-pVK" firstAttribute="leading" secondItem="Ywr-0c-pGM" secondAttribute="leading" type="default" id="r2U-L8-oDV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Demos" id="zcK-0c-N9f"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="leashButton" destination="CyZ-Pf-pVK" id="RsX-lO-VvP"/>
                         <outletCollection property="buttonCollection" destination="ENC-RB-f4z" id="Uup-Er-jaT"/>
@@ -484,7 +483,7 @@
             <objects>
                 <viewController id="7ZS-ve-R0r" customClass="BLEGenericAccessDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JJ9-jp-PC5">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUl-Jv-H8A">
@@ -543,7 +542,7 @@
             <objects>
                 <viewController id="f5s-E8-QVe" customClass="BLELeashDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RyI-ko-QWm">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Transmit Power" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zY1-sR-1eV">
@@ -620,7 +619,7 @@
             <objects>
                 <viewController id="6uk-ct-buK" customClass="BLEDeviceInformationDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ED-bX-YLv">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSq-S9-f78">
@@ -740,7 +739,7 @@
             <objects>
                 <viewController title="HeartRateDemoController" id="S3t-pN-JkY" customClass="BLEHeartRateDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UWF-hf-d6V">
-                        <rect key="frame" x="0.0" y="44" width="320" height="392"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96O-8s-huw">
@@ -837,7 +836,7 @@
             <objects>
                 <viewController id="3N1-Tq-W9m" customClass="BLEAccelerometerDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="redraw" id="Mam-Yb-6cd" customClass="BLEGraphView">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -855,7 +854,7 @@
             <objects>
                 <viewController id="diW-He-e5H" customClass="BLEKeyPressDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kLo-Rv-EKJ">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="whiteLed.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZUL-91-RxJ">
@@ -935,7 +934,7 @@
             <objects>
                 <viewController id="M4N-3b-Y3k" customClass="BLEBatteryServiceDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZKC-Gy-QLI">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" progress="0.10000000000000003" translatesAutoresizingMaskIntoConstraints="NO" id="kh7-7R-2af">
@@ -1019,8 +1018,8 @@
         <scene sceneID="jod-T4-0qs">
             <objects>
                 <viewController title="Services" id="YiV-LO-Kqt" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bZh-B9-Ep8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="181"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bZh-B9-Ep8">
+                        <rect key="frame" x="0.0" y="64" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1088,6 +1087,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

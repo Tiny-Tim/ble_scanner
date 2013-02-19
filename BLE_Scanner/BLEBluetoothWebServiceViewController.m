@@ -8,8 +8,9 @@
 
 #import "BLEBluetoothWebServiceViewController.h"
 
-@interface BLEBluetoothWebServiceViewController ()
+@interface BLEBluetoothWebServiceViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -28,11 +29,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSURL * webPage = [NSURL URLWithString:@"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx"];
     
+    self.webView.delegate = self;
+    
+    NSURL * webPage = [NSURL URLWithString:@"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx?SortField=AssignedNumber&SortDir=Asc"];
+    [self.activityIndicator startAnimating];
     NSURLRequest *request = [NSURLRequest requestWithURL:webPage];
     
     [self.webView loadRequest:request];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.webView.delegate = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,4 +51,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark- UIWebViewDelegate Protocol
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    DLog(@"Web page loaded");
+    [self.activityIndicator stopAnimating];
+}
 @end
