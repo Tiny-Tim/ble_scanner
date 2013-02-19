@@ -14,8 +14,4 @@
 -(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 -(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
 
-//-(void)getServicesForPeripheral: (BLEPeripheralRecord *)deviceRecord sender:(id)sender;
-
-
-
 @end

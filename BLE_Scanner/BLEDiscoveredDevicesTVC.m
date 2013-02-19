@@ -9,7 +9,7 @@
 #import "BLEDiscoveredDevicesTVC.h"
 #import "BLEConnectButtonCell.h"
 #import "BLEDetailCellData.h"
-#import "BLEServicesManagerViewController.h"
+#import "BLEPeripheralServicesTVC.h"
 
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
@@ -241,14 +241,14 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    DLog(@"Preparing to segue from CentralManager");
+    DLog(@"Preparing to segue from DiscoverdDevices");
     
     if ([segue.identifier isEqualToString:@"ShowServices"])
     {
         DLog(@"Segueing to Show Services");
-        if ([segue.destinationViewController isKindOfClass:[BLEServicesManagerViewController class]])
+        if ([segue.destinationViewController isKindOfClass:[BLEPeripheralServicesTVC class]])
         {
-            BLEServicesManagerViewController *destination = segue.destinationViewController;
+           BLEPeripheralServicesTVC *destination = segue.destinationViewController;
             
             // find the device record containing the peripheral in sender argument
             if ([sender isKindOfClass:[CBPeripheral class]])

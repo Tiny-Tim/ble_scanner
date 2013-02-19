@@ -10,13 +10,17 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
 
-#import "BLEServicesManagerViewController.h"
+#import "BLECentralManagerDelegate.h"
 
 
-@interface BLEPeripheralServicesTVC : UITableViewController 
+@interface BLEPeripheralServicesTVC : UITableViewController <CBPeripheralDelegate>
 
 // Model for the view controller
 @property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
 
-@property (nonatomic, weak)id<BLEServicesManagerDelegate>delegate;
+// reference to central manager used connect and disconnect peripheral
+@property (nonatomic, strong)id<BLECentralManagerDelegate>centralManagerDelegate;
+
+
+//@property (nonatomic, weak)id<BLEServicesManagerDelegate>delegate;
 @end

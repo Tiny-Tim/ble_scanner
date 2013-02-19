@@ -1,5 +1,5 @@
 //
-//  BLEDiscoveryRecord.m
+//  BLEPeripheralRecord.m
 //  BLE_Scanner
 //
 //  Created by Chip Keyes on 1/29/13.
