@@ -147,7 +147,15 @@
 
 #pragma mark - Private Functions
 
-
+/*
+ *
+ * Method Name:  notifyClientsPeripheralConnectStatusChanged
+ *
+ * Description:  View controllers down the chain may request that a peripheral be disconnected which only the Central Manager can accomplish. This method sends a message to the requestor, providing the requestor implements the BLECentralManagerClientProtocol, informing the requestor that the peripheral state has changed.
+ *
+ * Parameter(s): peripheral - the peripheral who state has changed
+ *
+ */
 -(void)notifyClientsPeripheralConnectStatusChanged:(CBPeripheral *)peripheral
 {
     DLog(@"Notifying CentralManager Clients of peripheral connect state change");
@@ -279,9 +287,6 @@
 
 
 
-
-
-
 // Disconnect a peripheral from Central after ensuring peripheal is in connected state
 -(void) disconnectPeripheralDevice:(CBPeripheral *)peripheral
 {
@@ -301,24 +306,6 @@
     }
 }
 
-
-// synchronize connected peripherals with button states
-// if a connected peripheral is disconnected by the system, remove it from the list
-// and update button labels to allow it to be re-connected
--(void)synchronizeConnectedPeripherals
-{
-    for (BLEPeripheralRecord *record in self.discoveredPeripherals)
-    {
-        if (! record.peripheral.isConnected)
-        {
-            // update buttons in discovered devices
-            [self.discoveredDeviceListTVC toggleConnectionState:record.peripheral];
-        }
-    }
-        
-    // update the table to reflect change of peripheral state
-    [self.discoveredDeviceListTVC.tableView reloadData];
-}
 
 
 /*
@@ -544,7 +531,7 @@
         self.centralManagerStatus.textColor = [UIColor blackColor];
         self.centralManagerStatus.text = @"Idle";
     
-        [self synchronizeConnectedPeripherals];
+        [self.discoveredDeviceListTVC synchronizeConnectionStates];
         [self notifyClientsPeripheralConnectStatusChanged:peripheral];
     }
     else 
@@ -554,7 +541,7 @@
         // This could occur for several reasons, a connection may have ben dropped by the system without the user initiating a disconnect, or a disconnect request could fail.
         
         // The course of action is to synch the state of the connected peripherals in the connected peripheral list and their corresponding connect/disconnect buttons in the discovered peripheral list.
-        [self synchronizeConnectedPeripherals];
+        [self.discoveredDeviceListTVC synchronizeConnectionStates];
         
     }
      
@@ -601,8 +588,6 @@
         [self performSegueWithIdentifier:@"ShowServices" sender:self];
     }
 }
-
-
 
 
 

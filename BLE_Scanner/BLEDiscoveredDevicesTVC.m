@@ -27,9 +27,8 @@
 // The model for this table view controller
 //@property (nonatomic, strong)NSMutableArray *deviceRecords;
 
-// data structure conatining lables for rows in table
+// data structure containing labels for rows in table
 @property (nonatomic, strong) NSMutableArray *sections;
-
 
 
 - (IBAction)connectButton:(UIButton *)sender;
@@ -276,6 +275,64 @@
 
 #pragma mark- Public Methods
 
+/*
+ *
+ * Method Name:  synchronizeConnectionStates
+ *
+ * Description:  The button title should aways be the opposite of the conection state of the peripheral. For example, if the peripheral is connected the button title should display Disconnect which allows the user to initiate disconnecting the peripheral.  
+ *
+ * Parameter(s): <#parameters#>
+ *
+ */
+-(void)synchronizeConnectionStates
+{
+    NSString *currentTitle;
+    BOOL tableNeedsUpdating = NO;
+    
+    for (BLEPeripheralRecord *record in self.discoveredPeripherals)
+    {
+        // get the current title from the custom cell dictionary
+        currentTitle = [BLEConnectButtonCell getButtonTitle:record.dictionaryKey];
+        
+        if (record.peripheral == nil)
+        {
+            // the peripheral has become disconnected
+            
+            if ( [currentTitle localizedCompare:@"Connect"] != NSOrderedSame)
+            {
+                // set the button title to Connect
+                [BLEConnectButtonCell setButtonTitle:(@"Connect") AtKey:record.dictionaryKey];
+                tableNeedsUpdating = YES;
+            }
+        }
+        else if ([record.peripheral isConnected])
+        {
+            if ( [currentTitle localizedCompare:@"Disconnect"] != NSOrderedSame)
+            {
+                [BLEConnectButtonCell setButtonTitle:(@"Disconnect") AtKey:record.dictionaryKey];
+                tableNeedsUpdating = YES;
+            }
+
+        }
+        else if (! [record.peripheral isConnected])
+        {
+            if ( [currentTitle localizedCompare:@"Connect"] != NSOrderedSame)
+            {
+                // set the button title to Connect
+                [BLEConnectButtonCell setButtonTitle:(@"Connect") AtKey:record.dictionaryKey];
+                tableNeedsUpdating = YES;
+            }
+        }
+    }
+    
+    if (tableNeedsUpdating)
+    {
+        [self.tableView reloadData];
+    }
+}
+
+
+
 //Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
 -(void)toggleConnectionState : (CBPeripheral *)peripheral;
 {
@@ -317,12 +374,14 @@
         // get the current title from the custom cell dictionary
         currentTitle = [BLEConnectButtonCell getButtonTitle:record.dictionaryKey];
         
-        if ( [currentTitle localizedCompare:@"Connect"] == NSOrderedSame)
+        if ( ([currentTitle localizedCompare:@"Connect"] == NSOrderedSame) &&
+            ([record.peripheral isConnected]) )
         {
             [BLEConnectButtonCell setButtonTitle:(@"Disconnect") AtKey:record.dictionaryKey];
             
         }
-        else
+        else  if ( ([currentTitle localizedCompare:@"Disconnect"] == NSOrderedSame) &&
+                  (![record.peripheral isConnected]) )
         {
             [BLEConnectButtonCell setButtonTitle:(@"Connect") AtKey:record.dictionaryKey];
         }
