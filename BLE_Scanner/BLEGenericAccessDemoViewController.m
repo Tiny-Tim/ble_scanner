@@ -25,6 +25,8 @@
 
 @implementation BLEGenericAccessDemoViewController
 
+#pragma mark- View Controller Lifecycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,6 +36,17 @@
     return self;
 }
 
+/*
+ *
+ * Method Name:  viewDidLoad
+ *
+ * Description:  Initializes controller when instantiated.
+ *               
+ *   Ensures characteristics for service have been discovered. If any mandatory characteristic is not found then a discovery of all characteristics for the service is inititiated.
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,11 +77,9 @@
     if (!(foundDeviceName && foundAppearance))
     {
         [self discoverServiceCharacteristics:self.genericAccessProfileService];
-        
     }
     else
     {
-        
         [self readCharacteristic:DEVICE_NAME_CHARACTERISTIC forService:self.genericAccessProfileService] ;
         [self readCharacteristic:APPEARANCE_CHARACTERISTIC forService:self.genericAccessProfileService] ;
     }
@@ -128,7 +139,6 @@
             NSUInteger appearanceBytes = 0;
             appearanceBytes = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[0]));
             DLog(@"Appearance value %i",appearanceBytes);
-            
         }
     }
     else
@@ -186,19 +196,14 @@
                 {
                     [peripheral readValueForCharacteristic:characteristic];
                 }
-                
             }
-
         }
-        
     }
     else
     {
         DLog(@"Error encountered reading characterstics for GAT service %@",error.description);
     }
 }
-
-
 
 
 @end

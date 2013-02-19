@@ -16,6 +16,7 @@
 @implementation BLEConnectButtonCell
 
 
+// Table cells are resused so a dictionary is used to track the Connect/Disconnect button title based upon a key provided by the view controller
 static NSMutableDictionary *titleDictionary;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

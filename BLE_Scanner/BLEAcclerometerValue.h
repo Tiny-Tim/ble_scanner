@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+// Wrapper class for triaxial accelerometer data
 @interface BLEAcclerometerValue : NSObject
 
 @property (nonatomic) CGFloat xAxisValue;

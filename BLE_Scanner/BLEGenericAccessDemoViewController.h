@@ -9,6 +9,8 @@
 #import "BLEDemoViewController.h"
 #import "BLEDemoViewController.h"
 
+
+// Demo class which uses the Generic Access Service 0x1800
 @interface BLEGenericAccessDemoViewController : BLEDemoViewController
 
 // the GAP service which is the model for the controller

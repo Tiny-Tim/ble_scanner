@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// Custom button cell for discovered device table which holds a button
 @interface BLEConnectButtonCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *connectDisconnectButton;

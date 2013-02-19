@@ -10,7 +10,7 @@
 
 @implementation BLEAcclerometerValue
 
-
+// default initilization
 -(id)init
 {
     self =  [super init];
@@ -21,6 +21,7 @@
     return self;
 }
 
+// initializer with specified values
 -(id) initWithX:(CGFloat)xValue withY:(CGFloat)yValue withZ:(CGFloat)zValue
 {
     self = [self init];

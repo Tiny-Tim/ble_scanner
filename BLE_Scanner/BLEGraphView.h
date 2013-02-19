@@ -10,6 +10,7 @@
 
 @interface BLEGraphView : UIView
 
+// data source for graph
 @property (nonatomic, strong) NSArray *accelerationData;
 
 

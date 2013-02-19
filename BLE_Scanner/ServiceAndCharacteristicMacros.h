@@ -60,5 +60,7 @@
 #define  Z_CALIBRATION_SCALE 55.0
 #define  Z_CALIBRATION_OFFSET 0.1
 
+
+#define BLUETOOTH_DEVELOPER_PORTAL_REGISTERED_SERVICES @"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx?SortField=AssignedNumber&SortDir=Asc"
 #endif
 

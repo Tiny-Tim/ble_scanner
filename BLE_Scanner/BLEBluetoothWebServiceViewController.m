@@ -7,9 +7,14 @@
 //
 
 #import "BLEBluetoothWebServiceViewController.h"
+#include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEBluetoothWebServiceViewController ()<UIWebViewDelegate>
+
+// Webview outlet
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+// Activity indicator for page load
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
@@ -25,6 +30,15 @@
     return self;
 }
 
+/*
+ *
+ * Method Name:  viewDidLoad
+ *
+ * Description:  Initializes controller when instantiated and loads the Bluetooth Developer Portal page containing registered services.
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,11 +46,19 @@
     
     self.webView.delegate = self;
     
-    NSURL * webPage = [NSURL URLWithString:@"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx?SortField=AssignedNumber&SortDir=Asc"];
-    [self.activityIndicator startAnimating];
+    NSURL * webPage = [NSURL URLWithString:BLUETOOTH_DEVELOPER_PORTAL_REGISTERED_SERVICES];
     NSURLRequest *request = [NSURLRequest requestWithURL:webPage];
+    [self.activityIndicator startAnimating];
     
-    [self.webView loadRequest:request];
+    dispatch_queue_t downloadQueue = dispatch_queue_create("download", NULL);
+    dispatch_async(downloadQueue, ^{
+        
+        [self.webView loadRequest:request];
+        
+        
+    });
+
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -52,6 +74,8 @@
 }
 
 #pragma mark- UIWebViewDelegate Protocol
+
+// Page loaded stop the activity indicator
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     DLog(@"Web page loaded");

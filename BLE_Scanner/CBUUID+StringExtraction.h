@@ -8,6 +8,8 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
+
+// Category which extends CBUUID to provide a string representation of the UUID
 @interface CBUUID (StringExtraction)
 - (NSString *)representativeString;
 @end

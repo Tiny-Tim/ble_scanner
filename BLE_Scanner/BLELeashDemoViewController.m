@@ -11,7 +11,7 @@
 #import "CBUUID+StringExtraction.h"
 
 
-#define PROXIMITY_THRESHOLD_ON 67
+#define PROXIMITY_THRESHOLD_ON 70
 #define PROXIMITY_THRESHOLD_OFF 60
 
 @interface BLELeashDemoViewController ()
@@ -47,7 +47,7 @@
 #pragma mark- Properties
 
 
-// Small array holding RSSI sampls to be smoothed.
+// Small array holding RSSI samples to be smoothed.
 
 #define MAX_RSSI_SAMPLES 3
 -(NSMutableArray *)filterRSSI
@@ -94,8 +94,18 @@
 }
 
 
-
-// Set up controller
+/*
+ *
+ * Method Name:  viewDidLoad
+ *
+ * Description:  Initializes controller. 
+ *    
+ *     Starts a timer which samples RSSI values that are returned by the device.
+ *      Ensures all characteristics of the service have been discovered, otherwise discovers all mandatory haracteristics.
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -118,7 +128,6 @@
     BOOL foundAlert = NO;
     dispatch_source_set_timer(self.rssiUpdateClock, DISPATCH_TIME_NOW, 1ull * NSEC_PER_SEC / RSSI_UPDATE_FREQUENCY_HERTZ, 1ull * NSEC_PER_SEC/100);
     
-    
     // determine if ALERT_LEVEL_CHARACTERISTIC has been discovered
     for (CBCharacteristic * characteristic in self.immediateAlertService.characteristics)
     {
@@ -126,7 +135,6 @@
         {
             foundAlert = YES;
         }
-    
     }
     
     if (! foundAlert)
@@ -137,7 +145,6 @@
     {
         self.alarmCharacteristicDiscovered = YES;
     }
-    
     
     for (CBCharacteristic * characteristic in self.transmitPowerService.characteristics)
     {
@@ -159,6 +166,7 @@
 }
 
 
+// Nil references as needed and shut down timers when view disappears
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

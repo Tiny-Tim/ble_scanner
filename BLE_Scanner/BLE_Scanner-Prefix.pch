@@ -10,7 +10,9 @@
 {                                                                                          \
 NSLog(@"%s(%p) %@", __PRETTY_FUNCTION__, self,                                             \
 [NSString stringWithFormat:__VA_ARGS__]);                                                  \
-[[NSAssertionHandler currentHandler] handleFailureInFunction:[NSString                     \stringWithCString: __PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding]                  \                                                       file:[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding]               \
+[[NSAssertionHandler currentHandler] handleFailureInFunction:[NSString                     \
+stringWithCString: __PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding]                      \
+file:[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding]                   \
     lineNumber:__LINE__ description:__VA_ARGS__];                                          \
 }
 

@@ -147,7 +147,6 @@
                 // sign up for notifications
                 self.keyPressedService.peripheral.delegate = self;
                 [self.keyPressedService.peripheral setNotifyValue:YES forCharacteristic:self.keyPressedService.characteristics[index]];
-                
             }
         }
     }
@@ -249,7 +248,6 @@
     [self.statusActivityIndicator stopAnimating];
     [self displayPeripheralConnectStatus:self.keyPressedService.peripheral];
 
-    
     if (error == nil)
     {
         DLog(@"Subscribing to key pressed notifications");

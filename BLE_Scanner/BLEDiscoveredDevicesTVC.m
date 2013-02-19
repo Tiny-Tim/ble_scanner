@@ -635,17 +635,6 @@
 #pragma mark- UISplitViewControllerDelegate
 
 
-// Hide Master in Portrait
-//-(BOOL) splitViewController:(UISplitViewController *)svc
-//   shouldHideViewController:(UIViewController *)vc
-//              inOrientation:(UIInterfaceOrientation)orientation
-//{
-//    // return UIInterfaceOrientationIsPortrait(orientation);
-//    return NO;
-//}
-
-
-
 // When the split view controller rotates from a landscape to portrait orientation,
 // it normally hides one of its view controllers. When that happens, it calls this
 // method to coordinate the addition of a button to the toolbar (or navigation bar)
