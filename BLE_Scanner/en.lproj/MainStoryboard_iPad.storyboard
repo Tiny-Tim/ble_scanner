@@ -139,8 +139,7 @@
         <!--Central Manager View Controller - Bluetooth Client-->
         <scene sceneID="PYx-cj-62t">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kb8-QD-KFz" sceneMemberID="firstResponder"/>
-                <viewController id="dfd-0b-B23" customClass="BLECentralManagerViewController" sceneMemberID="viewController">
+                <viewController title="Bluetooth Client" id="dfd-0b-B23" customClass="BLECentralManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YGe-BF-adH">
                         <rect key="frame" x="0.0" y="64" width="320" height="744"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -208,6 +207,7 @@
                         <outlet property="scanBarButton" destination="iyy-n9-N8a" id="tgP-EQ-cZP"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kb8-QD-KFz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="737" y="-1151"/>
         </scene>

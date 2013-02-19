@@ -10,6 +10,7 @@
 #import "BLEConnectButtonCell.h"
 #import "BLEDetailCellData.h"
 #import "BLEPeripheralServicesTVC.h"
+#import "BLECentralManagerViewController.h"
 
 
 // A label embedded in the data which displays ADVERTISING DATA in the table
@@ -30,9 +31,11 @@
 @property (nonatomic, strong) NSMutableArray *sections;
 
 
+
 - (IBAction)connectButton:(UIButton *)sender;
 
-
+// management of the UISplitViewController button and popover
+@property (strong,nonatomic) UIPopoverController* masterPopoverController;
 @end
 
 @implementation BLEDiscoveredDevicesTVC
@@ -223,7 +226,8 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -567,6 +571,54 @@
         DLog(@"Error in didDiscoverServices: %@",error.description);
     }
 }
+
+
+#pragma mark- UISplitViewControllerDelegate
+
+
+// Hide Master in Portrait
+//-(BOOL) splitViewController:(UISplitViewController *)svc
+//   shouldHideViewController:(UIViewController *)vc
+//              inOrientation:(UIInterfaceOrientation)orientation
+//{
+//    // return UIInterfaceOrientationIsPortrait(orientation);
+//    return NO;
+//}
+
+
+
+// When the split view controller rotates from a landscape to portrait orientation,
+// it normally hides one of its view controllers. When that happens, it calls this
+// method to coordinate the addition of a button to the toolbar (or navigation bar)
+// of the remaining custom view controller. If you want the soon-to-be hidden view
+// controller to be displayed in a popover, you must implement this method and use
+// it to add the specified button to your interface.
+
+-(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    DLog(@"willHideView controller invoked");
+    UINavigationController *navigationController = [self.splitViewController.viewControllers objectAtIndex:0];
+    
+    barButtonItem.title = navigationController.topViewController.title;
+    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    self.masterPopoverController = pc;
+}
+
+// When the view controller rotates from a portrait to landscape orientation, it
+// shows its hidden view controller once more. If you added the specified button
+// to your toolbar to facilitate the display of the hidden view controller in a
+// popover, you must implement this method and use it to remove that button.
+-(void)splitViewController:(UISplitViewController *)svc
+    willShowViewController:(UIViewController *)aViewController
+ invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    DLog(@"splitViewController:willShowViewController invoked");
+    
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+     self.masterPopoverController = nil;
+    
+}
+
 
 
 @end
