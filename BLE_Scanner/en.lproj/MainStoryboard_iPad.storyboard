@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" title="Discovered Devices" id="O5r-tt-5e9"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="7pO-qS-hmv" kind="push" identifier="ShowServices" id="R2j-Ll-IGU"/>
+                        <segue destination="X72-7k-6uf" kind="push" identifier="ShowServices" id="vOX-R3-X8f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ss0-GE-vo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,84 +211,12 @@
             </objects>
             <point key="canvasLocation" x="737" y="-1151"/>
         </scene>
-        <!--Services Manager View Controller - Peripheral Services TVC-->
-        <scene sceneID="Rgh-SF-fwu">
-            <objects>
-                <viewController title="Peripheral Services TVC" id="7pO-qS-hmv" customClass="BLEServicesManagerViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Zfk-8R-DSz">
-                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1C6-xb-D4h">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="f06-0I-XBB" kind="embed" identifier="ServiceList" id="8Q5-6v-TEb"/>
-                                </connections>
-                            </containerView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcO-dl-P1z">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="vjM-0V-FcJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rd6-Y9-tub">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S2s-ns-iy1"/>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="rd6-Y9-tub" firstAttribute="leading" secondItem="Zfk-8R-DSz" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2Hy-AO-Odw"/>
-                            <constraint firstItem="1C6-xb-D4h" firstAttribute="trailing" secondItem="Zfk-8R-DSz" secondAttribute="trailing" type="default" id="7ko-q9-N35"/>
-                            <constraint firstAttribute="bottom" secondItem="1C6-xb-D4h" secondAttribute="bottom" constant="105" id="EGT-XT-vNZ"/>
-                            <constraint firstAttribute="bottom" secondItem="mcO-dl-P1z" secondAttribute="bottom" constant="58" id="P7e-Wk-mIL"/>
-                            <constraint firstItem="1C6-xb-D4h" firstAttribute="leading" secondItem="Zfk-8R-DSz" secondAttribute="leading" type="default" id="Sh9-qx-Cnp"/>
-                            <constraint firstItem="1C6-xb-D4h" firstAttribute="top" secondItem="Zfk-8R-DSz" secondAttribute="top" type="default" id="Uz1-nO-i4a"/>
-                            <constraint firstItem="mcO-dl-P1z" firstAttribute="leading" secondItem="Zfk-8R-DSz" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="VWQ-mk-6Hg"/>
-                            <constraint firstItem="S2s-ns-iy1" firstAttribute="top" secondItem="mcO-dl-P1z" secondAttribute="top" type="default" id="ZH1-lb-dy8"/>
-                            <constraint firstItem="S2s-ns-iy1" firstAttribute="centerX" secondItem="1C6-xb-D4h" secondAttribute="centerX" type="default" id="abc-2i-KHO"/>
-                            <constraint firstAttribute="bottom" secondItem="rd6-Y9-tub" secondAttribute="bottom" constant="8" id="dMH-j7-IB9"/>
-                            <constraint firstItem="S2s-ns-iy1" firstAttribute="bottom" secondItem="mcO-dl-P1z" secondAttribute="bottom" type="default" id="kwq-vq-5wl"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem enabled="NO" title="Demos" id="lpR-Ab-T6e">
-                            <connections>
-                                <action selector="demosButton:" destination="7pO-qS-hmv" id="n0K-yy-t1X"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="cCl-ZS-OJj"/>
-                        <barButtonItem title="Web" id="lhF-rk-OU0">
-                            <connections>
-                                <segue destination="Lqa-qb-x5g" kind="modal" identifier="OpenBluetoothServices" modalTransitionStyle="partialCurl" id="Lbg-kg-R1m"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Services" id="4Ih-1P-P3r"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="statusActivityIndicator" destination="S2s-ns-iy1" id="ZHk-rQ-NI2"/>
-                        <outlet property="statusDetailLabel" destination="rd6-Y9-tub" id="90m-wf-1N6"/>
-                        <outlet property="statusHeadingLabel" destination="mcO-dl-P1z" id="woT-6b-Dew"/>
-                        <segue destination="3vq-MV-cG6" kind="push" identifier="ShowCharacteristics" id="dBh-eq-R5k"/>
-                        <segue destination="bm8-5e-Tla" kind="push" identifier="ShowDemoList" id="oti-ar-gUf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Wm-7i-C24" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2523" y="978"/>
-        </scene>
         <!--Bluetooth Web Service View Controller-->
         <scene sceneID="bC9-N9-9rs">
             <objects>
                 <viewController id="Lqa-qb-x5g" customClass="BLEBluetoothWebServiceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bhh-ET-tNW">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lnu-cY-6LM">
@@ -311,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZB-68-g49" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4342" y="1872"/>
+            <point key="canvasLocation" x="4110" y="1824"/>
         </scene>
         <!--Peripheral CharacteristicsTVC - Characteristics-->
         <scene sceneID="Sk5-op-dfe">
@@ -356,55 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rh1-Jf-Re3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3590" y="-1711"/>
-        </scene>
-        <!--Peripheral ServicesTVC-->
-        <scene sceneID="npH-BV-nh8">
-            <objects>
-                <viewController id="f06-0I-XBB" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="zdp-ca-zwh">
-                        <rect key="frame" x="0.0" y="20" width="768" height="747"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceData" textLabel="xWW-nn-aKx" detailTextLabel="KM6-Ly-0jm" style="IBUITableViewCellStyleSubtitle" id="Xmq-IB-c2t">
-                                <rect key="frame" x="0.0" y="54" width="768" height="46"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="45" y="1" width="645" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xWW-nn-aKx">
-                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KM6-Ly-0jm">
-                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="f06-0I-XBB" id="5mR-5I-pXV"/>
-                            <outlet property="delegate" destination="f06-0I-XBB" id="vQJ-cP-VH8"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WjK-uy-Mb1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3788" y="3089"/>
+            <point key="canvasLocation" x="4214" y="-67"/>
         </scene>
         <!--Demo Dispatcher View Controller - Demos-->
         <scene sceneID="86H-oC-ekL">
@@ -934,22 +814,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5WH-D9-ZZm" firstAttribute="top" secondItem="0mM-Yw-mjI" secondAttribute="top" type="default" id="2ao-YM-j8U"/>
-                            <constraint firstItem="8VV-IB-Rdf" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="76" id="3bI-ht-7Dz"/>
-                            <constraint firstItem="wvt-zx-pct" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="204" id="C1r-JI-q3R"/>
-                            <constraint firstItem="wvt-zx-pct" firstAttribute="leading" secondItem="8VV-IB-Rdf" secondAttribute="leading" type="default" id="CSG-da-Dzp"/>
                             <constraint firstAttribute="bottom" secondItem="Dfh-ZD-0mo" secondAttribute="bottom" constant="171" id="DzR-6T-0WJ"/>
                             <constraint firstItem="0mM-Yw-mjI" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="GJ0-jc-fCA"/>
                             <constraint firstItem="Dfh-ZD-0mo" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="If2-3e-GOK"/>
                             <constraint firstItem="ly0-IA-6R4" firstAttribute="top" secondItem="5WH-D9-ZZm" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="JZZ-DU-Zk4"/>
+                            <constraint firstItem="8VV-IB-Rdf" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="88" id="M63-3n-Ctg"/>
                             <constraint firstItem="5WH-D9-ZZm" firstAttribute="leading" secondItem="0mM-Yw-mjI" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="SdY-Z1-31l"/>
+                            <constraint firstItem="8VV-IB-Rdf" firstAttribute="centerX" secondItem="YOF-AB-JyZ" secondAttribute="centerX" type="default" id="W3J-fC-enS"/>
                             <constraint firstAttribute="bottom" secondItem="3bp-r8-Omb" secondAttribute="bottom" constant="133" id="WA5-Rs-1AI"/>
+                            <constraint firstAttribute="bottom" secondItem="lmO-KG-lhJ" secondAttribute="bottom" constant="227" id="atK-PR-MFe"/>
                             <constraint firstItem="ly0-IA-6R4" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bUA-ap-3Va"/>
                             <constraint firstAttribute="bottom" secondItem="ly0-IA-6R4" secondAttribute="bottom" constant="31" id="cxq-kj-C7H"/>
-                            <constraint firstItem="8VV-IB-Rdf" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="48" id="jYP-dX-Y0H"/>
+                            <constraint firstItem="lmO-KG-lhJ" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="dtr-i3-ng1"/>
                             <constraint firstItem="ly0-IA-6R4" firstAttribute="top" secondItem="0mM-Yw-mjI" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="lG0-7o-29l"/>
-                            <constraint firstItem="lmO-KG-lhJ" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="prU-0v-sPR"/>
-                            <constraint firstItem="lmO-KG-lhJ" firstAttribute="top" secondItem="wvt-zx-pct" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="tSn-FA-bBH"/>
+                            <constraint firstItem="wvt-zx-pct" firstAttribute="leading" secondItem="8VV-IB-Rdf" secondAttribute="leading" type="default" id="lYo-Np-bov"/>
                             <constraint firstItem="3bp-r8-Omb" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="ucV-lU-Oxw"/>
+                            <constraint firstItem="wvt-zx-pct" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="278" id="zNL-yG-ZdR"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -975,7 +855,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ut-Mr-R6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7197" y="354"/>
+            <point key="canvasLocation" x="7165" y="350"/>
         </scene>
         <!--Accelerometer Demo View Controller - TI Accelerometer Demo-->
         <scene sceneID="b6k-ZW-DqU">
@@ -1163,10 +1043,199 @@
             </objects>
             <point key="canvasLocation" x="7205" y="1634"/>
         </scene>
+        <!--Peripheral ServicesTVC - Services-->
+        <scene sceneID="VUZ-tQ-Qz8">
+            <objects>
+                <viewController title="Services" id="X72-7k-6uf" customClass="BLEPeripheralServicesTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="czy-kB-ETx">
+                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceData" textLabel="lq3-uY-yMD" detailTextLabel="ilf-qM-UX2" style="IBUITableViewCellStyleSubtitle" id="M6H-6u-HFd">
+                                <rect key="frame" x="0.0" y="54" width="768" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="45" y="1" width="645" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lq3-uY-yMD">
+                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ilf-qM-UX2">
+                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="X72-7k-6uf" id="8cX-uJ-F84"/>
+                            <outlet property="delegate" destination="X72-7k-6uf" id="CWX-MY-rMZ"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" title="Demos" id="zBa-aM-pPi">
+                            <connections>
+                                <action selector="demosButton:" destination="X72-7k-6uf" id="4mJ-iS-1VG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="L5W-Zw-Az3"/>
+                        <barButtonItem title="Web" id="GB4-W6-QOY"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Services" id="aLY-hh-v1c"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Lqa-qb-x5g" kind="push" identifier="OpenBluetoothServices" id="OIv-7D-0QR"/>
+                        <segue destination="3vq-MV-cG6" kind="push" identifier="ShowCharacteristics" id="8Wq-HI-2OG"/>
+                        <segue destination="bm8-5e-Tla" kind="push" identifier="ShowDemoList" id="tGo-eo-fBx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ubw-su-t3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2625" y="975"/>
+        </scene>
     </scenes>
     <resources>
         <image name="whiteLed.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="BLEAccelerometerDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEAccelerometerDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="BLEGraphView"/>
+            </relationships>
+        </class>
+        <class className="BLEBatteryServiceDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBatteryServiceDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="batteryLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="batteryMeter" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEBluetoothWebServiceViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBluetoothWebServiceViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="BLECentralManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stopConnect:"/>
+                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="leashButtonHandler"/>
+                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="leashButton" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoViewController.h"/>
+        </class>
+        <class className="BLEDeviceInformationDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceInformationDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="firmwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hardwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="manufacturerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="modelNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="serialNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="softwareRevisionLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEGenericAccessDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGenericAccessDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="deviceNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGraphView.h"/>
+        </class>
+        <class className="BLEHeartRateDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEHeartRateDemoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButtonHandler:"/>
+                <relationship kind="outlet" name="bodySensorLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="connectButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="energyExpendedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heartBeatImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="heartRateMeasureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="sensorContactStatusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEKeyPressDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEKeyPressDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leftButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rightButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLELeashDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLELeashDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="pathLossLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rssiPowerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="transmitPowerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
+        </class>
+        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
