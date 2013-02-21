@@ -1244,9 +1244,6 @@
         </class>
         <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
-            <relationships>
-                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
-            </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
