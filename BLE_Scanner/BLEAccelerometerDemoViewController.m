@@ -24,7 +24,7 @@
 // pointer to graph plot view
 @property (strong, nonatomic) IBOutlet BLEGraphView *graphView;
 
-// time which drives the sampling of accelerometer data
+// timer which drives the sampling of accelerometer data
 @property (nonatomic, strong) dispatch_source_t sampleClock;
 
 // ensures that accelerometer data writes and reads are thread safe
@@ -83,7 +83,7 @@
 }
 
 
-// Create the synchronizing queue for reading and writing acceleometer values 
+// Create the synchronizing queue for reading and writing accelerometer values 
 -(dispatch_queue_t) synchronizingQueue
 {
     if (! _synchronizingQueue)

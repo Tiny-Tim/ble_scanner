@@ -715,4 +715,11 @@
 }
 
 
+/** Recognise when the central unsubscribes
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
+{
+    DLog(@"Central unsubscribed from characteristic");
+}
+
 @end
