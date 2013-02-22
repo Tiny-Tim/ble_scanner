@@ -58,6 +58,10 @@
 
 - (IBAction)connectButtonHandler:(id)sender;
 
+// Displays the number of heart rate updates
+@property (weak, nonatomic) IBOutlet UILabel *updateCountLabel;
+
+@property (nonatomic, readwrite) NSUInteger updateCount;
 
 @end
 
@@ -283,7 +287,8 @@
     
     self.energyExpendedStatusAvailable = NO;
 
-    
+    self.updateCount = 0;
+    self.updateCountLabel.text = [NSString stringWithFormat:@"Heart Rate Updates: %u",self.updateCount];
     // set up the animation image data
     [self setupHeartBeatAnimation];
     
@@ -525,6 +530,8 @@
     // Updating this property will also update the UI if needed
     self.lastMeasurement = beatsPerMinute;
     
+    self.updateCount += 1;
+    self.updateCountLabel.text = [NSString stringWithFormat:@"Heart Rate Updates:  %u",self.updateCount];
 }
 
 
