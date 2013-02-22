@@ -24,11 +24,24 @@
 
 @property (nonatomic, strong)UIImage *whiteLEDImage;
 
+@property (nonatomic, strong) UIApplication *application;
+
 @end
 
 @implementation BLEKeyPressDemoViewController
 
 #pragma mark- Properties
+
+-(UIApplication *)application
+{
+    if (_application == nil)
+    {
+        _application = [UIApplication sharedApplication];
+    }
+    
+    return _application;
+}
+
 
 // Red LED image used to signal button is pressed.
 -(UIImage *)redLEDImage
@@ -157,6 +170,26 @@
 }
 
 
+/*
+ *
+ * Method Name:  postNotification
+ *
+ * Description:  Post a local notification if the user presses a button while the app is in the background
+ *
+ * Parameter(s): alertMessage - the message to display in the alert
+ *
+ */
+-(void)postNotification:(NSString *)alertMessage
+{
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif)
+    {
+        localNotif.alertBody = alertMessage;
+        localNotif.soundName  = UILocalNotificationDefaultSoundName;
+        [self.application presentLocalNotificationNow:localNotif];
+    }
+}
+
 
 
 #pragma mark - CBPeripheralDelegate
@@ -174,6 +207,9 @@
 }
 
 
+
+
+
 /*
  *
  * Method Name:  didUpdateValueForCharacteristic
@@ -185,6 +221,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    NSString *alertMessage=nil;
     if (!error)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TI_KEY_PRESSED_STATE_CHARACTERISTIC ]])
@@ -207,6 +244,7 @@
                 // left button pressed
                 self.leftButtonImage.image = self.redLEDImage;
                 self.rightButtonImage.image = self.whiteLEDImage;
+                alertMessage = @"Key Fob Button Press: Left Button";
                 
             }
             else if (buttonValue == 2)
@@ -214,12 +252,21 @@
                 // right button pressed
                 self.leftButtonImage.image = self.whiteLEDImage;
                 self.rightButtonImage.image = self.redLEDImage;
+                alertMessage = @"Key Fob Button Press: Right Button";
             }
             else if (buttonValue == 3)
             {
                 // both buttons pressed
                 self.leftButtonImage.image = self.redLEDImage;
                 self.rightButtonImage.image = self.redLEDImage;
+                alertMessage = @"Key Fob Button Press: Both Buttons Pressed";
+            }
+            
+            // Post an local notification if button pressed and app is in the background
+            if ( (self.application.applicationState == UIApplicationStateBackground) && (alertMessage != nil) )
+            {
+                [self postNotification:alertMessage];
+                DLog(@"%@",alertMessage);
             }
         }
     }
