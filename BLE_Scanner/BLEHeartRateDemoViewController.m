@@ -10,6 +10,13 @@
 #import "CBUUID+StringExtraction.h"
 #include "ServiceAndCharacteristicMacros.h"
 
+#define MEASUREMENT_IS_TWO_BYTES 1
+#define CONTACT_SUPPORTED 2
+#define CONTACT_SUPPORTED_NOT_DETECTED 2
+#define CONTACT_SUPPORTED_DETECTED 6
+#define ENERGY_EXPENDED_PRESENT 8
+#define RR_INTERVAL_PRESENT 16
+
 @interface BLEHeartRateDemoViewController ()
 
 // ImageView for heart beat animation
@@ -152,6 +159,7 @@
     if (! _sensorContactStatusAvailable)
     {
         self.sensorContactStatusLabel.text = @"Sensor Contact Status: Unavailable";
+        
     }
 }
 
@@ -167,22 +175,19 @@
  */
 -(void)setSensorContactState:(BOOL)sensorContact
 {
-    if (_sensorContactState != sensorContact)
+    
+    _sensorContactState = sensorContact;
+    
+    if (_sensorContactState)
     {
-        _sensorContactState = sensorContact;
-        
-        if (self.sensorContactStatusAvailable)
-        {
-            if (_sensorContactState)
-            {
-               self.sensorContactStatusLabel.text = @"Sensor Contact Status: Good";
-            }
-            else
-            {
-                self.sensorContactStatusLabel.text = @"Sensor Contact Status: Poor/No Contact";
-            }
-        }
+        self.sensorContactStatusLabel.text = @"Sensor Contact Status: Good";
     }
+    else
+    {
+        self.sensorContactStatusLabel.text = @"Sensor Contact Status: Poor/No Contact";
+    }
+    
+    
 }
 
 
@@ -547,7 +552,7 @@
 -(void)processExpendedEnergyData :(const uint8_t *)reportData
 {
     // Check to see if expended energy is being reported. It is reported periodically.
-    if ( (reportData[0] & 0x08) != 0)
+    if ( (reportData[0] & ENERGY_EXPENDED_PRESENT) != 0)
     {
         self.energyExpendedStatusAvailable = YES;
         // read the expended energy data
@@ -563,6 +568,7 @@
 {
     DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
+
 
 
 
@@ -599,25 +605,34 @@
             DLog(@"flag = %i",flag);
             
             // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
-            if ((reportData[0] & 0x01) == 0)
+            if ((reportData[0] & MEASUREMENT_IS_TWO_BYTES))
+            {
+                /* uint16 bpm */
+                bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+                
+            }
+            else
             {
                 /* uint8 bpm */
                 bpm = reportData[1];
             }
-            else
-            {
-                /* uint16 bpm */
-                bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
-            }
+            
             DLog(@"Heart Rate Measurement Rcvd: %i",bpm);
             [self processHeartRateMeasurement:bpm];
             
             // Determine if sensor contact information is available
-            if ( (reportData[0] & 0x04) != 0)
+            if ( (reportData[0] & CONTACT_SUPPORTED) )
             {
                 self.sensorContactStatusAvailable = YES;
                 // contact info is available, retrieve it
-                self.sensorContactState = ( (reportData[0] & 0x02) != 0);
+                if ( (reportData[0] & CONTACT_SUPPORTED_DETECTED) == CONTACT_SUPPORTED_DETECTED)
+                {
+                    self.sensorContactState = YES;
+                }
+                else
+                {
+                    self.sensorContactState = NO;
+                }
                 
             }
             else

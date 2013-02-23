@@ -22,5 +22,4 @@
 @property (nonatomic, strong)id<BLECentralManagerDelegate>centralManagerDelegate;
 
 
-//@property (nonatomic, weak)id<BLEServicesManagerDelegate>delegate;
 @end

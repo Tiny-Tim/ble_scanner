@@ -244,7 +244,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    DLog(@"Preparing to segue from DiscoverdDevices");
+    DLog(@"Preparing to segue from DiscoveredDevices");
     
     if ([segue.identifier isEqualToString:@"ShowServices"])
     {
@@ -578,7 +578,6 @@
         if ( [itemLabel localizedCompare:SERVICES_LABEL] == NSOrderedSame)
         {
             //match for Services row as expected dispatch handler
-          //  [self.delegate getServicesForPeripheral:record sender:self];
             record.peripheral.delegate = self;
             [record.peripheral discoverServices:nil];
         }

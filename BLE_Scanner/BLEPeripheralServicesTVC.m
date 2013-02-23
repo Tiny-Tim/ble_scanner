@@ -68,6 +68,8 @@ static NSSet *_demoServices;
             break;
         }
     }
+    
+    [self.tableView reloadData];
 }
 
 

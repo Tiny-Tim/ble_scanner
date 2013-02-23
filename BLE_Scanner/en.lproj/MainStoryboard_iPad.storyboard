@@ -785,14 +785,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Peripheral Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mM-Yw-mjI">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="r7c-nM-AFH"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5WH-D9-ZZm"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5WH-D9-ZZm">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="sX2-GL-KAl"/>
+                                </constraints>
+                            </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HEART RATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvt-zx-pct">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="Qjl-E7-6gB"/>
@@ -824,25 +825,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="0mM-Yw-mjI" secondAttribute="bottom" constant="171" id="2Ef-AQ-Ttd"/>
-                            <constraint firstAttribute="bottom" secondItem="ly0-IA-6R4" secondAttribute="bottom" constant="139" id="3h3-gH-Egt"/>
-                            <constraint firstAttribute="bottom" secondItem="Dfh-ZD-0mo" secondAttribute="bottom" constant="378" id="I0u-OS-Rqu"/>
+                            <constraint firstAttribute="bottom" secondItem="0mM-Yw-mjI" secondAttribute="bottom" constant="71" id="1DL-Sj-Tan"/>
+                            <constraint firstAttribute="bottom" secondItem="GML-tZ-1J0" secondAttribute="bottom" constant="126" id="2bd-ws-LZT"/>
+                            <constraint firstAttribute="bottom" secondItem="5WH-D9-ZZm" secondAttribute="bottom" constant="171" id="38X-XC-jpr"/>
+                            <constraint firstAttribute="bottom" secondItem="Dfh-ZD-0mo" secondAttribute="bottom" constant="229" id="3Bn-bw-n7h"/>
                             <constraint firstItem="GML-tZ-1J0" firstAttribute="leading" secondItem="3bp-r8-Omb" secondAttribute="leading" type="default" id="IP2-dr-t0H"/>
                             <constraint firstItem="5WH-D9-ZZm" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="308" id="LrI-hw-MEs"/>
                             <constraint firstItem="8VV-IB-Rdf" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="88" id="M63-3n-Ctg"/>
-                            <constraint firstAttribute="bottom" secondItem="GML-tZ-1J0" secondAttribute="bottom" constant="275" id="Mb3-Tw-bmy"/>
-                            <constraint firstItem="GML-tZ-1J0" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="152" id="SOu-3P-OtR"/>
+                            <constraint firstItem="3bp-r8-Omb" firstAttribute="leading" secondItem="YOF-AB-JyZ" secondAttribute="leading" constant="152" id="MSy-zr-pZR"/>
+                            <constraint firstAttribute="bottom" secondItem="ly0-IA-6R4" secondAttribute="bottom" constant="39" id="Sxz-8G-Jqj"/>
                             <constraint firstItem="3bp-r8-Omb" firstAttribute="leading" secondItem="Dfh-ZD-0mo" secondAttribute="leading" type="default" id="TWm-Gf-ibR"/>
                             <constraint firstItem="8VV-IB-Rdf" firstAttribute="centerX" secondItem="YOF-AB-JyZ" secondAttribute="centerX" type="default" id="W3J-fC-enS"/>
-                            <constraint firstAttribute="bottom" secondItem="lmO-KG-lhJ" secondAttribute="bottom" constant="425" id="Y8v-Le-kmL"/>
-                            <constraint firstItem="5WH-D9-ZZm" firstAttribute="top" secondItem="0mM-Yw-mjI" secondAttribute="top" type="default" id="gds-2H-lhr"/>
+                            <constraint firstItem="0mM-Yw-mjI" firstAttribute="leading" secondItem="GML-tZ-1J0" secondAttribute="leading" type="default" id="eaM-f6-q74"/>
+                            <constraint firstAttribute="bottom" secondItem="lmO-KG-lhJ" secondAttribute="bottom" constant="276" id="g1H-fH-Ihy"/>
                             <constraint firstItem="wvt-zx-pct" firstAttribute="leading" secondItem="8VV-IB-Rdf" secondAttribute="leading" type="default" id="lYo-Np-bov"/>
-                            <constraint firstItem="0mM-Yw-mjI" firstAttribute="bottom" secondItem="5WH-D9-ZZm" secondAttribute="bottom" type="default" id="lya-dl-FhG"/>
                             <constraint firstItem="ly0-IA-6R4" firstAttribute="leading" secondItem="0mM-Yw-mjI" secondAttribute="leading" type="default" id="phm-tK-SoS"/>
                             <constraint firstItem="Dfh-ZD-0mo" firstAttribute="leading" secondItem="lmO-KG-lhJ" secondAttribute="leading" type="default" id="sOq-41-C7X"/>
-                            <constraint firstAttribute="bottom" secondItem="3bp-r8-Omb" secondAttribute="bottom" constant="335" id="v8Y-fF-2wA"/>
+                            <constraint firstAttribute="bottom" secondItem="3bp-r8-Omb" secondAttribute="bottom" constant="186" id="yIe-Kd-0il"/>
                             <constraint firstItem="wvt-zx-pct" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="278" id="zNL-yG-ZdR"/>
-                            <constraint firstItem="0mM-Yw-mjI" firstAttribute="centerX" secondItem="lmO-KG-lhJ" secondAttribute="centerX" type="default" id="zn2-cW-nzo"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -855,6 +855,7 @@
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="PwJ-hq-K8d"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="bodySensorLocationLabel" destination="lmO-KG-lhJ" id="pFe-MQ-07O"/>
                         <outlet property="connectButton" destination="aSm-o6-XQr" id="iYU-c3-EXf"/>

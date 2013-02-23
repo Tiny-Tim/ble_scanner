@@ -368,8 +368,8 @@
     }
     else
     {
-        // a peripheral was discoveredwith no UUID - add it to the list (revisit)
-        // is this possible? Should we keep it?
+        // a peripheral was discovered with no UUID 
+        // this is valid, we won't know the device UUID until after connecting
         [self.discoveredPeripherals addObject:newRecord];
         self.discoveredDeviceListTVC.discoveredPeripherals = self.discoveredPeripherals;
     }
