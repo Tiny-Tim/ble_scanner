@@ -845,20 +845,13 @@
                             <constraint firstItem="wvt-zx-pct" firstAttribute="top" secondItem="YOF-AB-JyZ" secondAttribute="top" constant="278" id="zNL-yG-ZdR"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Disconnect" id="aSm-o6-XQr">
-                            <connections>
-                                <action selector="connectButtonHandler:" destination="eNw-Vh-4j3" id="uaw-ll-J8g"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="PwJ-hq-K8d"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="bodySensorLocationLabel" destination="lmO-KG-lhJ" id="pFe-MQ-07O"/>
-                        <outlet property="connectButton" destination="aSm-o6-XQr" id="iYU-c3-EXf"/>
                         <outlet property="energyExpendedLabel" destination="3bp-r8-Omb" id="yG5-ar-DIU"/>
                         <outlet property="heartBeatImage" destination="8VV-IB-Rdf" id="Skg-85-1Yv"/>
                         <outlet property="heartRateMeasureLabel" destination="wvt-zx-pct" id="a31-FX-xrC"/>

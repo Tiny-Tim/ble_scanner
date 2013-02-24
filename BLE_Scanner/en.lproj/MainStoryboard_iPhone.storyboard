@@ -828,18 +828,11 @@
                             <constraint firstItem="MFU-0a-ZnT" firstAttribute="leading" secondItem="UWF-hf-d6V" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="yqQ-Fw-XcB"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Disconnect" id="LPA-BU-MKn">
-                            <connections>
-                                <action selector="connectButtonHandler:" destination="S3t-pN-JkY" id="eGA-u5-jFd"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Heart Rate Demo" id="GOb-Ov-r5z"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bodySensorLocationLabel" destination="MFU-0a-ZnT" id="6Sn-HV-YHV"/>
-                        <outlet property="connectButton" destination="LPA-BU-MKn" id="JP7-pP-tvb"/>
                         <outlet property="energyExpendedLabel" destination="Emn-se-oep" id="e0p-1O-Ywl"/>
                         <outlet property="heartBeatImage" destination="96O-8s-huw" id="2Yk-6c-O6j"/>
                         <outlet property="heartRateMeasureLabel" destination="Bo8-jM-UT0" id="Mqe-wg-rHd"/>

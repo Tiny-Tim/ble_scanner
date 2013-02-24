@@ -51,13 +51,13 @@ static NSSet *_demoServices;
 #pragma mark- Properties
 
 // Setter for deviceRecord - the model for the controller
--(void)setDeviceRecord:(BLEPeripheralRecord *)deviceRecord
+-(void)setPeripheral:(CBPeripheral *)peripheral
 {
     // set the property
-    _deviceRecord = deviceRecord;
+    _peripheral = peripheral;
     
     // the peripheral's services have been set at this point, determine if demos exist for any of the services
-    for (CBService *service in _deviceRecord.peripheral.services)
+    for (CBService *service in _peripheral.services)
     {
         NSString *uuidString = [[service.UUID representativeString]uppercaseString];
         
@@ -98,9 +98,7 @@ static NSSet *_demoServices;
 {
     [super viewWillAppear:animated];
     DLog(@"Entering viewWillAppear in BLEPeripheralServicesTVC");
-    NSString *titleString = [[NSString alloc]initWithFormat: @"%@ Services",self.deviceRecord.friendlyName];
-    self.title = titleString;
-    
+    self.title = @"Services";
     
     [self.tableView reloadData];
 }
@@ -140,9 +138,8 @@ static NSSet *_demoServices;
         {
             BLEDemoDispatcherViewController *destination = segue.destinationViewController;
             
-            destination.deviceRecord = self.deviceRecord;
+            destination.peripheral = self.peripheral;
             destination.demoServices = _demoServices;
-        //    destination.centralManagerDelegate = self.centralManagerDelegate;
         }
     }
     
@@ -184,7 +181,7 @@ static NSSet *_demoServices;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.deviceRecord.peripheral.services count];
+    return [self.peripheral.services count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -200,7 +197,7 @@ static NSSet *_demoServices;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.textLabel.text = @"Service UUID";
-    CBService *service = [self.deviceRecord.peripheral.services objectAtIndex:indexPath.section];
+    CBService *service = [self.peripheral.services objectAtIndex:indexPath.section];
     
     cell.detailTextLabel.text = [[service.UUID representativeString]uppercaseString];
     
@@ -222,7 +219,7 @@ static NSSet *_demoServices;
 {
     DLog(@"Accessory button tapped in PeripheralServicesTVC");
     // the service corresponds to the indexPath.section item in peripheral.services array
-    CBService * service = [self.deviceRecord.peripheral.services objectAtIndex:indexPath.section];
+    CBService * service = [self.peripheral.services objectAtIndex:indexPath.section];
     
     service.peripheral.delegate = self;
     [service.peripheral discoverCharacteristics:nil forService:service];

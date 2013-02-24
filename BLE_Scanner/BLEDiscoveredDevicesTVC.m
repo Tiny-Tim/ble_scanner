@@ -125,7 +125,7 @@
         if ( [buttonTitle localizedCompare:@"Connect"]== NSOrderedSame)
         {
             // Ask the CBCentralManager to connect to the device 
-            [self.delegate connectPeripheral:record.peripheral sender:owningCell];
+            [self.delegate connectPeripheral:record sender:owningCell];
             
             // At this point only the connection request has been made, we don't know if the connection was successful. Stay in the same view until the result of the connection request is known.
             
@@ -134,7 +134,7 @@
         {
             DLog(@"Button pressed with Disconnect title");
             // Ask the CBCentralManager to connect to the device
-            [self.delegate disconnectPeripheral:record.peripheral sender:owningCell];
+            [self.delegate disconnectPeripheral:record sender:owningCell];
 
         }
                
@@ -177,42 +177,6 @@
     [deviceInfo addObject:@""];
     
     return deviceInfo;
-}
-
-
--(BLEPeripheralRecord *)findDeviceRecord:(CBPeripheral *)peripheral
-{
-    BLEPeripheralRecord *returnRecord = nil;
-    
-    // stringify the peripheral UUID
-    CFUUIDRef uuid = peripheral.UUID;
-    NSString *targetString;
-    if (uuid)
-    {
-        CFStringRef s = CFUUIDCreateString(NULL, uuid);
-        targetString = CFBridgingRelease(s);
-        
-        for (BLEPeripheralRecord *record in self.discoveredPeripherals)
-        {
-            CFUUIDRef uuidPeripheral = record.peripheral.UUID;
-            if (uuidPeripheral)
-            {
-                CFStringRef s = CFUUIDCreateString(NULL, uuid);
-                NSString *peripheralString = CFBridgingRelease(s);
-                
-                if ( [peripheralString localizedCaseInsensitiveCompare:targetString] == NSOrderedSame)
-                {
-                    returnRecord = record;
-                    break;
-                }
-            }
-        }
-        
-    }
-    
-    returnRecord.peripheral = peripheral;
-    [returnRecord description];
-    return returnRecord;
 }
 
 #pragma mark- View Controller Lifecycle
@@ -259,7 +223,7 @@
             if ([sender isKindOfClass:[CBPeripheral class]])
             {
                 CBPeripheral *peripheral = (CBPeripheral *)sender;
-                destination.deviceRecord = [self findDeviceRecord:peripheral];
+                destination.peripheral = peripheral;
                 destination.centralManagerDelegate = self.delegate;
             }
         }

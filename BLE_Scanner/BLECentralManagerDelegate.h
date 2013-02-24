@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "BLEPeripheralRecord.h"
 
-
-// Protocol implemented by Central Manage which enables downstream view controllers to request peripheral connect and disconnect actions.
+// Protocol implemented by Central Manager which enables downstream view controllers to request peripheral connect and disconnect actions.
 @protocol BLECentralManagerDelegate <NSObject>
 
--(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
--(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+-(void)connectPeripheral: (BLEPeripheralRecord *)peripheralRecord sender:(id)sender;
+-(void)disconnectPeripheral: (BLEPeripheralRecord *)peripheralRecord sender:(id)sender;
 
 @end

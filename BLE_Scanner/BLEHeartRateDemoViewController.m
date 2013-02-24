@@ -61,10 +61,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *bodySensorLocationLabel;
 
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *connectButton;
-
-- (IBAction)connectButtonHandler:(id)sender;
-
 // Displays the number of heart rate updates
 @property (weak, nonatomic) IBOutlet UILabel *updateCountLabel;
 
@@ -85,17 +81,6 @@
 #define CONNECT_STRING     @"Connect"
 #define DISCONNECT_STRING  @"Disconnect"
 
-- (IBAction)connectButtonHandler:( UIBarButtonItem *)sender
-{
-    if ([sender.title localizedCaseInsensitiveCompare:DISCONNECT_STRING] == NSOrderedSame)
-    {
-        [self.centralManagerDelegate disconnectPeripheral:self.heartRateService.peripheral sender:self];
-    }
-    else if ( [sender.title localizedCaseInsensitiveCompare:CONNECT_STRING] == NSOrderedSame)
-    {
-        [self.centralManagerDelegate connectPeripheral:self.heartRateService.peripheral sender:self];
-    }
-}
 
 
 
@@ -377,14 +362,7 @@
 {
     [super displayPeripheralConnectStatus:peripheral];
     
-    if ([peripheral isConnected])
-    {
-        self.connectButton.title= DISCONNECT_STRING;
-    }
-    else
-    {
-         self.connectButton.title= CONNECT_STRING;
-    }
+    
 }
 
 

@@ -157,7 +157,7 @@
         {
             BLEBatteryServiceDemoViewController  *destination = segue.destinationViewController;
             
-            destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.batteryService = [self getService:BATTERY_SERVICE forPeripheral:self.peripheral];
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowGenericAccessDemo"])
@@ -167,7 +167,7 @@
         {
             
             BLEGenericAccessDemoViewController *destination = segue.destinationViewController;
-            destination.genericAccessProfileService= [self getService:GENERIC_ACCESS_PROFILE forPeripheral:self.deviceRecord.peripheral];
+            destination.genericAccessProfileService= [self getService:GENERIC_ACCESS_PROFILE forPeripheral:self.peripheral];
         }
     }
 
@@ -178,7 +178,7 @@
         {
             
             BLEKeyPressDemoViewController *destination = segue.destinationViewController;
-            destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.keyPressedService= [self getService:TI_KEYFOB_KEYPRESSED_SERVICE forPeripheral:self.peripheral];
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowAccelerometerDemo"])
@@ -187,7 +187,7 @@
         if ([segue.destinationViewController isKindOfClass:[BLEAccelerometerDemoViewController class]])
         {
             BLEAccelerometerDemoViewController *destination = segue.destinationViewController;
-            destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.accelerometerService = [self getService:TI_KEYFOB_ACCELEROMETER_SERVICE forPeripheral:self.peripheral];
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowHeartRateDemo"])
@@ -196,8 +196,8 @@
         if ([segue.destinationViewController isKindOfClass:[BLEHeartRateDemoViewController class]])
         {
             BLEHeartRateDemoViewController *destination = segue.destinationViewController;
-            destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            destination.centralManagerDelegate = self.centralManagerDelegate;
+            destination.heartRateService = [self getService:HEART_RATE_MEASUREMENT_SERVICE forPeripheral:self.peripheral];
+           // destination.centralManagerDelegate = self.centralManagerDelegate;
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowDeviceInformationDemo"])
@@ -206,7 +206,7 @@
         if ([segue.destinationViewController isKindOfClass:[BLEDeviceInformationDemoViewController class]])
         {
             BLEDeviceInformationDemoViewController *destination = segue.destinationViewController;
-            destination.deviceInformationService = [self getService:DEVICE_INFORMATION_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.deviceInformationService = [self getService:DEVICE_INFORMATION_SERVICE forPeripheral:self.peripheral];
         }
     }
     else if ([segue.identifier isEqualToString:@"ShowLeashDemo"])
@@ -215,8 +215,8 @@
         if ([segue.destinationViewController isKindOfClass:[BLELeashDemoViewController class]])
         {
             BLELeashDemoViewController *destination = segue.destinationViewController;
-            destination.transmitPowerService = [self getService:Tx_POWER_SERVICE forPeripheral:self.deviceRecord.peripheral];
-            destination.immediateAlertService = [self getService:IMMEDIATE_ALERT_SERVICE forPeripheral:self.deviceRecord.peripheral];
+            destination.transmitPowerService = [self getService:Tx_POWER_SERVICE forPeripheral:self.peripheral];
+            destination.immediateAlertService = [self getService:IMMEDIATE_ALERT_SERVICE forPeripheral:self.peripheral];
         }
     }
 }
@@ -271,7 +271,7 @@
     {
         bool matchFound = NO;
         // does device implement demo service?
-        for (CBService *service in self.deviceRecord.peripheral.services)
+        for (CBService *service in self.peripheral.services)
         {
             NSString *UUIDString = [[service.UUID representativeString]uppercaseString];
             if ([UUIDString localizedCompare:demoServiceID] == NSOrderedSame)

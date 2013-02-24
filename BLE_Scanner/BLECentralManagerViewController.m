@@ -39,11 +39,13 @@
 @property (nonatomic, strong)NSMutableArray *discoveredPeripherals;
 
 // selected connected peripheral to display
-@property (nonatomic, strong)CBPeripheral *selectedPeripheral;
-
+//@property (nonatomic, strong)CBPeripheral *selectedPeripheral;
 
 
 @property (nonatomic, strong)NSMutableArray *notifyWhenPeripheralConnectStateChangesList;
+
+@property (nonatomic, strong) BLEPeripheralRecord *connectingPeripheral;
+@property (nonatomic, strong) BLEPeripheralRecord *disconnectingPeripheral;
 
 @end
 
@@ -54,7 +56,7 @@
 // User cancels connect request
 - (IBAction)stopConnect:(id)sender
 {
-    [self.centralManager cancelPeripheralConnection:self.selectedPeripheral];
+    [self.centralManager cancelPeripheralConnection:self.connectingPeripheral.peripheral];
     
     NSArray *toolbarItems = self.toolbarItems;
     [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
@@ -265,6 +267,8 @@
     // Implement checks before connecting, i.e. already connected
     if (peripheral && ! [peripheral isConnected])
     {
+        // find the peripheralRecord which holds the discovered device
+        
         NSArray *toolbarItems = self.toolbarItems;
         [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:YES];
         DLog(@"CBCentralManager connecting to peripheral");
@@ -441,22 +445,23 @@
 #pragma mark - BLECentralManagerDelegate
 
 // Request to connect Central Manager to peripheral from list of discovered device peripherals
--(void)connectPeripheral: (CBPeripheral *)peripheral sender:(id)sender;
+-(void)connectPeripheral: (BLEPeripheralRecord *)peripheralRecord sender:(id)sender;
 {
-    self.selectedPeripheral = peripheral;
+    self.connectingPeripheral = peripheralRecord;
     self.centralManagerStatus.text = @"Connecting to peripheral";
     
     [self addSenderToNotifyConnectStateChangeList:sender];
-    [self connectToPeripheralDevice:peripheral];
+    [self connectToPeripheralDevice:peripheralRecord.peripheral];
 }
 
 
 // Request to disconnect Central Manager from peripheral
--(void)disconnectPeripheral: (CBPeripheral *)peripheral sender:(id)sender
+-(void)disconnectPeripheral: (BLEPeripheralRecord *)peripheralRecord sender:(id)sender
 {
+    self.disconnectingPeripheral = peripheralRecord;
     self.centralManagerStatus.text = @"Disconnecting peripheral";
     [self addSenderToNotifyConnectStateChangeList:sender];
-    [self disconnectPeripheralDevice:peripheral];
+    [self disconnectPeripheralDevice:peripheralRecord.peripheral];
 
 }
 
@@ -503,6 +508,10 @@
 //Invoked whenever a connection is succesfully created with the peripheral.
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    
+    self.connectingPeripheral.peripheral = peripheral;
+    self.connectingPeripheral = nil;
+    
     // display idle status for Central
     [self.centralManagerActivityIndicator stopAnimating];
     self.centralManagerStatus.textColor = [UIColor blackColor];
@@ -527,6 +536,8 @@
     if (! error)
     {
         DLog(@"Peripheral succssfully disconnected.");
+        self.disconnectingPeripheral.peripheral = peripheral;
+        self.disconnectingPeripheral = nil;
         [self.centralManagerActivityIndicator stopAnimating];
         self.centralManagerStatus.textColor = [UIColor blackColor];
         self.centralManagerStatus.text = @"Idle";

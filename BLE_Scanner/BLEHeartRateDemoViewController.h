@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BLEDemoViewController.h"
-#import "BLECentralManagerDelegate.h"
 #import "BLECentralManagerClientProtocol.h"
 
 
@@ -17,8 +16,7 @@
 // Heart Rate Measurement Service - model for the controller
 @property (nonatomic, strong) CBService *heartRateService;
 
-// reference to central manager used connect and disconnect peripheral
-@property (nonatomic, strong)id<BLECentralManagerDelegate>centralManagerDelegate;
+
 
 
 -(void)peripheralConnectStateChanged:(CBPeripheral *)peripheral;

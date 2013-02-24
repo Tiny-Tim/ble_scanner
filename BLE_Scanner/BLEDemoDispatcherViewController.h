@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "BLEPeripheralRecord.h"
+
 #import "BLECentralManagerDelegate.h"
 
 @interface BLEDemoDispatcherViewController : UIViewController
 
 
 // Model for the view controller
-@property (nonatomic, strong)BLEPeripheralRecord *deviceRecord ;
+@property (nonatomic, strong)CBPeripheral *peripheral ;
 
 
 // Set of services for which demos exist
