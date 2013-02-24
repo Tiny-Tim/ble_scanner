@@ -111,7 +111,6 @@
 		D9076E5116CD49790010C641 /* BLEDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDemoViewController.h; sourceTree = "<group>"; };
 		D9076E5216CD49790010C641 /* BLEDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDemoViewController.m; sourceTree = "<group>"; };
 		D911143D16D033A7003CDFAA /* haraldgormsson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = haraldgormsson.png; path = ../haraldgormsson.png; sourceTree = "<group>"; };
-		D911143F16D185E2003CDFAA /* BLECentralManagerClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLECentralManagerClientProtocol.h; sourceTree = "<group>"; };
 		D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEBluetoothWebServiceViewController.h; sourceTree = "<group>"; };
 		D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEBluetoothWebServiceViewController.m; sourceTree = "<group>"; };
 		D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEGenericAccessDemoViewController.h; sourceTree = "<group>"; };
@@ -244,7 +243,6 @@
 		D9207B4616B6D35B0023FFFA /* BLE_Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				D911143F16D185E2003CDFAA /* BLECentralManagerClientProtocol.h */,
 				D96868B816C82C4A00F79634 /* BLEAcclerometerValue.h */,
 				D96868B916C82C4A00F79634 /* BLEAcclerometerValue.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,

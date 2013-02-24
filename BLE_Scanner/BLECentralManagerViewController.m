@@ -9,8 +9,6 @@
 #import "BLECentralManagerViewController.h"
 #import "BLEPeripheralServicesTVC.h"
 
-#import "BLECentralManagerClientProtocol.h"
-
 
 @interface BLECentralManagerViewController ()
 
@@ -38,8 +36,6 @@
 // list of discovered peripherals
 @property (nonatomic, strong)NSMutableArray *discoveredPeripherals;
 
-// hplds teh list of subcribers to notify when a peripheral's connection status changes
-@property (nonatomic, strong)NSMutableArray *notifyWhenPeripheralConnectStateChangesList;
 
 // the BLEPeripheralRecord corresponding to a peripheral which is connecting
 @property (nonatomic, strong) BLEPeripheralRecord *connectingPeripheral;
@@ -113,26 +109,6 @@
 #pragma mark - Properties
 
 
-/*
- *
- * Method Name:  notifyWhenPeripheralConnectStateChangesList
- *
- * Description:  getter for notification list
- *
- * Parameter(s): none
- *
- */
--(NSMutableArray *)notifyWhenPeripheralConnectStateChangesList
-{
-    if (_notifyWhenPeripheralConnectStateChangesList == nil)
-    {
-        _notifyWhenPeripheralConnectStateChangesList = [NSMutableArray array];
-    }
-    
-    return _notifyWhenPeripheralConnectStateChangesList;
-}
-
-
 // Lazy instantiation of discovered peripheral list.
 -(NSMutableArray *)discoveredPeripherals
 {
@@ -149,45 +125,6 @@
 #pragma mark - Private Functions
 
 
-/*
- *
- * Method Name:  addSenderToNotifyConnectStateChangeList
- *
- * Description:  Adds requestor to list of downstream controllers which want to be notified if a peripheral's connection status changes as determined by Central.
- *
- * Parameter(s): sender - subscriber
- *
- */
--(void)addSenderToNotifyConnectStateChangeList:(id)sender
-{
-    NSUInteger index = [self.notifyWhenPeripheralConnectStateChangesList indexOfObjectIdenticalTo:sender];
-    if (index == NSNotFound)
-    {
-        [self.notifyWhenPeripheralConnectStateChangesList addObject:sender];
-    }
-}
-
-/*
- *
- * Method Name:  notifyClientsPeripheralConnectStatusChanged
- *
- * Description:  View controllers down the chain may request that a peripheral be disconnected which only the Central Manager can accomplish. This method sends a message to the requestor, providing the requestor implements the BLECentralManagerClientProtocol, informing the requestor that the peripheral state has changed.
- *
- * Parameter(s): peripheral - the peripheral who state has changed
- *
- */
--(void)notifyClientsPeripheralConnectStatusChanged:(CBPeripheral *)peripheral
-{
-    DLog(@"Notifying CentralManager Clients of peripheral connect state change");
-    for (id client in self.notifyWhenPeripheralConnectStateChangesList)
-    {
-        if ([client conformsToProtocol: @protocol(BLECentralManagerClientProtocol)])
-        {
-            [client peripheralConnectStateChanged: peripheral];
-        }
-    }
- 
-}
 
 
 /*
@@ -460,7 +397,7 @@
     self.connectingPeripheral = peripheralRecord;
     self.centralManagerStatus.text = @"Connecting to peripheral";
     
-    [self addSenderToNotifyConnectStateChangeList:sender];
+   
     [self connectToPeripheralDevice:peripheralRecord.peripheral];
 }
 
@@ -470,7 +407,6 @@
 {
     self.disconnectingPeripheral = peripheralRecord;
     self.centralManagerStatus.text = @"Disconnecting peripheral";
-    [self addSenderToNotifyConnectStateChangeList:sender];
     [self disconnectPeripheralDevice:peripheralRecord.peripheral];
 
 }
@@ -532,9 +468,6 @@
     NSArray *toolbarItems = self.toolbarItems;
     [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:NO];
     
-    //notify any clients tacking peripheral connect status
-    [self notifyClientsPeripheralConnectStatusChanged:peripheral];
-    
 }
 
 //Invoked whenever an existing connection with the peripheral is torn down.
@@ -550,7 +483,7 @@
         self.centralManagerStatus.text = @"Idle";
     
         [self.discoveredDeviceListTVC synchronizeConnectionStates];
-        [self notifyClientsPeripheralConnectStatusChanged:peripheral];
+       
     }
     else 
     {
@@ -560,6 +493,7 @@
         
         // The course of action is to synch the state of the connected peripherals in the connected peripheral list and their corresponding connect/disconnect buttons in the discovered peripheral list.
         [self.discoveredDeviceListTVC synchronizeConnectionStates];
+       
     }
 }
 
@@ -601,7 +535,6 @@
         [self performSegueWithIdentifier:@"ShowServices" sender:self];
     }
 }
-
 
 
 @end

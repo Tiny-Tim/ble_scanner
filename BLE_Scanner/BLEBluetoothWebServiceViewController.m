@@ -55,10 +55,7 @@
         
         [self.webView loadRequest:request];
         
-        
     });
-
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -67,11 +64,7 @@
     self.webView.delegate = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark- UIWebViewDelegate Protocol
 

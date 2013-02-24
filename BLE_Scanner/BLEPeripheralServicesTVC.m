@@ -85,8 +85,6 @@ static NSSet *_demoServices;
 }
 
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -143,14 +141,6 @@ static NSSet *_demoServices;
         }
     }
     
-}
-
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

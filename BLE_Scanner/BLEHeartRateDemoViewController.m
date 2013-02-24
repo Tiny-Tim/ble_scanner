@@ -196,41 +196,6 @@
     
 }
 
-#pragma mark- BLECentralManagerClientProtocol Methods
-
-
--(void)peripheralConnectStateChanged:(CBPeripheral *)peripheral
-{
-    DLog(@"Heart Rate Demo notified of peripheral state change");
-    CFUUIDRef uuid = peripheral.UUID;
-    NSString *uuid_string=nil;
-    if (uuid)
-    {
-        CFStringRef s = CFUUIDCreateString(NULL, uuid);
-        uuid_string = CFBridgingRelease(s);
-    }
-    
-    NSString *hr_uuid_string;
-    if (uuid_string)
-    {
-        CFUUIDRef hrUUID = self.heartRateService.peripheral.UUID;
-        if (hrUUID)
-        {
-            CFStringRef s = CFUUIDCreateString(NULL, hrUUID );
-            hr_uuid_string = CFBridgingRelease(s);
-            
-            if (hr_uuid_string)
-            {
-                if ([hr_uuid_string localizedCaseInsensitiveCompare:uuid_string] == NSOrderedSame)
-                {
-                    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
-                }
-            }
-
-        }
-    }
-
-}
 
 #pragma mark- View Controller Lifecycle
 
@@ -342,15 +307,6 @@
     [super viewWillDisappear:animated];
     
 }
-
-
-// template code
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 
@@ -611,7 +567,6 @@
                 {
                     self.sensorContactState = NO;
                 }
-                
             }
             else
             {
@@ -720,6 +675,17 @@
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
     DLog(@"Central unsubscribed from characteristic");
+}
+
+
+-(void)peripheralDidInvalidateServices:(CBPeripheral *)peripheral
+{
+    DLog(@"Peripheral Did Invalidate Services invoked.");
+    
+    //stop the animation
+    [self stopHeartBeatAnimation];
+    // display the peripheral connection status
+    [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
 }
 
 @end

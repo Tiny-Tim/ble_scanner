@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BLEDemoViewController.h"
-#import "BLECentralManagerClientProtocol.h"
 
 
-@interface BLEHeartRateDemoViewController : BLEDemoViewController<BLECentralManagerClientProtocol>
+
+@interface BLEHeartRateDemoViewController : BLEDemoViewController
 
 // Heart Rate Measurement Service - model for the controller
 @property (nonatomic, strong) CBService *heartRateService;
@@ -19,6 +19,5 @@
 
 
 
--(void)peripheralConnectStateChanged:(CBPeripheral *)peripheral;
 
 @end

@@ -369,12 +369,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - CBPeripheralDelegate
 
@@ -456,5 +450,13 @@
     [self enableNotifications:YES];
 }
 
+
+-(void)peripheralDidInvalidateServices:(CBPeripheral *)peripheral
+{
+    DLog(@"Peripheral Did Invalidate Services invoked.");
+    
+    // display the peripheral connection status
+    [self displayPeripheralConnectStatus:self.accelerometerService.peripheral];
+}
 
 @end
