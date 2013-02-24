@@ -207,9 +207,6 @@
 }
 
 
-
-
-
 /*
  *
  * Method Name:  didUpdateValueForCharacteristic

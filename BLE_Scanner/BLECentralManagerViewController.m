@@ -38,13 +38,13 @@
 // list of discovered peripherals
 @property (nonatomic, strong)NSMutableArray *discoveredPeripherals;
 
-// selected connected peripheral to display
-//@property (nonatomic, strong)CBPeripheral *selectedPeripheral;
-
-
+// hplds teh list of subcribers to notify when a peripheral's connection status changes
 @property (nonatomic, strong)NSMutableArray *notifyWhenPeripheralConnectStateChangesList;
 
+// the BLEPeripheralRecord corresponding to a peripheral which is connecting
 @property (nonatomic, strong) BLEPeripheralRecord *connectingPeripheral;
+
+// the BLEPeripheralRecord corresponding to the peripheral which is disconnecting
 @property (nonatomic, strong) BLEPeripheralRecord *disconnectingPeripheral;
 
 @end
@@ -113,15 +113,15 @@
 #pragma mark - Properties
 
 
--(void)addSenderToNotifyConnectStateChangeList:(id)sender
-{
-    NSUInteger index = [self.notifyWhenPeripheralConnectStateChangesList indexOfObjectIdenticalTo:sender];
-    if (index == NSNotFound)
-    {
-        [self.notifyWhenPeripheralConnectStateChangesList addObject:sender];
-    }
-}
-
+/*
+ *
+ * Method Name:  notifyWhenPeripheralConnectStateChangesList
+ *
+ * Description:  getter for notification list
+ *
+ * Parameter(s): none
+ *
+ */
 -(NSMutableArray *)notifyWhenPeripheralConnectStateChangesList
 {
     if (_notifyWhenPeripheralConnectStateChangesList == nil)
@@ -131,6 +131,7 @@
     
     return _notifyWhenPeripheralConnectStateChangesList;
 }
+
 
 // Lazy instantiation of discovered peripheral list.
 -(NSMutableArray *)discoveredPeripherals
@@ -145,9 +146,26 @@
 }
 
 
-
-
 #pragma mark - Private Functions
+
+
+/*
+ *
+ * Method Name:  addSenderToNotifyConnectStateChangeList
+ *
+ * Description:  Adds requestor to list of downstream controllers which want to be notified if a peripheral's connection status changes as determined by Central.
+ *
+ * Parameter(s): sender - subscriber
+ *
+ */
+-(void)addSenderToNotifyConnectStateChangeList:(id)sender
+{
+    NSUInteger index = [self.notifyWhenPeripheralConnectStateChangesList indexOfObjectIdenticalTo:sender];
+    if (index == NSNotFound)
+    {
+        [self.notifyWhenPeripheralConnectStateChangesList addObject:sender];
+    }
+}
 
 /*
  *
@@ -289,8 +307,6 @@
 }
 
 
-
-
 // Disconnect a peripheral from Central after ensuring peripheal is in connected state
 -(void) disconnectPeripheralDevice:(CBPeripheral *)peripheral
 {
@@ -399,7 +415,6 @@
     // initial scan state 
     _scanState = NO;  
     
-    
     //iPad specific initializations
     if (self.splitViewController)
     {
@@ -418,14 +433,9 @@
     DLog(@"Entering viewWillAppear Central Manager View Controller");
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
-// Seque tothe embedded discovered services table view controller
+// Segue to the embedded discovered services table view controller
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DLog(@"Preparing to segue from CentralManager");
@@ -433,11 +443,11 @@
     if ([segue.identifier isEqualToString:@"DiscoveredDevices"])
     {
         DLog(@"Segueing to Discovered Devices");
-          if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
-          {
-              self.discoveredDeviceListTVC = segue.destinationViewController;
-              self.discoveredDeviceListTVC.delegate = self;
-          }
+        if ([segue.destinationViewController isKindOfClass:[BLEDiscoveredDevicesTVC class]])
+        {
+            self.discoveredDeviceListTVC = segue.destinationViewController;
+            self.discoveredDeviceListTVC.delegate = self;
+        }
     }
 }
 
@@ -478,7 +488,6 @@
     }
     else if ( (self.centralManager.state == CBCentralManagerStateUnknown) ||
               (self.centralManager.state == CBCentralManagerStateResetting) )
-        
     {
         self.hostBluetoothStatus.textColor = [UIColor blackColor];
     }
@@ -495,8 +504,6 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     [self logDiscoveredDeviceInformation:peripheral advertisementData:advertisementData RSSI:RSSI];
-    
-    
     
     BLEPeripheralRecord *discoveryRecord = [[BLEPeripheralRecord alloc] initWithCentral:central didDiscoverPeripheral:peripheral withAdvertisementData:advertisementData withRSSI:RSSI];
     
@@ -553,19 +560,14 @@
         
         // The course of action is to synch the state of the connected peripherals in the connected peripheral list and their corresponding connect/disconnect buttons in the discovered peripheral list.
         [self.discoveredDeviceListTVC synchronizeConnectionStates];
-        
     }
-     
 }
-
 
 //Invoked whenever the central manager fails to create a connection with the peripheral.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     DLog(@"Failed to connect to peripheral");
 }
-
-
 
 
 #pragma mark - CBPeripheralDelegate

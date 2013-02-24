@@ -248,10 +248,6 @@
 				D96868B816C82C4A00F79634 /* BLEAcclerometerValue.h */,
 				D96868B916C82C4A00F79634 /* BLEAcclerometerValue.m */,
 				D9207B5816B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard */,
-				D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */,
-				D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */,
-				D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */,
-				D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */,
 				D96868B016C822C200F79634 /* BLEGraphView.h */,
 				D96868B116C822C200F79634 /* BLEGraphView.m */,
 				D96868B416C824A300F79634 /* AxesDrawer.h */,
@@ -323,6 +319,10 @@
 		D96868AB16C5E4B700F79634 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D914D3DF16CEB0E000771B65 /* BLEGenericAccessDemoViewController.h */,
+				D914D3E016CEB0E000771B65 /* BLEGenericAccessDemoViewController.m */,
+				D914D3DC16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.h */,
+				D914D3DD16CE9AE500771B65 /* BLEBluetoothWebServiceViewController.m */,
 				D9B17E7316CDDF30000A627C /* BLEAccelerometerDemoViewController.m */,
 				D9B17E7216CDDF30000A627C /* BLEAccelerometerDemoViewController.h */,
 				D9076E4316C988120010C641 /* BLEHeartRateDemoViewController.h */,

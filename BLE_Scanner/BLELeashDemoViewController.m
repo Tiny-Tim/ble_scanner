@@ -19,6 +19,8 @@
 // displays TX Power read from device
 @property (weak, nonatomic) IBOutlet UILabel *transmitPowerLabel;
 
+@property (nonatomic, readwrite)BOOL transmitPowerAvailable;
+
 // displays RSSI 
 @property (weak, nonatomic) IBOutlet UILabel *rssiPowerLabel;
 
@@ -74,6 +76,11 @@
             // read rssi value
             [self.transmitPowerService.peripheral readRSSI];
             
+            if (self.transmitPowerAvailable)
+            {
+                 [self readCharacteristic:TRANSMIT_POWER_LEVEL_CHARACTERISTIC forService:self.transmitPowerService];
+            }
+            
         });
         
         dispatch_resume(_rssiUpdateClock);
@@ -109,6 +116,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.transmitPowerAvailable = NO;
     
     self.statusLabel = self.peripheralStatusLabel;
     self.statusSpinner = self.activityIndicator;
@@ -151,6 +160,7 @@
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSMIT_POWER_LEVEL_CHARACTERISTIC ]])
         {
             foundTransmitPower = YES;
+            self.transmitPowerAvailable = YES;
         }
     }
     
@@ -176,14 +186,6 @@
     self.transmitPowerService.peripheral.delegate = nil;
     self.immediateAlertService.peripheral.delegate = nil;
 
-}
-
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -214,7 +216,7 @@
     
     if (index == NSNotFound)
     {
-        DLog(@"Error State: Expected Body Sensor Characteristic  %@ Not Available.",ALERT_LEVEL_CHARACTERISTIC);
+        DLog(@"Error State: Expected Characteristic:  %@ Not Available.",ALERT_LEVEL_CHARACTERISTIC);
         
     }
     else
@@ -249,6 +251,9 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    [self.activityIndicator stopAnimating];
+    [self displayPeripheralConnectStatus: peripheral];
+    
     if (!error)
     {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSMIT_POWER_LEVEL_CHARACTERISTIC ]])
@@ -259,7 +264,12 @@
             self.transmitPower = TXLevel;
             
             self.transmitPowerLabel.text = [NSString stringWithFormat:@"Transmit Power (dBm)= %i",self.transmitPower];
+            self.transmitPowerAvailable = YES;
         }
+    }
+    else
+    {
+        DLog(@"Error occurred updating characteristic: %@", error.description);
     }
 }
 

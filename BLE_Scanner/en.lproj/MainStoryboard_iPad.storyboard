@@ -593,9 +593,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdL-gj-6HB">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="00d-3H-6Gb"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -613,7 +610,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="t23-cU-kHu" firstAttribute="top" secondItem="Ow2-Vl-Fq8" secondAttribute="top" constant="425" id="1eN-3L-Yrx"/>
-                            <constraint firstAttribute="trailing" secondItem="VdL-gj-6HB" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="6Rf-zx-K2j"/>
                             <constraint firstItem="s1C-Ve-AS9" firstAttribute="trailing" secondItem="141-Ia-XDS" secondAttribute="trailing" type="default" id="7oW-9m-BeO"/>
                             <constraint firstItem="t23-cU-kHu" firstAttribute="leading" secondItem="Ow2-Vl-Fq8" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="7t1-0O-HUt"/>
                             <constraint firstItem="VdL-gj-6HB" firstAttribute="top" secondItem="t23-cU-kHu" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="GCM-7C-aho"/>
@@ -635,8 +631,8 @@
                     <connections>
                         <outlet property="activityIndicator" destination="U3B-TE-rIH" id="2pR-Ir-Qfq"/>
                         <outlet property="pathLossLabel" destination="s1C-Ve-AS9" id="RN4-Cg-mFu"/>
+                        <outlet property="peripheralStatusLabel" destination="VdL-gj-6HB" id="ilm-ze-6bi"/>
                         <outlet property="rssiPowerLabel" destination="141-Ia-XDS" id="vGv-dd-ggS"/>
-                        <outlet property="statusLabel" destination="VdL-gj-6HB" id="CuE-J2-gCV"/>
                         <outlet property="transmitPowerLabel" destination="fQB-AE-ylB" id="Dmw-Gg-fhP"/>
                     </connections>
                 </viewController>

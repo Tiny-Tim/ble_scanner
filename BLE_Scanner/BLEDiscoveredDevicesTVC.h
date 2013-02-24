@@ -16,11 +16,13 @@
 @interface BLEDiscoveredDevicesTVC : UITableViewController <UISplitViewControllerDelegate,CBPeripheralDelegate>
 
 
-//Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
+// Toggle the connect button label corresponding to a discovered device which has either been connected or disconnected by the user.
 -(void)toggleConnectionState : (CBPeripheral *)peripheral;
 
+// Synchronizes connect/disconnect button with peripheral state
 -(void)synchronizeConnectionStates;
 
+// Access to Central Manager
 @property (nonatomic, weak)id< BLECentralManagerDelegate>delegate;
 
 // List of discovered BLEPeripheralRecords

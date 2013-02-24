@@ -132,7 +132,6 @@
         [self readCharacteristic:SERIAL_NUMBER_STRING_CHARACTERISTIC forService:self.deviceInformationService];
         [self readCharacteristic:HARDWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
         [self readCharacteristic:SOFTWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-        
     }
 }
 
@@ -154,13 +153,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 
 #pragma mark - CBPeripheralDelegate
@@ -169,7 +161,6 @@
 {
     DLog(@"didUpdateNotificationStateForCharacteristic invoked");
 }
-
 
 
 /*
@@ -246,9 +237,7 @@
             
             DLog(@"Software Revision = %@", swRevision);
             self.softwareRevisionLabel.text = [NSString stringWithFormat: @"Software Revision:  %@",swRevision];
-            
         }
-
     }
     else
     {
@@ -287,16 +276,13 @@
             {
                 [self readCharacteristic:uuidString forService:service];
             }
-
         }
-        
     }
     else
     {
         DLog(@"Error encountered reading characterstics for heart rate service %@",error.description);
     }
 }
-
 
 
 @end

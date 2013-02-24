@@ -23,10 +23,6 @@
 
 @interface BLEDiscoveredDevicesTVC ()
 
-
-// The model for this table view controller
-//@property (nonatomic, strong)NSMutableArray *deviceRecords;
-
 // data structure containing labels for rows in table
 @property (nonatomic, strong) NSMutableArray *sections;
 
@@ -42,10 +38,9 @@
 @synthesize sections = _sections;
 @synthesize discoveredPeripherals = _discoveredPeripherals;
 
-
-
 #pragma mark- Properties
 
+// Getter for list of discovered peripherals by Central Manager
 -(NSArray *)discoveredPeripherals
 {
     if (_discoveredPeripherals == nil)
@@ -56,12 +51,13 @@
     return _discoveredPeripherals;
 }
 
+
+// Lazy initialization Setter for list of discovered peripherals
 -(void)setDiscoveredPeripherals:(NSArray *)discoveredPeripherals
 {
     _discoveredPeripherals = discoveredPeripherals;
     if (_discoveredPeripherals)
     {
-        
         // set up the sections
         for (BLEPeripheralRecord *record in discoveredPeripherals)
         {
@@ -98,6 +94,7 @@
 
 
 #pragma mark- Actions
+
 - (IBAction)connectButton:(UIButton*)sender
 {
     UITableViewCell *owningCell;
@@ -137,9 +134,7 @@
             [self.delegate disconnectPeripheral:record sender:owningCell];
 
         }
-               
     }
-        
 }
 
 
@@ -208,6 +203,16 @@
 }
 
 
+/*
+ *
+ * Method Name:  prepareForSegue
+ *
+ * Description:  Handles the segue to BLEPeripheralServices
+ *
+ * Parameter(s): segue - the seque which is imminent
+ *               sender - the orignination of the segue request
+ *
+ */
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DLog(@"Preparing to segue from DiscoveredDevices");
@@ -232,13 +237,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 #pragma mark- Public Methods
 
 /*
@@ -247,7 +245,7 @@
  *
  * Description:  The button title should aways be the opposite of the conection state of the peripheral. For example, if the peripheral is connected the button title should display Disconnect which allows the user to initiate disconnecting the peripheral.  
  *
- * Parameter(s): <#parameters#>
+ * Parameter(s): none
  *
  */
 -(void)synchronizeConnectionStates
