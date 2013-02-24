@@ -178,4 +178,17 @@ static NSInteger recordCount=1;
     return self;
 }
 
+-(NSString *)description
+{
+    NSString *result= @"";
+    
+    result = [result stringByAppendingString:[self.peripheral description]];
+    NSLog(@"Peripheral Description:  %@",[self.peripheral description]);
+    NSLog(@"Friendly Name:  %@",self.friendlyName);
+    result = [result stringByAppendingString:self.friendlyName];
+    
+   // NSLog(@"Dictionary Key: %d",[self.dictionaryKey integerValue]);
+    return result;
+}
+
 @end

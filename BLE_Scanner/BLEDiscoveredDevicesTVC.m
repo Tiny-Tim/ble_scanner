@@ -210,6 +210,8 @@
         
     }
     
+    returnRecord.peripheral = peripheral;
+    [returnRecord description];
     return returnRecord;
 }
 

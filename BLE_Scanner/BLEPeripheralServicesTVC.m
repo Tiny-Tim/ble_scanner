@@ -100,6 +100,9 @@ static NSSet *_demoServices;
     DLog(@"Entering viewWillAppear in BLEPeripheralServicesTVC");
     NSString *titleString = [[NSString alloc]initWithFormat: @"%@ Services",self.deviceRecord.friendlyName];
     self.title = titleString;
+    
+    
+    [self.tableView reloadData];
 }
 
 
