@@ -448,7 +448,6 @@
 }
 
 
-
 /*
  *
  * Method Name:  processHeartRateMeasurement

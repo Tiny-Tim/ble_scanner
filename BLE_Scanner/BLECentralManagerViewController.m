@@ -219,14 +219,14 @@
     // Implement checks before connecting, i.e. already connected
     if (peripheral && ! [peripheral isConnected])
     {
-        // find the peripheralRecord which holds the discovered device
-        
         NSArray *toolbarItems = self.toolbarItems;
         [[toolbarItems objectAtIndex:[toolbarItems count]-1]setEnabled:YES];
         DLog(@"CBCentralManager connecting to peripheral");
         self.centralManagerStatus.textColor = [UIColor greenColor];
         self.centralManagerStatus.text = @"Connecting to peripheral.";
         [self.centralManagerActivityIndicator startAnimating];
+        
+        // Core Bluetooth Connect Request
         [self.centralManager connectPeripheral:peripheral options:nil];
     }
     else if (peripheral)
@@ -248,6 +248,8 @@
     if (peripheral && [peripheral isConnected])
     {
         DLog(@"CBCentralManager disconnecting peripheral");
+        
+         // Core Bluetooth Cancel Connection Request
         [self.centralManager cancelPeripheralConnection:peripheral];
     }
     else if (peripheral)
@@ -265,14 +267,13 @@
  *
  * Method Name:  removeDuplicatePeripherals
  *
- * Description:  A discovered device may not have an assigned UUID. A device UUID is assigned after a connection is made to the device. This method removes duplicate peripheral entries in the discoveredPeripherals list after a connection is made to a peripheral. The newly connected periphera is passed in as a parameter and its UUID is compared to the other peripherals in the list. Duplicates are indentified by the index set returned from the comparison test. All duplcates are removed from the list leaving only a single entry for the peripheral.
+ * Description:  A discovered device may not have an assigned UUID. A device UUID is assigned after a connection is made to the device. This method removes duplicate peripheral entries in the discoveredPeripherals list after a connection is made to a peripheral. The newly connected peripheral is passed in as a parameter and its UUID is compared to the other peripherals in the list. Duplicates are indentified by the index set returned from the comparison test. All duplcates are removed from the list leaving only a single entry for the peripheral.
  *
- * Parameter(s): peripheral - the newly connected device which is used to compare aginast the entries in the connectedPeripherals list
+ * Parameter(s): peripheral - the newly connected device which is used to compare agianst the entries in the connectedPeripherals list
  *
  */
 -(void)removeDuplicatePeripherals : (CBPeripheral *) peripheral
 {
-    // stringify the UUID of the newly discovered device
     CFUUIDRef target = peripheral.UUID;
     BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
     test = ^(id obj, NSUInteger idx, BOOL *stop)
@@ -292,14 +293,13 @@
             
     if ([indexSet count]> 1)
     {
-        // more than one entry has the same UUUID
+        // more than one entry has the same UUID
         NSMutableIndexSet *duplicates = [[NSMutableIndexSet alloc] initWithIndexSet:indexSet];
         // don't remove one instance
         [duplicates removeIndex:0];
-        // remove all others
+        // remove all duplicates from the list
         [self.discoveredPeripherals removeObjectsAtIndexes:duplicates];
     }
-    
 }
 
 
@@ -309,7 +309,7 @@
  *
  * Description:  Examines a newly discovered device to determine if it has previously been discovered. If not, then the new device is added to the device list and the table view is updated.
  *  
- *  If the device is being rediscovered, then the entry int he list is replaced with the new record since it may contain additional advertising data in some active discovery modes.
+ *  If the device is being rediscovered, then the entry in the list is replaced with the new record since it may contain additional advertising data in some active discovery modes.
  *
  * Parameter(s): newRecord - device record corresponding to newly discovered device
  *
@@ -321,15 +321,10 @@
     
     // stringify the UUID of the newly discovered device
     CFUUIDRef newUUID = newRecord.peripheral.UUID;
-    NSString *newUUIDString = nil;
-    if (newUUID)
-    {
-        CFStringRef s = CFUUIDCreateString(NULL, newUUID);
-        newUUIDString = CFBridgingRelease(s);
-    }
+   
     
     // If we have a UUID string to compare with then look at the list
-    if (newUUIDString)
+    if (newUUID)
     {
         NSUInteger index = 0;
         // look for match in previously discovered devices
@@ -338,16 +333,13 @@
             CFUUIDRef uuid = record.peripheral.UUID;
             if (uuid)
             {
-                CFStringRef s = CFUUIDCreateString(NULL, uuid);
-                NSString *uuid_string = CFBridgingRelease(s);
-                
-                if ([uuid_string localizedCaseInsensitiveCompare:newUUIDString] == NSOrderedSame)
+                                
+                if (CFEqual(newUUID, uuid))
                 {
                     matchFound = YES;
                     [self.discoveredPeripherals replaceObjectAtIndex:index withObject:newRecord];
                     self.discoveredDeviceListTVC.discoveredPeripherals = self.discoveredPeripherals;
                     break;
-                    
                 }
             }
             
@@ -382,7 +374,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
     
     // Initialize central manager providing self as its delegate
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
@@ -435,7 +427,7 @@
     self.connectingPeripheral = peripheralRecord;
     self.centralManagerStatus.text = @"Connecting to peripheral";
     
-   
+    // Core Bluetooth Connect Request
     [self connectToPeripheralDevice:peripheralRecord.peripheral];
 }
 
@@ -485,9 +477,6 @@
     [self updateDiscoveredPeripheralList:discoveryRecord];
     
 }
-
-
-
 
 
 

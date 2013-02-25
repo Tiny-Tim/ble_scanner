@@ -35,8 +35,7 @@
 
 
 
-
-#pragma mark- Common methods which demo controllers inheriting from lass can use
+#pragma mark- Common methods which demo controllers inheriting from class can use
 /*
  *
  * Method Name:  setConnectionStatus
@@ -138,7 +137,6 @@
     else
     {
         DLog(@"Error State: Expected Characteristic %@ Not Available.",uuid);
-        
     }
  
 }

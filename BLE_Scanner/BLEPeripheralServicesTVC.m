@@ -88,8 +88,6 @@ static NSSet *_demoServices;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  //  [self setConnectionStatus];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -140,12 +138,10 @@ static NSSet *_demoServices;
             destination.demoServices = _demoServices;
         }
     }
-    
 }
 
 
 #pragma mark- Private Methods
-
 
 
 // Discover characteristics for Service
@@ -218,8 +214,8 @@ static NSSet *_demoServices;
 }
 
 
-#pragma mark - CBPeripheralDelegate
 
+#pragma mark - CBPeripheralDelegate
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
@@ -230,8 +226,6 @@ static NSSet *_demoServices;
         // segue to BLEPeripheralCharacteristicsTVC
         [self performSegueWithIdentifier:@"ShowCharacteristics" sender:service];
     }
-    
-    
 }
 
 

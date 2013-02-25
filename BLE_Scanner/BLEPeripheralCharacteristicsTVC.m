@@ -34,14 +34,10 @@
 
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - Table view data source
+
+#define ROWS_PER_SECTION 5
 
 // Each section is a unique characteristic
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -50,12 +46,12 @@
     return [self.characteristics count];
 }
 
-// Displaying 5 items of information about each charcteristic
+// Displaying 5 items of information about each characteristic
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
     // Return the number of rows in the section.
-    return 5;
+    return  ROWS_PER_SECTION;
 }
 
 /*

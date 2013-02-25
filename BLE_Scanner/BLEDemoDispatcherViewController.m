@@ -29,8 +29,8 @@
 // Collection of buttons on the UI VIew
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *buttonCollection;
 
-
 @end
+
 
 @implementation BLEDemoDispatcherViewController
 
@@ -130,13 +130,6 @@
     // disable demo buttons for services this peripheral does not offer
     [self synchDemosWithDevice];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 /*
  *
