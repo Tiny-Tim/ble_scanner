@@ -310,7 +310,7 @@
         BLEPeripheralRecord *record = (BLEPeripheralRecord *)obj;
         CFUUIDRef uuid = record.peripheral.UUID;
         
-        if ( CFEqual(target, uuid))
+        if ( uuid && CFEqual(target, uuid))
         {
             return YES;
         }

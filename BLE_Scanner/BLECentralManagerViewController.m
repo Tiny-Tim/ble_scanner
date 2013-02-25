@@ -124,9 +124,6 @@
 
 #pragma mark - Private Functions
 
-
-
-
 /*
  *
  * Method Name:  logDiscoveredDeviceInformation
@@ -263,6 +260,47 @@
     }
 }
 
+
+/*
+ *
+ * Method Name:  removeDuplicatePeripherals
+ *
+ * Description:  A discovered device may not have an assigned UUID. A device UUID is assigned after a connection is made to the device. This method removes duplicate peripheral entries in the discoveredPeripherals list after a connection is made to a peripheral. The newly connected periphera is passed in as a parameter and its UUID is compared to the other peripherals in the list. Duplicates are indentified by the index set returned from the comparison test. All duplcates are removed from the list leaving only a single entry for the peripheral.
+ *
+ * Parameter(s): peripheral - the newly connected device which is used to compare aginast the entries in the connectedPeripherals list
+ *
+ */
+-(void)removeDuplicatePeripherals : (CBPeripheral *) peripheral
+{
+    // stringify the UUID of the newly discovered device
+    CFUUIDRef target = peripheral.UUID;
+    BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
+    test = ^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        BLEPeripheralRecord *record = (BLEPeripheralRecord *)obj;
+        CFUUIDRef uuid = record.peripheral.UUID;
+        
+        if ( uuid && CFEqual(target, uuid))
+        {
+            return YES;
+        }
+        return NO;
+    };
+
+    NSIndexSet * indexSet;
+    indexSet = [self.discoveredPeripherals indexesOfObjectsPassingTest:test];
+            
+    if ([indexSet count]> 1)
+    {
+        // more than one entry has the same UUUID
+        NSMutableIndexSet *duplicates = [[NSMutableIndexSet alloc] initWithIndexSet:indexSet];
+        // don't remove one instance
+        [duplicates removeIndex:0];
+        // remove all others
+        [self.discoveredPeripherals removeObjectsAtIndexes:duplicates];
+    }
+    
+}
 
 
 /*
@@ -448,6 +486,11 @@
     
 }
 
+
+
+
+
+
 //Invoked whenever a connection is succesfully created with the peripheral.
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
@@ -461,6 +504,8 @@
     self.centralManagerStatus.text = @"Idle";
    
     DLog(@"Connected to peripheral");
+    
+    [self removeDuplicatePeripherals :peripheral];
     
     // toggle connect button label in corresponding discovered devices table view row in the BLEDiscoveredDevicesTVC
     [self.discoveredDeviceListTVC toggleConnectionState:peripheral];
