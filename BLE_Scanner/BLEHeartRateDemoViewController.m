@@ -484,16 +484,18 @@
  * Description:  Processes the expended energy data value returned from the device.
  *
  * Parameter(s): reportData - raw data read from the characteristic
+ *               heartRateIsTwoBytes - indocates whether heart rate data is one or two bytes for offset calculation
  *
  */
--(void)processExpendedEnergyData :(const uint8_t *)reportData
+-(void)processExpendedEnergyData :(const uint8_t *)reportData heartRateIsInteger:(BOOL)heartRateIsTwoBytes
 {
+    NSUInteger offset = heartRateIsTwoBytes ? 3:2;
     // Check to see if expended energy is being reported. It is reported periodically.
     if ( (reportData[0] & ENERGY_EXPENDED_PRESENT) != 0)
     {
         self.energyExpendedStatusAvailable = YES;
         // read the expended energy data
-        self.energyExpended = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[2]));
+        self.energyExpended = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[offset]));
     }
     else
     {
@@ -550,7 +552,8 @@
             DLog(@"flag = %i",flag);
             
             // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
-            if ((reportData[0] & MEASUREMENT_IS_TWO_BYTES))
+            bool heartRateIsTwoBytes = (reportData[0] & MEASUREMENT_IS_TWO_BYTES);
+            if (heartRateIsTwoBytes)
             {
                 /* uint16 bpm */
                 bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
@@ -584,7 +587,7 @@
                 self.sensorContactStatusAvailable = NO;
             }
             
-            [self processExpendedEnergyData:reportData];
+            [self processExpendedEnergyData:reportData heartRateIsInteger:heartRateIsTwoBytes];
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
         {
