@@ -56,7 +56,9 @@
 @property (nonatomic) BOOL energyExpendedStatusAvailable;
 
 // expended energy level in Joules
-@property (nonatomic) NSUInteger energyExpended;
+@property (nonatomic, readwrite) NSUInteger energyExpended;
+
+@property (nonatomic, readwrite) NSUInteger energyExpendedRefreshed;
 
 @property (weak, nonatomic) IBOutlet UILabel *bodySensorLocationLabel;
 
@@ -80,7 +82,6 @@
 
 #define CONNECT_STRING     @"Connect"
 #define DISCONNECT_STRING  @"Disconnect"
-
 
 
 
@@ -117,15 +118,14 @@
  */
 -(void)setEnergyExpended:(NSUInteger)energyExpended
 {
-    if (_energyExpended != energyExpended)
-    {
-        _energyExpended = energyExpended;
+    self.energyExpendedRefreshed = self.updateCount;
+    _energyExpended = energyExpended;
         
-        if (self.energyExpendedStatusAvailable)
-        {
-            self.energyExpendedLabel.text = [NSString stringWithFormat:@"Energy expended (Joules):  %i",_energyExpended];
-        }
+    if (self.energyExpendedStatusAvailable)
+    {
+        self.energyExpendedLabel.text = [NSString stringWithFormat:@"Energy expended (Joules):  %d",_energyExpended];
     }
+    
 }
 
 
@@ -473,6 +473,10 @@
 }
 
 
+
+// The Bluetooth spec indcates updates should be included every 20 updates
+// Assuming 1 hz samples, if we haven't gotten an update in 30 seconds something is wrong.
+#define EXPENDED_ENERGY_UPDATE_THRESHOLD 30
 /*
  *
  * Method Name:  processExpendedEnergyData
@@ -490,6 +494,14 @@
         self.energyExpendedStatusAvailable = YES;
         // read the expended energy data
         self.energyExpended = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[2]));
+    }
+    else
+    {
+        // we need to put a delay in here before taking the message down -- maybe 10 seconds?
+        if ((self.updateCount - self.energyExpendedRefreshed) > EXPENDED_ENERGY_UPDATE_THRESHOLD)
+        {
+            self.energyExpendedStatusAvailable = NO;
+        }
     }
 
     
