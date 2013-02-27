@@ -16,6 +16,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *rightButtonImage;
 
+@property (weak, nonatomic) IBOutlet UISwitch *subscribeSwitch;
+
+- (IBAction)subscribeForSwitchNotifications:(UISwitch *)sender;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *statusActivityIndicator;
 
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
@@ -69,6 +73,19 @@
 }
 
 
+// Switch handler for subscribing to notifications of key presses.
+- (IBAction)subscribeForSwitchNotifications:(UISwitch *)sender
+{
+    if (sender.on)
+    {
+        [self subscribeForButtonNotifications:YES];
+    }
+    else
+    {
+        [self subscribeForButtonNotifications:NO];
+    }
+}
+
 
 #pragma mark- Controller Lifecycle
 
@@ -103,9 +120,10 @@
         }
     }
     
+    // Enable user switch for subscribing to notifications for key presses
     if ( keyPressedFound)
     {
-        [self subscribeForButtonNotifications];
+        self.subscribeSwitch.enabled = YES;
     }
     else
     {
@@ -126,7 +144,7 @@
  * Parameter(s): None
  *
  */
--(void)subscribeForButtonNotifications
+-(void)subscribeForButtonNotifications: (BOOL)enable
 {
     
     if (self.keyPressedService.characteristics)
@@ -153,7 +171,7 @@
             {
                 // sign up for notifications
                 self.keyPressedService.peripheral.delegate = self;
-                [self.keyPressedService.peripheral setNotifyValue:YES forCharacteristic:self.keyPressedService.characteristics[index]];
+                [self.keyPressedService.peripheral setNotifyValue:enable forCharacteristic:self.keyPressedService.characteristics[index]];
             }
         }
     }
@@ -288,13 +306,15 @@
 
     if (error == nil)
     {
-        DLog(@"Subscribing to key pressed notifications");
-        [self subscribeForButtonNotifications];
+        DLog(@"Enabling subscriptions to key pressed notifications");
+        self.subscribeSwitch.enabled = YES;
+        
     }
     else
     {
         DLog(@"Error Discovering Characteristics: %@",error.description);
     }
 }
+
 
 @end

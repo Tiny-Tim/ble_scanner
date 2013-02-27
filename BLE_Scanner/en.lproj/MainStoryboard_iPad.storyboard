@@ -960,9 +960,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HYx-g6-x8E"/>
+                            <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DIQ-aU-NBB">
+                                <connections>
+                                    <action selector="subscribeForSwitchNotifications:" destination="nlV-ag-u92" eventType="valueChanged" id="KbM-Ey-HSn"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subscribe For Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfY-Vq-deH">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BfY-Vq-deH" firstAttribute="centerX" secondItem="DIQ-aU-NBB" secondAttribute="centerX" type="default" id="26z-CZ-Cfb"/>
                             <constraint firstItem="itB-uw-hoQ" firstAttribute="leading" secondItem="k5A-Pd-eK8" secondAttribute="leading" type="default" id="3IV-pF-ENn"/>
                             <constraint firstItem="itB-uw-hoQ" firstAttribute="top" secondItem="HYx-g6-x8E" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="4tB-tY-VID"/>
                             <constraint firstItem="HYx-g6-x8E" firstAttribute="centerX" secondItem="itB-uw-hoQ" secondAttribute="centerX" type="default" id="5eR-2z-jaw"/>
@@ -971,7 +982,10 @@
                             <constraint firstItem="zBg-nE-6n4" firstAttribute="centerX" secondItem="msv-Fz-pGs" secondAttribute="centerX" type="default" id="C9K-XB-CDR"/>
                             <constraint firstItem="itB-uw-hoQ" firstAttribute="top" secondItem="k5A-Pd-eK8" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="I6j-Rj-Q60"/>
                             <constraint firstItem="D1g-U1-5vC" firstAttribute="bottom" secondItem="msv-Fz-pGs" secondAttribute="bottom" type="default" id="J6T-kJ-gbW"/>
+                            <constraint firstItem="DIQ-aU-NBB" firstAttribute="top" secondItem="msa-C5-kwV" secondAttribute="top" constant="424" id="Neb-2I-kXZ"/>
+                            <constraint firstItem="BfY-Vq-deH" firstAttribute="top" secondItem="msa-C5-kwV" secondAttribute="top" constant="376" id="OgU-ia-cxa"/>
                             <constraint firstItem="k5A-Pd-eK8" firstAttribute="leading" secondItem="msa-C5-kwV" secondAttribute="leading" constant="16" id="Rnk-6Q-eyU"/>
+                            <constraint firstItem="BfY-Vq-deH" firstAttribute="centerX" secondItem="msa-C5-kwV" secondAttribute="centerX" type="default" id="VdO-UA-AaQ"/>
                             <constraint firstItem="zBg-nE-6n4" firstAttribute="top" secondItem="msa-C5-kwV" secondAttribute="top" constant="111" id="VrV-dh-JJ4"/>
                             <constraint firstAttribute="bottom" secondItem="itB-uw-hoQ" secondAttribute="bottom" constant="5" id="Wn8-GV-I2I"/>
                             <constraint firstItem="D1g-U1-5vC" firstAttribute="top" secondItem="msv-Fz-pGs" secondAttribute="top" type="default" id="ani-e1-Usf"/>
@@ -988,6 +1002,7 @@
                         <outlet property="peripheralStatusLabel" destination="itB-uw-hoQ" id="5bu-EU-PcJ"/>
                         <outlet property="rightButtonImage" destination="D1g-U1-5vC" id="Ast-5m-OB2"/>
                         <outlet property="statusActivityIndicator" destination="HYx-g6-x8E" id="aMC-KW-Iqf"/>
+                        <outlet property="subscribeSwitch" destination="DIQ-aU-NBB" id="LuI-y5-eLw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qdN-dg-WFI" userLabel="First Responder" sceneMemberID="firstResponder"/>

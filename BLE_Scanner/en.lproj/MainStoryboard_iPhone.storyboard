@@ -933,11 +933,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Omu-3B-Ksq"/>
+                            <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MzA-q1-YNT">
+                                <connections>
+                                    <action selector="subscribeForSwitchNotifications:" destination="diW-He-e5H" eventType="valueChanged" id="0RW-3Y-Qaz"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subscribe For Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1z6-a7-3EA">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="1z6-a7-3EA" secondAttribute="bottom" constant="159" id="3HN-Fe-GZj"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="top" secondItem="kLo-Rv-EKJ" secondAttribute="top" constant="111" id="3dA-op-CMq"/>
                             <constraint firstItem="TOj-rZ-jgW" firstAttribute="bottom" secondItem="ZUL-91-RxJ" secondAttribute="bottom" type="default" id="3fX-Mj-N9a"/>
+                            <constraint firstItem="1z6-a7-3EA" firstAttribute="leading" secondItem="kLo-Rv-EKJ" secondAttribute="leading" constant="44" id="5ZN-O9-AIo"/>
                             <constraint firstItem="ZUL-91-RxJ" firstAttribute="top" secondItem="kLo-Rv-EKJ" secondAttribute="top" constant="145" id="6Jp-Ay-Lk7"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="Omu-3B-Ksq" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="B80-Qd-Xbn"/>
                             <constraint firstAttribute="trailing" secondItem="NDv-Sa-UKK" secondAttribute="trailing" constant="69" id="CAA-oi-lfI"/>
@@ -945,11 +957,13 @@
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Kdq-DQ-k3a"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="NbV-aI-I7p"/>
                             <constraint firstItem="UeP-S6-Li6" firstAttribute="leading" secondItem="kLo-Rv-EKJ" secondAttribute="leading" constant="16" id="QNL-h4-n0C"/>
+                            <constraint firstAttribute="bottom" secondItem="MzA-q1-YNT" secondAttribute="bottom" constant="105" id="QlL-y8-3px"/>
                             <constraint firstItem="TOj-rZ-jgW" firstAttribute="top" secondItem="ZUL-91-RxJ" secondAttribute="top" type="default" id="Tg6-0G-swY"/>
                             <constraint firstAttribute="bottom" secondItem="ced-Sl-fhw" secondAttribute="bottom" constant="5" id="X0U-C5-9Gn"/>
                             <constraint firstItem="UeP-S6-Li6" firstAttribute="centerX" secondItem="ZUL-91-RxJ" secondAttribute="centerX" type="default" id="e0l-gz-ArW"/>
                             <constraint firstAttribute="trailing" secondItem="TOj-rZ-jgW" secondAttribute="trailing" constant="48" id="fYg-cI-gZo"/>
                             <constraint firstItem="ced-Sl-fhw" firstAttribute="leading" secondItem="UeP-S6-Li6" secondAttribute="leading" type="default" id="gtZ-Ap-PNg"/>
+                            <constraint firstItem="MzA-q1-YNT" firstAttribute="centerX" secondItem="1z6-a7-3EA" secondAttribute="centerX" type="default" id="jdB-Xh-bcL"/>
                             <constraint firstItem="Omu-3B-Ksq" firstAttribute="top" secondItem="UeP-S6-Li6" secondAttribute="top" type="default" id="k1G-7V-hPW"/>
                             <constraint firstItem="RM5-9N-boA" firstAttribute="baseline" secondItem="NDv-Sa-UKK" secondAttribute="baseline" type="default" id="rOc-nV-HAK"/>
                         </constraints>
@@ -960,6 +974,7 @@
                         <outlet property="peripheralStatusLabel" destination="ced-Sl-fhw" id="0qE-Zp-yyj"/>
                         <outlet property="rightButtonImage" destination="TOj-rZ-jgW" id="RDW-d9-eTC"/>
                         <outlet property="statusActivityIndicator" destination="Omu-3B-Ksq" id="COq-sb-4Yr"/>
+                        <outlet property="subscribeSwitch" destination="MzA-q1-YNT" id="01n-uQ-Cr9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhl-2F-PDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
