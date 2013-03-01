@@ -1013,7 +1013,7 @@
         <scene sceneID="1Ip-VF-xHw">
             <objects>
                 <viewController id="994-50-lp0" customClass="BLEBatteryServiceDemoViewController" sceneMemberID="viewController">
-                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="a6C-F1-7hC">
+                    <view key="view" contentMode="scaleToFill" id="a6C-F1-7hC">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -1056,23 +1056,38 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="m1S-dZ-zWS"/>
+                            <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cBr-HV-CVh">
+                                <connections>
+                                    <action selector="subscribeForSwitchNotifications:" destination="nlV-ag-u92" eventType="valueChanged" id="WI4-F5-IR3"/>
+                                    <action selector="subscribeSwitchHandler:" destination="994-50-lp0" eventType="valueChanged" id="vz4-cC-Chv"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subscribe For Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79M-kV-pv5">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="m1S-dZ-zWS" firstAttribute="bottom" secondItem="kR0-oQ-YxV" secondAttribute="bottom" type="default" id="29x-rm-CF2"/>
                             <constraint firstItem="TBK-cE-YiV" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="104" id="2Mf-Yc-zOM"/>
                             <constraint firstItem="VNV-nr-iay" firstAttribute="trailing" secondItem="XIr-dy-hds" secondAttribute="trailing" type="default" id="5i4-TC-8fA"/>
+                            <constraint firstItem="79M-kV-pv5" firstAttribute="centerX" secondItem="cBr-HV-CVh" secondAttribute="centerX" type="default" id="7bv-rL-Zj9"/>
+                            <constraint firstItem="79M-kV-pv5" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="259" id="FpW-NE-mMW"/>
                             <constraint firstItem="kR0-oQ-YxV" firstAttribute="leading" secondItem="I2x-AM-5YD" secondAttribute="leading" type="default" id="KcG-KM-fpd"/>
                             <constraint firstItem="XIr-dy-hds" firstAttribute="leading" secondItem="VNV-nr-iay" secondAttribute="leading" type="default" id="MWm-zl-u7f"/>
                             <constraint firstItem="TBK-cE-YiV" firstAttribute="trailing" secondItem="VNV-nr-iay" secondAttribute="trailing" type="default" id="NdF-66-Wnl"/>
+                            <constraint firstItem="79M-kV-pv5" firstAttribute="centerX" secondItem="XIr-dy-hds" secondAttribute="centerX" type="default" id="RPJ-bV-j6b"/>
                             <constraint firstItem="EJd-3K-SRc" firstAttribute="leading" secondItem="kR0-oQ-YxV" secondAttribute="leading" type="default" id="Ueu-BK-nNI"/>
                             <constraint firstItem="m1S-dZ-zWS" firstAttribute="leading" secondItem="a6C-F1-7hC" secondAttribute="leading" constant="208" id="WEh-FQ-XLg"/>
                             <constraint firstItem="kR0-oQ-YxV" firstAttribute="leading" secondItem="a6C-F1-7hC" secondAttribute="leading" constant="58" id="Zw4-qb-jZs"/>
                             <constraint firstItem="kR0-oQ-YxV" firstAttribute="top" secondItem="m1S-dZ-zWS" secondAttribute="top" type="default" id="bvQ-cw-L7w"/>
-                            <constraint firstItem="TBK-cE-YiV" firstAttribute="leading" secondItem="a6C-F1-7hC" secondAttribute="leading" constant="261" id="d8S-PI-OdG"/>
+                            <constraint firstItem="cBr-HV-CVh" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="296" id="isy-Ei-zqa"/>
                             <constraint firstItem="I2x-AM-5YD" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="25" id="k7M-Pb-Nzz"/>
                             <constraint firstItem="VNV-nr-iay" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="140" id="kOw-uh-8AB"/>
                             <constraint firstItem="EJd-3K-SRc" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="409" id="m4D-mG-qlj"/>
+                            <constraint firstItem="79M-kV-pv5" firstAttribute="leading" secondItem="a6C-F1-7hC" secondAttribute="leading" constant="250" id="rhM-jY-xcT"/>
                             <constraint firstItem="TBK-cE-YiV" firstAttribute="leading" secondItem="VNV-nr-iay" secondAttribute="leading" type="default" id="trz-SZ-uzG"/>
                             <constraint firstItem="XIr-dy-hds" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="171" id="ydO-pw-euk"/>
                             <constraint firstItem="kR0-oQ-YxV" firstAttribute="top" secondItem="a6C-F1-7hC" secondAttribute="top" constant="368" id="ypo-vw-R8l"/>
@@ -1085,6 +1100,7 @@
                         <outlet property="batteryMeter" destination="VNV-nr-iay" id="mXm-If-nOZ"/>
                         <outlet property="peripheralStatusLabel" destination="EJd-3K-SRc" id="nBL-ek-mBE"/>
                         <outlet property="peripheralStatusSpinner" destination="m1S-dZ-zWS" id="nxF-gk-PPP"/>
+                        <outlet property="subscribeSwitch" destination="cBr-HV-CVh" id="rUC-mF-PTC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xni-nJ-5bb" userLabel="First Responder" sceneMemberID="firstResponder"/>

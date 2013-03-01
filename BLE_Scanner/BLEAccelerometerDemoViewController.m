@@ -33,6 +33,9 @@
 // holds accelerometer sampled data values
 @property (nonatomic, strong) NSMutableArray *accelerationPlot;
 
+
+// Key Fob Sends Accelerometer data as single signed byte per axis
+
 // X axis accelerometer component read from device
 @property (nonatomic, strong) NSNumber *accelerometerXNotification;
 
@@ -221,7 +224,10 @@
         char value = enable ? 1 : 0;
         NSData *data = [NSData dataWithBytes:&value length:1 ];
         
-        [self.accelerometerService.peripheral writeValue:data forCharacteristic:enableAccelerometer type:CBCharacteristicWriteWithoutResponse];
+       // [self.accelerometerService.peripheral writeValue:data forCharacteristic:enableAccelerometer type:CBCharacteristicWriteWithoutResponse];
+        
+        [self.accelerometerService.peripheral writeValue:data forCharacteristic:enableAccelerometer type:CBCharacteristicWriteWithResponse];
+        
     };
 }
 
@@ -275,7 +281,7 @@
  *
  * Method Name:  enableAccelerometerAndSubscribeForAccelerationNotifications
  *
- * Description:  Performs two principal functions, namely enabling the acceleromter (turning it on) and additionally subscribes for notifications notifying the controller when accelerometer data has changed. If the chracteristics have not been read, they are first discovered and the peripheral delegate function didDiscoverCharacteristicsForService then issues commands to turn on the accelerometer and subscribes the controller for notifications.
+ * Description:  Performs two principal functions, namely enabling the accelerometer (turning it on) and additionally subscribes for notifications notifying the controller when accelerometer data has changed. If the chracteristics have not been read, they are first discovered and the peripheral delegate function didDiscoverCharacteristicsForService then issues commands to turn on the accelerometer and subscribes the controller for notifications.
  *
  * Parameter(s): None
  *
@@ -386,7 +392,7 @@
  * Description:  Handles arrival of new acceleromter data from device.
  *
  * Parameter(s): peripheral- peripheral that sent the data
- *               characteristic - chracreristic containing data corresponding to x,y, or z axial accelerometer
+ *               characteristic - characteristic containing data corresponding to x,y, or z axial accelerometer
  *               error - any error encountered when reading data
  *
  */
@@ -422,6 +428,7 @@
             self.accelerometerZNotification = [NSNumber numberWithChar:value];
             });
         }
+        
     }
     else
     {
@@ -429,6 +436,22 @@
     }
 }
 
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if (!error)
+    {
+        NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+        if ([uuidString localizedCompare:TI_ENABLE_ACCELEROMETER] == NSOrderedSame)
+        {
+            DLog(@"Received confirmation that accelerometer enable write was received.");
+        }
+    }
+    else
+    {
+        DLog(@"Error occurred writing characteristic: %@",error.description);
+    }
+}
 
 /*
  *

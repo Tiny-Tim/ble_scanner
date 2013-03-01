@@ -1031,15 +1031,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-tu-Dkh"/>
+                            <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oyx-IS-L53">
+                                <connections>
+                                    <action selector="subscribeSwitchHandler:" destination="M4N-3b-Y3k" eventType="valueChanged" id="wy0-4S-782"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subscribe For Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qf4-zO-1Eu">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="viJ-Ui-afj" firstAttribute="leading" secondItem="kh7-7R-2af" secondAttribute="leading" type="default" id="6Ji-Bl-soR"/>
                             <constraint firstItem="96w-33-xn4" firstAttribute="centerX" secondItem="1Rk-fh-JsZ" secondAttribute="centerX" type="default" id="Aux-G6-rgy"/>
                             <constraint firstAttribute="trailing" secondItem="96w-33-xn4" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="DPJ-Cg-9gE"/>
+                            <constraint firstItem="qf4-zO-1Eu" firstAttribute="centerX" secondItem="Dqy-Cl-4pd" secondAttribute="centerX" type="default" id="HbI-Oe-VpN"/>
                             <constraint firstItem="kh7-7R-2af" firstAttribute="trailing" secondItem="1Rk-fh-JsZ" secondAttribute="trailing" type="default" id="Iw8-dW-Wvc"/>
                             <constraint firstItem="sLQ-tu-Dkh" firstAttribute="bottom" secondItem="3CO-hd-9Sm" secondAttribute="bottom" type="default" id="M7W-b8-3bV"/>
-                            <constraint firstItem="sLQ-tu-Dkh" firstAttribute="centerX" secondItem="Dqy-Cl-4pd" secondAttribute="centerX" type="default" id="TXM-ff-HlI"/>
+                            <constraint firstAttribute="bottom" secondItem="oyx-IS-L53" secondAttribute="bottom" constant="151" id="Vpk-md-bKd"/>
+                            <constraint firstAttribute="bottom" secondItem="qf4-zO-1Eu" secondAttribute="bottom" constant="194" id="YNR-4Y-lPB"/>
                             <constraint firstItem="sLQ-tu-Dkh" firstAttribute="leading" secondItem="3CO-hd-9Sm" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="ZxA-Eq-HZa"/>
                             <constraint firstItem="96w-33-xn4" firstAttribute="leading" secondItem="ZKC-Gy-QLI" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="cdk-fs-SmG"/>
                             <constraint firstItem="1Rk-fh-JsZ" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="171" id="d8v-qL-R8B"/>
@@ -1050,8 +1062,10 @@
                             <constraint firstAttribute="bottom" secondItem="96w-33-xn4" secondAttribute="bottom" constant="25" id="oT8-Jk-DH8"/>
                             <constraint firstItem="Dqy-Cl-4pd" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="25" id="qak-YS-HfT"/>
                             <constraint firstAttribute="bottom" secondItem="sLQ-tu-Dkh" secondAttribute="bottom" constant="62" id="rJq-63-8XI"/>
+                            <constraint firstItem="qf4-zO-1Eu" firstAttribute="centerX" secondItem="oyx-IS-L53" secondAttribute="centerX" type="default" id="sGQ-Ic-8Nm"/>
                             <constraint firstItem="kh7-7R-2af" firstAttribute="top" secondItem="ZKC-Gy-QLI" secondAttribute="top" constant="140" id="vDT-TY-Qbe"/>
                             <constraint firstItem="sLQ-tu-Dkh" firstAttribute="top" secondItem="3CO-hd-9Sm" secondAttribute="top" type="default" id="vaL-sz-e66"/>
+                            <constraint firstItem="oyx-IS-L53" firstAttribute="centerX" secondItem="sLQ-tu-Dkh" secondAttribute="centerX" type="default" id="wd6-0n-h9O"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Battery Service Demo" id="9iD-s3-rBO"/>
@@ -1060,6 +1074,7 @@
                         <outlet property="batteryMeter" destination="kh7-7R-2af" id="4gB-KS-WRy"/>
                         <outlet property="peripheralStatusLabel" destination="96w-33-xn4" id="5Qj-Cl-iqu"/>
                         <outlet property="peripheralStatusSpinner" destination="sLQ-tu-Dkh" id="7bU-ba-JdX"/>
+                        <outlet property="subscribeSwitch" destination="oyx-IS-L53" id="N9A-Hg-28N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuW-x0-ZA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
