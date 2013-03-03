@@ -24,7 +24,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *peripheralStatusLabel;
 
-@property (nonatomic, strong) UIImage *redLEDImage;
+@property (nonatomic, strong) UIImage *onLEDImage;
 
 @property (nonatomic, strong)UIImage *whiteLEDImage;
 
@@ -48,15 +48,15 @@
 
 
 // Red LED image used to signal button is pressed.
--(UIImage *)redLEDImage
+-(UIImage *)onLEDImage
 {
-    if (_redLEDImage == nil)
+    if (_onLEDImage == nil)
     {
-        NSString *redLEDfilePath = [[NSBundle mainBundle] pathForResource:@"redLed" ofType:@"png"];
-        _redLEDImage = [UIImage imageWithContentsOfFile:redLEDfilePath];
+        NSString *LEDfilePath = [[NSBundle mainBundle] pathForResource:@"yellowLed" ofType:@"png"];
+        _onLEDImage = [UIImage imageWithContentsOfFile:LEDfilePath];
     }
     
-    return _redLEDImage;
+    return _onLEDImage;
 }
 
 
@@ -251,7 +251,7 @@
             else if (buttonValue == 1 )
             {
                 // left button pressed
-                self.leftButtonImage.image = self.redLEDImage;
+                self.leftButtonImage.image = self.onLEDImage;
                 self.rightButtonImage.image = self.whiteLEDImage;
                 alertMessage = @"Key Fob Button Press: Left Button";
                 
@@ -260,14 +260,14 @@
             {
                 // right button pressed
                 self.leftButtonImage.image = self.whiteLEDImage;
-                self.rightButtonImage.image = self.redLEDImage;
+                self.rightButtonImage.image = self.onLEDImage;
                 alertMessage = @"Key Fob Button Press: Right Button";
             }
             else if (buttonValue == 3)
             {
                 // both buttons pressed
-                self.leftButtonImage.image = self.redLEDImage;
-                self.rightButtonImage.image = self.redLEDImage;
+                self.leftButtonImage.image = self.onLEDImage;
+                self.rightButtonImage.image = self.onLEDImage;
                 alertMessage = @"Key Fob Button Press: Both Buttons Pressed";
             }
             

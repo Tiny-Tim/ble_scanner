@@ -51,11 +51,11 @@
 		D9207B6A16B6D35B0023FFFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9207B4216B6D35B0023FFFA /* Foundation.framework */; };
 		D9207B7216B6D35B0023FFFA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9207B7016B6D35B0023FFFA /* InfoPlist.strings */; };
 		D9207B7516B6D35B0023FFFA /* BLE_ScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */; };
+		D944F24616E415B50093BAFB /* yellowLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D944F24516E415B50093BAFB /* yellowLed.png */; };
 		D968689C16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */; };
 		D968689D16C412E100F79634 /* BLEDemoDispatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */; };
 		D96868A016C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */; };
 		D96868A116C41B0400F79634 /* BLEBatteryServiceDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */; };
-		D96868A616C58E6600F79634 /* redLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A416C58E6500F79634 /* redLed.png */; };
 		D96868A716C58E6600F79634 /* whiteLed.png in Resources */ = {isa = PBXBuildFile; fileRef = D96868A516C58E6500F79634 /* whiteLed.png */; };
 		D96868AA16C5915100F79634 /* BLEKeyPressDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */; };
 		D96868B216C822C300F79634 /* BLEGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96868B116C822C200F79634 /* BLEGraphView.m */; };
@@ -138,12 +138,12 @@
 		D9207B7116B6D35B0023FFFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D9207B7316B6D35B0023FFFA /* BLE_ScannerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLE_ScannerTests.h; sourceTree = "<group>"; };
 		D9207B7416B6D35B0023FFFA /* BLE_ScannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLE_ScannerTests.m; sourceTree = "<group>"; };
+		D944F24516E415B50093BAFB /* yellowLed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowLed.png; sourceTree = "<group>"; };
 		D968689A16C412E100F79634 /* BLEDemoDispatcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDemoDispatcherViewController.h; sourceTree = "<group>"; };
 		D968689B16C412E100F79634 /* BLEDemoDispatcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDemoDispatcherViewController.m; sourceTree = "<group>"; };
 		D968689E16C41B0400F79634 /* BLEBatteryServiceDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEBatteryServiceDemoViewController.h; sourceTree = "<group>"; };
 		D968689F16C41B0400F79634 /* BLEBatteryServiceDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEBatteryServiceDemoViewController.m; sourceTree = "<group>"; };
 		D96868A216C479A500F79634 /* ServiceAndCharacteristicMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceAndCharacteristicMacros.h; sourceTree = "<group>"; };
-		D96868A416C58E6500F79634 /* redLed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redLed.png; path = ../../redLed.png; sourceTree = "<group>"; };
 		D96868A516C58E6500F79634 /* whiteLed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteLed.png; path = ../../whiteLed.png; sourceTree = "<group>"; };
 		D96868A816C5915000F79634 /* BLEKeyPressDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEKeyPressDemoViewController.h; sourceTree = "<group>"; };
 		D96868A916C5915000F79634 /* BLEKeyPressDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEKeyPressDemoViewController.m; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 		D96868A316C58DFE00F79634 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D944F24516E415B50093BAFB /* yellowLed.png */,
 				D9076E2E16C975C60010C641 /* hearts */,
-				D96868A416C58E6500F79634 /* redLed.png */,
 				D96868A516C58E6500F79634 /* whiteLed.png */,
 			);
 			path = Images;
@@ -427,7 +427,6 @@
 				D9207B5716B6D35B0023FFFA /* Default-568h@2x.png in Resources */,
 				D9207B5A16B6D35B0023FFFA /* MainStoryboard_iPhone.storyboard in Resources */,
 				D9207B5D16B6D35B0023FFFA /* MainStoryboard_iPad.storyboard in Resources */,
-				D96868A616C58E6600F79634 /* redLed.png in Resources */,
 				D96868A716C58E6600F79634 /* whiteLed.png in Resources */,
 				D9076E3916C975C60010C641 /* heartbeat-1 (dragged).tiff in Resources */,
 				D9076E3A16C975C60010C641 /* heartbeat-10 (dragged).tiff in Resources */,
@@ -440,6 +439,7 @@
 				D9076E4116C975C60010C641 /* heartbeat-8 (dragged).tiff in Resources */,
 				D9076E4216C975C60010C641 /* heartbeat-9 (dragged).tiff in Resources */,
 				D911143E16D033A7003CDFAA /* haraldgormsson.png in Resources */,
+				D944F24616E415B50093BAFB /* yellowLed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

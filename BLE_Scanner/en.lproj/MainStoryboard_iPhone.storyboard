@@ -865,20 +865,35 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YAC-3N-PVW">
+                                <connections>
+                                    <action selector="atomicSwitchHandler:" destination="3N1-Tq-W9m" eventType="valueChanged" id="QLE-46-Vob"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Atomic Updates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJy-VI-uoo">
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="fEH-ue-OyX" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="CNz-yP-eKj"/>
                             <constraint firstAttribute="bottom" secondItem="DQU-sw-Act" secondAttribute="bottom" constant="67" id="DL1-lU-GIE"/>
-                            <constraint firstAttribute="trailing" secondItem="fEH-ue-OyX" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Fdu-aU-18e"/>
-                            <constraint firstItem="fEH-ue-OyX" firstAttribute="leading" secondItem="OW6-DU-MsS" secondAttribute="leading" type="default" id="Lym-aR-olJ"/>
+                            <constraint firstItem="OW6-DU-MsS" firstAttribute="leading" secondItem="fEH-ue-OyX" secondAttribute="leading" type="default" id="EI3-0j-VMb"/>
+                            <constraint firstItem="DQU-sw-Act" firstAttribute="leading" secondItem="OW6-DU-MsS" secondAttribute="leading" type="default" id="EuM-qT-xnh"/>
                             <constraint firstItem="fEH-ue-OyX" firstAttribute="top" secondItem="OW6-DU-MsS" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="RCb-wa-9x1"/>
-                            <constraint firstAttribute="trailing" secondItem="DQU-sw-Act" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="pmn-sB-54M"/>
-                            <constraint firstAttribute="trailing" secondItem="OW6-DU-MsS" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="rKS-Dh-Q9n"/>
+                            <constraint firstItem="DQU-sw-Act" firstAttribute="leading" secondItem="Mam-Yb-6cd" secondAttribute="leading" constant="52" id="U5w-8w-qoc"/>
+                            <constraint firstItem="gJy-VI-uoo" firstAttribute="top" secondItem="fEH-ue-OyX" secondAttribute="top" type="default" id="bc8-95-ZPu"/>
+                            <constraint firstItem="gJy-VI-uoo" firstAttribute="top" secondItem="YAC-3N-PVW" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="dlB-ZD-xQf"/>
+                            <constraint firstItem="OW6-DU-MsS" firstAttribute="trailing" secondItem="fEH-ue-OyX" secondAttribute="trailing" type="default" id="jxR-t2-3LR"/>
+                            <constraint firstAttribute="trailing" secondItem="gJy-VI-uoo" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="pa5-CJ-5BL"/>
+                            <constraint firstItem="YAC-3N-PVW" firstAttribute="centerX" secondItem="gJy-VI-uoo" secondAttribute="centerX" type="default" id="vlf-At-ubQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TI Accelerometer Demo" id="3bA-L0-8We"/>
                     <connections>
+                        <outlet property="atomicSwitch" destination="YAC-3N-PVW" id="UbE-nN-gRg"/>
                         <outlet property="graphView" destination="Mam-Yb-6cd" id="j68-uU-Uqs"/>
                     </connections>
                 </viewController>
@@ -991,6 +1006,7 @@
                         <subviews>
                             <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" progress="0.10000000000000003" translatesAutoresizingMaskIntoConstraints="NO" id="kh7-7R-2af">
                                 <color key="progressTintColor" red="0.20000000000000001" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Battery Usage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rk-fh-JsZ">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1152,6 +1168,138 @@
     <resources>
         <image name="whiteLed.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="BLEAccelerometerDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEAccelerometerDemoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="atomicSwitchHandler:" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="atomicSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="graphView" candidateClass="BLEGraphView"/>
+            </relationships>
+        </class>
+        <class className="BLEBatteryServiceDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBatteryServiceDemoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="subscribeSwitchHandler:" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="batteryLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="batteryMeter" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="subscribeSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="BLEBluetoothWebServiceViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEBluetoothWebServiceViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="BLECentralManagerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLECentralManagerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stopConnect:"/>
+                <relationship kind="outlet" name="centralManagerActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="centralManagerStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hostBluetoothStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scanBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BLEConnectButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEConnectButtonCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="leashButtonHandler"/>
+                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="leashButton" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEDemoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoViewController.h"/>
+        </class>
+        <class className="BLEDeviceInformationDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDeviceInformationDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="firmwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hardwareRevisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="manufacturerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="modelNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="serialNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="softwareRevisionLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEDiscoveredDevicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDiscoveredDevicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="connectButton:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BLEGenericAccessDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGenericAccessDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="deviceNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="BLEGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEGraphView.h"/>
+        </class>
+        <class className="BLEHeartRateDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEHeartRateDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bodySensorLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="energyExpendedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heartBeatImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="heartRateMeasureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusSpinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="sensorContactStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="updateCountLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEKeyPressDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEKeyPressDemoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="subscribeForSwitchNotifications:" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="leftButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rightButtonImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="statusActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="subscribeSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="BLELeashDemoViewController" superclassName="BLEDemoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLELeashDemoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="pathLossLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rssiPowerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="transmitPowerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BLEPeripheralCharacteristicsTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralCharacteristicsTVC.h"/>
+        </class>
+        <class className="BLEPeripheralServicesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEPeripheralServicesTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="demosButton:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
