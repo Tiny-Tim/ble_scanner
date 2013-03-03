@@ -47,18 +47,22 @@
 #define TI_ACCELEROMETER_Y_VALUE  @"FFA4"
 #define TI_ACCELEROMETER_Z_VALUE  @"FFA5"
 
+// TI triaxial accelerometer characteristic is not supported by key fob
+// It packs all three accelerometer values in a single characteristic
+#define TI_TRIAXIAL_ACCELEROMETER_VALUES    @"FFAA"
+
 #define TI_KEY_PRESSED_STATE_CHARACTERISTIC @"FFE1"
 
 
 // Accelerometer Calibration Coefficients
 #define  X_CALIBRATION_SCALE 55.0
-#define  X_CALIBRATION_OFFSET 0.1
+#define  X_CALIBRATION_OFFSET 0.0
 
 #define  Y_CALIBRATION_SCALE 55.0
-#define  Y_CALIBRATION_OFFSET 0.1
+#define  Y_CALIBRATION_OFFSET 0.0
 
 #define  Z_CALIBRATION_SCALE 55.0
-#define  Z_CALIBRATION_OFFSET 0.1
+#define  Z_CALIBRATION_OFFSET 0.0
 
 
 #define BLUETOOTH_DEVELOPER_PORTAL_REGISTERED_SERVICES @"http://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx?SortField=AssignedNumber&SortDir=Asc"

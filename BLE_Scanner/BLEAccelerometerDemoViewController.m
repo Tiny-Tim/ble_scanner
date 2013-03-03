@@ -44,11 +44,20 @@
 
 // Z axis accelerometer component read from device
 @property (nonatomic, strong) NSNumber *accelerometerZNotification;
+
+
+
+@property (weak, nonatomic) IBOutlet UISwitch *atomicSwitch;
+
+- (IBAction)atomicSwitchHandler:(UISwitch *)sender;
+
+
 @end
 
 @implementation BLEAccelerometerDemoViewController
 
 @synthesize accelerationPlot = _accelerationPlot;
+
 
 
 #pragma mark - Properties
@@ -168,6 +177,24 @@
 }
 
 
+
+- (IBAction)atomicSwitchHandler:(UISwitch *)sender
+{
+    if (sender.on)
+    {
+        DLog(@"Switch turned on");
+        [self enableNotifications:NO];
+        [self enableAtomicAcclerometerNotification:YES];
+        
+    }
+    else
+    {
+        DLog(@"Switch turned off");
+        [self enableNotifications:YES];
+        [self enableAtomicAcclerometerNotification:NO];
+    }
+}
+
 #pragma mark- Private Helper Methods
 
 
@@ -233,6 +260,20 @@
 
 
 
+-(void)enableAtomicAcclerometerNotification: (BOOL)enable
+{
+    for (CBCharacteristic * characteristic in self.accelerometerService.characteristics)
+    {
+        NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+        if ([uuidString localizedCompare:TI_TRIAXIAL_ACCELEROMETER_VALUES] == NSOrderedSame)
+        {
+             [self.accelerometerService.peripheral setNotifyValue:enable forCharacteristic:characteristic];
+            
+            break;
+        }
+    }
+}
+
 /*
  *
  * Method Name:  enableNotifications
@@ -295,6 +336,9 @@
     }
     else
     {
+        // Check to see if atomic updates are avialable for obtaining acclerometer data. If so enable the atomic update switch on the UI.
+        self.atomicSwitch.enabled = [self isAtomicUpdateAvailable:self.accelerometerService.characteristics];
+        
         // turn on accelerometer
         [self enableAccelerometer: YES];
         
@@ -303,6 +347,23 @@
     }
 }
 
+
+
+-(BOOL) isAtomicUpdateAvailable:(NSArray *)characteristics
+{
+    BOOL returnValue = NO;
+    for (CBCharacteristic * characteristic in characteristics)
+    {
+        NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+        if ([uuidString localizedCompare:TI_TRIAXIAL_ACCELEROMETER_VALUES] == NSOrderedSame)
+        {
+            returnValue = YES;
+            break;
+        }
+    }
+    
+    return returnValue;
+}
 
 
 #pragma mark- View Controller Lifecycle
@@ -342,7 +403,7 @@
   
 
     // Check to see if the characteristics for the accelerometer service have been discovered
-    if ( self.accelerometerService )
+    if ( self.accelerometerService)
     {
         // Turn the accelerometer on and subscribe for notifications
         // Use the peripheral delegate to chain functionality if characteristics have not been discovered, and to enable and subscribe as needed
@@ -401,32 +462,58 @@
     
     if (!error)
     {
-        char value;
+       
         
       //  DLog(@"Characteristic value  updated.");
         // determine which characteristic
         NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
         
-        [characteristic.value getBytes:&value length:1];
+        BOOL accel_X = ([uuidString localizedCompare:TI_ACCELEROMETER_X_VALUE] == NSOrderedSame);
+        BOOL accel_Y = ([uuidString localizedCompare:TI_ACCELEROMETER_Y_VALUE] == NSOrderedSame);
+        BOOL accel_Z = ([uuidString localizedCompare:TI_ACCELEROMETER_Z_VALUE] == NSOrderedSame);
         
-        if ([uuidString localizedCompare:TI_ACCELEROMETER_X_VALUE] == NSOrderedSame)
+        BOOL accel_XYZ = ([uuidString localizedCompare:TI_TRIAXIAL_ACCELEROMETER_VALUES] == NSOrderedSame);
+        
+        
+        if (accel_X)
         {
-             dispatch_async(self.synchronizingQueue, ^{
+            char value;
+            [characteristic.value getBytes:&value length:1];
+            
+            dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerXNotification = [NSNumber numberWithChar:value];
              });
         }
-        else if ([uuidString localizedCompare:TI_ACCELEROMETER_Y_VALUE] == NSOrderedSame)
+        else if (accel_Y)
         {
+            char value;
+            [characteristic.value getBytes:&value length:1];
             dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerYNotification = [NSNumber numberWithChar:value];
             });
         
         }
-        else if ([uuidString localizedCompare:TI_ACCELEROMETER_Z_VALUE] == NSOrderedSame)
+        else if (accel_Z)
         {
+            char value;
+            [characteristic.value getBytes:&value length:1];
             dispatch_async(self.synchronizingQueue, ^{
             self.accelerometerZNotification = [NSNumber numberWithChar:value];
             });
+        }
+        else if (accel_XYZ)
+        {
+            char values[3];
+            [characteristic.value getBytes:values length:3];
+            char valueX = values[0];
+            char valueY = values[1];
+            char valueZ = values[2];
+            dispatch_async(self.synchronizingQueue, ^{
+                self.accelerometerXNotification = [NSNumber numberWithChar:valueX];
+                self.accelerometerYNotification = [NSNumber numberWithChar:valueY];
+                self.accelerometerZNotification = [NSNumber numberWithChar:valueZ];
+            });
+            
         }
         
     }
@@ -453,6 +540,8 @@
     }
 }
 
+
+
 /*
  *
  * Method Name:  peripheral:didDiscoverCharacteristicsForService:error
@@ -465,6 +554,10 @@
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     DLog(@"didDiscoverCharacteristicsForService invoked");
+    
+    // Check to see if atomic updates are avialable for obtaining acclerometer data. If so enable the atomic update switch on the UI.
+    self.atomicSwitch.enabled = [self isAtomicUpdateAvailable:service.characteristics];
+    
     
     // turn on accelerometer
     [self enableAccelerometer: YES];
@@ -481,5 +574,6 @@
     // display the peripheral connection status
     [self displayPeripheralConnectStatus:self.accelerometerService.peripheral];
 }
+
 
 @end
