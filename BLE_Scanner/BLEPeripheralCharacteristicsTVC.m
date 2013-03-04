@@ -8,6 +8,7 @@
 
 #import "BLEPeripheralCharacteristicsTVC.h"
 #import "CBUUID+StringExtraction.h"
+#include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEPeripheralCharacteristicsTVC ()
 
@@ -141,31 +142,25 @@
     if (! error)
     {
         DLog(@"Characteristic value updated for characteristic %@",[characteristic.UUID representativeString]);
+        CBUUID *uuid = characteristic.UUID;
+        NSString *uuidString = [[uuid representativeString]uppercaseString];
         
-        // get characteristic out of array that has the same UUID
-        BOOL (^test)(id obj, NSUInteger idx, BOOL *stop);
-        CBUUID *target = characteristic.UUID;
-        NSString *targetString = [[target representativeString]uppercaseString];
-        
-        test = ^(id obj, NSUInteger idx, BOOL *stop)
+        if ([uuidString localizedCompare:TI_ACCELEROMETER_RANGE] == NSOrderedSame)
         {
-            CBCharacteristic *item_characteristic = (CBCharacteristic *)obj;
-            CBUUID *uuid = item_characteristic.UUID;
-            NSString *uuidString = [[uuid representativeString]uppercaseString];
+            NSData *data = characteristic.value;
             
-            if ([targetString localizedCompare:uuidString] == NSOrderedSame)
-            {
-                return YES;
-            }
-            return NO;
-        };
-        
-        NSIndexSet *indexes = [self.characteristics indexesOfObjectsPassingTest:test];
-        NSUInteger index=[indexes firstIndex];
-        while(index != NSNotFound)
-        {
-            index=[indexes indexGreaterThanIndex: index];
+            DLog(@"Data length= %u",[data length]);
+            char bytes[2];
+            
+            [data getBytes:bytes length:2];
+            DLog(@"Range byte 1= %c ",bytes[0]);
+            DLog(@"Range byte 2= %c ",bytes[1]);
+            
+            DLog(@"Range byte 1 (integer)= %d ",bytes[0]);
+            DLog(@"Range byte 2 (integer)= %d ",bytes[1]);
+            
         }
+        
         
         [self.tableView reloadData];
         
