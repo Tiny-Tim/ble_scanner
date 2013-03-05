@@ -202,6 +202,8 @@
  */
 -(void)enableAlarm: (BOOL) enable
 {
+    static BOOL alarmState = YES;
+    
     NSUInteger index = [self.immediateAlertService.characteristics indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         
         CBCharacteristic *characteristic = (CBCharacteristic *)obj;
@@ -224,11 +226,30 @@
         if ([self.immediateAlertService.peripheral isConnected])
         {
                         
-            char value = enable ? 1 : 0;
+            char value = enable ? LOW_ALERT_VALUE : NO_ALERT_VALUE;
             NSData *data = [NSData dataWithBytes:&value length:1 ];
            
-            [self.immediateAlertService.peripheral writeValue:data
-                        forCharacteristic:self.immediateAlertService.characteristics[index] type:CBCharacteristicWriteWithoutResponse ];
+            // Apple Bug in CBPeripheralManager does not correctly process CBCharacteristicWriteWithoutResponse
+           // [self.immediateAlertService.peripheral writeValue:data
+           //             forCharacteristic:self.immediateAlertService.characteristics[index] type:CBCharacteristicWriteWithoutResponse ];
+            
+            if ( (value == 0) && (alarmState==YES))
+            {
+                // turn alarm off initially to ensure its off.. then only turn off when its on
+                alarmState = NO;
+                [self.immediateAlertService.peripheral writeValue:data
+                                            forCharacteristic:self.immediateAlertService.characteristics[index] type:CBCharacteristicWriteWithResponse ];
+            }
+            else if (value != 0)
+            {
+                // always write to peripheral to turn on alarm since updates increase the alarm time
+                alarmState = YES;
+                [self.immediateAlertService.peripheral writeValue:data
+                                                forCharacteristic:self.immediateAlertService.characteristics[index] type:CBCharacteristicWriteWithResponse ];
+                
+            }
+                
+            
         }
     }
 }
