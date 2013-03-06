@@ -20,6 +20,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *appearanceValueLabel;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+
+
 
 @end
 
@@ -57,7 +62,7 @@
     // set the peripheral delegate to self
     self.genericAccessProfileService.peripheral.delegate =self;
     
-    self.deviceNameLabel.text= @"";
+    self.deviceNameLabel.text= @"Device Name:  Unavailable";
     
     BOOL foundDeviceName = NO;
     BOOL foundAppearance = NO;
@@ -95,6 +100,7 @@
 }
 
 
+#define APPEARANCE_ENUMERATIONS @"http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.gap.appearance.xml"
 /*
  *
  * Method Name:  didUpdateValueForCharacteristic
@@ -130,16 +136,39 @@
         {
             DLog(@"Updating Appearance Bytes");
             const uint8_t *reportData = [characteristic.value bytes];
-            NSUInteger appearanceBytes = 0;
-            appearanceBytes = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[0]));
-            DLog(@"Appearance value %i",appearanceBytes);
+            NSUInteger appearanceValue = 0;
+            appearanceValue = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[0]));
+            DLog(@"Appearance value %u",appearanceValue);
+            self.appearanceValueLabel.text = [NSString stringWithFormat:@"Appearance Value= %u",appearanceValue];
+            
+            NSURL * webPage = [NSURL URLWithString:APPEARANCE_ENUMERATIONS];
+            NSURLRequest *request = [NSURLRequest requestWithURL:webPage];
+            
+            self.webView.hidden = NO;
+            dispatch_queue_t downloadQueue = dispatch_queue_create("download", NULL);
+            dispatch_async(downloadQueue, ^{
+                
+                [self.webView  loadRequest:request];
+                
+            });
+
         }
     }
     else
     {
-        DLog(@"Error updating characteristic:  %@",error.description);
-        NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-        NSLog(@"uuidString:  %@",uuidString);
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DEVICE_NAME_CHARACTERISTIC ]])
+        {
+            DLog(@"Error updating characteristic:  %@",error.description);
+            NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
+            NSLog(@"uuidString:  %@",uuidString);
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:APPEARANCE_CHARACTERISTIC ]])
+        {
+            self.webView.hidden = YES;
+            self.appearanceValueLabel.text = @"Appearance Value:  ERROR - Not Readable";
+        }
+        
+        
         
     }
 }

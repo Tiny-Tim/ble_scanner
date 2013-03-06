@@ -540,26 +540,44 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Appearance Value: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZI1-6C-zGi">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView hidden="YES" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjj-6c-bmD">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="674" id="bUQ-8e-lsP"/>
+                                    <constraint firstAttribute="height" constant="267" id="yeV-p7-kIr"/>
+                                </constraints>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="tjj-6c-bmD" firstAttribute="top" secondItem="fjt-GB-ivQ" secondAttribute="top" constant="141" id="7wv-Lq-yZt"/>
                             <constraint firstItem="VpX-9L-mMn" firstAttribute="top" secondItem="PkR-vD-H14" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="8pO-Cb-YYP"/>
                             <constraint firstItem="mZo-FI-JqZ" firstAttribute="leading" secondItem="fjt-GB-ivQ" secondAttribute="leading" constant="28" id="9wJ-3j-mAH"/>
                             <constraint firstItem="VpX-9L-mMn" firstAttribute="top" secondItem="v4M-Ln-ePR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="BjO-d0-2fe"/>
+                            <constraint firstItem="ZI1-6C-zGi" firstAttribute="top" secondItem="fjt-GB-ivQ" secondAttribute="top" constant="106" id="DVi-Ku-s8y"/>
                             <constraint firstItem="VpX-9L-mMn" firstAttribute="leading" secondItem="PkR-vD-H14" secondAttribute="leading" type="default" id="EhH-KK-eWq"/>
                             <constraint firstItem="PkR-vD-H14" firstAttribute="top" secondItem="fjt-GB-ivQ" secondAttribute="top" constant="425" id="JVO-dN-Lkh"/>
                             <constraint firstItem="PkR-vD-H14" firstAttribute="leading" secondItem="fjt-GB-ivQ" secondAttribute="leading" constant="19" id="Kta-Hx-KgA"/>
+                            <constraint firstItem="tjj-6c-bmD" firstAttribute="leading" secondItem="ZI1-6C-zGi" secondAttribute="leading" type="default" id="aEg-7m-DuV"/>
                             <constraint firstItem="v4M-Ln-ePR" firstAttribute="top" secondItem="PkR-vD-H14" secondAttribute="top" type="default" id="odh-rW-0Xc"/>
                             <constraint firstItem="v4M-Ln-ePR" firstAttribute="centerX" secondItem="VpX-9L-mMn" secondAttribute="centerX" type="default" id="p0C-u7-kWa"/>
+                            <constraint firstItem="ZI1-6C-zGi" firstAttribute="leading" secondItem="mZo-FI-JqZ" secondAttribute="leading" type="default" id="pzr-gd-y0I"/>
                             <constraint firstItem="mZo-FI-JqZ" firstAttribute="top" secondItem="fjt-GB-ivQ" secondAttribute="top" constant="43" id="xdM-l7-rV8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Generic Access Profile" id="R8t-T2-uh7"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
+                        <outlet property="appearanceValueLabel" destination="ZI1-6C-zGi" id="Dt6-dR-3JP"/>
                         <outlet property="deviceNameLabel" destination="mZo-FI-JqZ" id="MUe-KR-D3w"/>
                         <outlet property="peripheralStatusLabel" destination="VpX-9L-mMn" id="zAb-Bh-oL7"/>
                         <outlet property="peripheralStatusSpinner" destination="v4M-Ln-ePR" id="gIO-6J-VWS"/>
+                        <outlet property="webView" destination="tjj-6c-bmD" id="njL-QU-XWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfH-e3-3iJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
