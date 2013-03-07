@@ -102,6 +102,14 @@
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self subscribeForBatteryNotifications:NO];
+    
+}
+
 
 #pragma mark- Private Methods
 /*

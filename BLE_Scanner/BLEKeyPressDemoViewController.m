@@ -132,6 +132,19 @@
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    DLog(@"viewWillDisappear invoked keyPressDemo");
+    
+    //unsubscribe from notifications since delegate handling key press notifications ithis view controller
+    if (self.subscribeSwitch.enabled)
+    {
+         [self subscribeForButtonNotifications:NO];
+    }
+}
+
 
 #pragma mark- Private Methods
 
