@@ -9,7 +9,7 @@
 #import "BLEPeripheralServicesTVC.h"
 #import "BLEPeripheralCharacteristicsTVC.h"
 #import "CBUUID+StringExtraction.h"
-#import "BLEDemoDispatcherViewController.h"
+#import "BLEDemoDispatcherTableViewController.h"
 #include "ServiceAndCharacteristicMacros.h"
 
 @interface BLEPeripheralServicesTVC ()
@@ -130,9 +130,9 @@ static NSSet *_demoServices;
     else if ([segue.identifier isEqualToString:@"ShowDemoList"])
     {
         DLog(@"Segueing to Demo Dispatcher");
-        if ([segue.destinationViewController isKindOfClass:[BLEDemoDispatcherViewController  class]])
+        if ([segue.destinationViewController isKindOfClass:[BLEDemoDispatcherTableViewController  class]])
         {
-            BLEDemoDispatcherViewController *destination = segue.destinationViewController;
+            BLEDemoDispatcherTableViewController *destination = segue.destinationViewController;
             
             destination.peripheral = self.peripheral;
             destination.demoServices = _demoServices;
