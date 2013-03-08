@@ -1113,14 +1113,8 @@
                 <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
             </relationships>
         </class>
-        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="leashButtonHandler"/>
-                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="leashButton" candidateClass="UIButton"/>
-                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
-            </relationships>
+        <class className="BLEDemoDispatcherTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherTableViewController.h"/>
         </class>
         <class className="BLEDemoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoViewController.h"/>
