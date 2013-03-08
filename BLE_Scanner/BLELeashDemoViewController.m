@@ -19,6 +19,8 @@
 // displays TX Power read from device
 @property (weak, nonatomic) IBOutlet UILabel *transmitPowerLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *currentAlertLevelLabel;
+
 @property (nonatomic, readwrite)BOOL transmitPowerAvailable;
 
 // displays RSSI 
@@ -41,12 +43,28 @@
 @property (nonatomic, strong) NSMutableArray *filterRSSI;
 
 // State variable indicating that immediate alarm has been discovered 
-@property (nonatomic) BOOL alarmCharacteristicDiscovered;
+@property (nonatomic, readwrite) BOOL alarmCharacteristicDiscovered;
+
+@property (nonatomic, readwrite)NSUInteger currentAlert;
 @end
 
 @implementation BLELeashDemoViewController
 
 #pragma mark- Properties
+
+-(void)setCurrentAlert:(NSUInteger)currentAlertValue
+{
+    _currentAlert = currentAlertValue;
+    
+    if (_currentAlert == LOW_ALERT_VALUE)
+    {
+        self.currentAlertLevelLabel.text = @"Current Alert Tone= Low";
+    }
+    else if (_currentAlert == HIGH_ALERT_VALUE)
+    {
+        self.currentAlertLevelLabel.text = @"Current Alert Tone= High";
+    }
+}
 
 
 // Small array holding RSSI samples to be smoothed.
@@ -90,6 +108,19 @@
 
 
 
+- (IBAction)changeAlertValue
+{
+    if (self.currentAlert ==LOW_ALERT_VALUE)
+    {
+        self.currentAlert = HIGH_ALERT_VALUE;
+    }
+    else
+    {
+        self.currentAlert=LOW_ALERT_VALUE;
+    }
+}
+
+
 #pragma mark- Controller Lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -118,6 +149,8 @@
     [super viewDidLoad];
     
     self.transmitPowerAvailable = NO;
+    
+    self.currentAlert = LOW_ALERT_VALUE;
     
     self.statusLabel = self.peripheralStatusLabel;
     self.statusSpinner = self.activityIndicator;
@@ -226,7 +259,7 @@
         if ([self.immediateAlertService.peripheral isConnected])
         {
                         
-            char value = enable ? LOW_ALERT_VALUE : NO_ALERT_VALUE;
+            char value = enable ? self.currentAlert : NO_ALERT_VALUE;
             NSData *data = [NSData dataWithBytes:&value length:1 ];
            
             // Apple Bug in CBPeripheralManager does not correctly process CBCharacteristicWriteWithoutResponse

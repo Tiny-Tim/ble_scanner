@@ -407,9 +407,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Transmit Power" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zY1-sR-1eV">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="228" id="0aq-Ye-ch5"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -438,29 +435,54 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Alert Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMc-DP-kgz">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zm1-Bb-iK3">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="161" id="GtD-mw-WEo"/>
+                                    <constraint firstAttribute="height" constant="45" id="hWn-sy-zjc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Change Alert Level">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeAlertValue" destination="f5s-E8-QVe" eventType="touchUpInside" id="fCv-ha-N66"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SVk-nM-FxG" firstAttribute="trailing" secondItem="8QI-v8-yGv" secondAttribute="trailing" type="default" id="5bc-zQ-zn7"/>
                             <constraint firstItem="8QI-v8-yGv" firstAttribute="leading" secondItem="zY1-sR-1eV" secondAttribute="leading" type="default" id="840-j2-ShA"/>
-                            <constraint firstAttribute="trailing" secondItem="bBW-6o-aSm" secondAttribute="trailing" constant="139" id="AG6-1G-EKz"/>
+                            <constraint firstItem="QMc-DP-kgz" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="165" id="8Xd-1D-w4t"/>
                             <constraint firstItem="qJo-fZ-wHd" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="BsY-1g-mIZ"/>
                             <constraint firstItem="p1V-Cz-rOo" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CW4-7z-8mR"/>
                             <constraint firstItem="bBW-6o-aSm" firstAttribute="top" secondItem="qJo-fZ-wHd" secondAttribute="top" type="default" id="F0M-uH-rlH"/>
                             <constraint firstAttribute="bottom" secondItem="p1V-Cz-rOo" secondAttribute="bottom" constant="41" id="Gtj-cC-b3h"/>
-                            <constraint firstItem="zY1-sR-1eV" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="60" id="HHn-v7-m8k"/>
                             <constraint firstItem="zY1-sR-1eV" firstAttribute="leading" secondItem="RyI-ko-QWm" secondAttribute="leading" constant="39" id="Inn-zQ-gHX"/>
-                            <constraint firstItem="8QI-v8-yGv" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="110" id="Jod-yD-qs0"/>
+                            <constraint firstItem="zY1-sR-1eV" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="40" id="TWA-Mu-r3J"/>
                             <constraint firstAttribute="bottom" secondItem="qJo-fZ-wHd" secondAttribute="bottom" constant="59" id="V2y-dD-oO7"/>
-                            <constraint firstItem="SVk-nM-FxG" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="167" id="cPZ-Q9-rQL"/>
-                            <constraint firstItem="8QI-v8-yGv" firstAttribute="trailing" secondItem="zY1-sR-1eV" secondAttribute="trailing" type="default" id="ewQ-67-ffq"/>
+                            <constraint firstItem="QMc-DP-kgz" firstAttribute="leading" secondItem="SVk-nM-FxG" secondAttribute="leading" type="default" id="YXK-za-ZWN"/>
                             <constraint firstItem="SVk-nM-FxG" firstAttribute="leading" secondItem="8QI-v8-yGv" secondAttribute="leading" type="default" id="fLN-0p-zPk"/>
+                            <constraint firstItem="SVk-nM-FxG" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="117" id="gMT-An-Aaf"/>
+                            <constraint firstItem="8QI-v8-yGv" firstAttribute="top" secondItem="RyI-ko-QWm" secondAttribute="top" constant="79" id="nWP-le-HK8"/>
                             <constraint firstItem="bBW-6o-aSm" firstAttribute="bottom" secondItem="qJo-fZ-wHd" secondAttribute="bottom" type="default" id="pDl-fE-TTh"/>
+                            <constraint firstItem="Zm1-Bb-iK3" firstAttribute="top" secondItem="QMc-DP-kgz" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="qk0-R3-vAu"/>
+                            <constraint firstItem="Zm1-Bb-iK3" firstAttribute="leading" secondItem="QMc-DP-kgz" secondAttribute="leading" type="default" id="rRi-ln-guX"/>
+                            <constraint firstItem="QMc-DP-kgz" firstAttribute="trailing" secondItem="bBW-6o-aSm" secondAttribute="trailing" type="default" id="uxe-Ee-dmp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Leash Demo" id="hHx-zu-DXN"/>
                     <connections>
                         <outlet property="activityIndicator" destination="bBW-6o-aSm" id="09h-OY-Wgr"/>
+                        <outlet property="currentAlertLevelLabel" destination="QMc-DP-kgz" id="g07-5b-OCX"/>
                         <outlet property="pathLossLabel" destination="SVk-nM-FxG" id="xCV-aH-FEg"/>
                         <outlet property="peripheralStatusLabel" destination="p1V-Cz-rOo" id="C7G-5Z-PTo"/>
                         <outlet property="rssiPowerLabel" destination="8QI-v8-yGv" id="bTo-8O-ugb"/>
@@ -1061,14 +1083,8 @@
                 <relationship kind="outlet" name="connectDisconnectButton" candidateClass="UIButton"/>
             </relationships>
         </class>
-        <class className="BLEDemoDispatcherViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="leashButtonHandler"/>
-                <relationship kind="action" name="serviceButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="leashButton" candidateClass="UIButton"/>
-                <relationship kind="outletCollection" name="buttonCollection" candidateClass="UIButton"/>
-            </relationships>
+        <class className="BLEDemoDispatcherTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoDispatcherTableViewController.h"/>
         </class>
         <class className="BLEDemoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLEDemoViewController.h"/>
@@ -1133,6 +1149,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BLELeashDemoViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="currentAlertLevelLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="pathLossLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="peripheralStatusLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="rssiPowerLabel" candidateClass="UILabel"/>
