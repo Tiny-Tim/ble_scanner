@@ -241,7 +241,7 @@
 }
 
 
-// Disconnect a peripheral from Central after ensuring peripheal is in connected state
+// Disconnect a peripheral from Central after ensuring peripheral is in connected state
 -(void) disconnectPeripheralDevice:(CBPeripheral *)peripheral
 {
     // Ensure peripheral is connected
@@ -322,7 +322,6 @@
     // stringify the UUID of the newly discovered device
     CFUUIDRef newUUID = newRecord.peripheral.UUID;
    
-    
     // If we have a UUID string to compare with then look at the list
     if (newUUID)
     {
@@ -333,7 +332,6 @@
             CFUUIDRef uuid = record.peripheral.UUID;
             if (uuid)
             {
-                                
                 if (CFEqual(newUUID, uuid))
                 {
                     matchFound = YES;
@@ -515,9 +513,8 @@
         [self.centralManagerActivityIndicator stopAnimating];
         self.centralManagerStatus.textColor = [UIColor blackColor];
         self.centralManagerStatus.text = @"Idle";
-    
+        
         [self.discoveredDeviceListTVC synchronizeConnectionStates];
-       
     }
     else 
     {
