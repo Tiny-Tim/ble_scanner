@@ -24,7 +24,7 @@
 // pointer to graph plot view
 @property (strong, nonatomic) IBOutlet BLEGraphView *graphView;
 
-// timer which drives the sampling of accelerometer data
+// timer which drives the sampling of accelerometer data from the device
 @property (nonatomic, strong) dispatch_source_t sampleClock;
 
 // ensures that accelerometer data writes and reads are thread safe
@@ -177,7 +177,7 @@
 }
 
 
-
+// Enable the handling of an accelerometer characteristic containing 3 components of acceleration
 - (IBAction)atomicSwitchHandler:(UISwitch *)sender
 {
     if (sender.on)
@@ -259,7 +259,7 @@
 }
 
 
-
+// Enable or disable notifications for atomic (single characteristic) accelerometer values
 -(void)enableAtomicAcclerometerNotification: (BOOL)enable
 {
     for (CBCharacteristic * characteristic in self.accelerometerService.characteristics)
@@ -348,7 +348,7 @@
 }
 
 
-
+// Indicates whether single characteristic acclermoter values are available
 -(BOOL) isAtomicUpdateAvailable:(NSArray *)characteristics
 {
     BOOL returnValue = NO;
@@ -413,8 +413,6 @@
    
 }
 
-
-
 /*
  *
  * Method Name:  viewWillDisappear
@@ -434,7 +432,6 @@
     [self enableNotifications:NO];
     
 }
-
 
 
 #pragma mark - CBPeripheralDelegate
@@ -459,11 +456,8 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    
     if (!error)
     {
-       
-        
       //  DLog(@"Characteristic value  updated.");
         // determine which characteristic
         NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
@@ -524,6 +518,15 @@
 }
 
 
+/*
+ *
+ * Method Name:  didWriteValueForCharacteristic
+ *
+ * Description:  Device has responded to a characeristic write -- used to enable the accelerometer on the device
+ *
+ * Parameter(s): None
+ *
+ */
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if (!error)
@@ -557,7 +560,6 @@
     
     // Check to see if atomic updates are avialable for obtaining acclerometer data. If so enable the atomic update switch on the UI.
     self.atomicSwitch.enabled = [self isAtomicUpdateAvailable:service.characteristics];
-    
     
     // turn on accelerometer
     [self enableAccelerometer: YES];
