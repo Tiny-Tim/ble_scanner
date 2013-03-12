@@ -68,6 +68,10 @@
 
 @property (nonatomic, readwrite) NSUInteger updateCount;
 
+
+// Prform devce updates on separate queue (thread)
+@property (nonatomic,strong) dispatch_queue_t delegateQueue;
+
 @end
 
 @implementation BLEHeartRateDemoViewController
@@ -86,6 +90,18 @@
 
 
 #pragma mark- Properties
+
+
+// Initialize the queue that synchronizes device measurement updates
+-(dispatch_queue_t) delegateQueue
+{
+    if (! _delegateQueue)
+    {
+        _delegateQueue = dispatch_queue_create("delegate_queue", NULL);
+    }
+    return _delegateQueue;
+}
+
 
 
 /*
@@ -160,7 +176,6 @@
  */
 -(void)setSensorContactState:(BOOL)sensorContact
 {
-    
     _sensorContactState = sensorContact;
     
     if (_sensorContactState)
@@ -171,8 +186,6 @@
     {
         self.sensorContactStatusLabel.text = @"Sensor Contact Status: Poor/No Contact";
     }
-    
-    
 }
 
 
@@ -317,8 +330,6 @@
 -(void)displayPeripheralConnectStatus : (CBPeripheral *)peripheral
 {
     [super displayPeripheralConnectStatus:peripheral];
-    
-    
 }
 
 
@@ -538,105 +549,118 @@
     [self.peripheralStatusSpinner stopAnimating];
     [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
     
-    if (!error)
-    {
+    dispatch_async(self.delegateQueue, ^{
         
-        // Determine which characteristic was updated
-        /* Updated value for heart rate measurement received */
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC]])
+        if (!error)
         {
-            const uint8_t *reportData = [characteristic.value bytes];
-            NSUInteger bpm = 0;
             
-            DLog(@"Heart Rate Measurement Characteristic value  updated.");
-            NSUInteger flag = reportData[0];
-            DLog(@"flag = %i",flag);
-            
-            // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
-            bool heartRateIsTwoBytes = (reportData[0] & MEASUREMENT_IS_TWO_BYTES);
-            if (heartRateIsTwoBytes)
+            // Determine which characteristic was updated
+            /* Updated value for heart rate measurement received */
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HEART_RATE_MEASUREMENT_CHARACTERISTIC]])
             {
-                /* uint16 bpm */
-                bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+                const uint8_t *reportData = [characteristic.value bytes];
+                NSUInteger bpm = 0;
                 
-            }
-            else
-            {
-                /* uint8 bpm */
-                bpm = reportData[1];
-            }
-            
-            DLog(@"Heart Rate Measurement Rcvd: %i",bpm);
-            [self processHeartRateMeasurement:bpm];
-            
-            // Determine if sensor contact information is available
-            if ( (reportData[0] & CONTACT_SUPPORTED) )
-            {
-                self.sensorContactStatusAvailable = YES;
-                // contact info is available, retrieve it
-                if ( (reportData[0] & CONTACT_SUPPORTED_DETECTED) == CONTACT_SUPPORTED_DETECTED)
+                DLog(@"Heart Rate Measurement Characteristic value  updated.");
+                NSUInteger flag = reportData[0];
+                DLog(@"flag = %i",flag);
+                
+                // least sig bit of first byte encodes whether measurement is 1 or 2 bytes
+                bool heartRateIsTwoBytes = (reportData[0] & MEASUREMENT_IS_TWO_BYTES);
+                if (heartRateIsTwoBytes)
                 {
-                    self.sensorContactState = YES;
+                    /* uint16 bpm */
+                    bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));
+                    
                 }
                 else
                 {
-                    self.sensorContactState = NO;
+                    /* uint8 bpm */
+                    bpm = reportData[1];
                 }
-            }
-            else
-            {
-                self.sensorContactStatusAvailable = NO;
-            }
-            
-            [self processExpendedEnergyData:reportData heartRateIsInteger:heartRateIsTwoBytes];
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
-        {
-             DLog(@"Body Sensor Location Characteristic value  updated.");
-            NSData * updatedValue = characteristic.value;
-            uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
-            if(dataPointer)
-            {
-                uint8_t location = dataPointer[0];
-                NSString*  locationString;
-                switch (location)
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    DLog(@"Heart Rate Measurement Rcvd: %i",bpm);
+                    [self processHeartRateMeasurement:bpm];
+                });
+                
+                // Determine if sensor contact information is available
+                if ( (reportData[0] & CONTACT_SUPPORTED) )
                 {
-                    case 0:
-                        locationString = @"Other";
-                        break;
-                    case 1:
-                        locationString = @"Chest";
-                        break;
-                    case 2:
-                        locationString = @"Wrist";
-                        break;
-                    case 3:
-                        locationString = @"Finger";
-                        break;
-                    case 4:
-                        locationString = @"Hand";
-                        break;
-                    case 5:
-                        locationString = @"Ear Lobe";
-                        break;
-                    case 6:
-                        locationString = @"Foot";
-                        break;
-                    default:
-                        locationString = @"Reserved";
-                        break;
+                    self.sensorContactStatusAvailable = YES;
+                    // contact info is available, retrieve it
+                    if ( (reportData[0] & CONTACT_SUPPORTED_DETECTED) == CONTACT_SUPPORTED_DETECTED)
+                    {
+                        self.sensorContactState = YES;
+                    }
+                    else
+                    {
+                        self.sensorContactState = NO;
+                    }
                 }
-                DLog(@"Body Sensor Location = %@ (%d)", locationString, location);
-                self.bodySensorLocationLabel.text = [NSString stringWithFormat:@"Body Sensor Location = %@",locationString];
+                else
+                {
+                    self.sensorContactStatusAvailable = NO;
+                }
+                
+                [self processExpendedEnergyData:reportData heartRateIsInteger:heartRateIsTwoBytes];
             }
-
+            else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
+            {
+                DLog(@"Body Sensor Location Characteristic value  updated.");
+                NSData * updatedValue = characteristic.value;
+                uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
+                if(dataPointer)
+                {
+                    uint8_t location = dataPointer[0];
+                    NSString*  locationString;
+                    switch (location)
+                    {
+                        case 0:
+                            locationString = @"Other";
+                            break;
+                        case 1:
+                            locationString = @"Chest";
+                            break;
+                        case 2:
+                            locationString = @"Wrist";
+                            break;
+                        case 3:
+                            locationString = @"Finger";
+                            break;
+                        case 4:
+                            locationString = @"Hand";
+                            break;
+                        case 5:
+                            locationString = @"Ear Lobe";
+                            break;
+                        case 6:
+                            locationString = @"Foot";
+                            break;
+                        default:
+                            locationString = @"Reserved";
+                            break;
+                    }
+                    
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         DLog(@"Body Sensor Location = %@ (%d)", locationString, location);
+                         self.bodySensorLocationLabel.text = [NSString stringWithFormat:@"Body Sensor Location = %@",locationString];
+                     });
+                }
+                
+            }
         }
-    }
-    else
-    {
-        DLog(@"Error reading heart rate service characteristic: %@", error.description);
-    };
+        else
+        {
+            DLog(@"Error reading heart rate service characteristic: %@", error.description);
+        };
+
+        
+        
+    });
     
+        
     [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
 
 }

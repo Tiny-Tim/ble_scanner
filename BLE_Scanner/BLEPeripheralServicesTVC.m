@@ -50,7 +50,7 @@ static NSSet *_demoServices;
 
 #pragma mark- Properties
 
-// Setter for deviceRecord - the model for the controller
+// Setter for peripheral - the model for the controller
 -(void)setPeripheral:(CBPeripheral *)peripheral
 {
     // set the property
@@ -60,6 +60,7 @@ static NSSet *_demoServices;
     for (CBService *service in _peripheral.services)
     {
         NSString *uuidString = [[service.UUID representativeString]uppercaseString];
+        DLog(@"Peripheral Service: %@",uuidString);
         
         if ([_demoServices containsObject:uuidString])
         {
@@ -166,8 +167,11 @@ static NSSet *_demoServices;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    DLog(@"numberOfSectionsInTableView invoked");
+    NSUInteger count = [self.peripheral.services count];
+    DLog(@"count = %u",count);
     // Return the number of sections.
-    return [self.peripheral.services count];
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

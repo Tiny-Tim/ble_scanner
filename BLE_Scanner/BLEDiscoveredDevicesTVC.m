@@ -514,6 +514,9 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     DLog(@"Accessory button tapped");
+    DLog(@"indexPath section= %i",indexPath.section);
+     DLog(@"indexPath row= %i",indexPath.row);
+    
     
     // the section corresponds to a unique peripheral
     
@@ -539,7 +542,7 @@
     {
         // accessory button corresponds to a peripheral property - which is where we expect to find the service label we are looking for
         NSString *itemLabel = deviceLabels[indexPath.row];
-        if ( [itemLabel localizedCompare:SERVICES_LABEL] == NSOrderedSame)
+        if ( [itemLabel localizedCaseInsensitiveCompare:SERVICES_LABEL] == NSOrderedSame)
         {
             //match for Services row as expected dispatch handler
             record.peripheral.delegate = self;
