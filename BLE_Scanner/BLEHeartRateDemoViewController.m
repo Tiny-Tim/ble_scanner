@@ -469,7 +469,9 @@
     self.lastMeasurement = beatsPerMinute;
     
     self.updateCount += 1;
+   
     self.updateCountLabel.text = [NSString stringWithFormat:@"Heart Rate Updates:  %u",self.updateCount];
+    DLog(@"Update Count= %u",self.updateCount);
 }
 
 
@@ -484,7 +486,7 @@
  * Description:  Processes the expended energy data value returned from the device.
  *
  * Parameter(s): reportData - raw data read from the characteristic
- *               heartRateIsTwoBytes - indocates whether heart rate data is one or two bytes for offset calculation
+ *               heartRateIsTwoBytes - indicates whether heart rate data is one or two bytes for offset calculation
  *
  */
 -(void)processExpendedEnergyData :(const uint8_t *)reportData heartRateIsInteger:(BOOL)heartRateIsTwoBytes
@@ -535,11 +537,9 @@
     
     [self.peripheralStatusSpinner stopAnimating];
     [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
-
     
     if (!error)
     {
-        DLog(@"Characteristic value  updated.");
         
         // Determine which characteristic was updated
         /* Updated value for heart rate measurement received */
@@ -548,6 +548,7 @@
             const uint8_t *reportData = [characteristic.value bytes];
             NSUInteger bpm = 0;
             
+            DLog(@"Heart Rate Measurement Characteristic value  updated.");
             NSUInteger flag = reportData[0];
             DLog(@"flag = %i",flag);
             
@@ -591,6 +592,7 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BODY_SENSOR_LOCATION_CHARACTERISTIC ]])
         {
+             DLog(@"Body Sensor Location Characteristic value  updated.");
             NSData * updatedValue = characteristic.value;
             uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
             if(dataPointer)
@@ -632,7 +634,7 @@
     }
     else
     {
-        DLog(@"Error reading characteristic: %@", error.description);
+        DLog(@"Error reading heart rate service characteristic: %@", error.description);
     };
     
     [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
