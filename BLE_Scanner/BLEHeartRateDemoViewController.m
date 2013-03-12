@@ -262,8 +262,6 @@
     
     // display the peripheral connection status
     [self displayPeripheralConnectStatus:self.heartRateService.peripheral];
-
-    
     
     // It is unknown whether all of the chracteristics for the service have been discovered or only a subset at this point depending upon the entries in service.characteristics.
     // We'll look for the services we need and if any are missing then (re)discover all of them
@@ -527,6 +525,10 @@
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     DLog(@"didUpdateNotificationStateForCharacteristic invoked");
+    if (error)
+    {
+        DLog(@"Error setting up notifications for heart rate service: %@", error.description);
+    }
 }
 
 

@@ -436,9 +436,15 @@
             
             if ([cell.textLabel.text localizedCompare:NAME_LABEL] == NSOrderedSame)
             {
+                /*
                 if (record.peripheral.name)
                 {
                     cell.detailTextLabel.text = record.peripheral.name;
+                }
+                 */
+                if (record.friendlyName)
+                {
+                    cell.detailTextLabel.text = record.friendlyName;
                 }
                 else
                 {
