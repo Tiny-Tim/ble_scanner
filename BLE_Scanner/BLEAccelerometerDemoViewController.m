@@ -16,7 +16,7 @@
 
 #define MAX_PLOT_ITEMS 100
 
-// sample rate for acceleromter data, e.g 10 sample/second  
+// sample rate for accelerometer data, e.g 10 sample/second  
 #define SAMPLE_CLOCK_FREQUENCY_HERTZ 10
 
 @interface BLEAccelerometerDemoViewController ()
@@ -348,7 +348,7 @@
 }
 
 
-// Indicates whether single characteristic acclermoter values are available
+// Indicates whether single characteristic acclerometer values are available
 -(BOOL) isAtomicUpdateAvailable:(NSArray *)characteristics
 {
     BOOL returnValue = NO;

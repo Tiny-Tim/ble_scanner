@@ -107,7 +107,7 @@
 }
 
 
-
+// toggle alert level
 - (IBAction)changeAlertValue
 {
     if (self.currentAlert ==LOW_ALERT_VALUE)

@@ -12,13 +12,13 @@
 
 @interface BLEKeyPressDemoViewController ()
 
+
+// Outlets to UI Controls
 @property (weak, nonatomic) IBOutlet UIImageView *leftButtonImage;
 
 @property (weak, nonatomic) IBOutlet UIImageView *rightButtonImage;
 
 @property (weak, nonatomic) IBOutlet UISwitch *subscribeSwitch;
-
-- (IBAction)subscribeForSwitchNotifications:(UISwitch *)sender;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *statusActivityIndicator;
 
@@ -30,12 +30,18 @@
 
 @property (nonatomic, strong) UIApplication *application;
 
+// Subscriber switch handler
+- (IBAction)subscribeForSwitchNotifications:(UISwitch *)sender;
 @end
 
 @implementation BLEKeyPressDemoViewController
 
+
+
 #pragma mark- Properties
 
+// Manages background scheduling of local notifications
+// See postNotification Method
 -(UIApplication *)application
 {
     if (_application == nil)
@@ -138,7 +144,7 @@
     
     DLog(@"viewWillDisappear invoked keyPressDemo");
     
-    //unsubscribe from notifications since delegate handling key press notifications ithis view controller
+    //unsubscribe from notifications since delegate handling key press notifications is this view controller
     if (self.subscribeSwitch.enabled)
     {
          [self subscribeForButtonNotifications:NO];
@@ -199,7 +205,7 @@
  *
  * Method Name:  postNotification
  *
- * Description:  Post a local notification if the user presses a button while the app is in the background
+ * Description:  Post a local notification if the user presses a button while the app is in the background. Invoked when a key press occurs and application is in the background.
  *
  * Parameter(s): alertMessage - the message to display in the alert
  *
