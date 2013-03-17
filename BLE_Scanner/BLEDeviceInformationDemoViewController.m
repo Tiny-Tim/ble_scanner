@@ -30,27 +30,28 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *softwareRevisionLabel;
 
-@property (nonatomic, readonly)NSSet *readCharacteristics;
+@property (weak, nonatomic) IBOutlet UILabel *systemIDLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *regulatoryLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *vendorSourceLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *vendorIDLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *productIDLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *productVersionLabel;
+
+
 
 @end
 
 @implementation BLEDeviceInformationDemoViewController
 
-@synthesize readCharacteristics = _readCharacteristics;
+
 
 #pragma mark- Properties
 
-
-// set of characteristics which can be read for this service
--(NSSet *)readCharacteristics
-{
-    if (! _readCharacteristics)
-    {
-        _readCharacteristics = [NSSet setWithObjects:MANUFACTURER_NAME_STRING_CHARACTERISTIC, MODEL_NUMBER_STRING_CHARACTERISTIC, FIRMWARE_REVISION_STRING_CHARACTERISTIC, SERIAL_NUMBER_STRING_CHARACTERISTIC,HARDWARE_REVISION_STRING_CHARACTERISTIC,SOFTWARE_REVISION_STRING_CHARACTERISTIC, nil];
-    }
-    
-    return _readCharacteristics;
-}
 
 #pragma mark- Controller Lifecycle
 
@@ -81,58 +82,14 @@
     self.serialNumberLabel.text = @"";
     self.hardwareRevisionLabel.text = @"";
     self.softwareRevisionLabel.text = @"";
-    
-    BOOL foundManufacturerName = NO;
-    BOOL foundFirmwareRevision = NO;
-    BOOL foundModelNumber = NO;
-    BOOL serialNumberFound = NO;
-    BOOL hardwareRevisionFound = NO;
-    BOOL softwareRevisionFound = NO;
-    
-    for (CBCharacteristic * characteristic in self.deviceInformationService.characteristics)
-    {
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MANUFACTURER_NAME_STRING_CHARACTERISTIC  ]])
-        {
-            foundManufacturerName = YES;
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:MODEL_NUMBER_STRING_CHARACTERISTIC  ]])
-        {
-            foundModelNumber = YES;
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:FIRMWARE_REVISION_STRING_CHARACTERISTIC  ]])
-        {
-            foundFirmwareRevision = YES;
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SERIAL_NUMBER_STRING_CHARACTERISTIC  ]])
-        {
-            serialNumberFound = YES;
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HARDWARE_REVISION_STRING_CHARACTERISTIC  ]])
-        {
-            hardwareRevisionFound = YES;
-        }
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SOFTWARE_REVISION_STRING_CHARACTERISTIC  ]])
-        {
-            softwareRevisionFound = YES;
-        }
-            
-    }
-    
-    if ( ! (foundManufacturerName && foundModelNumber &&
-            foundFirmwareRevision && serialNumberFound &&
-            hardwareRevisionFound && softwareRevisionFound))
-    {
-        [self discoverServiceCharacteristics:self.deviceInformationService];
-    }
-    else
-    {
-        [self readCharacteristic:MANUFACTURER_NAME_STRING_CHARACTERISTIC forService:self.deviceInformationService] ;
-        [self readCharacteristic:MODEL_NUMBER_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-        [self readCharacteristic:FIRMWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-        [self readCharacteristic:SERIAL_NUMBER_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-        [self readCharacteristic:HARDWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-        [self readCharacteristic:SOFTWARE_REVISION_STRING_CHARACTERISTIC forService:self.deviceInformationService];
-    }
+    self.systemIDLabel.text = @"";
+    self.regulatoryLabel.text = @"";
+    self.vendorSourceLabel.text =  @"";
+    self.vendorIDLabel.text = @"";
+    self.productIDLabel.text = @"";
+    self.productVersionLabel.text = @"";
+
+    [self discoverServiceCharacteristics:self.deviceInformationService];
 }
 
 
@@ -238,6 +195,54 @@
             DLog(@"Software Revision = %@", swRevision);
             self.softwareRevisionLabel.text = [NSString stringWithFormat: @"Software Revision:  %@",swRevision];
         }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_CHARACTERISTIC ]])
+        {
+          
+            unsigned short systemData[2];
+            [characteristic.value getBytes:(void *)systemData length:8];
+            NSString *systemID = [NSString stringWithFormat:@"0x%X 0x%X",systemData[0], systemData[1]];
+            
+            DLog(@"System ID = %@",systemID);
+            self.systemIDLabel.text = [NSString stringWithFormat:@"System ID:  %@",systemID];
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:REGULATORY_CERTIFICATION_CHARACTERISTIC ]])
+        {
+            NSUInteger dataLength = [characteristic.value length];
+            unsigned char systemData[dataLength];
+            NSMutableString *regulatoryString = [NSMutableString stringWithCapacity:([REGULATORY_LABEL length]+ dataLength)];
+            [regulatoryString appendString:REGULATORY_LABEL];
+            [characteristic.value getBytes:(void *)systemData length:dataLength];
+            for (int i=0; i< dataLength; i++)
+            {
+                [regulatoryString appendFormat:@"%X",systemData[i]];
+            }
+                       
+            DLog(@"%@",regulatoryString);
+            self.regulatoryLabel.text =regulatoryString;
+        }
+        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:PNP_ID_CHARACTERISTIC]])
+        {
+            unsigned char vendorSource;
+            unsigned short vendorID;
+            unsigned short productID;
+            unsigned short productVersion;
+            
+           
+            [characteristic.value getBytes:(void *)&vendorSource length:1];
+            self.vendorSourceLabel.text = [NSString stringWithFormat:@"Vendor Source: 0x%X",vendorSource];
+            
+            [characteristic.value getBytes:(void *)&vendorID range:NSMakeRange(1, 2)];
+            self.vendorIDLabel.text = [NSString stringWithFormat:@"Vendor ID: %d",vendorID];
+            
+            [characteristic.value getBytes:(void *)&productID range:NSMakeRange(3, 2)];
+            self.productIDLabel.text = [NSString stringWithFormat:@"Product ID: %d",productID];
+            
+            [characteristic.value getBytes:(void *)&productVersion range:NSMakeRange(5, 2)];
+            self.productVersionLabel.text = [NSString stringWithFormat:@"Product Version: %d",productVersion];
+                   
+
+        }
+
     }
     else
     {
@@ -266,16 +271,12 @@
     
     if (error == nil)
     {
-        // iterate through the characteristics and take approproate actions
+        // iterate through the characteristics and take appropriate actions
         for (CBCharacteristic *characteristic in service.characteristics )
         {
             
             NSString *uuidString = [[characteristic.UUID representativeString] uppercaseString];
-            
-            if ([self.readCharacteristics containsObject:uuidString])
-            {
-                [self readCharacteristic:uuidString forService:service];
-            }
+            [self readCharacteristic:uuidString forService:service];
         }
     }
     else
