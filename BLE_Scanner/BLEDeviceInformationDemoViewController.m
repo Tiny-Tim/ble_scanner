@@ -197,13 +197,33 @@
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_CHARACTERISTIC ]])
         {
-          
-            unsigned short systemData[2];
-            [characteristic.value getBytes:(void *)systemData length:8];
-            NSString *systemID = [NSString stringWithFormat:@"0x%X 0x%X",systemData[0], systemData[1]];
-            
-            DLog(@"System ID = %@",systemID);
-            self.systemIDLabel.text = [NSString stringWithFormat:@"System ID:  %@",systemID];
+            NSUInteger dataLength = [characteristic.value length];
+            if (dataLength == 8)
+            {
+                // spec calls for 8 total bytes of data
+                unsigned char manufactureID[5];
+                [characteristic.value getBytes:(void *)manufactureID length:5];
+                
+                unsigned char orgID[3];
+                [characteristic.value getBytes:(void *)orgID range:NSMakeRange(5, 3)];
+                
+                NSString *systemID = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X  - %02X%02X%02X",manufactureID[0], manufactureID[1],manufactureID[2],manufactureID[3],manufactureID[4],orgID[0],orgID[1],orgID[2]];
+                
+                self.systemIDLabel.text = [NSString stringWithFormat:@"System ID:  %@",systemID];
+            }
+            else
+            {
+                // handle unexpected data lengths
+                unsigned char manufactureID[dataLength];
+                [characteristic.value getBytes:(void *)manufactureID length:dataLength];
+                NSMutableString *partial = [NSMutableString stringWithCapacity:dataLength];
+                for (int i=0; i< dataLength; i++)
+                {
+                    [partial appendFormat:@"%02X",manufactureID[i]];
+                }
+                
+                self.systemIDLabel.text = [NSString stringWithFormat:@"System ID: %@",partial];
+            }
         }
         else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:REGULATORY_CERTIFICATION_CHARACTERISTIC ]])
         {
@@ -214,7 +234,7 @@
             [characteristic.value getBytes:(void *)systemData length:dataLength];
             for (int i=0; i< dataLength; i++)
             {
-                [regulatoryString appendFormat:@"%X",systemData[i]];
+                [regulatoryString appendFormat:@"%02X",systemData[i]];
             }
                        
             DLog(@"%@",regulatoryString);
@@ -229,7 +249,7 @@
             
            
             [characteristic.value getBytes:(void *)&vendorSource length:1];
-            self.vendorSourceLabel.text = [NSString stringWithFormat:@"Vendor Source: 0x%X",vendorSource];
+            self.vendorSourceLabel.text = [NSString stringWithFormat:@"Vendor Source: 0x%02X",vendorSource];
             
             [characteristic.value getBytes:(void *)&vendorID range:NSMakeRange(1, 2)];
             self.vendorIDLabel.text = [NSString stringWithFormat:@"Vendor ID: %d",vendorID];
